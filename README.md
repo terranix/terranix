@@ -8,6 +8,14 @@ But at the end only the values `provider`, `variable` and `resource` will be ren
 
 ## How to run
 
+call a `nix-shell` and inside you can do :
+
 ```sh
-nix-instantiate --eval --json --strict | jq
+nixform
+```
+
+or
+
+```sh
+nixform config.nix
 ```
