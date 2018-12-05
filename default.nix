@@ -11,7 +11,7 @@ in terraform.eval
       ];
 
     hetzner = {
-      # enable = true;
+      enable = true;
       # provider.token = "hallo";
     };
 

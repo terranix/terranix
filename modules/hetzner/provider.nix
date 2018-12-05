@@ -8,15 +8,18 @@ let
 
 in {
 
-  options.hetzner = {
+  options.hetzner.provider = {
 
-    enable = mkEnableOption "enable hetzner.provider";
-
-    provider.token = mkOption {
+    token = mkOption {
       type    = with types; string;
       default = "\${var.hcloud_token}";
       description = ''
-        This is the Hetzner Cloud API Token, can also be specified with the HCLOUD_TOKEN environment variable.
+        To get started using the API you first
+        need an API token. Sign in into the Hetzner Cloud Console choose a
+        project, go to Access → Tokens, and create a new token. Make sure 
+        to copy the token because it won’t be shown to you again.
+        A token is bound to a project, to interact with the API of another
+        project you have to create a new token inside the project
       '';
     };
 
@@ -30,7 +33,11 @@ in {
     })
     (mkIf (cfg.enable && cfg.provider.token == "\${var.hcloud_token}") { 
       variable = [ { 
-        "hcloud_token" = {};
+        "hcloud_token" = {
+          description = ''
+            This is the Hetzner Cloud API Token, can also be specified with the HCLOUD_TOKEN environment variable.
+          '';
+        };
       }];
     })
   ];
