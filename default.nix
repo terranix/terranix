@@ -28,7 +28,10 @@ in terraform.eval
         size = 10;
         # todo : this is how I want to call it 
         # server = config.hetzner.server.nginx.name;
+        # server = get "id" config.hetzner.server.nginx.name;
         server = "\${hcloud_server.node1.id}";
+        # todo : this option needs to be variable, without defining everything a head
+        # location = "de";
       };
     };
 
