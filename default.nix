@@ -1,18 +1,19 @@
 let
 
   pkgs = import <nixpkgs> {};
-  eval = import ./lib.nix pkgs;
+  terraform = import ./terraform-core.nix pkgs;
 
-in eval.eval
+in terraform.eval
   {
 
-    imports = [ ./test-module.nix ];
-    testModule.enable = true;
+    imports = [ 
+      ./modules/hetzner
+      ];
 
-    provider = [{ "aws" = "something"; }] ;
-
-    # todo is not merging yet
-    # resource = { "aws_iam_user" = { "you" =  "test-user" ; } ; };
+    hetzner = {
+      # enable = true;
+      # provider.token = "hallo";
+    };
 
   }
 

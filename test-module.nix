@@ -13,9 +13,11 @@ in {
   };
 
    config = mkIf cfg.enable {
-    resource = { "aws_iam_user" = {
+    resource."aws_iam_user" = {
       I = "am a test-module which should be visible";
     };
-  };
+
+    provider = [ { "test" = "another test";} ];
+
   };
 }
