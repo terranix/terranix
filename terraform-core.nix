@@ -7,14 +7,15 @@ with builtins;
 
 let
 
- sanitize = x: lib.getAttr (typeOf x) {
-        bool = x;
-        list = map sanitize x;
+ sanitize = configuration: lib.getAttr (typeOf configuration) {
+        bool = configuration;
+        int = configuration;
+        list = map sanitize configuration;
         set = lib.mapAttrs
                 (lib.const sanitize)
                 (lib.filterAttrs
-                  (name: value: name != "_module" && value != null) x);
-        string = x;
+                  (name: value: name != "_module" && value != null) configuration);
+        string = configuration;
       };
 in {
 
@@ -48,7 +49,7 @@ in {
     };
   in
     configuration: let
-      result = (evaluateConfiguration configuration).config;
+      result = sanitize (evaluateConfiguration configuration).config;
     in { 
       provider = result.provider;
       variable = result.variable;
