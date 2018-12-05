@@ -1,15 +1,5 @@
-let
-
-  pkgs = import <nixpkgs> {};
-  terraform = import ./terraform-core.nix pkgs;
-
-in terraform.eval
-  {
-
-    imports = [ 
-      ./modules/hetzner
-      ];
-
+{config , ... }:
+{
     hetzner = {
       enable = true;
       # provider.token = "hallo";
@@ -27,13 +17,12 @@ in terraform.eval
         name = "this-ist-a-test";
         size = 10;
         # todo : this is how I want to call it 
-        # server = config.hetzner.server.nginx.name;
+        # server = config.hetzner.server.nginx;
+        server = "\${hcloud_server.${config.hetzner.server.nginx.name}.id}";
         # server = get "id" config.hetzner.server.nginx.name;
-        server = "\${hcloud_server.node1.id}";
+        # server = "\${hcloud_server.node1.id}";
         # todo : this option needs to be variable, without defining everything a head
         # location = "de";
       };
     };
-
-  }
-
+}
