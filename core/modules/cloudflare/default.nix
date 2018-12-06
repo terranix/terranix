@@ -1,13 +1,11 @@
 { lib, ... }:
 with lib;
 {
-  imports = [
+  imports = [ 
     ./provider.nix
-    ./server.nix
-    ./volume.nix
   ];
 
-  options.hetzner = {
+  options.cloudflare = {
     enable = mkEnableOption "enable hetzner.provider";
   };
 

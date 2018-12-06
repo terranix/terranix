@@ -22,23 +22,19 @@ in {
         project you have to create a new token inside the project
       '';
     };
-
   };
 
   config = mkMerge [ 
     (mkIf cfg.enable { 
-      provider = [ { 
-        "hetzner".token = cfg.provider.token;
-      }];
+      provider."hetzner".token = cfg.provider.token;
     })
     (mkIf (cfg.enable && cfg.provider.token == "\${var.hcloud_token}") { 
-      variable = [ { 
-        "hcloud_token" = {
+      variable."hetzner_hcloud_token" = {
           description = ''
             This is the Hetzner Cloud API Token, can also be specified with the HCLOUD_TOKEN environment variable.
           '';
         };
-      }];
-    })
+      }
+    )
   ];
 }

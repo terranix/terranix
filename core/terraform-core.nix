@@ -25,11 +25,11 @@ in {
     coreOptions = {
       options = {
         variable = mkOption {
-          type = with types; listOf attrs;
+          type = with types; attrsOf attrs;
           default = [];
         };
         provider = mkOption {
-          type = with types; listOf attrs;
+          type = with types; attrsOf attrs;
           default = [];
         };
         resource = mkOption {

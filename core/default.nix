@@ -6,7 +6,7 @@ let
 in terraform.eval
   {
     imports = [ 
-      ./modules/hetzner
+      ./modules
       <config>
       ];
   }

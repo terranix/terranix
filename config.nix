@@ -1,5 +1,13 @@
 {config , ... }:
 {
+  cloudflare = {
+    enable = true;
+    provider = {
+      email = "test@google.com";
+      token = "1243";
+    };
+    
+  };
     hetzner = {
       enable = true;
       # provider.token = "hallo";
