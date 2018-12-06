@@ -6,6 +6,8 @@ let
 
   cfg = config.cloudflare;
 
+  default_token = "cloudflare_token";
+
 in {
 
   options.cloudflare.provider = {
@@ -17,6 +19,7 @@ in {
     };
     token = mkOption {
       type    = with types; string;
+      default = "\${ var.${default_token} }";
       description = ''
         The Cloudflare API token. This can also be specified with the CLOUDFLARE_TOKEN shell environment variable.
       '';
@@ -82,17 +85,28 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    provider.cloudflare = {
-      email = cfg.provider.email;
-      token = cfg.provider.token;
-      rps = cfg.provider.rps;
-      retries  = cfg.provider.retries;
-      min_backoff  = cfg.provider.min_backoff;
-      max_backoff = cfg.provider.max_backoff;
-      api_client_logging  = cfg.provider.api_client_logging;
-      org_id  = cfg.provider.org_id;
-      use_org_from_zone  = cfg.provider.use_org_from_zone;
-    };
-  };
+  config = mkMerge [ 
+    (mkIf cfg.enable { 
+      provider.cloudflare = {
+        email = cfg.provider.email;
+        token = cfg.provider.token;
+        rps = cfg.provider.rps;
+        retries  = cfg.provider.retries;
+        min_backoff  = cfg.provider.min_backoff;
+        max_backoff = cfg.provider.max_backoff;
+        api_client_logging  = cfg.provider.api_client_logging;
+        org_id  = cfg.provider.org_id;
+        use_org_from_zone  = cfg.provider.use_org_from_zone;
+      };
+    })
+    (mkIf (cfg.enable && cfg.provider.token == "\${ var.${default_token} }") { 
+      variable."${default_token}" = {
+          description = ''
+            The Cloudflare API token. This can also be specified with the CLOUDFLARE_TOKEN shell environment variable.
+          '';
+        };
+      }
+    )
+  ];
+
 }

@@ -6,13 +6,15 @@ let
 
   cfg = config.hetzner;
 
+  default_token = "hetzner_hcloud_token";
+
 in {
 
   options.hetzner.provider = {
 
     token = mkOption {
       type    = with types; string;
-      default = "\${var.hcloud_token}";
+      default = "\${ var.${default_token} }";
       description = ''
         To get started using the API you first
         need an API token. Sign in into the Hetzner Cloud Console choose a
@@ -28,8 +30,8 @@ in {
     (mkIf cfg.enable { 
       provider."hetzner".token = cfg.provider.token;
     })
-    (mkIf (cfg.enable && cfg.provider.token == "\${var.hcloud_token}") { 
-      variable."hetzner_hcloud_token" = {
+    (mkIf (cfg.enable && cfg.provider.token == "\${ var.${default_token} }") { 
+      variable."${default_token}" = {
           description = ''
             This is the Hetzner Cloud API Token, can also be specified with the HCLOUD_TOKEN environment variable.
           '';
