@@ -11,7 +11,9 @@ in {
 
   options.hetzner.server = mkOption {
     default = {};
-
+    description = ''
+      create a hetzner server.
+    '';
     type = with types; attrsOf (submodule ( {name, ... }: {
       options = {
         "_ref" = mkOption {
