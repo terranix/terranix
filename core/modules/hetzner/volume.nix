@@ -11,33 +11,48 @@ in {
   options.hetzner.volume = mkOption {
     default = {};
 
-    type = with types; attrsOf (submodule {
+    type = with types; attrsOf (submodule ( {name, ... }: {
       options = {
+        "_ref" = mkOption {
+          type = with types; string;
+          default = "hcloud_volume.${name}";
+          description = ''
+            internal object that should not be overwritten.
+            used to generate references
+          '';
+        };
         name = mkOption {
           type = with types; string;
           description = ''
+            Name of the volume to create (must be unique per project).
           '';
         };
-
         size = mkOption {
           type = with types; int;
           description = ''
-            in GB
+            Size of the volume (in GB).
           '';
         };
-
         server = mkOption {
-          type   = with types; string;
+          type   = with types; nullOr string;
+          default = null;
           description = ''
+            Server to attach the Volume to, optional if location argument is passed.
+          '';
+        };
+        location = mkOption {
+          type    = with types; nullOr string;
+          default = null;
+          description = ''
+            Location of the volume to create, optional if server_id argument is passed.
           '';
         };
       };
-    });
+    }));
   };
 
-  config = 
-  mkIf cfg.enable {
-    # todo surround `server` with `\${server}.id`
+  config = mkIf cfg.enable {
     resource.hcloud_volume = cfg.volume;
   };
+
 }

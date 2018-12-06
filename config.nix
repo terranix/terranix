@@ -1,5 +1,13 @@
 {config , ... }:
-{
+let
+
+  get = element: object:
+      "\${ ${object."_ref"}.${element} }";
+
+  getVariable = name:
+      "\${ var.${name} }";
+
+in {
 
   cloudflare = {
     enable = true;
@@ -13,28 +21,21 @@
 
     server = {
       nginx = {
-        name = "nginx-node";
+        name = "main_nginx";
         image  = "debian-9";
-      };
-      test = {
-        name = "test-node";
-        image  = "debian-9";
+        server_type = "c11";
+        backups = false;
       };
     };
 
     volume.test = {
-      name = "this-ist-a-test";
+      name = "${config.hetzner.server.nginx.name}-volume";
       size = 10;
-      # todo : this is how I want to call it 
-      # server = config.hetzner.server.nginx;
-      server = "\${hcloud_server.${config.hetzner.server.nginx.name}.id}";
-      # server = get "id" config.hetzner.server.nginx.name;
-      # server = "\${hcloud_server.node1.id}";
-      # todo : this option needs to be variable, without defining everything a head
-      # location = "de";
+      server = get "id" config.hetzner.server.nginx;
+      location = "de";
     };
   };
 
-  resource.this.is.a.simple.test = "yeah";
+  #resource.this.is.a.simple.test = "yeah";
 
 }

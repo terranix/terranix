@@ -87,17 +87,7 @@ in {
 
   config = mkMerge [ 
     (mkIf cfg.enable { 
-      provider.cloudflare = {
-        email = cfg.provider.email;
-        token = cfg.provider.token;
-        rps = cfg.provider.rps;
-        retries  = cfg.provider.retries;
-        min_backoff  = cfg.provider.min_backoff;
-        max_backoff = cfg.provider.max_backoff;
-        api_client_logging  = cfg.provider.api_client_logging;
-        org_id  = cfg.provider.org_id;
-        use_org_from_zone  = cfg.provider.use_org_from_zone;
-      };
+      provider.cloudflare = cfg.provider;
     })
     (mkIf (cfg.enable && cfg.provider.token == "\${ var.${default_token} }") { 
       variable."${default_token}" = {

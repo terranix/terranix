@@ -14,7 +14,7 @@ let
         set = lib.mapAttrs
                 (lib.const sanitize)
                 (lib.filterAttrs
-                  (name: value: name != "_module" && value != null) configuration);
+                  (name: value: (name != "_module" && name != "_ref") && value != null) configuration);
         string = configuration;
       };
 in {
@@ -50,6 +50,7 @@ in {
   in
     configuration: let
       result = sanitize (evaluateConfiguration configuration).config;
+      #result = (evaluateConfiguration configuration).config;
     in { 
       provider = result.provider;
       variable = result.variable;
