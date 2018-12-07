@@ -16,6 +16,7 @@ in pkgs.mkShell {
   # -----------
   buildInputs = with pkgs; [
     nixform
+    terraform
   ];
 
   # run this on start
