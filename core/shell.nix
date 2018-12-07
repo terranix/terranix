@@ -81,19 +81,23 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
   moduleCreator = pkgs.writeShellScriptBin "render-moduls" /* sh */ ''
 for file in `find ${toString ./.}/modules -mindepth 2 -maxdepth 2 -type f | grep -e "json\$"`
 do
-module=` echo $file | xargs dirname | xargs basename `
-file_name=` basename $file .json `
 cat $file | jq --raw-output '. | "
- { options.'$module'.'$file_name' = {
+# automatically generated, you should change the json file instead
+# changing this file
+{ config, lib, ... }:
+with lib;
+with types;
+{ options.\(.modul).\(.name) = mkOption {
    default = {};
    description = \"\";
-   type = with types; attrsOf (submodule ( {name, ... }: {
- \( .arguments | map(
-"   \( .key ) = mkOption {
-       type    = with types; string;
-       description = \"\( .description )\";
-     };"
- ) | join("\n") )
+   type = with types; attrsOf ( submodule ({ name, ... }: {
+\( .arguments | map(
+"     \( .key ) = mkOption {
+        type = \(.type);
+        default = \( .default );
+        description = \"\( .description )\";
+      };"
+) | join("\n") )
    }));
    }
  }
