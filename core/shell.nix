@@ -12,12 +12,14 @@ let
       | jq '.[] | { url :  "${input.url}", type : "${input.type}", "arguments" : ${input.jqArgs} }'
   '';
 
-  crawler = suffix: files:
+  crawler = path: suffix: files:
     let
       commands = builtins.map crawlerPart files;
     in
-      pkgs.writeShellScriptBin "crawl-${suffix}"
-        (pkgs.lib.concatStringsSep "\n" commands);
+      pkgs.writeShellScriptBin "crawl-${suffix}" /* sh */ ''
+        echo "" > ${path}
+        ${pkgs.lib.concatStringsSep " >> ${path}\n" commands}
+      '';
 
 
   pup_1 = "#argument-reference + p + ul";
@@ -34,7 +36,7 @@ let
     jq_a = jq_z;
 
   in
-    crawler "hcloud" [
+    crawler "${toString ./modules/hetzner/api.json}" "hcloud" [
 
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/r/server.html" ;}
 { type = r; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/r/volume.html" ;}
