@@ -17,7 +17,7 @@ let
 modul: "${modul}", name: "'$file_name'", url : "${input.url}",
 type : "${input.type}", "arguments" : ${input.jqArgs} }' \
       | jq '.' \
-      | tee ${path}/$file_name.json
+      | tee ${path}/${input.type}_$file_name.json
   '';
 
   crawler = path: suffix: files:
