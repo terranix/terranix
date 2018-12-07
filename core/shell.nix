@@ -4,19 +4,22 @@
 
 let
 
-  crawlerPart = path: input: ''
+  crawlerPart = path: modul: input: /* sh */ ''
+    URL="${input.url}"
+    file_name_html=${"$"}{URL##https://*/}
+    file_name=`basename $file_name_html .html`
     ${pkgs.curl}/bin/curl --silent \
       ${input.url} \
       | ${pkgs.pup}/bin/pup \
         "${input.pupArgs} json{}" \
-      | jq '.[] | { url :  "${input.url}", type : "${input.type}", "arguments" : ${input.jqArgs} }' \
+      | jq '.[] | { modul: "${modul}", name: "'$file_name'", url :  "${input.url}", type : "${input.type}", "arguments" : ${input.jqArgs} }' \
       | jq '.' \
-      | tee --append ${path}
+      | tee ${path}/$file_name.json
   '';
 
   crawler = path: suffix: files:
     let
-      commands = builtins.map (crawlerPart path) files;
+      commands = builtins.map (crawlerPart path suffix) files;
     in
       pkgs.writeShellScriptBin "crawl-${suffix}" /* sh */ ''
         echo "" > ${path}
@@ -38,7 +41,7 @@ let
     jq_a = jq_z;
 
   in
-    crawler "${toString ./modules/hcloud/api.json}" "hcloud" [
+    crawler "${toString ./modules/hcloud}" "hcloud" [
 
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/r/server.html" ;}
 { type = r; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/r/volume.html" ;}
@@ -62,7 +65,7 @@ let
     jq_a = jq_z;
 
   in
-    crawler "${toString ./modules/cloudflare/api.json}" "cloudflare" [
+    crawler "${toString ./modules/cloudflare}" "cloudflare" [
 
 { type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/d/ip_ranges.html" ;}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/r/access_application.html" ;}
