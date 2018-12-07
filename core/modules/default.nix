@@ -1,6 +1,6 @@
 {
-  imports = [ 
+  imports = [
       ./cloudflare
-      ./hetzner
+      ./hcloud
     ];
 }
