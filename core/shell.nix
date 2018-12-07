@@ -90,7 +90,7 @@ cat $file | jq --raw-output '. | "
 with lib;
 with types;
 {
-  options.\(.modul).\(.name) = mkOption {
+  options.\(.modul).\(.type).\(.name) = mkOption {
     default = {};
     description = \"\";
     type = with types; attrsOf ( submodule ({ name, ... }: {
@@ -99,7 +99,7 @@ with types;
       # used to generate references
       \"_ref\" = mkOption {
         type = with types; string;
-        default = \"\( .modul ).\( .name )\";
+        default = \"\( if .type == "data" then "data." else "" end )\( .modul ).\( .name )\";
         description = \"\";
       };
 
@@ -114,7 +114,7 @@ with types;
   };
 
   config = mkIf config.\(.modul).enable {
-    \(.type).\(.modul) = config.\(.modul).\(.name);
+    \(.type).\(.modul) = config.\(.modul).\(.type).\(.name);
   };
 
  }
