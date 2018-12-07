@@ -89,18 +89,19 @@ cat $file | jq --raw-output '. | "
 { config, lib, ... }:
 with lib;
 with types;
-{ options.\(.modul).\(.name) = mkOption {
-   default = {};
-   description = \"\";
-   type = with types; attrsOf ( submodule ({ name, ... }: {
+{
+  options.\(.modul).\(.name) = mkOption {
+    default = {};
+    description = \"\";
+    type = with types; attrsOf ( submodule ({ name, ... }: {
 
-     # internal object that should not be overwritten.
-     # used to generate references
-     \"_ref\" = mkOption {
-       type = with types; string;
-       default = \"\( .modul ).\( .name )\";
-       description = \"\";
-     };
+      # internal object that should not be overwritten.
+      # used to generate references
+      \"_ref\" = mkOption {
+        type = with types; string;
+        default = \"\( .modul ).\( .name )\";
+        description = \"\";
+      };
 
 \( .arguments | map(
 "     \( .key ) = mkOption {
@@ -109,8 +110,13 @@ with types;
         description = \"\( .description )\";
       };"
 ) | join("\n") )
-   }));
-   }
+    }));
+  };
+
+  config = mkIf config.\(.modul).enable {
+    \(.type).\(.modul) = config.\(.modul).\(.name);
+  };
+
  }
 "'
 done
