@@ -10,7 +10,7 @@ let
 in {
 
   cloudflare = {
-    enable = true;
+    enable = false;
     provider.email = "test@google.com";
     # provider.token = "hallo";
   };
@@ -30,9 +30,9 @@ in {
 
     volume.test = {
       name = "${config.hetzner.server.nginx.name}-volume";
-      size = 10;
-      server = get "id" config.hetzner.server.nginx;
-      location = "de";
+      size = 1;
+      # server = get "id" config.hetzner.server.nginx;
+      # location = "de";
     };
   };
 

@@ -26,9 +26,9 @@ in {
     };
   };
 
-  config = mkMerge [ 
-    (mkIf cfg.enable { 
-      provider."hetzner".token = cfg.provider.token;
+  config = mkMerge [
+    (mkIf cfg.enable {
+      provider."hcloud".token = cfg.provider.token;
     })
     (mkIf (cfg.enable && cfg.provider.token == "\${ var.${default_token} }") { 
       variable."${default_token}" = {

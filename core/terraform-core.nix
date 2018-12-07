@@ -27,7 +27,7 @@ in {
       evalModules {
         modules = [
           {
-            imports = [ 
+            imports = [
               ./coreOptions.nix
               ./modules
             ];

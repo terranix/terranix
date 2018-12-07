@@ -10,12 +10,12 @@ with lib;
   options = {
     variable = mkOption {
       type = with types; attrsOf attrs;
-      default = [];
+      default = { dummy = { value = "I'm a dummy"; }; };
       description = "foo";
     };
     provider = mkOption {
       type = with types; attrsOf attrs;
-      default = [];
+      default = {};
       description = "foo";
     };
     resource = mkOption {
@@ -25,7 +25,7 @@ with lib;
     };
     output = mkOption {
       type = with types; attrsOf attrs;
-      default = {};
+      default = { dummy = { value = "I'm a dummy"; }; };
       description = "outputs";
     };
   };

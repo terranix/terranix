@@ -7,8 +7,7 @@ let
 
     nix-instantiate --eval --strict --json \
       -I config=$FILE \
-      ${toString ./core/default.nix} \
-      | ${pkgs.jq}/bin/jq
+      ${toString ./core/default.nix}
   '';
 
 in pkgs.mkShell {
