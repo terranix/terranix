@@ -1,0 +1,80 @@
+{
+  "modul": "hcloud",
+  "name": "server",
+  "url": "https://www.terraform.io/docs/providers/hcloud/r/server.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "name",
+      "description": "- (Required, string) Name of the server to create (must be unique per project and a valid hostname as per RFC 1123).",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "server_type",
+      "description": "- (Required, string) Name of the server type this server should be created with.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "image",
+      "description": "- (Required, string) Name or ID of the image the server is created from.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "location",
+      "description": "- (Optional, string) The location name to create the server in. , or",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "datacenter",
+      "description": "- (Optional, string) The datacenter name to create the server in.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "user_data",
+      "description": "- (Optional, string) Cloud-Init user data to use during server creation",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "ssh_keys",
+      "description": "- (Optional, list) SSH key IDs or names which should be injected into the server at creation time",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "keep_disk",
+      "description": "- (Optional, bool) If true, do not upgrade the disk. This allows downgrading the server type later.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "iso",
+      "description": "- (Optional, string) Name of an ISO image to mount.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "rescue",
+      "description": "- (Optional, string) Enable and boot in to the specified rescue system. This enables simple installation of custom operating systems. or",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "labels",
+      "description": "- (Optional, map) User-defined labels (key-value pairs) should be created with.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "backups",
+      "description": "- (Optional, boolean) Enable or disable backups.",
+      "type": "nullOr string",
+      "default": null
+    }
+  ]
+}

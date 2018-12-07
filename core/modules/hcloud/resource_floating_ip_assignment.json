@@ -1,0 +1,20 @@
+{
+  "modul": "hcloud",
+  "name": "floating_ip_assignment",
+  "url": "https://www.terraform.io/docs/providers/hcloud/r/floating_ip_assignment.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "floating_ip_id",
+      "description": "- (Required, int) ID of the Floating IP.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "server_id",
+      "description": "- (Required, int) Server to assign the Floating IP to.",
+      "type": "nullOr string",
+      "default": null
+    }
+  ]
+}

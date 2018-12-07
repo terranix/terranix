@@ -1,0 +1,68 @@
+{
+  "modul": "cloudflare",
+  "name": "load_balancer_monitor",
+  "url": "https://www.terraform.io/docs/providers/cloudflare/r/load_balancer_monitor.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "expected_body",
+      "description": "- (Required) A case-insensitive sub-string to look for in the response body. If this string is not found, the origin will be marked as unhealthy.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "expected_codes",
+      "description": "- (Required) The expected HTTP response code or code range of the health check. Eg",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "method",
+      "description": "- (Optional) The HTTP method to use for the health check. Default: &#34;GET&#34;.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "timeout",
+      "description": "- (Optional) The timeout (in seconds) before marking the health check as failed. Default: 5.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "path",
+      "description": "- (Optional) The endpoint path to health check against. Default: &#34;/&#34;.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "interval",
+      "description": "- (Optional) The interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations. Default: 60.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "retries",
+      "description": "- (Optional) The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately. Default: 2.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "header",
+      "description": "- (Optional) The HTTP request headers to send in the health check. It is recommended you set a Host header by default. The User-Agent header cannot be overridden. Fields documented below.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "type",
+      "description": "- (Optional) The protocol to use for the healthcheck. Currently supported protocols are &#39;HTTP&#39; and &#39;HTTPS&#39;. Default: &#34;http&#34;.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "description",
+      "description": "- (Optional) Free text description.",
+      "type": "nullOr string",
+      "default": null
+    }
+  ]
+}

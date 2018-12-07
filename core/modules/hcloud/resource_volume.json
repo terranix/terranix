@@ -1,0 +1,32 @@
+{
+  "modul": "hcloud",
+  "name": "volume",
+  "url": "https://www.terraform.io/docs/providers/hcloud/r/volume.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "name",
+      "description": "- (Required, string) Name of the volume to create (must be unique per project).",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "size",
+      "description": "- (Required, int) Size of the volume (in GB).",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "server",
+      "description": "- (Optional, int) Server to attach the Volume to, optional if location argument is passed.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "location",
+      "description": "- (Optional, string) Location of the volume to create, optional if server_id argument is passed.",
+      "type": "nullOr string",
+      "default": null
+    }
+  ]
+}

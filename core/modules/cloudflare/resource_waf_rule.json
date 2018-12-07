@@ -1,0 +1,26 @@
+{
+  "modul": "cloudflare",
+  "name": "waf_rule",
+  "url": "https://www.terraform.io/docs/providers/cloudflare/r/waf_rule.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "zone",
+      "description": "- (Required) The DNS zone to apply to.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "rule_id",
+      "description": "- (Required) The WAF Rule ID.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "mode",
+      "description": "- (Required) The mode of the rule, can be one of [&#34;block&#34;, &#34;challenge&#34;, &#34;default&#34;, &#34;disable, &#34;simulate&#34;].",
+      "type": "nullOr string",
+      "default": null
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "modul": "hcloud",
+  "name": "ssh_key",
+  "url": "https://www.terraform.io/docs/providers/hcloud/r/ssh_key.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "name",
+      "description": "- (Required, string) Name of the SSH key.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "public_key",
+      "description": "- (Required, string) The public key. If this is a file, it can be read using the file interpolation function",
+      "type": "nullOr string",
+      "default": null
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "modul": "cloudflare",
+  "name": "zone",
+  "url": "https://www.terraform.io/docs/providers/cloudflare/r/zone.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "zone",
+      "description": "- (Required) The DNS zone name which will be added.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "paused",
+      "description": "- (Optional) Boolean of whether this zone is paused (traffic bypasses Cloudflare). Default: false.",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "jump_start",
+      "description": "- (Optional) Boolean of whether to scan for DNS records on creation. Ignored after zone is created. Default: false.",
+      "type": "nullOr string",
+      "default": null
+    }
+  ]
+}

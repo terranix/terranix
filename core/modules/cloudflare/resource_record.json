@@ -1,0 +1,56 @@
+{
+  "modul": "cloudflare",
+  "name": "record",
+  "url": "https://www.terraform.io/docs/providers/cloudflare/r/record.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "domain",
+      "description": "- (Required) The DNS zone to add the record to",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "name",
+      "description": "- (Required) The name of the record",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "type",
+      "description": "- (Required) The type of the record",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "value",
+      "description": "- (Optional) The (string) value of the record. Either this or must be specified",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "data",
+      "description": "- (Optional) Map of attributes that constitute the record value. Primarily used for LOC and SRV record types. Either this or must be specified",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "ttl",
+      "description": "- (Optional) The TTL of the record ( )",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "priority",
+      "description": "- (Optional) The priority of the record",
+      "type": "nullOr string",
+      "default": null
+    },
+    {
+      "key": "proxied",
+      "description": "- (Optional) Whether the record gets Cloudflare&#39;s origin protection; defaults to .",
+      "type": "nullOr string",
+      "default": null
+    }
+  ]
+}
