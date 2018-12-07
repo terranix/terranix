@@ -5,9 +5,6 @@ let
 
 in terraform.eval
   {
-    imports = [ 
-      ./modules
-      <config>
-      ];
+    imports = [ <config> ];
   }
 

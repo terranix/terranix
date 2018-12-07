@@ -1,9 +1,15 @@
 { pkgs ?  import <nixpkgs> {} }:
 
-with pkgs.lib;
+# with pkgs.lib;
 
 let
-   config = { meta = { doc = [] ; } ; };
+  myModules = [
+                ./core/modules/cloudflare/default.nix
+                ./core/modules/hetzner/default.nix
+                ./core/coreOptions.nix
+              ];
+   # config = { meta = { doc = [] ; } ; };
+   config = (import <nixpkgs/nixos/lib/eval-config.nix> { modules = myModules; }).config;
    mkManual = modList: import <nixpkgs/nixos/doc/manual> rec {
     inherit pkgs config;
     #inherit pkgs;
@@ -11,22 +17,23 @@ let
     version = "10";
     revision = "release-${version}";
     options = let
-      scrubbedEval = evalModules {
+      scrubbedEval = pkgs.lib.evalModules {
         # modules = [ { nixpkgs.localSystem = config.nixpkgs.localSystem; } ] ++ (import <helsinki/3modules>) ++ modList;
         modules = modList;
         # args = (config._module.args) // { modules = [ ]; };
-        specialArgs = { pkgs = scrubDerivations "pkgs" pkgs; };
+        # specialArgs = { pkgs = scrubDerivations "pkgs" pkgs; };
       };
-      scrubDerivations = namePrefix: pkgSet: mapAttrs
-        (name: value:
-          let wholeName = "${namePrefix}.${name}"; in
-          if isAttrs value then
-            scrubDerivations wholeName value
-            // (optionalAttrs (isDerivation value) { outPath = "\${${wholeName}}"; })
-          else value
-        )
-        pkgSet;
-      in scrubbedEval.options;
+      #scrubDerivations = namePrefix: pkgSet: mapAttrs
+      #  (name: value:
+      #    let wholeName = "${namePrefix}.${name}"; in
+      #    if isAttrs value then
+      #      scrubDerivations wholeName value
+      #      // (optionalAttrs (isDerivation value) { outPath = "\${${wholeName}}"; })
+      #    else value
+      #  )
+      #  pkgSet;
+      in
+        scrubbedEval.options;
   };
 
 in pkgs.mkShell {
@@ -34,14 +41,7 @@ in pkgs.mkShell {
   # needed pkgs
   # -----------
   buildInputs = with pkgs; [
-    ((mkManual [
-                ./core/modules/cloudflare/default.nix
-                #./core/modules/cloudflare/provider.nix
-                ./core/modules/hetzner/default.nix
-                #./core/modules/hetzner/provider.nix
-                #./core/modules/hetzner/server.nix
-                #./core/modules/hetzner/volume.nix
-              ]).manpages)
+    ((mkManual myModules).manpages)
   ];
 
   # run this on start

@@ -22,36 +22,24 @@ in {
   eval =
   let
 
-    coreOptions = {
-      options = {
-        variable = mkOption {
-          type = with types; attrsOf attrs;
-          default = [];
-        };
-        provider = mkOption {
-          type = with types; attrsOf attrs;
-          default = [];
-        };
-        resource = mkOption {
-          type = with types; attrsOf attrs;
-          default = {};
-        };
-      };
-    };
-
-    evaluateConfiguration = configuration: 
-      with lib; 
+    evaluateConfiguration = configuration:
+      with lib;
       evalModules {
         modules = [
-          coreOptions
-          configuration 
+          {
+            imports = [ 
+              ./coreOptions.nix
+              ./modules
+            ];
+          }
+          configuration
         ];
     };
   in
     configuration: let
       result = sanitize (evaluateConfiguration configuration).config;
       #result = (evaluateConfiguration configuration).config;
-    in { 
+    in {
       provider = result.provider;
       variable = result.variable;
       resource = result.resource;
