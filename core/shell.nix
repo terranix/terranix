@@ -78,6 +78,29 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/r/zone_settings_override.html" ;}
       ];
 
+  moduleCreator = pkgs.writeShellScriptBin "render-moduls" /* sh */ ''
+for file in `find ${toString ./.}/modules -mindepth 2 -maxdepth 2 -type f | grep -e "json\$"`
+do
+module=` echo $file | xargs dirname | xargs basename `
+file_name=` basename $file .json `
+cat $file | jq --raw-output '. | "
+ { options.'$module'.'$file_name' = {
+   default = {};
+   description = \"\";
+   type = with types; attrsOf (submodule ( {name, ... }: {
+ \( .arguments | map(
+"   \( .key ) = mkOption {
+       type    = with types; string;
+       description = \"\( .description )\";
+     };"
+ ) | join("\n") )
+   }));
+   }
+ }
+"'
+done
+'';
+
 in pkgs.mkShell {
 
   # needed pkgs
@@ -87,6 +110,7 @@ in pkgs.mkShell {
     pandoc
     crawler-hcloud
     crawler-cloudflare
+    moduleCreator
   ];
 
   # run this on start
