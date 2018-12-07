@@ -43,5 +43,6 @@ in {
       provider = result.provider;
       variable = result.variable;
       resource = result.resource;
+      output = result.output;
     };
 }
