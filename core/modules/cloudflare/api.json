@@ -4,16 +4,20 @@
   "type": "resource",
   "arguments": [
     {
-      "zone_id": "- (Required) The DNS zone to which the access rule should be added."
+      "key": "zone_id",
+      "description": "- (Required) The DNS zone to which the access rule should be added."
     },
     {
-      "name": "- (Required) Friendly name of the Access Application."
+      "key": "name",
+      "description": "- (Required) Friendly name of the Access Application."
     },
     {
-      "domain": "- (Required) The complete URL of the asset you wish to put\nCloudflare Access in front of. Can include subdomains or paths. Or both."
+      "key": "domain",
+      "description": "- (Required) The complete URL of the asset you wish to put\nCloudflare Access in front of. Can include subdomains or paths. Or both."
     },
     {
-      "session_duration": "- (Optional) How often a user will be forced to\nre-authorise. Must be one of , , , , , ."
+      "key": "session_duration",
+      "description": "- (Optional) How often a user will be forced to\nre-authorise. Must be one of , , , , , ."
     }
   ]
 }
@@ -22,28 +26,36 @@
   "type": "resource",
   "arguments": [
     {
-      "application_id": "- (Required) The ID of the application the policy is\nassociated with."
+      "key": "application_id",
+      "description": "- (Required) The ID of the application the policy is\nassociated with."
     },
     {
-      "zone_id": "- (Required) The DNS zone to which the access rule should be\nadded."
+      "key": "zone_id",
+      "description": "- (Required) The DNS zone to which the access rule should be\nadded."
     },
     {
-      "decision": "- (Required) The complete URL of the asset you wish to put\nCloudflare Access in front of. Can include subdomains or paths. Or both."
+      "key": "decision",
+      "description": "- (Required) The complete URL of the asset you wish to put\nCloudflare Access in front of. Can include subdomains or paths. Or both."
     },
     {
-      "name": "- (Required) Friendly name of the Access Application."
+      "key": "name",
+      "description": "- (Required) Friendly name of the Access Application."
     },
     {
-      "precedence": "- (Optional) Friendly name of the Access Application."
+      "key": "precedence",
+      "description": "- (Optional) Friendly name of the Access Application."
     },
     {
-      "require": "- (Optional) A series of access conditions, see below for\nfull list."
+      "key": "require",
+      "description": "- (Optional) A series of access conditions, see below for\nfull list."
     },
     {
-      "exclude": "- (Optional) A series of access conditions, see below for\nfull list."
+      "key": "exclude",
+      "description": "- (Optional) A series of access conditions, see below for\nfull list."
     },
     {
-      "include": "- (Required) A series of access conditions, see below for\nfull list."
+      "key": "include",
+      "description": "- (Required) A series of access conditions, see below for\nfull list."
     }
   ]
 }
@@ -52,19 +64,24 @@
   "type": "resource",
   "arguments": [
     {
-      "zone": "- (Optional) The DNS zone to which the access rule should be added. Will be resolved to upon creation."
+      "key": "zone",
+      "description": "- (Optional) The DNS zone to which the access rule should be added. Will be resolved to upon creation."
     },
     {
-      "zone_id": "- (Optional) The DNS zone to which the access rule should be added."
+      "key": "zone_id",
+      "description": "- (Optional) The DNS zone to which the access rule should be added."
     },
     {
-      "mode": "- (Required) The action to apply to a matched request. Allowed values: &#34;block&#34;, &#34;challenge&#34;, &#34;whitelist&#34;, &#34;js_challenge&#34;"
+      "key": "mode",
+      "description": "- (Required) The action to apply to a matched request. Allowed values: &#34;block&#34;, &#34;challenge&#34;, &#34;whitelist&#34;, &#34;js_challenge&#34;"
     },
     {
-      "notes": "- (Optional) A personal note about the rule. Typically used as a reminder or explanation for the rule."
+      "key": "notes",
+      "description": "- (Optional) A personal note about the rule. Typically used as a reminder or explanation for the rule."
     },
     {
-      "configuration": "- (Required) Rule configuration to apply to a matched request. It&#39;s a complex value. See description below."
+      "key": "configuration",
+      "description": "- (Required) Rule configuration to apply to a matched request. It&#39;s a complex value. See description below."
     }
   ]
 }
@@ -73,10 +90,12 @@
   "type": "resource",
   "arguments": [
     {
-      "email_address": "- (Required) The email address of the user who you wish to manage. Note: Following creation, this field becomes read only via the API and cannot be updated."
+      "key": "email_address",
+      "description": "- (Required) The email address of the user who you wish to manage. Note: Following creation, this field becomes read only via the API and cannot be updated."
     },
     {
-      "role_ids": "- (Required) Array of account role IDs that you want to assign to a member."
+      "key": "role_ids",
+      "description": "- (Required) Array of account role IDs that you want to assign to a member."
     }
   ]
 }
@@ -85,19 +104,24 @@
   "type": "resource",
   "arguments": [
     {
-      "zone_id": "- (Optional) The zone ID where the custom pages should be\nupdated. Either or must be provided."
+      "key": "zone_id",
+      "description": "- (Optional) The zone ID where the custom pages should be\nupdated. Either or must be provided."
     },
     {
-      "account_id": "- (Optional) The account ID where the custom pages should be\nupdated. Either or must be provided. If is present, it will override the zone setting."
+      "key": "account_id",
+      "description": "- (Optional) The account ID where the custom pages should be\nupdated. Either or must be provided. If is present, it will override the zone setting."
     },
     {
-      "type": "- (Required) The type of custom page you wish to update. Must\nbe one of , , , , , , , , , ."
+      "key": "type",
+      "description": "- (Required) The type of custom page you wish to update. Must\nbe one of , , , , , , , , , ."
     },
     {
-      "url": "- (Required) URL of where the custom page source is located."
+      "key": "url",
+      "description": "- (Required) URL of where the custom page source is located."
     },
     {
-      "state": "- (Required) Managed state of the custom page. Must be one of , . If the value is it will be removed\nfrom the Terraform state management."
+      "key": "state",
+      "description": "- (Required) Managed state of the custom page. Must be one of , . If the value is it will be removed\nfrom the Terraform state management."
     }
   ]
 }
@@ -106,22 +130,28 @@
   "type": "resource",
   "arguments": [
     {
-      "zone": "- (Optional) The DNS zone to which the Filter should be added. Will be resolved to upon creation."
+      "key": "zone",
+      "description": "- (Optional) The DNS zone to which the Filter should be added. Will be resolved to upon creation."
     },
     {
-      "zone_id": "- (Optional) The DNS zone to which the Filter should be added."
+      "key": "zone_id",
+      "description": "- (Optional) The DNS zone to which the Filter should be added."
     },
     {
-      "paused": "- (Optional) Whether this filter is currently paused. Boolean value."
+      "key": "paused",
+      "description": "- (Optional) Whether this filter is currently paused. Boolean value."
     },
     {
-      "expression": "- (Required) The filter expression to be used."
+      "key": "expression",
+      "description": "- (Required) The filter expression to be used."
     },
     {
+      "key": "description",
       "description": "- (Optional) A note that you can use to describe the purpose of the filter."
     },
     {
-      "ref": "- (Optional) Short reference tag to quickly select related rules."
+      "key": "ref",
+      "description": "- (Optional) Short reference tag to quickly select related rules."
     }
   ]
 }
@@ -130,24 +160,31 @@
   "type": "resource",
   "arguments": [
     {
-      "zone": "- (Optional) The DNS zone to which the Firewall Rule should be added. Will be resolved to upon creation."
+      "key": "zone",
+      "description": "- (Optional) The DNS zone to which the Firewall Rule should be added. Will be resolved to upon creation."
     },
     {
-      "zone_id": "- (Optional) The DNS zone to which the Filter should be added."
+      "key": "zone_id",
+      "description": "- (Optional) The DNS zone to which the Filter should be added."
     },
     {
-      "action": "- (Required) The action to apply to a matched request. Allowed values: &#34;block&#34;, &#34;challenge&#34;, &#34;allow&#34;, &#34;js_challenge&#34;."
+      "key": "action",
+      "description": "- (Required) The action to apply to a matched request. Allowed values: &#34;block&#34;, &#34;challenge&#34;, &#34;allow&#34;, &#34;js_challenge&#34;."
     },
     {
-      "priority": "- (Optional) The priority of the rule to allow control of processing order. A lower number indicates high priority. If not provided, any rules with a priority will be sequenced before those without."
+      "key": "priority",
+      "description": "- (Optional) The priority of the rule to allow control of processing order. A lower number indicates high priority. If not provided, any rules with a priority will be sequenced before those without."
     },
     {
-      "paused": "- (Optional) Whether this filter based firewall rule is currently paused. Boolean value."
+      "key": "paused",
+      "description": "- (Optional) Whether this filter based firewall rule is currently paused. Boolean value."
     },
     {
-      "expression": "- (Required) The filter expression to be used."
+      "key": "expression",
+      "description": "- (Required) The filter expression to be used."
     },
     {
+      "key": "description",
       "description": "- (Optional) A description of the rule to help identify it."
     }
   ]
@@ -157,37 +194,48 @@
   "type": "resource",
   "arguments": [
     {
-      "zone": "- (Required) The zone to add the load balancer to."
+      "key": "zone",
+      "description": "- (Required) The zone to add the load balancer to."
     },
     {
-      "name": "- (Required) The DNS name to associate with the load balancer."
+      "key": "name",
+      "description": "- (Required) The DNS name to associate with the load balancer."
     },
     {
-      "fallback_pool_id": "- (Required) The pool ID to use when all other pools are detected as unhealthy."
+      "key": "fallback_pool_id",
+      "description": "- (Required) The pool ID to use when all other pools are detected as unhealthy."
     },
     {
-      "default_pool_ids": "- (Required) A list of pool IDs ordered by their failover priority. Used whenever region/pop pools are not defined."
+      "key": "default_pool_ids",
+      "description": "- (Required) A list of pool IDs ordered by their failover priority. Used whenever region/pop pools are not defined."
     },
     {
+      "key": "description",
       "description": "- (Optional) Free text description."
     },
     {
-      "ttl": "- (Optional) Time to live (TTL) of this load balancer&#39;s DNS . Conflicts with - this cannot be set for proxied load balancers. Default is ."
+      "key": "ttl",
+      "description": "- (Optional) Time to live (TTL) of this load balancer&#39;s DNS . Conflicts with - this cannot be set for proxied load balancers. Default is ."
     },
     {
-      "steering_policy": "- (Optional) Determine which method the load balancer uses to determine the fastest route to your origin. Valid values  are: &#34;off&#34;, &#34;geo&#34;, &#34;dynamic_latency&#34; or &#34;&#34;. Default is &#34;&#34;."
+      "key": "steering_policy",
+      "description": "- (Optional) Determine which method the load balancer uses to determine the fastest route to your origin. Valid values  are: &#34;off&#34;, &#34;geo&#34;, &#34;dynamic_latency&#34; or &#34;&#34;. Default is &#34;&#34;."
     },
     {
-      "proxied": "- (Optional) Whether the hostname gets Cloudflare&#39;s origin protection. Defaults to ."
+      "key": "proxied",
+      "description": "- (Optional) Whether the hostname gets Cloudflare&#39;s origin protection. Defaults to ."
     },
     {
-      "region_pools": "- (Optional) A set containing mappings of region/country codes to a list of pool IDs (ordered by their failover priority) for the given region. Fields documented below."
+      "key": "region_pools",
+      "description": "- (Optional) A set containing mappings of region/country codes to a list of pool IDs (ordered by their failover priority) for the given region. Fields documented below."
     },
     {
-      "pop_pools": "- (Optional) A set containing mappings of Cloudflare Point-of-Presence (PoP) identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). This feature is only available to enterprise customers. Fields documented below."
+      "key": "pop_pools",
+      "description": "- (Optional) A set containing mappings of Cloudflare Point-of-Presence (PoP) identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). This feature is only available to enterprise customers. Fields documented below."
     },
     {
-      "session_affinity": "- (Optional) Associates all requests coming from an end-user with a single origin. Cloudflare will set a cookie on the initial response to the client, such that consequent requests with the cookie in the request will go to the same origin, so long as it is available."
+      "key": "session_affinity",
+      "description": "- (Optional) Associates all requests coming from an end-user with a single origin. Cloudflare will set a cookie on the initial response to the client, such that consequent requests with the cookie in the request will go to the same origin, so long as it is available."
     }
   ]
 }
@@ -196,33 +244,43 @@
   "type": "resource",
   "arguments": [
     {
-      "expected_body": "- (Required) A case-insensitive sub-string to look for in the response body. If this string is not found, the origin will be marked as unhealthy."
+      "key": "expected_body",
+      "description": "- (Required) A case-insensitive sub-string to look for in the response body. If this string is not found, the origin will be marked as unhealthy."
     },
     {
-      "expected_codes": "- (Required) The expected HTTP response code or code range of the health check. Eg"
+      "key": "expected_codes",
+      "description": "- (Required) The expected HTTP response code or code range of the health check. Eg"
     },
     {
-      "method": "- (Optional) The HTTP method to use for the health check. Default: &#34;GET&#34;."
+      "key": "method",
+      "description": "- (Optional) The HTTP method to use for the health check. Default: &#34;GET&#34;."
     },
     {
-      "timeout": "- (Optional) The timeout (in seconds) before marking the health check as failed. Default: 5."
+      "key": "timeout",
+      "description": "- (Optional) The timeout (in seconds) before marking the health check as failed. Default: 5."
     },
     {
-      "path": "- (Optional) The endpoint path to health check against. Default: &#34;/&#34;."
+      "key": "path",
+      "description": "- (Optional) The endpoint path to health check against. Default: &#34;/&#34;."
     },
     {
-      "interval": "- (Optional) The interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations. Default: 60."
+      "key": "interval",
+      "description": "- (Optional) The interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations. Default: 60."
     },
     {
-      "retries": "- (Optional) The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately. Default: 2."
+      "key": "retries",
+      "description": "- (Optional) The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately. Default: 2."
     },
     {
-      "header": "- (Optional) The HTTP request headers to send in the health check. It is recommended you set a Host header by default. The User-Agent header cannot be overridden. Fields documented below."
+      "key": "header",
+      "description": "- (Optional) The HTTP request headers to send in the health check. It is recommended you set a Host header by default. The User-Agent header cannot be overridden. Fields documented below."
     },
     {
-      "type": "- (Optional) The protocol to use for the healthcheck. Currently supported protocols are &#39;HTTP&#39; and &#39;HTTPS&#39;. Default: &#34;http&#34;."
+      "key": "type",
+      "description": "- (Optional) The protocol to use for the healthcheck. Currently supported protocols are &#39;HTTP&#39; and &#39;HTTPS&#39;. Default: &#34;http&#34;."
     },
     {
+      "key": "description",
       "description": "- (Optional) Free text description."
     }
   ]
@@ -232,28 +290,36 @@
   "type": "resource",
   "arguments": [
     {
-      "name": "- (Required) A short name (tag) for the pool. Only alphanumeric characters, hyphens, and underscores are allowed."
+      "key": "name",
+      "description": "- (Required) A short name (tag) for the pool. Only alphanumeric characters, hyphens, and underscores are allowed."
     },
     {
-      "origins": "- (Required) The list of origins within this pool. Traffic directed at this pool is balanced across all currently healthy origins, provided the pool itself is healthy. It&#39;s a complex value. See description below."
+      "key": "origins",
+      "description": "- (Required) The list of origins within this pool. Traffic directed at this pool is balanced across all currently healthy origins, provided the pool itself is healthy. It&#39;s a complex value. See description below."
     },
     {
-      "check_regions": "- (Optional) A list of regions (specified by region code) from which to run health checks. Empty means every Cloudflare data center (the default), but requires an Enterprise plan. Region codes can be found ."
+      "key": "check_regions",
+      "description": "- (Optional) A list of regions (specified by region code) from which to run health checks. Empty means every Cloudflare data center (the default), but requires an Enterprise plan. Region codes can be found ."
     },
     {
+      "key": "description",
       "description": "- (Optional) Free text description."
     },
     {
-      "enabled": "- (Optional) Whether to enable (the default) this pool. Disabled pools will not receive traffic and are excluded from health checks. Disabling a pool will cause any load balancers using it to failover to the next pool (if any)."
+      "key": "enabled",
+      "description": "- (Optional) Whether to enable (the default) this pool. Disabled pools will not receive traffic and are excluded from health checks. Disabling a pool will cause any load balancers using it to failover to the next pool (if any)."
     },
     {
-      "minimum_origins": "- (Optional) The minimum number of origins that must be healthy for this pool to serve traffic. If the number of healthy origins falls below this number, the pool will be marked unhealthy and we will failover to the next available pool. Default: 1."
+      "key": "minimum_origins",
+      "description": "- (Optional) The minimum number of origins that must be healthy for this pool to serve traffic. If the number of healthy origins falls below this number, the pool will be marked unhealthy and we will failover to the next available pool. Default: 1."
     },
     {
-      "monitor": "- (Optional) The ID of the Monitor to use for health checking origins within this pool."
+      "key": "monitor",
+      "description": "- (Optional) The ID of the Monitor to use for health checking origins within this pool."
     },
     {
-      "notification_email": "- (Optional) The email address to send health status notifications to. This can be an individual mailbox or a mailing list."
+      "key": "notification_email",
+      "description": "- (Optional) The email address to send health status notifications to. This can be an individual mailbox or a mailing list."
     }
   ]
 }
@@ -262,19 +328,24 @@
   "type": "resource",
   "arguments": [
     {
-      "zone": "- (Required) The DNS zone to which the page rule should be added."
+      "key": "zone",
+      "description": "- (Required) The DNS zone to which the page rule should be added."
     },
     {
-      "target": "- (Required) The URL pattern to target with the page rule."
+      "key": "target",
+      "description": "- (Required) The URL pattern to target with the page rule."
     },
     {
-      "actions": "- (Required) The actions taken by the page rule, options given below."
+      "key": "actions",
+      "description": "- (Required) The actions taken by the page rule, options given below."
     },
     {
-      "priority": "- (Optional) The priority of the page rule among others for this target."
+      "key": "priority",
+      "description": "- (Optional) The priority of the page rule among others for this target."
     },
     {
-      "status": "- (Optional) Whether the page rule is active or disabled."
+      "key": "status",
+      "description": "- (Optional) Whether the page rule is active or disabled."
     }
   ]
 }
@@ -283,31 +354,40 @@
   "type": "resource",
   "arguments": [
     {
-      "zone": "- (Required) The DNS zone to apply rate limiting to."
+      "key": "zone",
+      "description": "- (Required) The DNS zone to apply rate limiting to."
     },
     {
-      "threshold": "- (Required) The threshold that triggers the rate limit mitigations, combine with period. i.e. threshold per period (min: 2, max: 1,000,000)."
+      "key": "threshold",
+      "description": "- (Required) The threshold that triggers the rate limit mitigations, combine with period. i.e. threshold per period (min: 2, max: 1,000,000)."
     },
     {
-      "period": "- (Required) The time in seconds to count matching traffic. If the count exceeds threshold within this period the action will be performed (min: 1, max: 86,400)."
+      "key": "period",
+      "description": "- (Required) The time in seconds to count matching traffic. If the count exceeds threshold within this period the action will be performed (min: 1, max: 86,400)."
     },
     {
-      "action": "- (Required) The action to be performed when the threshold of matched traffic within the period defined is exceeded."
+      "key": "action",
+      "description": "- (Required) The action to be performed when the threshold of matched traffic within the period defined is exceeded."
     },
     {
-      "match": "- (Optional) Determines which traffic the rate limit counts towards the threshold. By default matches all traffic in the zone. See definition below."
+      "key": "match",
+      "description": "- (Optional) Determines which traffic the rate limit counts towards the threshold. By default matches all traffic in the zone. See definition below."
     },
     {
-      "disabled": "- (Optional) Whether this ratelimit is currently disabled. Default: ."
+      "key": "disabled",
+      "description": "- (Optional) Whether this ratelimit is currently disabled. Default: ."
     },
     {
+      "key": "description",
       "description": "- (Optional) A note that you can use to describe the reason for a rate limit. This value is sanitized and all tags are removed."
     },
     {
-      "bypass_url_patterns": "- (Optional) URLs matching the patterns specified here will be excluded from rate limiting."
+      "key": "bypass_url_patterns",
+      "description": "- (Optional) URLs matching the patterns specified here will be excluded from rate limiting."
     },
     {
-      "correlate": "- (Optional) Determines how rate limiting is applied. By default if not specified, rate limiting applies to the clients IP address."
+      "key": "correlate",
+      "description": "- (Optional) Determines how rate limiting is applied. By default if not specified, rate limiting applies to the clients IP address."
     }
   ]
 }
@@ -316,28 +396,36 @@
   "type": "resource",
   "arguments": [
     {
-      "domain": "- (Required) The DNS zone to add the record to"
+      "key": "domain",
+      "description": "- (Required) The DNS zone to add the record to"
     },
     {
-      "name": "- (Required) The name of the record"
+      "key": "name",
+      "description": "- (Required) The name of the record"
     },
     {
-      "type": "- (Required) The type of the record"
+      "key": "type",
+      "description": "- (Required) The type of the record"
     },
     {
-      "value": "- (Optional) The (string) value of the record. Either this or must be specified"
+      "key": "value",
+      "description": "- (Optional) The (string) value of the record. Either this or must be specified"
     },
     {
-      "data": "- (Optional) Map of attributes that constitute the record value. Primarily used for LOC and SRV record types. Either this or must be specified"
+      "key": "data",
+      "description": "- (Optional) Map of attributes that constitute the record value. Primarily used for LOC and SRV record types. Either this or must be specified"
     },
     {
-      "ttl": "- (Optional) The TTL of the record ( )"
+      "key": "ttl",
+      "description": "- (Optional) The TTL of the record ( )"
     },
     {
-      "priority": "- (Optional) The priority of the record"
+      "key": "priority",
+      "description": "- (Optional) The priority of the record"
     },
     {
-      "proxied": "- (Optional) Whether the record gets Cloudflare&#39;s origin protection; defaults to ."
+      "key": "proxied",
+      "description": "- (Optional) Whether the record gets Cloudflare&#39;s origin protection; defaults to ."
     }
   ]
 }
@@ -346,13 +434,16 @@
   "type": "resource",
   "arguments": [
     {
-      "zone": "- (Required) The DNS zone to apply to."
+      "key": "zone",
+      "description": "- (Required) The DNS zone to apply to."
     },
     {
-      "rule_id": "- (Required) The WAF Rule ID."
+      "key": "rule_id",
+      "description": "- (Required) The WAF Rule ID."
     },
     {
-      "mode": "- (Required) The mode of the rule, can be one of [&#34;block&#34;, &#34;challenge&#34;, &#34;default&#34;, &#34;disable, &#34;simulate&#34;]."
+      "key": "mode",
+      "description": "- (Required) The mode of the rule, can be one of [&#34;block&#34;, &#34;challenge&#34;, &#34;default&#34;, &#34;disable, &#34;simulate&#34;]."
     }
   ]
 }
@@ -361,16 +452,20 @@
   "type": "resource",
   "arguments": [
     {
-      "zone": "- (Required) The zone to add the route to."
+      "key": "zone",
+      "description": "- (Required) The zone to add the route to."
     },
     {
-      "pattern": "- (Required) The"
+      "key": "pattern",
+      "description": "- (Required) The"
     },
     {
-      "enabled": "(For single-script accounts only) Whether to run the worker script for requests that match the route pattern. Default is"
+      "key": "enabled",
+      "description": "(For single-script accounts only) Whether to run the worker script for requests that match the route pattern. Default is"
     },
     {
-      "script_name": "(For multi-script accounts only) Which worker script to run for requests that match the route pattern. If is empty, workers will be skipped for matching requests."
+      "key": "script_name",
+      "description": "(For multi-script accounts only) Which worker script to run for requests that match the route pattern. If is empty, workers will be skipped for matching requests."
     }
   ]
 }
@@ -379,13 +474,16 @@
   "type": "resource",
   "arguments": [
     {
-      "zone": "- (Required for single-script accounts) The zone for the script."
+      "key": "zone",
+      "description": "- (Required for single-script accounts) The zone for the script."
     },
     {
-      "name": "- (Required for multi-script accounts) The name for the script."
+      "key": "name",
+      "description": "- (Required for multi-script accounts) The name for the script."
     },
     {
-      "content": "- (Required) The script content."
+      "key": "content",
+      "description": "- (Required) The script content."
     }
   ]
 }
@@ -394,13 +492,16 @@
   "type": "resource",
   "arguments": [
     {
-      "zone": "- (Required) The DNS zone name which will be added."
+      "key": "zone",
+      "description": "- (Required) The DNS zone name which will be added."
     },
     {
-      "paused": "- (Optional) Boolean of whether this zone is paused (traffic bypasses Cloudflare). Default: false."
+      "key": "paused",
+      "description": "- (Optional) Boolean of whether this zone is paused (traffic bypasses Cloudflare). Default: false."
     },
     {
-      "jump_start": "- (Optional) Boolean of whether to scan for DNS records on creation. Ignored after zone is created. Default: false."
+      "key": "jump_start",
+      "description": "- (Optional) Boolean of whether to scan for DNS records on creation. Ignored after zone is created. Default: false."
     }
   ]
 }
@@ -409,22 +510,28 @@
   "type": "resource",
   "arguments": [
     {
-      "zone": "- The DNS zone to which the lockdown will be added. Will be resolved to upon creation."
+      "key": "zone",
+      "description": "- The DNS zone to which the lockdown will be added. Will be resolved to upon creation."
     },
     {
-      "zone_id": "- The DNS zone to which the access rule should be added."
+      "key": "zone_id",
+      "description": "- The DNS zone to which the access rule should be added."
     },
     {
+      "key": "description",
       "description": "- (Optional) A description about the lockdown entry. Typically used as a reminder or explanation for the lockdown."
     },
     {
-      "urls": "- (Required) A list of simple wildcard patterns to match requests against. The order of the urls is unimportant."
+      "key": "urls",
+      "description": "- (Required) A list of simple wildcard patterns to match requests against. The order of the urls is unimportant."
     },
     {
-      "configurations": "- (Required) A list of IP addresses or IP ranges to match the request against specified in target, value pairs.  It&#39;s a complex value. See description below.   The order of the configuration entries is unimportant."
+      "key": "configurations",
+      "description": "- (Required) A list of IP addresses or IP ranges to match the request against specified in target, value pairs.  It&#39;s a complex value. See description below.   The order of the configuration entries is unimportant."
     },
     {
-      "paused": "- (Optional) Boolean of whether this zone lockdown is currently paused. Default: false."
+      "key": "paused",
+      "description": "- (Optional) Boolean of whether this zone lockdown is currently paused. Default: false."
     }
   ]
 }
@@ -433,10 +540,12 @@
   "type": "resource",
   "arguments": [
     {
-      "name": "- (Required) The DNS zone to which apply settings."
+      "key": "name",
+      "description": "- (Required) The DNS zone to which apply settings."
     },
     {
-      "settings": "- (Optional) Settings overrides that will be applied to the zone. If a setting is not specified the existing setting will be used. For a full list of available settings see below."
+      "key": "settings",
+      "description": "- (Optional) Settings overrides that will be applied to the zone. If a setting is not specified the existing setting will be used. For a full list of available settings see below."
     }
   ]
 }

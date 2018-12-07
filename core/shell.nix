@@ -33,7 +33,7 @@ let
   crawler-hcloud =
   let
 
-    jq_1 = ''[ .children[] | { "\( .children[0].name )": .text } ]'';
+    jq_1 = ''[ .children[] | { key: "\( .children[0].name )", description: .text } ]'';
     jq_z = ''{ "test": . }'';
     jq_a = jq_z;
 
@@ -57,7 +57,7 @@ let
   crawler-cloudflare =
   let
 
-    jq_1 = ''[ .children[] | { "\( .children[0].name )": .text } ]'';
+    jq_1 = ''[ .children[] | { key: "\( .children[0].name )", description: .text } ]'';
     jq_z = ''{ "test": . }'';
     jq_a = jq_z;
 
