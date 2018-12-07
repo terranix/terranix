@@ -78,6 +78,8 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/r/zone_settings_override.html" ;}
       ];
 
+# todo sanitize the descriptions
+
   moduleCreator = pkgs.writeShellScriptBin "render-moduls" /* sh */ ''
 for file in `find ${toString ./.}/modules -mindepth 2 -maxdepth 2 -type f | grep -e "json\$"`
 do
@@ -91,6 +93,15 @@ with types;
    default = {};
    description = \"\";
    type = with types; attrsOf ( submodule ({ name, ... }: {
+
+     # internal object that should not be overwritten.
+     # used to generate references
+     \"_ref\" = mkOption {
+       type = with types; string;
+       default = \"\( .modul ).\( .name )\";
+       description = \"\";
+     };
+
 \( .arguments | map(
 "     \( .key ) = mkOption {
         type = \(.type);
