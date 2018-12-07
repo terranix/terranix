@@ -1,0 +1,20 @@
+{
+  "modul": "hcloud",
+  "name": "volume",
+  "url": "https://www.terraform.io/docs/providers/hcloud/d/volume.html",
+  "type": "data",
+  "arguments": [
+    {
+      "key": "id",
+      "description": "- ID of the volume."
+    },
+    {
+      "key": "name",
+      "description": "- Name of the volume."
+    },
+    {
+      "key": "selector",
+      "description": "- Label Selector. For more information about possible values, visit the ."
+    }
+  ]
+}

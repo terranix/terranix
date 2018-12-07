@@ -1,0 +1,32 @@
+{
+  "modul": "cloudflare",
+  "name": "filter",
+  "url": "https://www.terraform.io/docs/providers/cloudflare/r/filter.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "zone",
+      "description": "- (Optional) The DNS zone to which the Filter should be added. Will be resolved to upon creation."
+    },
+    {
+      "key": "zone_id",
+      "description": "- (Optional) The DNS zone to which the Filter should be added."
+    },
+    {
+      "key": "paused",
+      "description": "- (Optional) Whether this filter is currently paused. Boolean value."
+    },
+    {
+      "key": "expression",
+      "description": "- (Required) The filter expression to be used."
+    },
+    {
+      "key": "description",
+      "description": "- (Optional) A note that you can use to describe the purpose of the filter."
+    },
+    {
+      "key": "ref",
+      "description": "- (Optional) Short reference tag to quickly select related rules."
+    }
+  ]
+}

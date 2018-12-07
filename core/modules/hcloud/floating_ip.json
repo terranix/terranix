@@ -1,0 +1,16 @@
+{
+  "modul": "hcloud",
+  "name": "floating_ip",
+  "url": "https://www.terraform.io/docs/providers/hcloud/d/floating_ip.html",
+  "type": "data",
+  "arguments": [
+    {
+      "key": "ip_address",
+      "description": "- (Optional, string) IP address of the Floating IP."
+    },
+    {
+      "key": "selector",
+      "description": "- (Optional, string)"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "modul": "hcloud",
+  "name": "image",
+  "url": "https://www.terraform.io/docs/providers/hcloud/d/image.html",
+  "type": "data",
+  "arguments": [
+    {
+      "key": "id",
+      "description": "- (Optional, string) ID of the Image."
+    },
+    {
+      "key": "name",
+      "description": "- (Optional, string) Name of the Image."
+    },
+    {
+      "key": "selector",
+      "description": "- (Optional, string)"
+    },
+    {
+      "key": "most_recent",
+      "description": "- (Optional, bool) If more than one result is returned, use the most recent Image."
+    }
+  ]
+}

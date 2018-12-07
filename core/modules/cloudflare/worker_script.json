@@ -1,0 +1,20 @@
+{
+  "modul": "cloudflare",
+  "name": "worker_script",
+  "url": "https://www.terraform.io/docs/providers/cloudflare/r/worker_script.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "zone",
+      "description": "- (Required for single-script accounts) The zone for the script."
+    },
+    {
+      "key": "name",
+      "description": "- (Required for multi-script accounts) The name for the script."
+    },
+    {
+      "key": "content",
+      "description": "- (Required) The script content."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "modul": "cloudflare",
+  "name": "worker_route",
+  "url": "https://www.terraform.io/docs/providers/cloudflare/r/worker_route.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "zone",
+      "description": "- (Required) The zone to add the route to."
+    },
+    {
+      "key": "pattern",
+      "description": "- (Required) The"
+    },
+    {
+      "key": "enabled",
+      "description": "(For single-script accounts only) Whether to run the worker script for requests that match the route pattern. Default is"
+    },
+    {
+      "key": "script_name",
+      "description": "(For multi-script accounts only) Which worker script to run for requests that match the route pattern. If is empty, workers will be skipped for matching requests."
+    }
+  ]
+}

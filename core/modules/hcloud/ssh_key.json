@@ -1,0 +1,24 @@
+{
+  "modul": "hcloud",
+  "name": "ssh_key",
+  "url": "https://www.terraform.io/docs/providers/hcloud/d/ssh_key.html",
+  "type": "data",
+  "arguments": [
+    {
+      "key": "id",
+      "description": "- (Optional, string) ID of the SSH Key."
+    },
+    {
+      "key": "name",
+      "description": "- (Optional, string) Name of the SSH Key."
+    },
+    {
+      "key": "fingerprint",
+      "description": "- (Optional, string) Fingerprint of the SSH Key."
+    },
+    {
+      "key": "selector",
+      "description": "- (Optional, string)"
+    }
+  ]
+}

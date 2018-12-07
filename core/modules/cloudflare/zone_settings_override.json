@@ -1,0 +1,16 @@
+{
+  "modul": "cloudflare",
+  "name": "zone_settings_override",
+  "url": "https://www.terraform.io/docs/providers/cloudflare/r/zone_settings_override.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "name",
+      "description": "- (Required) The DNS zone to which apply settings."
+    },
+    {
+      "key": "settings",
+      "description": "- (Optional) Settings overrides that will be applied to the zone. If a setting is not specified the existing setting will be used. For a full list of available settings see below."
+    }
+  ]
+}

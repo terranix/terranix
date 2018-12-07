@@ -1,0 +1,24 @@
+{
+  "modul": "hcloud",
+  "name": "rdns",
+  "url": "https://www.terraform.io/docs/providers/hcloud/r/rdns.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "dns_ptr",
+      "description": "- (Required, string) The DNS address the should resolve to."
+    },
+    {
+      "key": "ip_address",
+      "description": "- (Required, string) The IP address that should point to ."
+    },
+    {
+      "key": "server_id",
+      "description": "- (Required, int) The server the belongs to."
+    },
+    {
+      "key": "floating_ip_id",
+      "description": "- (Required, int) The Floating IP the belongs to."
+    }
+  ]
+}

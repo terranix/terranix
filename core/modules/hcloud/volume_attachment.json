@@ -1,0 +1,16 @@
+{
+  "modul": "hcloud",
+  "name": "volume_attachment",
+  "url": "https://www.terraform.io/docs/providers/hcloud/r/volume_attachment.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "volume_id",
+      "description": "- (Required, int) ID of the Volume."
+    },
+    {
+      "key": "server_id",
+      "description": "- (Required, int) Server to attach the Volume to."
+    }
+  ]
+}
