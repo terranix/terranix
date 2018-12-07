@@ -1,1 +1,196 @@
 
+{
+  "url": "https://www.terraform.io/docs/providers/hcloud/r/server.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "name": "- (Required, string) Name of the server to create (must be unique per project and a valid hostname as per RFC 1123)."
+    },
+    {
+      "server_type": "- (Required, string) Name of the server type this server should be created with."
+    },
+    {
+      "image": "- (Required, string) Name or ID of the image the server is created from."
+    },
+    {
+      "location": "- (Optional, string) The location name to create the server in. , or"
+    },
+    {
+      "datacenter": "- (Optional, string) The datacenter name to create the server in."
+    },
+    {
+      "user_data": "- (Optional, string) Cloud-Init user data to use during server creation"
+    },
+    {
+      "ssh_keys": "- (Optional, list) SSH key IDs or names which should be injected into the server at creation time"
+    },
+    {
+      "keep_disk": "- (Optional, bool) If true, do not upgrade the disk. This allows downgrading the server type later."
+    },
+    {
+      "iso": "- (Optional, string) Name of an ISO image to mount."
+    },
+    {
+      "rescue": "- (Optional, string) Enable and boot in to the specified rescue system. This enables simple installation of custom operating systems. or"
+    },
+    {
+      "labels": "- (Optional, map) User-defined labels (key-value pairs) should be created with."
+    },
+    {
+      "backups": "- (Optional, boolean) Enable or disable backups."
+    }
+  ]
+}
+{
+  "url": "https://www.terraform.io/docs/providers/hcloud/r/volume.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "name": "- (Required, string) Name of the volume to create (must be unique per project)."
+    },
+    {
+      "size": "- (Required, int) Size of the volume (in GB)."
+    },
+    {
+      "server": "- (Optional, int) Server to attach the Volume to, optional if location argument is passed."
+    },
+    {
+      "location": "- (Optional, string) Location of the volume to create, optional if server_id argument is passed."
+    }
+  ]
+}
+{
+  "url": "https://www.terraform.io/docs/providers/hcloud/r/volume_attachment.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "volume_id": "- (Required, int) ID of the Volume."
+    },
+    {
+      "server_id": "- (Required, int) Server to attach the Volume to."
+    }
+  ]
+}
+{
+  "url": "https://www.terraform.io/docs/providers/hcloud/r/ssh_key.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "name": "- (Required, string) Name of the SSH key."
+    },
+    {
+      "public_key": "- (Required, string) The public key. If this is a file, it can be read using the file interpolation function"
+    }
+  ]
+}
+{
+  "url": "https://www.terraform.io/docs/providers/hcloud/r/floating_ip.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "type": "- (Required, string) Type of the Floating IP."
+    },
+    {
+      "server_id": "- (Optional, int) Server to assign the Floating IP to."
+    },
+    {
+      "home_location": "- (Optional, string) Home location (routing is optimized for that location). Optional if server_id argument is passed."
+    },
+    {
+      "description": "- (Optional, string) Description of the Floating IP."
+    }
+  ]
+}
+{
+  "url": "https://www.terraform.io/docs/providers/hcloud/r/floating_ip_assignment.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "floating_ip_id": "- (Required, int) ID of the Floating IP."
+    },
+    {
+      "server_id": "- (Required, int) Server to assign the Floating IP to."
+    }
+  ]
+}
+{
+  "url": "https://www.terraform.io/docs/providers/hcloud/r/rdns.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "dns_ptr": "- (Required, string) The DNS address the should resolve to."
+    },
+    {
+      "ip_address": "- (Required, string) The IP address that should point to ."
+    },
+    {
+      "server_id": "- (Required, int) The server the belongs to."
+    },
+    {
+      "floating_ip_id": "- (Required, int) The Floating IP the belongs to."
+    }
+  ]
+}
+{
+  "url": "https://www.terraform.io/docs/providers/hcloud/d/floating_ip.html",
+  "type": "data",
+  "arguments": [
+    {
+      "ip_address": "- (Optional, string) IP address of the Floating IP."
+    },
+    {
+      "selector": "- (Optional, string)"
+    }
+  ]
+}
+{
+  "url": "https://www.terraform.io/docs/providers/hcloud/d/image.html",
+  "type": "data",
+  "arguments": [
+    {
+      "id": "- (Optional, string) ID of the Image."
+    },
+    {
+      "name": "- (Optional, string) Name of the Image."
+    },
+    {
+      "selector": "- (Optional, string)"
+    },
+    {
+      "most_recent": "- (Optional, bool) If more than one result is returned, use the most recent Image."
+    }
+  ]
+}
+{
+  "url": "https://www.terraform.io/docs/providers/hcloud/d/ssh_key.html",
+  "type": "data",
+  "arguments": [
+    {
+      "id": "- (Optional, string) ID of the SSH Key."
+    },
+    {
+      "name": "- (Optional, string) Name of the SSH Key."
+    },
+    {
+      "fingerprint": "- (Optional, string) Fingerprint of the SSH Key."
+    },
+    {
+      "selector": "- (Optional, string)"
+    }
+  ]
+}
+{
+  "url": "https://www.terraform.io/docs/providers/hcloud/d/volume.html",
+  "type": "data",
+  "arguments": [
+    {
+      "id": "- ID of the volume."
+    },
+    {
+      "name": "- Name of the volume."
+    },
+    {
+      "selector": "- Label Selector. For more information about possible values, visit the ."
+    }
+  ]
+}
