@@ -4,6 +4,7 @@
 
 let
 
+
   crawlerPart = path: modul: input: /* sh */ ''
     URL="${input.url}"
     file_name_html=${"$"}{URL##https://*/}
@@ -12,7 +13,9 @@ let
       ${input.url} \
       | ${pkgs.pup}/bin/pup \
         "${input.pupArgs} json{}" \
-      | jq '.[] | { modul: "${modul}", name: "'$file_name'", url :  "${input.url}", type : "${input.type}", "arguments" : ${input.jqArgs} }' \
+      | jq '.[] | {
+modul: "${modul}", name: "'$file_name'", url : "${input.url}",
+type : "${input.type}", "arguments" : ${input.jqArgs} }' \
       | jq '.' \
       | tee ${path}/$file_name.json
   '';
@@ -26,23 +29,18 @@ let
         ${pkgs.lib.concatStringsSep "\n" commands}
       '';
 
-
   pup_1 = "#argument-reference + p + ul";
   pup_2 = "#argument-reference + ul";
 
   r = "resource";
   d = "data";
 
+  jq_1 = ''[ .children[] | { key: "\( .children[0].name )", description: .text , type : "nullOr string", default : null } ]'';
+  jq_z = ''{ "test": . }'';
+  jq_a = jq_z;
+
   crawler-hcloud =
-  let
-
-    jq_1 = ''[ .children[] | { key: "\( .children[0].name )", description: .text } ]'';
-    jq_z = ''{ "test": . }'';
-    jq_a = jq_z;
-
-  in
     crawler "${toString ./modules/hcloud}" "hcloud" [
-
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/r/server.html" ;}
 { type = r; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/r/volume.html" ;}
 { type = r; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/r/volume_attachment.html" ;}
@@ -54,19 +52,10 @@ let
 { type = d; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/d/image.html" ;}
 { type = d; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/d/ssh_key.html" ;}
 { type = d; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/d/volume.html" ;}
-
       ];
 
   crawler-cloudflare =
-  let
-
-    jq_1 = ''[ .children[] | { key: "\( .children[0].name )", description: .text } ]'';
-    jq_z = ''{ "test": . }'';
-    jq_a = jq_z;
-
-  in
     crawler "${toString ./modules/cloudflare}" "cloudflare" [
-
 { type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/d/ip_ranges.html" ;}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/r/access_application.html" ;}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/r/access_policy.html" ;}
@@ -87,7 +76,6 @@ let
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/r/zone.html" ;}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/r/zone_lockdown.html" ;}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/r/zone_settings_override.html" ;}
-
       ];
 
 in pkgs.mkShell {

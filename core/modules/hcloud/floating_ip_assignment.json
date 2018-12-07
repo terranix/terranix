@@ -6,11 +6,15 @@
   "arguments": [
     {
       "key": "floating_ip_id",
-      "description": "- (Required, int) ID of the Floating IP."
+      "description": "- (Required, int) ID of the Floating IP.",
+      "type": "nullOr string",
+      "default": null
     },
     {
       "key": "server_id",
-      "description": "- (Required, int) Server to assign the Floating IP to."
+      "description": "- (Required, int) Server to assign the Floating IP to.",
+      "type": "nullOr string",
+      "default": null
     }
   ]
 }

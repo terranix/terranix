@@ -6,27 +6,39 @@
   "arguments": [
     {
       "key": "zone",
-      "description": "- The DNS zone to which the lockdown will be added. Will be resolved to upon creation."
+      "description": "- The DNS zone to which the lockdown will be added. Will be resolved to upon creation.",
+      "type": "nullOr string",
+      "default": null
     },
     {
       "key": "zone_id",
-      "description": "- The DNS zone to which the access rule should be added."
+      "description": "- The DNS zone to which the access rule should be added.",
+      "type": "nullOr string",
+      "default": null
     },
     {
       "key": "description",
-      "description": "- (Optional) A description about the lockdown entry. Typically used as a reminder or explanation for the lockdown."
+      "description": "- (Optional) A description about the lockdown entry. Typically used as a reminder or explanation for the lockdown.",
+      "type": "nullOr string",
+      "default": null
     },
     {
       "key": "urls",
-      "description": "- (Required) A list of simple wildcard patterns to match requests against. The order of the urls is unimportant."
+      "description": "- (Required) A list of simple wildcard patterns to match requests against. The order of the urls is unimportant.",
+      "type": "nullOr string",
+      "default": null
     },
     {
       "key": "configurations",
-      "description": "- (Required) A list of IP addresses or IP ranges to match the request against specified in target, value pairs.  It&#39;s a complex value. See description below.   The order of the configuration entries is unimportant."
+      "description": "- (Required) A list of IP addresses or IP ranges to match the request against specified in target, value pairs.  It&#39;s a complex value. See description below.   The order of the configuration entries is unimportant.",
+      "type": "nullOr string",
+      "default": null
     },
     {
       "key": "paused",
-      "description": "- (Optional) Boolean of whether this zone lockdown is currently paused. Default: false."
+      "description": "- (Optional) Boolean of whether this zone lockdown is currently paused. Default: false.",
+      "type": "nullOr string",
+      "default": null
     }
   ]
 }

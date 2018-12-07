@@ -6,15 +6,21 @@
   "arguments": [
     {
       "key": "id",
-      "description": "- ID of the volume."
+      "description": "- ID of the volume.",
+      "type": "nullOr string",
+      "default": null
     },
     {
       "key": "name",
-      "description": "- Name of the volume."
+      "description": "- Name of the volume.",
+      "type": "nullOr string",
+      "default": null
     },
     {
       "key": "selector",
-      "description": "- Label Selector. For more information about possible values, visit the ."
+      "description": "- Label Selector. For more information about possible values, visit the .",
+      "type": "nullOr string",
+      "default": null
     }
   ]
 }

@@ -6,19 +6,27 @@
   "arguments": [
     {
       "key": "id",
-      "description": "- (Optional, string) ID of the Image."
+      "description": "- (Optional, string) ID of the Image.",
+      "type": "nullOr string",
+      "default": null
     },
     {
       "key": "name",
-      "description": "- (Optional, string) Name of the Image."
+      "description": "- (Optional, string) Name of the Image.",
+      "type": "nullOr string",
+      "default": null
     },
     {
       "key": "selector",
-      "description": "- (Optional, string)"
+      "description": "- (Optional, string)",
+      "type": "nullOr string",
+      "default": null
     },
     {
       "key": "most_recent",
-      "description": "- (Optional, bool) If more than one result is returned, use the most recent Image."
+      "description": "- (Optional, bool) If more than one result is returned, use the most recent Image.",
+      "type": "nullOr string",
+      "default": null
     }
   ]
 }

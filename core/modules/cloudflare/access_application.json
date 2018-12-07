@@ -6,19 +6,27 @@
   "arguments": [
     {
       "key": "zone_id",
-      "description": "- (Required) The DNS zone to which the access rule should be added."
+      "description": "- (Required) The DNS zone to which the access rule should be added.",
+      "type": "nullOr string",
+      "default": null
     },
     {
       "key": "name",
-      "description": "- (Required) Friendly name of the Access Application."
+      "description": "- (Required) Friendly name of the Access Application.",
+      "type": "nullOr string",
+      "default": null
     },
     {
       "key": "domain",
-      "description": "- (Required) The complete URL of the asset you wish to put\nCloudflare Access in front of. Can include subdomains or paths. Or both."
+      "description": "- (Required) The complete URL of the asset you wish to put\nCloudflare Access in front of. Can include subdomains or paths. Or both.",
+      "type": "nullOr string",
+      "default": null
     },
     {
       "key": "session_duration",
-      "description": "- (Optional) How often a user will be forced to\nre-authorise. Must be one of , , , , , ."
+      "description": "- (Optional) How often a user will be forced to\nre-authorise. Must be one of , , , , , .",
+      "type": "nullOr string",
+      "default": null
     }
   ]
 }

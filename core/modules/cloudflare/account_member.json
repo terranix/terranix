@@ -6,11 +6,15 @@
   "arguments": [
     {
       "key": "email_address",
-      "description": "- (Required) The email address of the user who you wish to manage. Note: Following creation, this field becomes read only via the API and cannot be updated."
+      "description": "- (Required) The email address of the user who you wish to manage. Note: Following creation, this field becomes read only via the API and cannot be updated.",
+      "type": "nullOr string",
+      "default": null
     },
     {
       "key": "role_ids",
-      "description": "- (Required) Array of account role IDs that you want to assign to a member."
+      "description": "- (Required) Array of account role IDs that you want to assign to a member.",
+      "type": "nullOr string",
+      "default": null
     }
   ]
 }
