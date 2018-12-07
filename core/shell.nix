@@ -4,18 +4,7 @@
 
 let
 
-  # parser for the markdown files
-  # { pupArgs ; jqArgs ; url}
-  #parse-markdown-part = input: ''
-  #  ${pkgs.pandoc}/bin/pandoc \
-  #    --read markdown \
-  #    --write html \
-  #    ${input.url} \
-  #    | ${pkgs.pup}/bin/pup \
-  #      "${input.pupArgs} json{}" \
-  #    | jq '.[] | { url :  "${input.url}", type : "${input.type}", "arguments" : [ .children[] | ${input.jqArgs} ]}'
-  #'';
-  parse-markdown-part = input: ''
+  crawlerPart = input: ''
     ${pkgs.curl}/bin/curl --silent \
       ${input.url} \
       | ${pkgs.pup}/bin/pup \
@@ -23,11 +12,11 @@ let
       | jq '.[] | { url :  "${input.url}", type : "${input.type}", "arguments" : ${input.jqArgs} }'
   '';
 
-  parse-markdown-files = suffix: files:
+  crawler = suffix: files:
     let
-      commands = builtins.map parse-markdown-part files;
+      commands = builtins.map crawlerPart files;
     in
-      pkgs.writeShellScriptBin "api-crawl-${suffix}"
+      pkgs.writeShellScriptBin "crawl-${suffix}"
         (pkgs.lib.concatStringsSep "\n" commands);
 
 
@@ -37,7 +26,7 @@ let
   r = "resource";
   d = "data";
 
-  api-crawler-hcloud =
+  crawler-hcloud =
   let
 
     jq_1 = ''[ .children[] | { "\( .children[0].name )": .text } ]'';
@@ -45,7 +34,7 @@ let
     jq_a = jq_z;
 
   in
-    parse-markdown-files "hcloud" [
+    crawler "hcloud" [
 
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/r/server.html" ;}
 { type = r; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/r/volume.html" ;}
@@ -68,7 +57,7 @@ in pkgs.mkShell {
   buildInputs = with pkgs; [
     pup
     pandoc
-    api-crawler-hcloud
+    crawler-hcloud
   ];
 
   # run this on start
