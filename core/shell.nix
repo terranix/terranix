@@ -41,7 +41,7 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
   jq_z = ''{ "test": . }'';
   jq_a = jq_z;
 
-  crawler-hcloud =
+  crawlerHcloud =
     crawler "${toString ./modules/hcloud}" "hcloud" [
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/r/server.html" ;}
 { type = r; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/r/volume.html" ;}
@@ -56,7 +56,7 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
 { type = d; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/d/volume.html" ;}
       ];
 
-  crawler-cloudflare =
+  crawlerCloudflare =
     crawler "${toString ./modules/cloudflare}" "cloudflare" [
 # { type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/d/ip_ranges.html" ;}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/r/access_application.html" ;}
@@ -145,9 +145,33 @@ EOF
       done
       '';
   in
-    pkgs.writeShellScriptBin "render-moduls" /* sh */ ''
+    pkgs.writeShellScriptBin "render-modules" /* sh */ ''
       ${createNixModules}
       ${createDefaultNix}
+    '';
+
+  createManpages =
+  let
+    markdownFile = toString ./manpage.md;
+    manpage = toString ./manpage.man.1;
+  in
+    pkgs.writeShellScriptBin "render-manpages" /* sh */ ''
+      echo "" > ${markdownFile}
+      for file in `find ${moduleFolder} -mindepth 2 -maxdepth 2 -type f | grep -e "json\$"`
+      do
+        cat $file | jq --raw-output '"
+      # \(.type).\(.modul)_\(.name)
+        This is a test
+      "' >> ${markdownFile}
+      done
+
+      cat <( echo "% TerraNix" && \
+        echo "% Ingolf Wagner" && \
+        echo "% $( date +%Y-%m-%d )" && \
+        cat ${markdownFile} ) \
+        | ${pkgs.pandoc}/bin/pandoc - -s -t man \
+        > ${manpage}
+      rm ${markdownFile}
     '';
 
 in pkgs.mkShell {
@@ -157,9 +181,11 @@ in pkgs.mkShell {
   buildInputs = with pkgs; [
     pup
     pandoc
-    crawler-hcloud
-    crawler-cloudflare
+    jq
+    crawlerHcloud
+    crawlerCloudflare
     moduleCreator
+    createManpages
   ];
 
   # run this on start
