@@ -160,8 +160,28 @@ EOF
       for file in `find ${moduleFolder} -mindepth 2 -maxdepth 2 -type f | grep -e "json\$"`
       do
         cat $file | jq --raw-output '"
-      # \(.type).\(.modul)_\(.name)
-        This is a test
+      # \(.type).\(.modul).\(.name)
+
+      Module definition for equivalent HCL commands of
+
+      ```\(.type) \"\(.modul)_\(.name)\" \"name\" {}```
+
+      Documentation : \(.url)
+
+      \( . as $main | [ $main.arguments[] |
+        "
+      # \( $main.type ).\( $main.modul).\( $main.name ).\"\\<name\\>\".\( .key )
+      ### Type
+      \( .type )
+
+      ### Description
+      \( .description )
+
+      \( if .default != null then "
+      ### Default
+      \( .default )" else "" end )
+      "] | join ("\n")
+      )
       "' >> ${markdownFile}
       done
 
