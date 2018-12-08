@@ -8,13 +8,13 @@ with types;
   options.cloudflare.resource.load_balancer = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule {
+    type = with types; attrsOf ( submodule ( { name, ... }: {
       options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
         type = with types; string;
-        default = "cloudflare.load_balancer";
+        default = "cloudflare_load_balancer.${name}";
         description = "";
       };
 
@@ -84,7 +84,7 @@ with types;
         default = null;
         description = "- (Optional) Associates all requests coming from an end-user with a single origin. Cloudflare will set a cookie on the initial response to the client, such that consequent requests with the cookie in the request will go to the same origin, so long as it is available.";
       };
-    }; });
+    }; }));
   };
 
   config = mkIf config.cloudflare.enable {

@@ -8,13 +8,13 @@ with types;
   options.cloudflare.resource.worker_route = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule {
+    type = with types; attrsOf ( submodule ( { name, ... }: {
       options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
         type = with types; string;
-        default = "cloudflare.worker_route";
+        default = "cloudflare_worker_route.${name}";
         description = "";
       };
 
@@ -42,7 +42,7 @@ with types;
         default = null;
         description = "(For multi-script accounts only) Which worker script to run for requests that match the route pattern. If is empty, workers will be skipped for matching requests.";
       };
-    }; });
+    }; }));
   };
 
   config = mkIf config.cloudflare.enable {

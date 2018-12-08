@@ -8,13 +8,13 @@ with types;
   options.cloudflare.resource.record = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule {
+    type = with types; attrsOf ( submodule ( { name, ... }: {
       options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
         type = with types; string;
-        default = "cloudflare.record";
+        default = "cloudflare_record.${name}";
         description = "";
       };
 
@@ -66,7 +66,7 @@ with types;
         default = null;
         description = "- (Optional) Whether the record gets Cloudflare&#39;s origin protection; defaults to .";
       };
-    }; });
+    }; }));
   };
 
   config = mkIf config.cloudflare.enable {

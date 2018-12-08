@@ -8,13 +8,13 @@ with types;
   options.hcloud.data.volume = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule {
+    type = with types; attrsOf ( submodule ( { name, ... }: {
       options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
         type = with types; string;
-        default = "data.hcloud.volume";
+        default = "data.hcloud_volume.${name}";
         description = "";
       };
 
@@ -36,7 +36,7 @@ with types;
         default = null;
         description = "- Label Selector. For more information about possible values, visit the .";
       };
-    }; });
+    }; }));
   };
 
   config = mkIf config.hcloud.enable {

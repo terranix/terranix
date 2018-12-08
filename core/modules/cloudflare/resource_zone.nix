@@ -8,13 +8,13 @@ with types;
   options.cloudflare.resource.zone = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule {
+    type = with types; attrsOf ( submodule ( { name, ... }: {
       options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
         type = with types; string;
-        default = "cloudflare.zone";
+        default = "cloudflare_zone.${name}";
         description = "";
       };
 
@@ -36,7 +36,7 @@ with types;
         default = null;
         description = "- (Optional) Boolean of whether to scan for DNS records on creation. Ignored after zone is created. Default: false.";
       };
-    }; });
+    }; }));
   };
 
   config = mkIf config.cloudflare.enable {

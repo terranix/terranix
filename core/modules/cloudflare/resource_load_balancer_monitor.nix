@@ -8,13 +8,13 @@ with types;
   options.cloudflare.resource.load_balancer_monitor = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule {
+    type = with types; attrsOf ( submodule ( { name, ... }: {
       options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
         type = with types; string;
-        default = "cloudflare.load_balancer_monitor";
+        default = "cloudflare_load_balancer_monitor.${name}";
         description = "";
       };
 
@@ -78,7 +78,7 @@ with types;
         default = null;
         description = "- (Optional) Free text description.";
       };
-    }; });
+    }; }));
   };
 
   config = mkIf config.cloudflare.enable {

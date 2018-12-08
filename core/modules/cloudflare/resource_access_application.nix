@@ -8,13 +8,13 @@ with types;
   options.cloudflare.resource.access_application = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule {
+    type = with types; attrsOf ( submodule ( { name, ... }: {
       options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
         type = with types; string;
-        default = "cloudflare.access_application";
+        default = "cloudflare_access_application.${name}";
         description = "";
       };
 
@@ -44,7 +44,7 @@ Cloudflare Access in front of. Can include subdomains or paths. Or both.";
         description = "- (Optional) How often a user will be forced to
 re-authorise. Must be one of , , , , , .";
       };
-    }; });
+    }; }));
   };
 
   config = mkIf config.cloudflare.enable {

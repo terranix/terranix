@@ -8,13 +8,13 @@ with types;
   options.cloudflare.resource.worker_script = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule {
+    type = with types; attrsOf ( submodule ( { name, ... }: {
       options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
         type = with types; string;
-        default = "cloudflare.worker_script";
+        default = "cloudflare_worker_script.${name}";
         description = "";
       };
 
@@ -36,7 +36,7 @@ with types;
         default = null;
         description = "- (Required) The script content.";
       };
-    }; });
+    }; }));
   };
 
   config = mkIf config.cloudflare.enable {

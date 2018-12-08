@@ -34,7 +34,7 @@ in {
       name = "${config.hcloud.resource.server.nginx.name}-volume";
       size = 1;
       # server = get "id" config.hcloud.resource.server.nginx;
-      location = "de";
+      location = get "id" config.hcloud.resource.server.nginx;
     };
   };
 };

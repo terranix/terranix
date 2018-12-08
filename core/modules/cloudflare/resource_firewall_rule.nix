@@ -8,13 +8,13 @@ with types;
   options.cloudflare.resource.firewall_rule = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule {
+    type = with types; attrsOf ( submodule ( { name, ... }: {
       options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
         type = with types; string;
-        default = "cloudflare.firewall_rule";
+        default = "cloudflare_firewall_rule.${name}";
         description = "";
       };
 
@@ -60,7 +60,7 @@ with types;
         default = null;
         description = "- (Optional) A description of the rule to help identify it.";
       };
-    }; });
+    }; }));
   };
 
   config = mkIf config.cloudflare.enable {

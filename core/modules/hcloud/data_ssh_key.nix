@@ -8,13 +8,13 @@ with types;
   options.hcloud.data.ssh_key = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule {
+    type = with types; attrsOf ( submodule ( { name, ... }: {
       options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
         type = with types; string;
-        default = "data.hcloud.ssh_key";
+        default = "data.hcloud_ssh_key.${name}";
         description = "";
       };
 
@@ -42,7 +42,7 @@ with types;
         default = null;
         description = "- (Optional, string)";
       };
-    }; });
+    }; }));
   };
 
   config = mkIf config.hcloud.enable {

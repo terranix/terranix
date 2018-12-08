@@ -8,13 +8,13 @@ with types;
   options.hcloud.resource.ssh_key = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule {
+    type = with types; attrsOf ( submodule ( { name, ... }: {
       options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
         type = with types; string;
-        default = "hcloud.ssh_key";
+        default = "hcloud_ssh_key.${name}";
         description = "";
       };
 
@@ -30,7 +30,7 @@ with types;
         default = null;
         description = "- (Required, string) The public key. If this is a file, it can be read using the file interpolation function";
       };
-    }; });
+    }; }));
   };
 
   config = mkIf config.hcloud.enable {

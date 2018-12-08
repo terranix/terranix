@@ -8,13 +8,13 @@ with types;
   options.cloudflare.resource.access_policy = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule {
+    type = with types; attrsOf ( submodule ( { name, ... }: {
       options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
         type = with types; string;
-        default = "cloudflare.access_policy";
+        default = "cloudflare_access_policy.${name}";
         description = "";
       };
 
@@ -72,7 +72,7 @@ full list.";
         description = "- (Required) A series of access conditions, see below for
 full list.";
       };
-    }; });
+    }; }));
   };
 
   config = mkIf config.cloudflare.enable {

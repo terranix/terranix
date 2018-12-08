@@ -8,13 +8,13 @@ with types;
   options.hcloud.data.image = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule {
+    type = with types; attrsOf ( submodule ( { name, ... }: {
       options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
         type = with types; string;
-        default = "data.hcloud.image";
+        default = "data.hcloud_image.${name}";
         description = "";
       };
 
@@ -42,7 +42,7 @@ with types;
         default = null;
         description = "- (Optional, bool) If more than one result is returned, use the most recent Image.";
       };
-    }; });
+    }; }));
   };
 
   config = mkIf config.hcloud.enable {

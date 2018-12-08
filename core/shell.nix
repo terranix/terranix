@@ -115,13 +115,13 @@ EOF
         options.\(.modul).\(.type).\(.name) = mkOption {
           default = {};
           description = \"\";
-          type = with types; attrsOf ( submodule {
+          type = with types; attrsOf ( submodule ( { name, ... }: {
             options = {
             # internal object that should not be overwritten.
             # used to generate references
             \"_ref\" = mkOption {
               type = with types; string;
-              default = \"\( if .type == "data" then "data." else "" end )\( .modul ).\( .name )\";
+              default = \"\( if .type == "data" then "data." else "" end )\( .modul )_\( .name ).${"$"}{name}\";
               description = \"\";
             };
 
@@ -133,7 +133,7 @@ EOF
               description = \"\( .description )\";
             };"
       ) | join("\n") )
-          }; });
+          }; }));
         };
 
         config = mkIf config.\(.modul).enable {

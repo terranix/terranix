@@ -8,13 +8,13 @@ with types;
   options.hcloud.resource.floating_ip_assignment = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule {
+    type = with types; attrsOf ( submodule ( { name, ... }: {
       options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
         type = with types; string;
-        default = "hcloud.floating_ip_assignment";
+        default = "hcloud_floating_ip_assignment.${name}";
         description = "";
       };
 
@@ -30,7 +30,7 @@ with types;
         default = null;
         description = "- (Required, int) Server to assign the Floating IP to.";
       };
-    }; });
+    }; }));
   };
 
   config = mkIf config.hcloud.enable {
