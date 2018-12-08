@@ -9,36 +9,21 @@ let
 
 in {
 
-  cloudflare = {
-    enable = false;
-    # provider.email = "test@google.com";
-    # provider.token = "hallo";
-  };
-
 
   hcloud = {
     enable = true;
 
-    # provider.token = "hallo";
-
     resource = {
 
     server.nginx = {
-      name = "main_nginx";
+      name = "mein.nginx";
       image  = "debian-9";
-      server_type = "c11";
+      server_type = "cx11";
       backups = false;
     };
 
-    volume.test = {
-      name = "${config.hcloud.resource.server.nginx.name}-volume";
-      size = 1;
-      # server = get "id" config.hcloud.resource.server.nginx;
-      location = get "id" config.hcloud.resource.server.nginx;
-    };
   };
 };
 
-  #resource.this.is.a.simple.test = "yeah";
 
 }
