@@ -84,8 +84,8 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
 for file in `find ${toString ./.}/modules -mindepth 2 -maxdepth 2 -type f | grep -e "json\$"`
 do
 cat $file | jq --raw-output '. | "
-# automatically generated, you should change the json file instead
-# changing this file
+# automatically generated, you should change \(.type)_\(.name).json instead
+# documentation : \(.url)
 { config, lib, ... }:
 with lib;
 with types;
@@ -104,7 +104,8 @@ with types;
       };
 
 \( .arguments | map(
-"     \( .key ) = mkOption {
+"      # automatically generated, change the json file instead
+      \( .key ) = mkOption {
         type = \(.type);
         default = \( .default );
         description = \"\( .description )\";
