@@ -4,6 +4,8 @@
 
 let
 
+  # folder where everything takes place
+  moduleFolder = toString ./modules;
 
   crawlerPart = path: modul: input: /* sh */ ''
     URL="${input.url}"
@@ -80,48 +82,75 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
 
 # todo sanitize the descriptions
 
-  moduleCreator = pkgs.writeShellScriptBin "render-moduls" /* sh */ ''
-for file in `find ${toString ./.}/modules -mindepth 2 -maxdepth 2 -type f | grep -e "json\$"`
+  moduleCreator =
+  let
+    defaultNix = "${moduleFolder}/default.nix";
+    createDefaultNix = /* sh */ ''
+cat > ${defaultNix} <<EOF
+  { config, lib, ... }:
+  {
+  imports = [
+
+EOF
+for nix_file in `find ${moduleFolder} -mindepth 2 -maxdepth 2 -type f | grep -e "nix\$"`
 do
-cat $file | jq --raw-output '. | "
-# automatically generated, you should change \(.type)_\(.name).json instead
-# documentation : \(.url)
-{ config, lib, ... }:
-with lib;
-with types;
-{
-  options.\(.modul).\(.type).\(.name) = mkOption {
-    default = {};
-    description = \"\";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
-      # internal object that should not be overwritten.
-      # used to generate references
-      \"_ref\" = mkOption {
-        type = with types; string;
-        default = \"\( if .type == "data" then "data." else "" end )\( .modul ).\( .name )\";
-        description = \"\";
-      };
-
-\( .arguments | map(
-"      # automatically generated, change the json file instead
-      \( .key ) = mkOption {
-        type = \(.type);
-        default = \( .default );
-        description = \"\( .description )\";
-      };"
-) | join("\n") )
-    }));
-  };
-
-  config = mkIf config.\(.modul).enable {
-    \(.type).\(.modul) = config.\(.modul).\(.type).\(.name);
-  };
-
- }
-"'
+  echo $nix_file >> ${defaultNix}
 done
-'';
+cat >> ${defaultNix} <<EOF
+
+  ];
+  }
+EOF
+    '';
+
+    createNixModules = /* sh */ ''
+      for file in `find ${moduleFolder} -mindepth 2 -maxdepth 2 -type f | grep -e "json\$"`
+      do
+      output_file=`dirname $file`/`basename $file .json`.nix
+      cat $file | jq --raw-output '. | "
+      # automatically generated, you should change \(.type)_\(.name).json instead
+      # documentation : \(.url)
+      { config, lib, ... }:
+      with lib;
+      with types;
+      {
+        options.\(.modul).\(.type).\(.name) = mkOption {
+          default = {};
+          description = \"\";
+          type = with types; attrsOf ( submodule ({ name, ... }: {
+
+            # internal object that should not be overwritten.
+            # used to generate references
+            \"_ref\" = mkOption {
+              type = with types; string;
+              default = \"\( if .type == "data" then "data." else "" end )\( .modul ).\( .name )\";
+              description = \"\";
+            };
+
+      \( .arguments | map(
+      "      # automatically generated, change the json file instead
+            \( .key ) = mkOption {
+              type = \(.type);
+              default = \( .default );
+              description = \"\( .description )\";
+            };"
+      ) | join("\n") )
+          }));
+        };
+
+        config = mkIf config.\(.modul).enable {
+          \(.type).\(.modul) = config.\(.modul).\(.type).\(.name);
+        };
+
+      }
+      "' > $output_file
+      done
+      '';
+  in
+    pkgs.writeShellScriptBin "render-moduls" /* sh */ ''
+      ${createNixModules}
+      ${createDefaultNix}
+    '';
 
 in pkgs.mkShell {
 
