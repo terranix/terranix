@@ -156,30 +156,61 @@ EOF
     manpage = toString ./manpage.man.1;
   in
     pkgs.writeShellScriptBin "render-manpages" /* sh */ ''
-      echo "" > ${markdownFile}
+      cat > ${markdownFile} <<EOF
+      # Description
+
+      These are all supported terraform providers (for now).
+      The type might not be correct, this is because parsing the types is
+      very difficult at the moment and must be done semi automatic.
+
+      You can always create a resource like this
+
+      \`\`\`
+      resource."<provider_module>"."<name>" = {
+        key = value;
+      };
+      \`\`\`
+
+      this is equivalent to HCL syntax for
+
+      \`\`\`
+      resource "<provider_module>" "<name>" {
+        key = value
+      }
+      \`\`\`
+
+      # Options
+      EOF
       for file in `find ${moduleFolder} -mindepth 2 -maxdepth 2 -type f | grep -e "json\$"`
       do
         cat $file | jq --raw-output '"
-      # \(.type).\(.modul).\(.name)
+      ## \(.type).\(.modul).\(.name)
 
       Module definition for equivalent HCL commands of
 
-      ```\(.type) \"\(.modul)_\(.name)\" \"name\" {}```
+      ```
+      \(.type) \"\(.modul)_\(.name)\" \"name\" {}
+      ```
 
       Documentation : \(.url)
 
       \( . as $main | [ $main.arguments[] |
         "
-      # \( $main.type ).\( $main.modul).\( $main.name ).\"\\<name\\>\".\( .key )
-      ### Type
+      ## \( $main.type ).\( $main.modul).\( $main.name ).\"\\<name\\>\".\( .key )
+
+      *Type*
+
       \( .type )
 
-      ### Description
+      \( if .default != null then "
+      *Default*
+
+      \( .default )" else "" end )
+
+      *Description*
+
       \( .description )
 
-      \( if .default != null then "
-      ### Default
-      \( .default )" else "" end )
       "] | join ("\n")
       )
       "' >> ${markdownFile}
