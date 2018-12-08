@@ -8,8 +8,8 @@ with types;
   options.cloudflare.resource.zone_lockdown = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
+    type = with types; attrsOf ( submodule {
+      options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
@@ -54,7 +54,7 @@ with types;
         default = null;
         description = "- (Optional) Boolean of whether this zone lockdown is currently paused. Default: false.";
       };
-    }));
+    }; });
   };
 
   config = mkIf config.cloudflare.enable {

@@ -11,7 +11,7 @@ let
   '';
 
 
-  terraform-current = pkgs.terraform.overrideAttrs( old: rec {
+  terraformCurrent = pkgs.terraform.overrideAttrs( old: rec {
     version = "0.11.10";
     name = "terraform-${version}";
     src = pkgs.fetchFromGitHub {
@@ -28,7 +28,8 @@ in pkgs.mkShell {
   # -----------
   buildInputs = with pkgs; [
     nixform
-    terraform-current
+    #terraformCurrent
+    terraform
     pup
     pandoc
   ];

@@ -30,6 +30,7 @@ in {
             imports = [
               ./coreOptions.nix
               ./modules
+              ./provider
             ];
           }
           configuration
@@ -43,6 +44,7 @@ in {
       provider = result.provider;
       variable = result.variable;
       resource = result.resource;
+      data = result.data;
       output = result.output;
     };
 }

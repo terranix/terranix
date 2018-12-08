@@ -8,8 +8,8 @@ with types;
   options.hcloud.resource.floating_ip = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
+    type = with types; attrsOf ( submodule {
+      options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
@@ -42,7 +42,7 @@ with types;
         default = null;
         description = "- (Optional, string) Description of the Floating IP.";
       };
-    }));
+    }; });
   };
 
   config = mkIf config.hcloud.enable {

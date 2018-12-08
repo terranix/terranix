@@ -8,8 +8,8 @@ with types;
   options.cloudflare.resource.account_member = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
+    type = with types; attrsOf ( submodule {
+      options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
@@ -30,7 +30,7 @@ with types;
         default = null;
         description = "- (Required) Array of account role IDs that you want to assign to a member.";
       };
-    }));
+    }; });
   };
 
   config = mkIf config.cloudflare.enable {

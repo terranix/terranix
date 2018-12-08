@@ -8,8 +8,8 @@ with types;
   options.hcloud.resource.server = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
+    type = with types; attrsOf ( submodule {
+      options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
@@ -90,7 +90,7 @@ with types;
         default = null;
         description = "- (Optional, boolean) Enable or disable backups.";
       };
-    }));
+    }; });
   };
 
   config = mkIf config.hcloud.enable {

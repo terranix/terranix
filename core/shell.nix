@@ -58,7 +58,7 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
 
   crawler-cloudflare =
     crawler "${toString ./modules/cloudflare}" "cloudflare" [
-{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/d/ip_ranges.html" ;}
+# { type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/d/ip_ranges.html" ;}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/r/access_application.html" ;}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/r/access_policy.html" ;}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/r/access_rule.html" ;}
@@ -115,8 +115,8 @@ EOF
         options.\(.modul).\(.type).\(.name) = mkOption {
           default = {};
           description = \"\";
-          type = with types; attrsOf ( submodule ({ name, ... }: {
-
+          type = with types; attrsOf ( submodule {
+            options = {
             # internal object that should not be overwritten.
             # used to generate references
             \"_ref\" = mkOption {
@@ -133,7 +133,7 @@ EOF
               description = \"\( .description )\";
             };"
       ) | join("\n") )
-          }));
+          }; });
         };
 
         config = mkIf config.\(.modul).enable {

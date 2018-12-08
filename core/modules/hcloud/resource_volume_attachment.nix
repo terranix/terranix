@@ -8,8 +8,8 @@ with types;
   options.hcloud.resource.volume_attachment = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
+    type = with types; attrsOf ( submodule {
+      options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
@@ -30,7 +30,7 @@ with types;
         default = null;
         description = "- (Required, int) Server to attach the Volume to.";
       };
-    }));
+    }; });
   };
 
   config = mkIf config.hcloud.enable {

@@ -8,8 +8,8 @@ with types;
   options.cloudflare.resource.load_balancer_pool = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
+    type = with types; attrsOf ( submodule {
+      options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
@@ -66,7 +66,7 @@ with types;
         default = null;
         description = "- (Optional) The email address to send health status notifications to. This can be an individual mailbox or a mailing list.";
       };
-    }));
+    }; });
   };
 
   config = mkIf config.cloudflare.enable {

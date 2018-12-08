@@ -8,8 +8,8 @@ with types;
   options.cloudflare.resource.waf_rule = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
+    type = with types; attrsOf ( submodule {
+      options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
@@ -36,7 +36,7 @@ with types;
         default = null;
         description = "- (Required) The mode of the rule, can be one of [&#34;block&#34;, &#34;challenge&#34;, &#34;default&#34;, &#34;disable, &#34;simulate&#34;].";
       };
-    }));
+    }; });
   };
 
   config = mkIf config.cloudflare.enable {

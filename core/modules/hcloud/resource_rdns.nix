@@ -8,8 +8,8 @@ with types;
   options.hcloud.resource.rdns = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
+    type = with types; attrsOf ( submodule {
+      options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
@@ -42,7 +42,7 @@ with types;
         default = null;
         description = "- (Required, int) The Floating IP the belongs to.";
       };
-    }));
+    }; });
   };
 
   config = mkIf config.hcloud.enable {

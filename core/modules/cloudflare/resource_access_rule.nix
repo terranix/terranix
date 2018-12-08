@@ -8,8 +8,8 @@ with types;
   options.cloudflare.resource.access_rule = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
+    type = with types; attrsOf ( submodule {
+      options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
@@ -48,7 +48,7 @@ with types;
         default = null;
         description = "- (Required) Rule configuration to apply to a matched request. It&#39;s a complex value. See description below.";
       };
-    }));
+    }; });
   };
 
   config = mkIf config.cloudflare.enable {

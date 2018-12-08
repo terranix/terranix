@@ -8,8 +8,8 @@ with types;
   options.cloudflare.resource.rate_limit = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
+    type = with types; attrsOf ( submodule {
+      options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
@@ -72,7 +72,7 @@ with types;
         default = null;
         description = "- (Optional) Determines how rate limiting is applied. By default if not specified, rate limiting applies to the clients IP address.";
       };
-    }));
+    }; });
   };
 
   config = mkIf config.cloudflare.enable {

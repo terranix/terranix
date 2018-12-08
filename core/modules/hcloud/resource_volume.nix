@@ -8,8 +8,8 @@ with types;
   options.hcloud.resource.volume = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
+    type = with types; attrsOf ( submodule {
+      options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
@@ -42,7 +42,7 @@ with types;
         default = null;
         description = "- (Optional, string) Location of the volume to create, optional if server_id argument is passed.";
       };
-    }));
+    }; });
   };
 
   config = mkIf config.hcloud.enable {

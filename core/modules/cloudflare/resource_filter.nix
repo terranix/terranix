@@ -8,8 +8,8 @@ with types;
   options.cloudflare.resource.filter = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
+    type = with types; attrsOf ( submodule {
+      options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
@@ -54,7 +54,7 @@ with types;
         default = null;
         description = "- (Optional) Short reference tag to quickly select related rules.";
       };
-    }));
+    }; });
   };
 
   config = mkIf config.cloudflare.enable {

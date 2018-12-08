@@ -8,8 +8,8 @@ with types;
   options.cloudflare.resource.access_policy = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
+    type = with types; attrsOf ( submodule {
+      options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
@@ -72,7 +72,7 @@ full list.";
         description = "- (Required) A series of access conditions, see below for
 full list.";
       };
-    }));
+    }; });
   };
 
   config = mkIf config.cloudflare.enable {

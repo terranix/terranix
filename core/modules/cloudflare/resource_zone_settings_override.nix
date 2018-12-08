@@ -8,8 +8,8 @@ with types;
   options.cloudflare.resource.zone_settings_override = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
+    type = with types; attrsOf ( submodule {
+      options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
@@ -30,7 +30,7 @@ with types;
         default = null;
         description = "- (Optional) Settings overrides that will be applied to the zone. If a setting is not specified the existing setting will be used. For a full list of available settings see below.";
       };
-    }));
+    }; });
   };
 
   config = mkIf config.cloudflare.enable {

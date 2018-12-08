@@ -8,8 +8,8 @@ with types;
   options.cloudflare.resource.custom_pages = mkOption {
     default = {};
     description = "";
-    type = with types; attrsOf ( submodule ({ name, ... }: {
-
+    type = with types; attrsOf ( submodule {
+      options = {
       # internal object that should not be overwritten.
       # used to generate references
       "_ref" = mkOption {
@@ -52,7 +52,7 @@ be one of , , , , , , , , , .";
         description = "- (Required) Managed state of the custom page. Must be one of , . If the value is it will be removed
 from the Terraform state management.";
       };
-    }));
+    }; });
   };
 
   config = mkIf config.cloudflare.enable {

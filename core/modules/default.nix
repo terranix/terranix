@@ -16,7 +16,6 @@
 ./cloudflare/resource_load_balancer.nix
 ./cloudflare/resource_record.nix
 ./cloudflare/resource_access_policy.nix
-./cloudflare/data_ip_ranges.nix
 ./cloudflare/resource_worker_route.nix
 ./cloudflare/resource_zone_lockdown.nix
 ./cloudflare/resource_page_rule.nix
