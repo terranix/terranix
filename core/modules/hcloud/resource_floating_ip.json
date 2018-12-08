@@ -8,25 +8,25 @@
       "key": "type",
       "description": "- (Required, string) Type of the Floating IP.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     },
     {
       "key": "server_id",
       "description": "- (Optional, int) Server to assign the Floating IP to.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     },
     {
       "key": "home_location",
       "description": "- (Optional, string) Home location (routing is optimized for that location). Optional if server_id argument is passed.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     },
     {
       "key": "description",
       "description": "- (Optional, string) Description of the Floating IP.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     }
   ]
 }

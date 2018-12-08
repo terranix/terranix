@@ -27,7 +27,7 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
       commands = builtins.map (crawlerPart path suffix) files;
     in
       pkgs.writeShellScriptBin "crawl-${suffix}" /* sh */ ''
-        echo "" > ${path}
+        rm ${path}/*.json
         ${pkgs.lib.concatStringsSep "\n" commands}
       '';
 
@@ -37,7 +37,7 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
   r = "resource";
   d = "data";
 
-  jq_1 = ''[ .children[] | { key: "\( .children[0].name )", description: .text , type : "nullOr string", default : null } ]'';
+  jq_1 = ''[ .children[] | { key: "\( .children[0].name )", description: .text , type : "nullOr string", default : "null" } ]'';
   jq_z = ''{ "test": . }'';
   jq_a = jq_z;
 
@@ -129,7 +129,7 @@ EOF
       "      # automatically generated, change the json file instead
             \( .key ) = mkOption {
               type = \(.type);
-              default = \( .default );
+              \( if .default != null then "default = \(.default);" else "" end )
               description = \"\( .description )\";
             };"
       ) | join("\n") )

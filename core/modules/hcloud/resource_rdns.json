@@ -8,25 +8,25 @@
       "key": "dns_ptr",
       "description": "- (Required, string) The DNS address the should resolve to.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     },
     {
       "key": "ip_address",
       "description": "- (Required, string) The IP address that should point to .",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     },
     {
       "key": "server_id",
       "description": "- (Required, int) The server the belongs to.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     },
     {
       "key": "floating_ip_id",
       "description": "- (Required, int) The Floating IP the belongs to.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     }
   ]
 }

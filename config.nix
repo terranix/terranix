@@ -27,14 +27,14 @@ in {
       name = "main_nginx";
       image  = "debian-9";
       server_type = "c11";
-      # backups = false;
+      backups = false;
     };
 
     volume.test = {
       name = "${config.hcloud.resource.server.nginx.name}-volume";
-      # size = 1;
-      # server = get "id" config.hetzner.server.nginx;
-      # location = "de";
+      size = 1;
+      # server = get "id" config.hcloud.resource.server.nginx;
+      location = "de";
     };
   };
 };

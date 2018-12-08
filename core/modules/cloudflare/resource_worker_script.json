@@ -8,19 +8,19 @@
       "key": "zone",
       "description": "- (Required for single-script accounts) The zone for the script.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     },
     {
       "key": "name",
       "description": "- (Required for multi-script accounts) The name for the script.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     },
     {
       "key": "content",
       "description": "- (Required) The script content.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     }
   ]
 }

@@ -20,19 +20,19 @@ with types;
 
       # automatically generated, change the json file instead
       name = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required, string) Name of the volume to create (must be unique per project).";
       };
       # automatically generated, change the json file instead
       size = mkOption {
-        type = nullOr string;
-        default = null;
+        type = int;
+        
         description = "- (Required, int) Size of the volume (in GB).";
       };
       # automatically generated, change the json file instead
       server = mkOption {
-        type = nullOr string;
+        type = nullOr int;
         default = null;
         description = "- (Optional, int) Server to attach the Volume to, optional if location argument is passed.";
       };

@@ -8,25 +8,25 @@
       "key": "id",
       "description": "- (Optional, string) ID of the SSH Key.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     },
     {
       "key": "name",
       "description": "- (Optional, string) Name of the SSH Key.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     },
     {
       "key": "fingerprint",
       "description": "- (Optional, string) Fingerprint of the SSH Key.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     },
     {
       "key": "selector",
       "description": "- (Optional, string)",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     }
   ]
 }

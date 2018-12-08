@@ -20,20 +20,20 @@ with types;
 
       # automatically generated, change the json file instead
       name = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required, string) Name of the server to create (must be unique per project and a valid hostname as per RFC 1123).";
       };
       # automatically generated, change the json file instead
       server_type = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required, string) Name of the server type this server should be created with.";
       };
       # automatically generated, change the json file instead
       image = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required, string) Name or ID of the image the server is created from.";
       };
       # automatically generated, change the json file instead
@@ -56,13 +56,13 @@ with types;
       };
       # automatically generated, change the json file instead
       ssh_keys = mkOption {
-        type = nullOr string;
+        type = nullOr (listOf string);
         default = null;
         description = "- (Optional, list) SSH key IDs or names which should be injected into the server at creation time";
       };
       # automatically generated, change the json file instead
       keep_disk = mkOption {
-        type = nullOr string;
+        type = nullOr bool;
         default = null;
         description = "- (Optional, bool) If true, do not upgrade the disk. This allows downgrading the server type later.";
       };
@@ -80,13 +80,13 @@ with types;
       };
       # automatically generated, change the json file instead
       labels = mkOption {
-        type = nullOr string;
+        type = nullOr (attrsOf string);
         default = null;
         description = "- (Optional, map) User-defined labels (key-value pairs) should be created with.";
       };
       # automatically generated, change the json file instead
       backups = mkOption {
-        type = nullOr string;
+        type = nullOr bool;
         default = null;
         description = "- (Optional, boolean) Enable or disable backups.";
       };

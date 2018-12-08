@@ -8,31 +8,31 @@
       "key": "zone_id",
       "description": "- (Optional) The zone ID where the custom pages should be\nupdated. Either or must be provided.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     },
     {
       "key": "account_id",
       "description": "- (Optional) The account ID where the custom pages should be\nupdated. Either or must be provided. If is present, it will override the zone setting.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     },
     {
       "key": "type",
       "description": "- (Required) The type of custom page you wish to update. Must\nbe one of , , , , , , , , , .",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     },
     {
       "key": "url",
       "description": "- (Required) URL of where the custom page source is located.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     },
     {
       "key": "state",
       "description": "- (Required) Managed state of the custom page. Must be one of , . If the value is it will be removed\nfrom the Terraform state management.",
       "type": "nullOr string",
-      "default": null
+      "default": "null"
     }
   ]
 }
