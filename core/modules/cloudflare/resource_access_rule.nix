@@ -52,7 +52,7 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.access_rule;
+    resource.cloudflare_access_rule = config.cloudflare.resource.access_rule;
   };
 
 }

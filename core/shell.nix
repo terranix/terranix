@@ -137,7 +137,7 @@ EOF
         };
 
         config = mkIf config.\(.modul).enable {
-          \(.type).\(.modul) = config.\(.modul).\(.type).\(.name);
+          \(.type).\(.modul)_\(.name) = config.\(.modul).\(.type).\(.name);
         };
 
       }

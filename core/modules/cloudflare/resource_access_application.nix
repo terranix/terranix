@@ -48,7 +48,7 @@ re-authorise. Must be one of , , , , , .";
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.access_application;
+    resource.cloudflare_access_application = config.cloudflare.resource.access_application;
   };
 
 }

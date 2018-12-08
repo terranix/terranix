@@ -46,7 +46,7 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.worker_route;
+    resource.cloudflare_worker_route = config.cloudflare.resource.worker_route;
   };
 
 }

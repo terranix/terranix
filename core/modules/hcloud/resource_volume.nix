@@ -46,7 +46,7 @@ with types;
   };
 
   config = mkIf config.hcloud.enable {
-    resource.hcloud = config.hcloud.resource.volume;
+    resource.hcloud_volume = config.hcloud.resource.volume;
   };
 
 }

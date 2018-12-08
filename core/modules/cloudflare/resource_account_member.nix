@@ -34,7 +34,7 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.account_member;
+    resource.cloudflare_account_member = config.cloudflare.resource.account_member;
   };
 
 }

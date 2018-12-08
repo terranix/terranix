@@ -94,7 +94,7 @@ with types;
   };
 
   config = mkIf config.hcloud.enable {
-    resource.hcloud = config.hcloud.resource.server;
+    resource.hcloud_server = config.hcloud.resource.server;
   };
 
 }

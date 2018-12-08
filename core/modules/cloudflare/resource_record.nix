@@ -70,7 +70,7 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.record;
+    resource.cloudflare_record = config.cloudflare.resource.record;
   };
 
 }

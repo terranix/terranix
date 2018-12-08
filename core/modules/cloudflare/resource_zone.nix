@@ -40,7 +40,7 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.zone;
+    resource.cloudflare_zone = config.cloudflare.resource.zone;
   };
 
 }

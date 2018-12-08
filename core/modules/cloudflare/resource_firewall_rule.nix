@@ -64,7 +64,7 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.firewall_rule;
+    resource.cloudflare_firewall_rule = config.cloudflare.resource.firewall_rule;
   };
 
 }

@@ -56,7 +56,7 @@ from the Terraform state management.";
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.custom_pages;
+    resource.cloudflare_custom_pages = config.cloudflare.resource.custom_pages;
   };
 
 }

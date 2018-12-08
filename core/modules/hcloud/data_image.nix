@@ -46,7 +46,7 @@ with types;
   };
 
   config = mkIf config.hcloud.enable {
-    data.hcloud = config.hcloud.data.image;
+    data.hcloud_image = config.hcloud.data.image;
   };
 
 }

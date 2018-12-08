@@ -40,7 +40,7 @@ with types;
   };
 
   config = mkIf config.hcloud.enable {
-    data.hcloud = config.hcloud.data.volume;
+    data.hcloud_volume = config.hcloud.data.volume;
   };
 
 }

@@ -58,7 +58,7 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.filter;
+    resource.cloudflare_filter = config.cloudflare.resource.filter;
   };
 
 }

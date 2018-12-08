@@ -40,7 +40,7 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.worker_script;
+    resource.cloudflare_worker_script = config.cloudflare.resource.worker_script;
   };
 
 }

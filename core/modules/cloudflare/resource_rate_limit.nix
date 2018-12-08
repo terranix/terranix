@@ -76,7 +76,7 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.rate_limit;
+    resource.cloudflare_rate_limit = config.cloudflare.resource.rate_limit;
   };
 
 }

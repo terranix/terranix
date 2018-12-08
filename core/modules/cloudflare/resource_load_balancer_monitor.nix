@@ -82,7 +82,7 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.load_balancer_monitor;
+    resource.cloudflare_load_balancer_monitor = config.cloudflare.resource.load_balancer_monitor;
   };
 
 }

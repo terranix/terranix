@@ -40,7 +40,7 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.waf_rule;
+    resource.cloudflare_waf_rule = config.cloudflare.resource.waf_rule;
   };
 
 }

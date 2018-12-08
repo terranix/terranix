@@ -46,7 +46,7 @@ with types;
   };
 
   config = mkIf config.hcloud.enable {
-    resource.hcloud = config.hcloud.resource.rdns;
+    resource.hcloud_rdns = config.hcloud.resource.rdns;
   };
 
 }

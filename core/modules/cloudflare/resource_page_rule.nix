@@ -52,7 +52,7 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.page_rule;
+    resource.cloudflare_page_rule = config.cloudflare.resource.page_rule;
   };
 
 }

@@ -34,7 +34,7 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.zone_settings_override;
+    resource.cloudflare_zone_settings_override = config.cloudflare.resource.zone_settings_override;
   };
 
 }

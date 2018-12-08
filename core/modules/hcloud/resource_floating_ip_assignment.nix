@@ -34,7 +34,7 @@ with types;
   };
 
   config = mkIf config.hcloud.enable {
-    resource.hcloud = config.hcloud.resource.floating_ip_assignment;
+    resource.hcloud_floating_ip_assignment = config.hcloud.resource.floating_ip_assignment;
   };
 
 }

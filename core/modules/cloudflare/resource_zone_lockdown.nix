@@ -58,7 +58,7 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.zone_lockdown;
+    resource.cloudflare_zone_lockdown = config.cloudflare.resource.zone_lockdown;
   };
 
 }

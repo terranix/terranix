@@ -34,7 +34,7 @@ with types;
   };
 
   config = mkIf config.hcloud.enable {
-    resource.hcloud = config.hcloud.resource.ssh_key;
+    resource.hcloud_ssh_key = config.hcloud.resource.ssh_key;
   };
 
 }

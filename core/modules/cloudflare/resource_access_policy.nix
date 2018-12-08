@@ -76,7 +76,7 @@ full list.";
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare = config.cloudflare.resource.access_policy;
+    resource.cloudflare_access_policy = config.cloudflare.resource.access_policy;
   };
 
 }

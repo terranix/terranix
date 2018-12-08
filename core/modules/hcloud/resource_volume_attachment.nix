@@ -34,7 +34,7 @@ with types;
   };
 
   config = mkIf config.hcloud.enable {
-    resource.hcloud = config.hcloud.resource.volume_attachment;
+    resource.hcloud_volume_attachment = config.hcloud.resource.volume_attachment;
   };
 
 }
