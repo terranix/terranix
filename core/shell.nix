@@ -87,19 +87,17 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
     defaultNix = "${moduleFolder}/default.nix";
     createDefaultNix = /* sh */ ''
 cat > ${defaultNix} <<EOF
-  { config, lib, ... }:
-  {
-  imports = [
+{ config, lib, ... }:
+{ imports = [
 
 EOF
 for nix_file in `find ${moduleFolder} -mindepth 2 -maxdepth 2 -type f | grep -e "nix\$"`
 do
-  echo $nix_file >> ${defaultNix}
+  echo ./`echo $nix_file | xargs dirname | xargs basename `/`basename $nix_file` >> ${defaultNix}
 done
 cat >> ${defaultNix} <<EOF
 
-  ];
-  }
+];}
 EOF
     '';
 
