@@ -7,6 +7,7 @@ let
   cfg = config.cloudflare;
 
   default_token = "cloudflare_token";
+  default_email = "cloudflare_email";
 
 in {
 
@@ -15,12 +16,16 @@ in {
     enable = mkEnableOption "enable cloudflare provider";
 
     provider = mkOption {
-
+      default = {
+        token = "\${ var.${default_token} }";
+        email = "\${ var.${default_email} }";
+      };
       type = with types; (submodule {
         options = {
 
           email = mkOption {
             type    = with types; string;
+            default = "\${ var.${default_email} }";
             description = ''
                The email associated with the account. This can also be specified with the CLOUDFLARE_EMAIL shell environment variable.
             '';
@@ -103,10 +108,19 @@ in {
       provider.cloudflare = cfg.provider;
     })
 
+    (mkIf (cfg.enable && cfg.provider.email == "\${ var.${default_email} }") {
+      variable."${default_email}" = {
+          description = ''
+            The Cloudflare API email.
+          '';
+        };
+      }
+    )
+
     (mkIf (cfg.enable && cfg.provider.token == "\${ var.${default_token} }") {
       variable."${default_token}" = {
           description = ''
-            The Cloudflare API token. This can also be specified with the CLOUDFLARE_TOKEN shell environment variable.
+            The Cloudflare API token.
           '';
         };
       }
