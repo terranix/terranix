@@ -22,7 +22,7 @@ let
 in
 
   symlinkJoin rec {
-    version = "1.0.0";
+    version = "1.0.1";
     name = "terranix-${version}";
     paths = [
       libTerranix.terranix
@@ -31,7 +31,7 @@ in
     ];
     meta = with stdenv.lib; {
       description = "A NixOS like terraform-json generator";
-      homepage = https://terranix.io;
+      homepage = https://github.com/mrVanDalo/terranix;
       license = licenses.gpl3;
       platforms = platforms.linux;
       maintainers = with maintainers; [ mrVanDalo ];
