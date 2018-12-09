@@ -12,9 +12,9 @@ in {
   cloudflare = {
     enable = true;
 
-    provider = {
-      email = "hallo";
-    };
+    #provider = {
+    #  email = "hallo";
+    #};
 
     #resource.zone_settings_override = {
     #  settings = { };
