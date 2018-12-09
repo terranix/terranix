@@ -59,7 +59,7 @@ in {
       // (ifPush  result.provider { provider = result.provider; })
       // (ifPush  result.variable { variable = result.variable; })
       // (ifPush  result.resource { resource = result.resource; })
-      // (ifPush  result.data { data = result.data; })
-      // (ifPush  result.output { provider = result.output; });
+      // (ifPush  result.data     { data     = result.data; })
+      // (ifPush  result.output   { output   = result.output; });
 
 }
