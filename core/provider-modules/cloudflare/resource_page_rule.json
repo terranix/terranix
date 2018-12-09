@@ -7,20 +7,17 @@
     {
       "key": "zone",
       "description": "- (Required) The DNS zone to which the page rule should be added.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     },
     {
       "key": "target",
       "description": "- (Required) The URL pattern to target with the page rule.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     },
     {
       "key": "actions",
       "description": "- (Required) The actions taken by the page rule, options given below.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "attrs"
     },
     {
       "key": "priority",
@@ -31,7 +28,7 @@
     {
       "key": "status",
       "description": "- (Optional) Whether the page rule is active or disabled.",
-      "type": "nullOr string",
+      "type": "nullOr bool",
       "default": "null"
     }
   ]

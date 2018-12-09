@@ -28,26 +28,26 @@ with types;
 
       # automatically generated, change the json file instead
       zone = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The zone to add the load balancer to.";
       };
       # automatically generated, change the json file instead
       name = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The DNS name to associate with the load balancer.";
       };
       # automatically generated, change the json file instead
       fallback_pool_id = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The pool ID to use when all other pools are detected as unhealthy.";
       };
       # automatically generated, change the json file instead
       default_pool_ids = mkOption {
-        type = nullOr string;
-        default = null;
+        type = listOf string;
+        
         description = "- (Required) A list of pool IDs ordered by their failover priority. Used whenever region/pop pools are not defined.";
       };
       # automatically generated, change the json file instead
@@ -58,31 +58,31 @@ with types;
       };
       # automatically generated, change the json file instead
       ttl = mkOption {
-        type = nullOr string;
+        type = nullOr int;
         default = null;
         description = "- (Optional) Time to live (TTL) of this load balancer&#39;s DNS . Conflicts with - this cannot be set for proxied load balancers. Default is .";
       };
       # automatically generated, change the json file instead
       steering_policy = mkOption {
-        type = nullOr string;
+        type = nullOr (enum [ "off" "geo" "dynamic_latency"]);
         default = null;
         description = "- (Optional) Determine which method the load balancer uses to determine the fastest route to your origin. Valid values  are: &#34;off&#34;, &#34;geo&#34;, &#34;dynamic_latency&#34; or &#34;&#34;. Default is &#34;&#34;.";
       };
       # automatically generated, change the json file instead
       proxied = mkOption {
-        type = nullOr string;
+        type = nullOr bool;
         default = null;
         description = "- (Optional) Whether the hostname gets Cloudflare&#39;s origin protection. Defaults to .";
       };
       # automatically generated, change the json file instead
       region_pools = mkOption {
-        type = nullOr string;
+        type = nullOr attrs;
         default = null;
         description = "- (Optional) A set containing mappings of region/country codes to a list of pool IDs (ordered by their failover priority) for the given region. Fields documented below.";
       };
       # automatically generated, change the json file instead
       pop_pools = mkOption {
-        type = nullOr string;
+        type = nullOr attrs;
         default = null;
         description = "- (Optional) A set containing mappings of Cloudflare Point-of-Presence (PoP) identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). This feature is only available to enterprise customers. Fields documented below.";
       };

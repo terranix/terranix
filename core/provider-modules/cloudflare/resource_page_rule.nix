@@ -28,20 +28,20 @@ with types;
 
       # automatically generated, change the json file instead
       zone = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The DNS zone to which the page rule should be added.";
       };
       # automatically generated, change the json file instead
       target = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The URL pattern to target with the page rule.";
       };
       # automatically generated, change the json file instead
       actions = mkOption {
-        type = nullOr string;
-        default = null;
+        type = attrs;
+        
         description = "- (Required) The actions taken by the page rule, options given below.";
       };
       # automatically generated, change the json file instead
@@ -52,7 +52,7 @@ with types;
       };
       # automatically generated, change the json file instead
       status = mkOption {
-        type = nullOr string;
+        type = nullOr bool;
         default = null;
         description = "- (Optional) Whether the page rule is active or disabled.";
       };

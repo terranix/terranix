@@ -19,20 +19,17 @@
     {
       "key": "type",
       "description": "- (Required) The type of custom page you wish to update. Must\nbe one of , , , , , , , , , .",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     },
     {
       "key": "url",
       "description": "- (Required) URL of where the custom page source is located.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     },
     {
       "key": "state",
       "description": "- (Required) Managed state of the custom page. Must be one of , . If the value is it will be removed\nfrom the Terraform state management.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     }
   ]
 }

@@ -7,19 +7,17 @@
     {
       "key": "zone",
       "description": "- (Required) The zone to add the route to.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     },
     {
       "key": "pattern",
       "description": "- (Required) The",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     },
     {
       "key": "enabled",
       "description": "(For single-script accounts only) Whether to run the worker script for requests that match the route pattern. Default is",
-      "type": "nullOr string",
+      "type": "nullOr bool",
       "default": "null"
     },
     {

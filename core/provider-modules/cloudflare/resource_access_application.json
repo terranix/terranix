@@ -7,20 +7,17 @@
     {
       "key": "zone_id",
       "description": "- (Required) The DNS zone to which the access rule should be added.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     },
     {
       "key": "name",
       "description": "- (Required) Friendly name of the Access Application.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     },
     {
       "key": "domain",
       "description": "- (Required) The complete URL of the asset you wish to put\nCloudflare Access in front of. Can include subdomains or paths. Or both.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     },
     {
       "key": "session_duration",

@@ -28,20 +28,20 @@ with types;
 
       # automatically generated, change the json file instead
       zone = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The DNS zone to apply to.";
       };
       # automatically generated, change the json file instead
       rule_id = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The WAF Rule ID.";
       };
       # automatically generated, change the json file instead
       mode = mkOption {
-        type = nullOr string;
-        default = null;
+        type = enum [ "block" "challenge" "default" "disable" "simulate" ];
+        
         description = "- (Required) The mode of the rule, can be one of [&#34;block&#34;, &#34;challenge&#34;, &#34;default&#34;, &#34;disable, &#34;simulate&#34;].";
       };
     }; }));
