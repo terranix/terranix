@@ -10,7 +10,7 @@ with lib;
   options = {
     variable = mkOption {
       type = with types; attrsOf attrs;
-      default = { dummy = { value = "I'm a dummy"; }; };
+      default = {};
       description = "foo";
     };
     provider = mkOption {
@@ -30,7 +30,7 @@ with lib;
     };
     output = mkOption {
       type = with types; attrsOf attrs;
-      default = { dummy = { value = "I'm a dummy"; }; };
+      default = {};
       description = "outputs";
     };
   };

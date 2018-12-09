@@ -52,11 +52,14 @@ in {
     configuration: let
       result = sanitize (evaluateConfiguration configuration).config;
       #result = (evaluateConfiguration configuration).config;
-    in {
-      provider = result.provider;
-      variable = result.variable;
-      resource = result.resource;
-      data = result.data;
-      output = result.output;
-    };
+
+      ifPush = value: object: if value != null then object else {};
+    in
+      {}
+      // (ifPush  result.provider { provider = result.provider; })
+      // (ifPush  result.variable { variable = result.variable; })
+      // (ifPush  result.resource { resource = result.resource; })
+      // (ifPush  result.data { data = result.data; })
+      // (ifPush  result.output { provider = result.output; });
+
 }
