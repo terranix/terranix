@@ -53,19 +53,19 @@ with types;
     }; }));
   };
 
-  config = mkIf config.cloudflare.enable {
-    resource.cloudflare_worker_route = flip mapAttrs
-      config.cloudflare.resource.worker_route
-        (key: value:
-        let
-          filteredValues = filterAttrs (key: _: key != "extraConfig") value;
-          extraConfig = value.extraConfig;
-        in
-          filteredValues // extraConfig);
-
-
-
-  };
-
+  config =
+    let
+      result = flip mapAttrs
+        config.cloudflare.resource.worker_route
+          (key: value:
+          let
+            filteredValues = filterAttrs (key: _: key != "extraConfig") value;
+            extraConfig = value.extraConfig;
+          in
+            filteredValues // extraConfig);
+    in
+      mkIf ( config.cloudflare.enable && length (builtins.attrNames result) != 0 ) {
+        resource.cloudflare_worker_route = result;
+      };
 }
 

@@ -53,19 +53,19 @@ with types;
     }; }));
   };
 
-  config = mkIf config.hcloud.enable {
-    data.hcloud_ssh_key = flip mapAttrs
-      config.hcloud.data.ssh_key
-        (key: value:
-        let
-          filteredValues = filterAttrs (key: _: key != "extraConfig") value;
-          extraConfig = value.extraConfig;
-        in
-          filteredValues // extraConfig);
-
-
-
-  };
-
+  config =
+    let
+      result = flip mapAttrs
+        config.hcloud.data.ssh_key
+          (key: value:
+          let
+            filteredValues = filterAttrs (key: _: key != "extraConfig") value;
+            extraConfig = value.extraConfig;
+          in
+            filteredValues // extraConfig);
+    in
+      mkIf ( config.hcloud.enable && length (builtins.attrNames result) != 0 ) {
+        data.hcloud_ssh_key = result;
+      };
 }
 

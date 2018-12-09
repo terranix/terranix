@@ -101,19 +101,19 @@ with types;
     }; }));
   };
 
-  config = mkIf config.hcloud.enable {
-    resource.hcloud_server = flip mapAttrs
-      config.hcloud.resource.server
-        (key: value:
-        let
-          filteredValues = filterAttrs (key: _: key != "extraConfig") value;
-          extraConfig = value.extraConfig;
-        in
-          filteredValues // extraConfig);
-
-
-
-  };
-
+  config =
+    let
+      result = flip mapAttrs
+        config.hcloud.resource.server
+          (key: value:
+          let
+            filteredValues = filterAttrs (key: _: key != "extraConfig") value;
+            extraConfig = value.extraConfig;
+          in
+            filteredValues // extraConfig);
+    in
+      mkIf ( config.hcloud.enable && length (builtins.attrNames result) != 0 ) {
+        resource.hcloud_server = result;
+      };
 }
 

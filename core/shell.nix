@@ -144,20 +144,20 @@ EOF
           }; }));
         };
 
-        config = mkIf config.\(.modul).enable {
-          \(.type).\(.modul)_\(.name) = flip mapAttrs
-            config.\(.modul).\(.type).\(.name)
-              (key: value:
-              let
-                filteredValues = filterAttrs (key: _: key != \"extraConfig\") value;
-                extraConfig = value.extraConfig;
-              in
-                filteredValues // extraConfig);
-
-
-
-        };
-
+        config =
+          let
+            result = flip mapAttrs
+              config.\(.modul).\(.type).\(.name)
+                (key: value:
+                let
+                  filteredValues = filterAttrs (key: _: key != \"extraConfig\") value;
+                  extraConfig = value.extraConfig;
+                in
+                  filteredValues // extraConfig);
+          in
+            mkIf ( config.\(.modul).enable && length (builtins.attrNames result) != 0 ) {
+              \(.type).\(.modul)_\(.name) = result;
+            };
       }
       "' > $output_file
       done

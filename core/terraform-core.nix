@@ -10,12 +10,24 @@ let
  sanitize = configuration: lib.getAttr (typeOf configuration) {
         bool = configuration;
         int = configuration;
-        list = map sanitize configuration;
-        set = lib.mapAttrs
-                (lib.const sanitize)
-                (lib.filterAttrs
-                  (name: value: (name != "_module" && name != "_ref") && value != null) configuration);
         string = configuration;
+        list = map sanitize configuration;
+        set =
+          let
+            stripped = lib.flip lib.filterAttrs configuration
+                  (name: value:
+                    name != "_module"
+                      && name != "_ref"
+                      && value != null
+                  );
+
+            recursiveSanitized = lib.mapAttrs (lib.const sanitize) stripped;
+          in
+            if ( length (attrNames configuration) == 0)
+            then
+              null
+            else
+              recursiveSanitized;
       };
 in {
 

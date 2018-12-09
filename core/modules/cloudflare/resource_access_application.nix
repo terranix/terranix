@@ -55,19 +55,19 @@ re-authorise. Must be one of , , , , , .";
     }; }));
   };
 
-  config = mkIf config.cloudflare.enable {
-    resource.cloudflare_access_application = flip mapAttrs
-      config.cloudflare.resource.access_application
-        (key: value:
-        let
-          filteredValues = filterAttrs (key: _: key != "extraConfig") value;
-          extraConfig = value.extraConfig;
-        in
-          filteredValues // extraConfig);
-
-
-
-  };
-
+  config =
+    let
+      result = flip mapAttrs
+        config.cloudflare.resource.access_application
+          (key: value:
+          let
+            filteredValues = filterAttrs (key: _: key != "extraConfig") value;
+            extraConfig = value.extraConfig;
+          in
+            filteredValues // extraConfig);
+    in
+      mkIf ( config.cloudflare.enable && length (builtins.attrNames result) != 0 ) {
+        resource.cloudflare_access_application = result;
+      };
 }
 

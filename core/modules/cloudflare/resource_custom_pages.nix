@@ -63,19 +63,19 @@ from the Terraform state management.";
     }; }));
   };
 
-  config = mkIf config.cloudflare.enable {
-    resource.cloudflare_custom_pages = flip mapAttrs
-      config.cloudflare.resource.custom_pages
-        (key: value:
-        let
-          filteredValues = filterAttrs (key: _: key != "extraConfig") value;
-          extraConfig = value.extraConfig;
-        in
-          filteredValues // extraConfig);
-
-
-
-  };
-
+  config =
+    let
+      result = flip mapAttrs
+        config.cloudflare.resource.custom_pages
+          (key: value:
+          let
+            filteredValues = filterAttrs (key: _: key != "extraConfig") value;
+            extraConfig = value.extraConfig;
+          in
+            filteredValues // extraConfig);
+    in
+      mkIf ( config.cloudflare.enable && length (builtins.attrNames result) != 0 ) {
+        resource.cloudflare_custom_pages = result;
+      };
 }
 

@@ -83,19 +83,19 @@ full list.";
     }; }));
   };
 
-  config = mkIf config.cloudflare.enable {
-    resource.cloudflare_access_policy = flip mapAttrs
-      config.cloudflare.resource.access_policy
-        (key: value:
-        let
-          filteredValues = filterAttrs (key: _: key != "extraConfig") value;
-          extraConfig = value.extraConfig;
-        in
-          filteredValues // extraConfig);
-
-
-
-  };
-
+  config =
+    let
+      result = flip mapAttrs
+        config.cloudflare.resource.access_policy
+          (key: value:
+          let
+            filteredValues = filterAttrs (key: _: key != "extraConfig") value;
+            extraConfig = value.extraConfig;
+          in
+            filteredValues // extraConfig);
+    in
+      mkIf ( config.cloudflare.enable && length (builtins.attrNames result) != 0 ) {
+        resource.cloudflare_access_policy = result;
+      };
 }
 

@@ -47,19 +47,19 @@ with types;
     }; }));
   };
 
-  config = mkIf config.hcloud.enable {
-    data.hcloud_volume = flip mapAttrs
-      config.hcloud.data.volume
-        (key: value:
-        let
-          filteredValues = filterAttrs (key: _: key != "extraConfig") value;
-          extraConfig = value.extraConfig;
-        in
-          filteredValues // extraConfig);
-
-
-
-  };
-
+  config =
+    let
+      result = flip mapAttrs
+        config.hcloud.data.volume
+          (key: value:
+          let
+            filteredValues = filterAttrs (key: _: key != "extraConfig") value;
+            extraConfig = value.extraConfig;
+          in
+            filteredValues // extraConfig);
+    in
+      mkIf ( config.hcloud.enable && length (builtins.attrNames result) != 0 ) {
+        data.hcloud_volume = result;
+      };
 }
 
