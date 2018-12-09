@@ -1,21 +1,37 @@
-# nix-instatiate tests
+# Terranix
 
-## How to edit
+A NixOS way to create terraform.json files.
 
-for now edit the `default.nix`.
-You can create modules like you would in NixOS.
-But at the end only the values `provider`, `variable` and `resource` will be rendered.
+## How to use
 
-## How to run
+create a `config.nix` for example
 
-call a `nix-shell` and inside you can do :
-
-```sh
-nixform
+```
+{ config , ... }:
+{
+  hcloud = {
+    enable = true;
+    resource.server.nginx = {
+      name = "my.nginx";
+      image  = "debian-9";
+      server_type = "cx11";
+      backups = false;
+    };
+  };
+}
 ```
 
-or
+run `terranix config.nix` and it will output json you can pipe in a file `config.tf.json`.
+Use the resulting file like you would use a `.tf` file written in `HCL`.
 
-```sh
-nixform config.nix
-```
+## How to write modules
+
+You can write modules, like you would in NixOS.
+Of course you the modules of `man configuration.nix` are not present here.
+(see the [NixOS Manual](https://nixos.org/nixos/manual/index.html#sec-writing-modules) for more details)
+
+## Documentation
+
+just run `man terranix` to get an short overview, and a detailed documentation about all
+providers which are currentlyc supported.
+
