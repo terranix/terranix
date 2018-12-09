@@ -125,6 +125,14 @@ EOF
               description = \"\";
             };
 
+            # automatically generated
+            extraConfig = mkOption {
+              type = nullOr attrs;
+              default = null;
+              example = { provider = \"aws.route53\"; };
+              description = \"use this option to add options not coverd by this module\";
+            };
+
       \( .arguments | map(
       "      # automatically generated, change the json file instead
             \( .key ) = mkOption {
@@ -137,7 +145,17 @@ EOF
         };
 
         config = mkIf config.\(.modul).enable {
-          \(.type).\(.modul)_\(.name) = config.\(.modul).\(.type).\(.name);
+          \(.type).\(.modul)_\(.name) = flip mapAttrs
+            config.\(.modul).\(.type).\(.name)
+              (key: value:
+              let
+                filteredValues = filterAttrs (key: _: key != \"extraConfig\") value;
+                extraConfig = value.extraConfig;
+              in
+                filteredValues // extraConfig);
+
+
+
         };
 
       }

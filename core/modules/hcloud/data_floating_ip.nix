@@ -18,6 +18,14 @@ with types;
         description = "";
       };
 
+      # automatically generated
+      extraConfig = mkOption {
+        type = nullOr attrs;
+        default = null;
+        example = { provider = "aws.route53"; };
+        description = "use this option to add options not coverd by this module";
+      };
+
       # automatically generated, change the json file instead
       ip_address = mkOption {
         type = nullOr string;
@@ -34,7 +42,17 @@ with types;
   };
 
   config = mkIf config.hcloud.enable {
-    data.hcloud_floating_ip = config.hcloud.data.floating_ip;
+    data.hcloud_floating_ip = flip mapAttrs
+      config.hcloud.data.floating_ip
+        (key: value:
+        let
+          filteredValues = filterAttrs (key: _: key != "extraConfig") value;
+          extraConfig = value.extraConfig;
+        in
+          filteredValues // extraConfig);
+
+
+
   };
 
 }

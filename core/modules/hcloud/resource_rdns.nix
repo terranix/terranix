@@ -18,6 +18,14 @@ with types;
         description = "";
       };
 
+      # automatically generated
+      extraConfig = mkOption {
+        type = nullOr attrs;
+        default = null;
+        example = { provider = "aws.route53"; };
+        description = "use this option to add options not coverd by this module";
+      };
+
       # automatically generated, change the json file instead
       dns_ptr = mkOption {
         type = nullOr string;
@@ -46,7 +54,17 @@ with types;
   };
 
   config = mkIf config.hcloud.enable {
-    resource.hcloud_rdns = config.hcloud.resource.rdns;
+    resource.hcloud_rdns = flip mapAttrs
+      config.hcloud.resource.rdns
+        (key: value:
+        let
+          filteredValues = filterAttrs (key: _: key != "extraConfig") value;
+          extraConfig = value.extraConfig;
+        in
+          filteredValues // extraConfig);
+
+
+
   };
 
 }

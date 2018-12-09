@@ -18,6 +18,14 @@ with types;
         description = "";
       };
 
+      # automatically generated
+      extraConfig = mkOption {
+        type = nullOr attrs;
+        default = null;
+        example = { provider = "aws.route53"; };
+        description = "use this option to add options not coverd by this module";
+      };
+
       # automatically generated, change the json file instead
       zone_id = mkOption {
         type = nullOr string;
@@ -48,7 +56,17 @@ re-authorise. Must be one of , , , , , .";
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare_access_application = config.cloudflare.resource.access_application;
+    resource.cloudflare_access_application = flip mapAttrs
+      config.cloudflare.resource.access_application
+        (key: value:
+        let
+          filteredValues = filterAttrs (key: _: key != "extraConfig") value;
+          extraConfig = value.extraConfig;
+        in
+          filteredValues // extraConfig);
+
+
+
   };
 
 }

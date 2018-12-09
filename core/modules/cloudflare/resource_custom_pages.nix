@@ -18,6 +18,14 @@ with types;
         description = "";
       };
 
+      # automatically generated
+      extraConfig = mkOption {
+        type = nullOr attrs;
+        default = null;
+        example = { provider = "aws.route53"; };
+        description = "use this option to add options not coverd by this module";
+      };
+
       # automatically generated, change the json file instead
       zone_id = mkOption {
         type = nullOr string;
@@ -56,7 +64,17 @@ from the Terraform state management.";
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare_custom_pages = config.cloudflare.resource.custom_pages;
+    resource.cloudflare_custom_pages = flip mapAttrs
+      config.cloudflare.resource.custom_pages
+        (key: value:
+        let
+          filteredValues = filterAttrs (key: _: key != "extraConfig") value;
+          extraConfig = value.extraConfig;
+        in
+          filteredValues // extraConfig);
+
+
+
   };
 
 }

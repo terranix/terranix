@@ -18,6 +18,14 @@ with types;
         description = "";
       };
 
+      # automatically generated
+      extraConfig = mkOption {
+        type = nullOr attrs;
+        default = null;
+        example = { provider = "aws.route53"; };
+        description = "use this option to add options not coverd by this module";
+      };
+
       # automatically generated, change the json file instead
       zone = mkOption {
         type = nullOr string;
@@ -58,7 +66,17 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare_filter = config.cloudflare.resource.filter;
+    resource.cloudflare_filter = flip mapAttrs
+      config.cloudflare.resource.filter
+        (key: value:
+        let
+          filteredValues = filterAttrs (key: _: key != "extraConfig") value;
+          extraConfig = value.extraConfig;
+        in
+          filteredValues // extraConfig);
+
+
+
   };
 
 }

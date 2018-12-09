@@ -18,6 +18,14 @@ with types;
         description = "";
       };
 
+      # automatically generated
+      extraConfig = mkOption {
+        type = nullOr attrs;
+        default = null;
+        example = { provider = "aws.route53"; };
+        description = "use this option to add options not coverd by this module";
+      };
+
       # automatically generated, change the json file instead
       expected_body = mkOption {
         type = nullOr string;
@@ -82,7 +90,17 @@ with types;
   };
 
   config = mkIf config.cloudflare.enable {
-    resource.cloudflare_load_balancer_monitor = config.cloudflare.resource.load_balancer_monitor;
+    resource.cloudflare_load_balancer_monitor = flip mapAttrs
+      config.cloudflare.resource.load_balancer_monitor
+        (key: value:
+        let
+          filteredValues = filterAttrs (key: _: key != "extraConfig") value;
+          extraConfig = value.extraConfig;
+        in
+          filteredValues // extraConfig);
+
+
+
   };
 
 }
