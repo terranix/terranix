@@ -175,7 +175,7 @@ EOF
   in
     pkgs.writeShellScriptBin "render-manpages" /* sh */ ''
       cat > ${markdownFile} <<EOF
-      # Description
+      # DESCRIPTION
 
       These are all supported terraform providers (for now).
       The type might not be correct, this is because parsing the types is
@@ -197,7 +197,7 @@ EOF
       }
       \`\`\`
 
-      # Options
+      # OPTIONS
       EOF
       for file in `find ${moduleFolder} -mindepth 2 -maxdepth 2 -type f | grep -e "json\$"`
       do
@@ -231,6 +231,25 @@ EOF
 
       "] | join ("\n")
       )
+
+      ## \( .type ).\( .modul).\( .name ).\"\\<name\\>\".extraConfig
+
+      *Type*
+
+      nullOr attrs
+
+      *Default*
+
+      null
+
+      *Example*
+
+      { provider = \"aws.route53_profile\"; }
+
+      *Description*
+
+      Use this option to add parameters the module has not defined
+
       "' >> ${markdownFile}
       done
 
