@@ -7,20 +7,17 @@
     {
       "key": "id",
       "description": "- ID of the volume.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     },
     {
       "key": "name",
       "description": "- Name of the volume.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     },
     {
       "key": "selector",
       "description": "- Label Selector. For more information about possible values, visit the .",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     }
   ]
 }

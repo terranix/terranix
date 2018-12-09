@@ -28,13 +28,13 @@ with types;
 
       # automatically generated, change the json file instead
       type = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required, string) Type of the Floating IP.";
       };
       # automatically generated, change the json file instead
       server_id = mkOption {
-        type = nullOr string;
+        type = nullOr int;
         default = null;
         description = "- (Optional, int) Server to assign the Floating IP to.";
       };

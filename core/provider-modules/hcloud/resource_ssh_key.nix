@@ -28,14 +28,14 @@ with types;
 
       # automatically generated, change the json file instead
       name = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required, string) Name of the SSH key.";
       };
       # automatically generated, change the json file instead
       public_key = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required, string) The public key. If this is a file, it can be read using the file interpolation function";
       };
     }; }));

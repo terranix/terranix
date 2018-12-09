@@ -28,26 +28,26 @@ with types;
 
       # automatically generated, change the json file instead
       dns_ptr = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required, string) The DNS address the should resolve to.";
       };
       # automatically generated, change the json file instead
       ip_address = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required, string) The IP address that should point to .";
       };
       # automatically generated, change the json file instead
       server_id = mkOption {
-        type = nullOr string;
-        default = null;
+        type = int;
+        
         description = "- (Required, int) The server the belongs to.";
       };
       # automatically generated, change the json file instead
       floating_ip_id = mkOption {
-        type = nullOr string;
-        default = null;
+        type = int;
+        
         description = "- (Required, int) The Floating IP the belongs to.";
       };
     }; }));

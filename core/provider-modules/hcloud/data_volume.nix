@@ -28,20 +28,20 @@ with types;
 
       # automatically generated, change the json file instead
       id = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- ID of the volume.";
       };
       # automatically generated, change the json file instead
       name = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- Name of the volume.";
       };
       # automatically generated, change the json file instead
       selector = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- Label Selector. For more information about possible values, visit the .";
       };
     }; }));

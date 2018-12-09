@@ -46,7 +46,7 @@ with types;
       };
       # automatically generated, change the json file instead
       most_recent = mkOption {
-        type = nullOr string;
+        type = nullOr bool;
         default = null;
         description = "- (Optional, bool) If more than one result is returned, use the most recent Image.";
       };

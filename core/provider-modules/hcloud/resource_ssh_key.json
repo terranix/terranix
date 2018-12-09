@@ -7,14 +7,12 @@
     {
       "key": "name",
       "description": "- (Required, string) Name of the SSH key.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     },
     {
       "key": "public_key",
       "description": "- (Required, string) The public key. If this is a file, it can be read using the file interpolation function",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     }
   ]
 }

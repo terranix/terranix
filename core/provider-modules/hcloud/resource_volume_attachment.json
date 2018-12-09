@@ -7,14 +7,12 @@
     {
       "key": "volume_id",
       "description": "- (Required, int) ID of the Volume.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "int"
     },
     {
       "key": "server_id",
       "description": "- (Required, int) Server to attach the Volume to.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "int"
     }
   ]
 }
