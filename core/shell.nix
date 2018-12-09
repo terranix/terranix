@@ -5,7 +5,7 @@
 let
 
   # folder where everything takes place
-  moduleFolder = toString ./modules;
+  moduleFolder = toString ./provider-modules;
 
   crawlerPart = path: modul: input: /* sh */ ''
     URL="${input.url}"
@@ -42,7 +42,7 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
   jq_a = jq_z;
 
   crawlerHcloud =
-    crawler "${toString ./modules/hcloud}" "hcloud" [
+    crawler "${moduleFolder}/hcloud" "hcloud" [
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/r/server.html" ;}
 { type = r; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/r/volume.html" ;}
 { type = r; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/hcloud/r/volume_attachment.html" ;}
@@ -57,7 +57,7 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
       ];
 
   crawlerCloudflare =
-    crawler "${toString ./modules/cloudflare}" "cloudflare" [
+    crawler "${moduleFolder}/cloudflare" "cloudflare" [
 # { type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/d/ip_ranges.html" ;}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/r/access_application.html" ;}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/cloudflare/r/access_policy.html" ;}

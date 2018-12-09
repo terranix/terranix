@@ -40,8 +40,8 @@ in {
         modules = [
           {
             imports = [
-              ./coreOptions.nix
-              ./modules
+              ./terraform-core-options.nix
+              ./provider-modules
               ./provider
             ];
           }
