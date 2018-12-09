@@ -2,14 +2,7 @@
 
 let
 
-  nixform = pkgs.writeShellScriptBin "nixform" ''
-    FILE=${"$"}{1:-config.nix}
-
-    nix-instantiate --eval --strict --json \
-      -I config=$FILE \
-      ${toString ./core/default.nix}
-  '';
-
+  terranix = import ./lib.nix { inherit (pkgs) writeShellScriptBin; };
 
   terraformCurrent = pkgs.terraform.overrideAttrs( old: rec {
     version = "0.11.10";
@@ -27,7 +20,8 @@ in pkgs.mkShell {
   # needed pkgs
   # -----------
   buildInputs = with pkgs; [
-    nixform
+    terranix.terranix
+    terranix.terranixTrace
     #terraformCurrent
     terraform
     pup

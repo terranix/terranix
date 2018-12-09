@@ -2,3 +2,4 @@
 *.swp
 .terraform
 *.tf.json
+result
