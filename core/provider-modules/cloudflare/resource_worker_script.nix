@@ -28,20 +28,20 @@ with types;
 
       # automatically generated, change the json file instead
       zone = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required for single-script accounts) The zone for the script.";
       };
       # automatically generated, change the json file instead
       name = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required for multi-script accounts) The name for the script.";
       };
       # automatically generated, change the json file instead
       content = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The script content.";
       };
     }; }));

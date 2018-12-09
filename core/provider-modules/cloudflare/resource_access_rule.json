@@ -19,7 +19,7 @@
     {
       "key": "mode",
       "description": "- (Required) The action to apply to a matched request. Allowed values: &#34;block&#34;, &#34;challenge&#34;, &#34;whitelist&#34;, &#34;js_challenge&#34;",
-      "type": "nullOr string",
+      "type": "enum [\"block\" \"challenge\" \"whitelist\" \"js_challenge\" ]",
       "default": "null"
     },
     {
@@ -31,8 +31,7 @@
     {
       "key": "configuration",
       "description": "- (Required) Rule configuration to apply to a matched request. It&#39;s a complex value. See description below.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     }
   ]
 }

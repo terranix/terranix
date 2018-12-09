@@ -40,7 +40,7 @@ with types;
       };
       # automatically generated, change the json file instead
       mode = mkOption {
-        type = nullOr string;
+        type = enum ["block" "challenge" "whitelist" "js_challenge" ];
         default = null;
         description = "- (Required) The action to apply to a matched request. Allowed values: &#34;block&#34;, &#34;challenge&#34;, &#34;whitelist&#34;, &#34;js_challenge&#34;";
       };
@@ -52,8 +52,8 @@ with types;
       };
       # automatically generated, change the json file instead
       configuration = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) Rule configuration to apply to a matched request. It&#39;s a complex value. See description below.";
       };
     }; }));

@@ -40,14 +40,14 @@ with types;
       };
       # automatically generated, change the json file instead
       paused = mkOption {
-        type = nullOr string;
+        type = nullOr bool;
         default = null;
         description = "- (Optional) Whether this filter is currently paused. Boolean value.";
       };
       # automatically generated, change the json file instead
       expression = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The filter expression to be used.";
       };
       # automatically generated, change the json file instead

@@ -28,20 +28,20 @@ with types;
 
       # automatically generated, change the json file instead
       zone_id = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The DNS zone to which the access rule should be added.";
       };
       # automatically generated, change the json file instead
       name = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) Friendly name of the Access Application.";
       };
       # automatically generated, change the json file instead
       domain = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The complete URL of the asset you wish to put
 Cloudflare Access in front of. Can include subdomains or paths. Or both.";
       };

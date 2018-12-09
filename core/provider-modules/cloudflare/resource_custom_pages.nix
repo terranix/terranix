@@ -42,21 +42,21 @@ updated. Either or must be provided. If is present, it will override the zone se
       };
       # automatically generated, change the json file instead
       type = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The type of custom page you wish to update. Must
 be one of , , , , , , , , , .";
       };
       # automatically generated, change the json file instead
       url = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) URL of where the custom page source is located.";
       };
       # automatically generated, change the json file instead
       state = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) Managed state of the custom page. Must be one of , . If the value is it will be removed
 from the Terraform state management.";
       };

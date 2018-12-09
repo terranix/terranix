@@ -28,19 +28,19 @@ with types;
 
       # automatically generated, change the json file instead
       zone = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The zone to add the route to.";
       };
       # automatically generated, change the json file instead
       pattern = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The";
       };
       # automatically generated, change the json file instead
       enabled = mkOption {
-        type = nullOr string;
+        type = nullOr bool;
         default = null;
         description = "(For single-script accounts only) Whether to run the worker script for requests that match the route pattern. Default is";
       };

@@ -7,14 +7,12 @@
     {
       "key": "zone",
       "description": "- The DNS zone to which the lockdown will be added. Will be resolved to upon creation.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     },
     {
       "key": "zone_id",
       "description": "- The DNS zone to which the access rule should be added.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     },
     {
       "key": "description",
@@ -25,19 +23,17 @@
     {
       "key": "urls",
       "description": "- (Required) A list of simple wildcard patterns to match requests against. The order of the urls is unimportant.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "listOf string"
     },
     {
       "key": "configurations",
       "description": "- (Required) A list of IP addresses or IP ranges to match the request against specified in target, value pairs.  It&#39;s a complex value. See description below.   The order of the configuration entries is unimportant.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "listOf string"
     },
     {
       "key": "paused",
       "description": "- (Optional) Boolean of whether this zone lockdown is currently paused. Default: false.",
-      "type": "nullOr string",
+      "type": "nullOr bool",
       "default": "null"
     }
   ]

@@ -40,26 +40,26 @@ with types;
       };
       # automatically generated, change the json file instead
       action = mkOption {
-        type = nullOr string;
-        default = null;
+        type = enum [ "block" "challenge" "allow" "js_challenge" ];
+        
         description = "- (Required) The action to apply to a matched request. Allowed values: &#34;block&#34;, &#34;challenge&#34;, &#34;allow&#34;, &#34;js_challenge&#34;.";
       };
       # automatically generated, change the json file instead
       priority = mkOption {
-        type = nullOr string;
+        type = nullOr int;
         default = null;
         description = "- (Optional) The priority of the rule to allow control of processing order. A lower number indicates high priority. If not provided, any rules with a priority will be sequenced before those without.";
       };
       # automatically generated, change the json file instead
       paused = mkOption {
-        type = nullOr string;
+        type = nullOr bool;
         default = null;
         description = "- (Optional) Whether this filter based firewall rule is currently paused. Boolean value.";
       };
       # automatically generated, change the json file instead
       expression = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The filter expression to be used.";
       };
       # automatically generated, change the json file instead
