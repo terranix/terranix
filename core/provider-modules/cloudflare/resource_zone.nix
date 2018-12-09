@@ -28,19 +28,19 @@ with types;
 
       # automatically generated, change the json file instead
       zone = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The DNS zone name which will be added.";
       };
       # automatically generated, change the json file instead
       paused = mkOption {
-        type = nullOr string;
+        type = nullOr bool;
         default = null;
         description = "- (Optional) Boolean of whether this zone is paused (traffic bypasses Cloudflare). Default: false.";
       };
       # automatically generated, change the json file instead
       jump_start = mkOption {
-        type = nullOr string;
+        type = nullOr bool;
         default = null;
         description = "- (Optional) Boolean of whether to scan for DNS records on creation. Ignored after zone is created. Default: false.";
       };

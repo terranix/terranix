@@ -19,14 +19,13 @@
     {
       "key": "paused",
       "description": "- (Optional) Whether this filter is currently paused. Boolean value.",
-      "type": "nullOr string",
+      "type": "nullOr bool",
       "default": "null"
     },
     {
       "key": "expression",
       "description": "- (Required) The filter expression to be used.",
-      "type": "nullOr string",
-      "default": "null"
+      "type": "string"
     },
     {
       "key": "description",

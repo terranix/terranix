@@ -9,9 +9,20 @@ let
 
 in {
 
+  cloudflare = {
+    enable = true;
+
+    provider = {
+      email = "hallo";
+    };
+
+    #resource.zone_settings_override = {
+    #  settings = { };
+    #};
+  };
 
   hcloud = {
-    enable = true;
+    enable = false;
 
     resource = {
 

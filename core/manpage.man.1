@@ -240,7 +240,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr bool
 .PP
 \f[I]Default\f[]
 .PP
@@ -283,11 +283,7 @@ https://www.terraform.io/docs/providers/hcloud/r/floating_ip.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -296,7 +292,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr int
 .PP
 \f[I]Default\f[]
 .PP
@@ -421,11 +417,7 @@ https://www.terraform.io/docs/providers/hcloud/r/floating_ip_assignment.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -434,11 +426,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -476,11 +464,7 @@ https://www.terraform.io/docs/providers/hcloud/r/volume_attachment.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -489,11 +473,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -712,11 +692,7 @@ https://www.terraform.io/docs/providers/hcloud/r/ssh_key.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -725,11 +701,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -768,11 +740,7 @@ https://www.terraform.io/docs/providers/hcloud/r/rdns.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -781,11 +749,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -794,11 +758,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -807,11 +767,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -849,11 +805,7 @@ https://www.terraform.io/docs/providers/hcloud/d/volume.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -862,11 +814,7 @@ ID of the volume.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -875,11 +823,7 @@ Name of the volume.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -918,11 +862,7 @@ https://www.terraform.io/docs/providers/cloudflare/r/load_balancer_pool.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -932,11 +872,7 @@ Only alphanumeric characters, hyphens, and underscores are allowed.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+listOf string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -949,7 +885,7 @@ See description below.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr (listOf string)
 .PP
 \f[I]Default\f[]
 .PP
@@ -979,7 +915,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr bool
 .PP
 \f[I]Default\f[]
 .PP
@@ -996,7 +932,7 @@ the next pool (if any).
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr int
 .PP
 \f[I]Default\f[]
 .PP
@@ -1070,11 +1006,7 @@ https://www.terraform.io/docs/providers/cloudflare/r/worker_script.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1083,11 +1015,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1096,11 +1024,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1165,11 +1089,8 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+enum [ \[lq]block\[rq] \[lq]challenge\[rq] \[lq]allow\[rq]
+\[lq]js_challenge\[rq] ]
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1180,7 +1101,7 @@ Allowed values: \[lq]block\[rq], \[lq]challenge\[rq], \[lq]allow\[rq],
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr int
 .PP
 \f[I]Default\f[]
 .PP
@@ -1197,7 +1118,7 @@ those without.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr bool
 .PP
 \f[I]Default\f[]
 .PP
@@ -1211,11 +1132,7 @@ Boolean value.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1266,11 +1183,7 @@ https://www.terraform.io/docs/providers/cloudflare/r/page_rule.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1279,11 +1192,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1292,11 +1201,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+attrs
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1318,7 +1223,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr bool
 .PP
 \f[I]Default\f[]
 .PP
@@ -1389,11 +1294,7 @@ If is present, it will override the zone setting.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1403,11 +1304,7 @@ Must be one of , , , , , , , , , .
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1416,11 +1313,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1460,11 +1353,7 @@ https://www.terraform.io/docs/providers/cloudflare/r/load_balancer_monitor.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1475,11 +1364,7 @@ If this string is not found, the origin will be marked as unhealthy.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1504,7 +1389,7 @@ Default: \[lq]GET\[rq].
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr int
 .PP
 \f[I]Default\f[]
 .PP
@@ -1533,7 +1418,7 @@ Default: \[lq]/\[rq].
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr int
 .PP
 \f[I]Default\f[]
 .PP
@@ -1549,7 +1434,7 @@ Default: 60.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr int
 .PP
 \f[I]Default\f[]
 .PP
@@ -1565,7 +1450,7 @@ Default: 2.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr attrs
 .PP
 \f[I]Default\f[]
 .PP
@@ -1581,7 +1466,7 @@ Fields documented below.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr enum [ \[lq]http\[rq] \[lq]https\[rq] ]
 .PP
 \f[I]Default\f[]
 .PP
@@ -1638,11 +1523,7 @@ https://www.terraform.io/docs/providers/cloudflare/r/access_policy.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1651,11 +1532,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1664,11 +1541,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1680,11 +1553,7 @@ Or both.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1706,7 +1575,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr (listOf string)
 .PP
 \f[I]Default\f[]
 .PP
@@ -1719,7 +1588,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr (listOf string)
 .PP
 \f[I]Default\f[]
 .PP
@@ -1732,11 +1601,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+listOf string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1774,11 +1639,7 @@ https://www.terraform.io/docs/providers/cloudflare/r/rate_limit.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1787,11 +1648,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1802,11 +1659,7 @@ i.e.\ threshold per period (min: 2, max: 1,000,000).
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1817,11 +1670,7 @@ performed (min: 1, max: 86,400).
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+attrs
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1831,7 +1680,7 @@ traffic within the period defined is exceeded.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr attrs
 .PP
 \f[I]Default\f[]
 .PP
@@ -1847,7 +1696,7 @@ See definition below.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr bool
 .PP
 \f[I]Default\f[]
 .PP
@@ -1876,7 +1725,7 @@ This value is sanitized and all tags are removed.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr (listOf string)
 .PP
 \f[I]Default\f[]
 .PP
@@ -1890,7 +1739,7 @@ from rate limiting.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr attrs
 .PP
 \f[I]Default\f[]
 .PP
@@ -1934,11 +1783,7 @@ https://www.terraform.io/docs/providers/cloudflare/r/waf_rule.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1947,11 +1792,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1960,11 +1801,8 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+enum [ \[lq]block\[rq] \[lq]challenge\[rq] \[lq]default\[rq]
+\[lq]disable\[rq] \[lq]simulate\[rq] ]
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2003,11 +1841,7 @@ https://www.terraform.io/docs/providers/cloudflare/r/zone_settings_override.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2016,7 +1850,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr attrs
 .PP
 \f[I]Default\f[]
 .PP
@@ -2087,7 +1921,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr bool
 .PP
 \f[I]Default\f[]
 .PP
@@ -2101,11 +1935,7 @@ Boolean value.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2170,11 +2000,7 @@ https://www.terraform.io/docs/providers/cloudflare/r/access_application.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2183,11 +2009,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2196,11 +2018,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2255,11 +2073,7 @@ https://www.terraform.io/docs/providers/cloudflare/r/zone_lockdown.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2269,11 +2083,7 @@ Will be resolved to upon creation.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2296,11 +2106,7 @@ Typically used as a reminder or explanation for the lockdown.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+listOf string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2310,11 +2116,7 @@ The order of the urls is unimportant.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+listOf string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2327,7 +2129,7 @@ The order of the configuration entries is unimportant.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr bool
 .PP
 \f[I]Default\f[]
 .PP
@@ -2370,11 +2172,7 @@ https://www.terraform.io/docs/providers/cloudflare/r/load_balancer.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2383,11 +2181,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2396,11 +2190,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2410,11 +2200,7 @@ unhealthy.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+listOf string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2437,7 +2223,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr int
 .PP
 \f[I]Default\f[]
 .PP
@@ -2452,7 +2238,7 @@ Default is .
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr (enum [ \[lq]off\[rq] \[lq]geo\[rq] \[lq]dynamic_latency\[rq]])
 .PP
 \f[I]Default\f[]
 .PP
@@ -2468,7 +2254,7 @@ Valid values are: \[lq]off\[rq], \[lq]geo\[rq],
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr bool
 .PP
 \f[I]Default\f[]
 .PP
@@ -2482,7 +2268,7 @@ Defaults to .
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr attrs
 .PP
 \f[I]Default\f[]
 .PP
@@ -2497,7 +2283,7 @@ Fields documented below.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr attrs
 .PP
 \f[I]Default\f[]
 .PP
@@ -2560,11 +2346,7 @@ https://www.terraform.io/docs/providers/cloudflare/r/record.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2573,11 +2355,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2586,11 +2364,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2599,11 +2373,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2613,7 +2383,7 @@ Either this or must be specified
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr attrs
 .PP
 \f[I]Default\f[]
 .PP
@@ -2628,7 +2398,7 @@ Either this or must be specified
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr int
 .PP
 \f[I]Default\f[]
 .PP
@@ -2641,7 +2411,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr int
 .PP
 \f[I]Default\f[]
 .PP
@@ -2654,7 +2424,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr bool
 .PP
 \f[I]Default\f[]
 .PP
@@ -2697,11 +2467,7 @@ https://www.terraform.io/docs/providers/cloudflare/r/worker_route.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2710,11 +2476,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2723,7 +2485,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr bool
 .PP
 \f[I]Default\f[]
 .PP
@@ -2809,7 +2571,8 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+enum [\[lq]block\[rq] \[lq]challenge\[rq] \[lq]whitelist\[rq]
+\[lq]js_challenge\[rq] ]
 .PP
 \f[I]Default\f[]
 .PP
@@ -2838,11 +2601,7 @@ Typically used as a reminder or explanation for the rule.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2882,11 +2641,7 @@ https://www.terraform.io/docs/providers/cloudflare/r/account_member.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2897,11 +2652,7 @@ cannot be updated.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+listOf string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2940,11 +2691,7 @@ https://www.terraform.io/docs/providers/cloudflare/r/zone.html
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
-.PP
-\f[I]Default\f[]
-.PP
-null
+string
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2953,7 +2700,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr bool
 .PP
 \f[I]Default\f[]
 .PP
@@ -2968,7 +2715,7 @@ Default: false.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr string
+nullOr bool
 .PP
 \f[I]Default\f[]
 .PP

@@ -28,29 +28,29 @@ with types;
 
       # automatically generated, change the json file instead
       application_id = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The ID of the application the policy is
 associated with.";
       };
       # automatically generated, change the json file instead
       zone_id = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The DNS zone to which the access rule should be
 added.";
       };
       # automatically generated, change the json file instead
       decision = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The complete URL of the asset you wish to put
 Cloudflare Access in front of. Can include subdomains or paths. Or both.";
       };
       # automatically generated, change the json file instead
       name = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) Friendly name of the Access Application.";
       };
       # automatically generated, change the json file instead
@@ -61,22 +61,22 @@ Cloudflare Access in front of. Can include subdomains or paths. Or both.";
       };
       # automatically generated, change the json file instead
       require = mkOption {
-        type = nullOr string;
+        type = nullOr (listOf string);
         default = null;
         description = "- (Optional) A series of access conditions, see below for
 full list.";
       };
       # automatically generated, change the json file instead
       exclude = mkOption {
-        type = nullOr string;
+        type = nullOr (listOf string);
         default = null;
         description = "- (Optional) A series of access conditions, see below for
 full list.";
       };
       # automatically generated, change the json file instead
       include = mkOption {
-        type = nullOr string;
-        default = null;
+        type = listOf string;
+        
         description = "- (Required) A series of access conditions, see below for
 full list.";
       };

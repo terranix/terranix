@@ -28,14 +28,14 @@ with types;
 
       # automatically generated, change the json file instead
       email_address = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The email address of the user who you wish to manage. Note: Following creation, this field becomes read only via the API and cannot be updated.";
       };
       # automatically generated, change the json file instead
       role_ids = mkOption {
-        type = nullOr string;
-        default = null;
+        type = listOf string;
+        
         description = "- (Required) Array of account role IDs that you want to assign to a member.";
       };
     }; }));

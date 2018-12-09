@@ -28,13 +28,13 @@ with types;
 
       # automatically generated, change the json file instead
       name = mkOption {
-        type = nullOr string;
-        default = null;
+        type = string;
+        
         description = "- (Required) The DNS zone to which apply settings.";
       };
       # automatically generated, change the json file instead
       settings = mkOption {
-        type = nullOr string;
+        type = nullOr attrs;
         default = null;
         description = "- (Optional) Settings overrides that will be applied to the zone. If a setting is not specified the existing setting will be used. For a full list of available settings see below.";
       };
