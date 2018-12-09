@@ -21,7 +21,7 @@ with types;
       # automatically generated
       extraConfig = mkOption {
         type = nullOr attrs;
-        default = null;
+        default = {};
         example = { provider = "aws.route53"; };
         description = "use this option to add options not coverd by this module";
       };
