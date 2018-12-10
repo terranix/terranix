@@ -7,12 +7,12 @@
     {
       "key": "type",
       "description": "- (Required, string) Type of the Floating IP.",
-      "type": "string"
+      "type": "either string (enum [ \"ipv4\" \"ipv6\" ])"
     },
     {
       "key": "server_id",
       "description": "- (Optional, int) Server to assign the Floating IP to.",
-      "type": "nullOr int",
+      "type": "nullOr (either int string)",
       "default": "null"
     },
     {
