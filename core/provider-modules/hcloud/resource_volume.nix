@@ -34,13 +34,13 @@ with types;
       };
       # automatically generated, change the json file instead
       size = mkOption {
-        type = int;
+        type = either string int;
         
         description = "- (Required, int) Size of the volume (in GB).";
       };
       # automatically generated, change the json file instead
       server = mkOption {
-        type = nullOr int;
+        type = nullOr (either string int);
         default = null;
         description = "- (Optional, int) Server to attach the Volume to, optional if location argument is passed.";
       };

@@ -58,7 +58,7 @@ with types;
       };
       # automatically generated, change the json file instead
       minimum_origins = mkOption {
-        type = nullOr int;
+        type = nullOr (either string int);
         default = null;
         description = "- (Optional) The minimum number of origins that must be healthy for this pool to serve traffic. If the number of healthy origins falls below this number, the pool will be marked unhealthy and we will failover to the next available pool. Default: 1.";
       };

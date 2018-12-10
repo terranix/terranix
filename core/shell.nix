@@ -202,7 +202,7 @@ EOF
       for file in `find ${moduleFolder} -mindepth 2 -maxdepth 2 -type f | grep -e "json\$"`
       do
         cat $file | jq --raw-output '"
-      ## \(.type).\(.modul).\(.name)
+      ## \(.module).\(.type).\(.name)
 
       Module definition for equivalent HCL commands of
 
@@ -214,7 +214,7 @@ EOF
 
       \( . as $main | [ $main.arguments[] |
         "
-      ## \( $main.type ).\( $main.modul).\( $main.name ).\"\\<name\\>\".\( .key )
+      ## \( $main.modul ).\( $main.type ).\( $main.name ).\"\\<name\\>\".\( .key )
 
       *Type*
 
@@ -232,15 +232,15 @@ EOF
       "] | join ("\n")
       )
 
-      ## \( .type ).\( .modul).\( .name ).\"\\<name\\>\".extraConfig
+      ## \( .modul ).\( .type ).\( .name ).\"\\<name\\>\".extraConfig
 
       *Type*
 
-      nullOr attrs
+      attrs
 
       *Default*
 
-      null
+      {}
 
       *Example*
 
@@ -248,7 +248,7 @@ EOF
 
       *Description*
 
-      Use this option to add parameters the module has not defined
+      Use this option to add parameters the module has not defined, or if you want to force overwrite something that is defined wrong.
 
       "' >> ${markdownFile}
       done

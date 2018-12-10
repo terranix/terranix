@@ -46,7 +46,7 @@ with types;
       };
       # automatically generated, change the json file instead
       priority = mkOption {
-        type = nullOr int;
+        type = nullOr (either string int);
         default = null;
         description = "- (Optional) The priority of the rule to allow control of processing order. A lower number indicates high priority. If not provided, any rules with a priority will be sequenced before those without.";
       };

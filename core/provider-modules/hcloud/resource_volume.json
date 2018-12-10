@@ -12,12 +12,12 @@
     {
       "key": "size",
       "description": "- (Required, int) Size of the volume (in GB).",
-      "type": "int"
+      "type": "either string int"
     },
     {
       "key": "server",
       "description": "- (Optional, int) Server to attach the Volume to, optional if location argument is passed.",
-      "type": "nullOr int",
+      "type": "nullOr (either string int)",
       "default": "null"
     },
     {

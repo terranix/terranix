@@ -28,13 +28,13 @@ with types;
 
       # automatically generated, change the json file instead
       volume_id = mkOption {
-        type = int;
+        type = either string int;
         
         description = "- (Required, int) ID of the Volume.";
       };
       # automatically generated, change the json file instead
       server_id = mkOption {
-        type = int;
+        type = either string int;
         
         description = "- (Required, int) Server to attach the Volume to.";
       };

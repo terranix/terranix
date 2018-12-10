@@ -33,13 +33,13 @@
     {
       "key": "ttl",
       "description": "- (Optional) The TTL of the record ( )",
-      "type": "nullOr int",
+      "type": "nullOr (either string int)",
       "default": "null"
     },
     {
       "key": "priority",
       "description": "- (Optional) The priority of the record",
-      "type": "nullOr int",
+      "type": "nullOr (either string int)",
       "default": "null"
     },
     {

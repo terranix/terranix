@@ -12,7 +12,7 @@
     {
       "key": "expected_codes",
       "description": "- (Required) The expected HTTP response code or code range of the health check. Eg",
-      "type": "int"
+      "type": "either string int"
     },
     {
       "key": "method",
@@ -23,7 +23,7 @@
     {
       "key": "timeout",
       "description": "- (Optional) The timeout (in seconds) before marking the health check as failed. Default: 5.",
-      "type": "nullOr int",
+      "type": "nullOr (either string int)",
       "default": "null"
     },
     {
@@ -35,13 +35,13 @@
     {
       "key": "interval",
       "description": "- (Optional) The interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations. Default: 60.",
-      "type": "nullOr int",
+      "type": "nullOr (either string int)",
       "default": "null"
     },
     {
       "key": "retries",
       "description": "- (Optional) The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately. Default: 2.",
-      "type": "nullOr int",
+      "type": "nullOr (either string int)",
       "default": "null"
     },
     {

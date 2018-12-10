@@ -34,7 +34,7 @@ with types;
       };
       # automatically generated, change the json file instead
       expected_codes = mkOption {
-        type = int;
+        type = either string int;
         
         description = "- (Required) The expected HTTP response code or code range of the health check. Eg";
       };
@@ -46,7 +46,7 @@ with types;
       };
       # automatically generated, change the json file instead
       timeout = mkOption {
-        type = nullOr int;
+        type = nullOr (either string int);
         default = null;
         description = "- (Optional) The timeout (in seconds) before marking the health check as failed. Default: 5.";
       };
@@ -58,13 +58,13 @@ with types;
       };
       # automatically generated, change the json file instead
       interval = mkOption {
-        type = nullOr int;
+        type = nullOr (either string int);
         default = null;
         description = "- (Optional) The interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations. Default: 60.";
       };
       # automatically generated, change the json file instead
       retries = mkOption {
-        type = nullOr int;
+        type = nullOr (either string int);
         default = null;
         description = "- (Optional) The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately. Default: 2.";
       };
