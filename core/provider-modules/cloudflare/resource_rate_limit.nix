@@ -34,13 +34,13 @@ with types;
       };
       # automatically generated, change the json file instead
       threshold = mkOption {
-        type = int;
+        type = either string int;
         
         description = "- (Required) The threshold that triggers the rate limit mitigations, combine with period. i.e. threshold per period (min: 2, max: 1,000,000).";
       };
       # automatically generated, change the json file instead
       period = mkOption {
-        type = int;
+        type = either string int;
         
         description = "- (Required) The time in seconds to count matching traffic. If the count exceeds threshold within this period the action will be performed (min: 1, max: 86,400).";
       };

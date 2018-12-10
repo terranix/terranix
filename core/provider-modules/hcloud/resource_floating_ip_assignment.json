@@ -7,12 +7,12 @@
     {
       "key": "floating_ip_id",
       "description": "- (Required, int) ID of the Floating IP.",
-      "type": "int"
+      "type": "either string int"
     },
     {
       "key": "server_id",
       "description": "- (Required, int) Server to assign the Floating IP to.",
-      "type": "int"
+      "type": "either string int"
     }
   ]
 }
