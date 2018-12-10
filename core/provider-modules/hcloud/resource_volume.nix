@@ -39,7 +39,7 @@ with types;
         description = "- (Required, int) Size of the volume (in GB).";
       };
       # automatically generated, change the json file instead
-      server = mkOption {
+      server_id = mkOption {
         type = nullOr (either string int);
         default = null;
         description = "- (Optional, int) Server to attach the Volume to, optional if location argument is passed.";

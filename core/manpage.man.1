@@ -136,16 +136,16 @@ project).
 .PP
 \f[I]Type\f[]
 .PP
-int
+either string int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
 (Required, int) Size of the volume (in GB).
-.SS hcloud.resource.volume.\[lq]<name>\[rq].server
+.SS hcloud.resource.volume.\[lq]<name>\[rq].server_id
 .PP
 \f[I]Type\f[]
 .PP
-nullOr int
+nullOr (either string int)
 .PP
 \f[I]Default\f[]
 .PP
@@ -422,7 +422,7 @@ https://www.terraform.io/docs/providers/hcloud/r/floating_ip_assignment.html
 .PP
 \f[I]Type\f[]
 .PP
-int
+either string int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -431,7 +431,7 @@ int
 .PP
 \f[I]Type\f[]
 .PP
-int
+either string int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -470,7 +470,7 @@ https://www.terraform.io/docs/providers/hcloud/r/volume_attachment.html
 .PP
 \f[I]Type\f[]
 .PP
-int
+either string int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -479,7 +479,7 @@ int
 .PP
 \f[I]Type\f[]
 .PP
-int
+either string int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -767,7 +767,7 @@ string
 .PP
 \f[I]Type\f[]
 .PP
-int
+either string int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -776,7 +776,7 @@ int
 .PP
 \f[I]Type\f[]
 .PP
-int
+either string int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -943,7 +943,7 @@ the next pool (if any).
 .PP
 \f[I]Type\f[]
 .PP
-nullOr int
+nullOr (either string int)
 .PP
 \f[I]Default\f[]
 .PP
@@ -1114,7 +1114,7 @@ Allowed values: \[lq]block\[rq], \[lq]challenge\[rq], \[lq]allow\[rq],
 .PP
 \f[I]Type\f[]
 .PP
-nullOr int
+nullOr (either string int)
 .PP
 \f[I]Default\f[]
 .PP
@@ -1380,7 +1380,7 @@ If this string is not found, the origin will be marked as unhealthy.
 .PP
 \f[I]Type\f[]
 .PP
-int
+either string int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1405,7 +1405,7 @@ Default: \[lq]GET\[rq].
 .PP
 \f[I]Type\f[]
 .PP
-nullOr int
+nullOr (either string int)
 .PP
 \f[I]Default\f[]
 .PP
@@ -1434,7 +1434,7 @@ Default: \[lq]/\[rq].
 .PP
 \f[I]Type\f[]
 .PP
-nullOr int
+nullOr (either string int)
 .PP
 \f[I]Default\f[]
 .PP
@@ -1450,7 +1450,7 @@ Default: 60.
 .PP
 \f[I]Type\f[]
 .PP
-nullOr int
+nullOr (either string int)
 .PP
 \f[I]Default\f[]
 .PP
@@ -1666,7 +1666,7 @@ string
 .PP
 \f[I]Type\f[]
 .PP
-int
+either string int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -1677,7 +1677,7 @@ i.e.\ threshold per period (min: 2, max: 1,000,000).
 .PP
 \f[I]Type\f[]
 .PP
-int
+either string int
 .PP
 \f[I]Description\f[]
 .IP \[bu] 2
@@ -2247,7 +2247,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr int
+nullOr (either string int)
 .PP
 \f[I]Default\f[]
 .PP
@@ -2423,7 +2423,7 @@ Either this or must be specified
 .PP
 \f[I]Type\f[]
 .PP
-nullOr int
+nullOr (either string int)
 .PP
 \f[I]Default\f[]
 .PP
@@ -2436,7 +2436,7 @@ null
 .PP
 \f[I]Type\f[]
 .PP
-nullOr int
+nullOr (either string int)
 .PP
 \f[I]Default\f[]
 .PP

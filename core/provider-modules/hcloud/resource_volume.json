@@ -15,7 +15,7 @@
       "type": "either string int"
     },
     {
-      "key": "server",
+      "key": "server_id",
       "description": "- (Optional, int) Server to attach the Volume to, optional if location argument is passed.",
       "type": "nullOr (either string int)",
       "default": "null"
