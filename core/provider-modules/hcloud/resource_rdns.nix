@@ -40,13 +40,13 @@ with types;
       };
       # automatically generated, change the json file instead
       server_id = mkOption {
-        type = int;
+        type = either string int;
         
         description = "- (Required, int) The server the belongs to.";
       };
       # automatically generated, change the json file instead
       floating_ip_id = mkOption {
-        type = int;
+        type = either string int;
         
         description = "- (Required, int) The Floating IP the belongs to.";
       };

@@ -33,7 +33,7 @@
     {
       "key": "ttl",
       "description": "- (Optional) Time to live (TTL) of this load balancer&#39;s DNS . Conflicts with - this cannot be set for proxied load balancers. Default is .",
-      "type": "nullOr int",
+      "type": "nullOr (either string int)",
       "default": "null"
     },
     {

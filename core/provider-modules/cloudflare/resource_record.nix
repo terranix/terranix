@@ -58,13 +58,13 @@ with types;
       };
       # automatically generated, change the json file instead
       ttl = mkOption {
-        type = nullOr int;
+        type = nullOr (either string int);
         default = null;
         description = "- (Optional) The TTL of the record ( )";
       };
       # automatically generated, change the json file instead
       priority = mkOption {
-        type = nullOr int;
+        type = nullOr (either string int);
         default = null;
         description = "- (Optional) The priority of the record";
       };

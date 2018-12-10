@@ -28,13 +28,13 @@ with types;
 
       # automatically generated, change the json file instead
       type = mkOption {
-        type = string;
+        type = either string (enum [ "ipv4" "ipv6" ]);
         
         description = "- (Required, string) Type of the Floating IP.";
       };
       # automatically generated, change the json file instead
       server_id = mkOption {
-        type = nullOr int;
+        type = nullOr (either int string);
         default = null;
         description = "- (Optional, int) Server to assign the Floating IP to.";
       };

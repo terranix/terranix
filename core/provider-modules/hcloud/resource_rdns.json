@@ -17,12 +17,12 @@
     {
       "key": "server_id",
       "description": "- (Required, int) The server the belongs to.",
-      "type": "int"
+      "type": "either string int"
     },
     {
       "key": "floating_ip_id",
       "description": "- (Required, int) The Floating IP the belongs to.",
-      "type": "int"
+      "type": "either string int"
     }
   ]
 }

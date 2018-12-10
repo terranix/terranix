@@ -58,7 +58,7 @@ with types;
       };
       # automatically generated, change the json file instead
       ttl = mkOption {
-        type = nullOr int;
+        type = nullOr (either string int);
         default = null;
         description = "- (Optional) Time to live (TTL) of this load balancer&#39;s DNS . Conflicts with - this cannot be set for proxied load balancers. Default is .";
       };
