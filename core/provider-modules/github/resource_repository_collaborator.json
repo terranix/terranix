@@ -1,0 +1,26 @@
+{
+  "modul": "github",
+  "name": "repository_collaborator",
+  "url": "https://www.terraform.io/docs/providers/github/r/repository_collaborator.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "repository",
+      "description": "- (Required) The GitHub repository",
+      "type": "nullOr string",
+      "default": "null"
+    },
+    {
+      "key": "username",
+      "description": "- (Required) The user to add to the repository as a collaborator.",
+      "type": "nullOr string",
+      "default": "null"
+    },
+    {
+      "key": "permission",
+      "description": "- (Optional) The permission of the outside collaborator for the repository.\n        Must be one of , , or . Defaults to .",
+      "type": "nullOr string",
+      "default": "null"
+    }
+  ]
+}
