@@ -1,11 +1,11 @@
 
-# automatically generated, you should change resource_volume.json instead
-# documentation : https://www.terraform.io/docs/providers/hcloud/r/volume.html
+# automatically generated, you should change resource_team_membership.json instead
+# documentation : https://www.terraform.io/docs/providers/github/r/team_membership.html
 { config, lib, ... }:
 with lib;
 with types;
 {
-  options.hcloud.resource.volume = mkOption {
+  options.github.resource.team_membership = mkOption {
     default = {};
     description = "";
     type = with types; attrsOf ( submodule ( { name, ... }: {
@@ -14,7 +14,7 @@ with types;
       # used to generate references
       "_ref" = mkOption {
         type = with types; string;
-        default = "hcloud_volume.${name}";
+        default = "github_team_membership.${name}";
         description = "";
       };
 
@@ -27,28 +27,23 @@ with types;
       };
 
       # automatically generated, change the json file instead
-      name = mkOption {
-        type = string;
-        
-        description = "- (Required, string) Name of the volume to create (must be unique per project).";
-      };
-      # automatically generated, change the json file instead
-      size = mkOption {
-        type = either string int;
-        
-        description = "- (Required, int) Size of the volume (in GB).";
-      };
-      # automatically generated, change the json file instead
-      server_id = mkOption {
-        type = nullOr (either string int);
-        default = null;
-        description = "- (Optional, int) Server to attach the Volume to, optional if location argument is passed.";
-      };
-      # automatically generated, change the json file instead
-      location = mkOption {
+      team_id = mkOption {
         type = nullOr string;
         default = null;
-        description = "- (Optional, string) Location of the volume to create, optional if server_id argument is passed.";
+        description = "- (Required) The GitHub team id";
+      };
+      # automatically generated, change the json file instead
+      username = mkOption {
+        type = nullOr string;
+        default = null;
+        description = "- (Required) The user to add to the team.";
+      };
+      # automatically generated, change the json file instead
+      role = mkOption {
+        type = nullOr string;
+        default = null;
+        description = "- (Optional) The role of the user within the team.
+        Must be one of or . Defaults to .";
       };
     }; }));
   };
@@ -56,7 +51,7 @@ with types;
   config =
     let
       result = flip mapAttrs
-        config.hcloud.resource.volume
+        config.github.resource.team_membership
           (key: value:
           let
             filteredValues = filterAttrs (key: _: key != "extraConfig") value;
@@ -64,8 +59,8 @@ with types;
           in
             filteredValues // extraConfig);
     in
-      mkIf ( config.hcloud.enable && length (builtins.attrNames result) != 0 ) {
-        resource.hcloud_volume = result;
+      mkIf ( config.github.enable && length (builtins.attrNames result) != 0 ) {
+        resource.github_team_membership = result;
       };
 }
 

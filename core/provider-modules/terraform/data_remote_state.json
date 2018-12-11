@@ -1,0 +1,32 @@
+{
+  "modul": "terraform",
+  "name": "remote_state",
+  "url": "https://www.terraform.io/docs/providers/terraform/d/remote_state.html",
+  "type": "data",
+  "arguments": [
+    {
+      "key": "backend",
+      "description": "- (Required) The remote backend to use.",
+      "type": "nullOr string",
+      "default": "null"
+    },
+    {
+      "key": "workspace",
+      "description": "- (Optional) The Terraform workspace to use, if the backend\nsupports workspaces.",
+      "type": "nullOr string",
+      "default": "null"
+    },
+    {
+      "key": "config",
+      "description": "- (Optional; block) The configuration of the remote backend. The block can use any arguments that would be valid in the equivalent block. See for details.",
+      "type": "nullOr string",
+      "default": "null"
+    },
+    {
+      "key": "defaults",
+      "description": "- (Optional; block) Default values for outputs, in case the state\nfile is empty or lacks a required output.",
+      "type": "nullOr string",
+      "default": "null"
+    }
+  ]
+}
