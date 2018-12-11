@@ -28,6 +28,7 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
       commands = builtins.map (crawlerPart path suffix) files;
     in
       pkgs.writeShellScriptBin "crawl-${suffix}" /* sh */ ''
+        mkdir -p ${path}
         rm ${path}/*.json
         ${pkgs.lib.concatStringsSep "\n" commands}
       '';
@@ -45,7 +46,6 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
 
   crawlerAws =
     crawler "${moduleFolder}/aws" "aws" [
-
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/r/acm_certificate.html";}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/r/acm_certificate_validation.html";}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/r/acmpca_certificate_authority.html";}
@@ -487,14 +487,124 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/r/wafregional_web_acl.html";}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/r/wafregional_web_acl_association.html";}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/r/wafregional_xss_match_set.html";}
-
-
-
-
-
-
-
-
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/acm_certificate.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/acmpca_certificate_authority.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ami.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ami_ids.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/api_gateway_api_key.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/api_gateway_resource.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/api_gateway_rest_api.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/api_gateway_vpc_link.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/arn.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/autoscaling_groups.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/availability_zone.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/availability_zones.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/batch_compute_environment.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/batch_job_queue.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/billing_service_account.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/caller_identity.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/canonical_user_id.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/cloudformation_export.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/cloudformation_stack.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/cloudhsm_v2_cluster.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/cloudtrail_service_account.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/cloudwatch_log_group.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/codecommit_repository.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/cognito_user_pools";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/db_cluster_snapshot.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/db_event_categories.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/db_instance.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/db_snapshot.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/dx_gateway.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/dynamodb_table.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ebs_snapshot.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ebs_snapshot_ids.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ebs_volume.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ec2_transit_gateway.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ec2_transit_gateway_route_table.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ec2_transit_gateway_vpc_attachment.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ecr_repository.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ecs_cluster.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ecs_container_definition.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ecs_service.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ecs_task_definition.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/efs_file_system.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/efs_mount_target.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/eip.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/eks_cluster.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/elastic_beanstalk_hosted_zone.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/elastic_beanstalk_solution_stack.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/elasticache_cluster.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/elasticache_replication_group.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/elb.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/elb_hosted_zone_id.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/elb_service_account.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/glue_script.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/iam_account_alias.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/iam_group.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/iam_instance_profile.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/iam_policy.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/iam_policy_document.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/iam_role.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/iam_server_certificate.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/iam_user.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/inspector_rules_packages.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/instance.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/instances.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/internet_gateway.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/iot_endpoint.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ip_ranges.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/kinesis_stream.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/kms_alias.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/kms_ciphertext.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/kms_key.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/kms_secret.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/kms_secrets.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/lambda_function.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/lambda_invocation.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/launch_configuration.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/launch_template.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/lb.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/lb_listener.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/lb_target_group.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/mq_broker.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/nat_gateway.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/network_acls.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/network_interface.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/network_interfaces.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/partition.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/prefix_list.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/pricing_product.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/rds_cluster.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/redshift_cluster.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/redshift_service_account.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/region.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/route.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/route53_delegation_set.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/route53_zone.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/route_table.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/route_tables.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/s3_bucket.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/s3_bucket_object.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/secretsmanager_secret.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/secretsmanager_secret_version.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/security_group.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/security_groups.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/sns_topic.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/sqs_queue.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ssm_document.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/ssm_parameter.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/storagegateway_local_disk.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/subnet.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/subnet_ids.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/vpc.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/vpc_dhcp_options.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/vpc_endpoint.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/vpc_endpoint_service.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/vpc_peering_connection.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/vpcs.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/vpn_gateway.html";}
+{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/terraform/d/workspaces_bundle.html";}
       ];
 
   crawlerTerraform=
@@ -506,22 +616,23 @@ type : "${input.type}", "arguments" : ${input.jqArgs} }' \
 
   crawlerGithub=
     crawler "${moduleFolder}/github" "github" [
-{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/d/ip_ranges.html";}
+#{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/d/ip_ranges.html";}
 { type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/d/repositories.html";}
-{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/d/repository.html";}
-{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/d/team.html";}
-{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/d/user.html";}
+{ type = d; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/d/repository.html";}
+#{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/d/team.html";}
+#{ type = d; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/d/user.html";}
+
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/branch_protection.html";}
-{ type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/issue_label.html";}
+{ type = r; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/issue_label.html";}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/membership.html";}
-{ type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/organization_project.html";}
-{ type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/organization_webhook.html";}
-{ type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/project_column.html";}
-{ type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/repository.html";}
+{ type = r; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/organization_project.html";}
+{ type = r; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/organization_webhook.html";}
+{ type = r; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/project_column.html";}
+{ type = r; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/repository.html";}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/repository_collaborator.html";}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/repository_deploy_key.html";}
-{ type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/repository_project.html";}
-{ type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/repository_webhook.html";}
+{ type = r; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/repository_project.html";}
+{ type = r; pupArgs = pup_2; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/repository_webhook.html";}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/team.html";}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/team_membership.html";}
 { type = r; pupArgs = pup_1; jqArgs = jq_1; url = "https://www.terraform.io/docs/providers/github/r/team_repository.html";}
@@ -761,6 +872,9 @@ in pkgs.mkShell {
     jq
     crawlerHcloud
     crawlerCloudflare
+    crawlerAws
+    crawlerGithub
+    crawlerTerraform
     moduleCreator
     createManpages
   ];

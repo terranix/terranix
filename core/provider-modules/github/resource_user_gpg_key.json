@@ -1,0 +1,14 @@
+{
+  "modul": "github",
+  "name": "user_gpg_key",
+  "url": "https://www.terraform.io/docs/providers/github/r/user_gpg_key.html",
+  "type": "resource",
+  "arguments": [
+    {
+      "key": "armored_public_key",
+      "description": "- (Required) Your pulic GPG key, generated in ASCII-armored format.\nSee for help on creating a GPG key.",
+      "type": "nullOr string",
+      "default": "null"
+    }
+  ]
+}

@@ -1,6 +1,25 @@
 { config, lib, ... }:
 { imports = [
 
+./github/data_repository.nix
+./github/resource_repository_collaborator.nix
+./github/resource_team_membership.nix
+./github/resource_project_column.nix
+./github/resource_repository.nix
+./github/data_repositories.nix
+./github/resource_organization_project.nix
+./github/resource_organization_webhook.nix
+./github/resource_issue_label.nix
+./github/resource_user_ssh_key.nix
+./github/resource_repository_deploy_key.nix
+./github/resource_team.nix
+./github/resource_membership.nix
+./github/resource_branch_protection.nix
+./github/resource_repository_webhook.nix
+./github/resource_team_repository.nix
+./github/resource_user_gpg_key.nix
+./github/resource_repository_project.nix
+./github/resource_user_invitation_accepter.nix
 ./hcloud/resource_floating_ip.nix
 ./hcloud/data_floating_ip.nix
 ./hcloud/resource_server.nix

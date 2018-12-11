@@ -1,0 +1,14 @@
+{
+  "modul": "github",
+  "name": "repositories",
+  "url": "https://www.terraform.io/docs/providers/github/d/repositories.html",
+  "type": "data",
+  "arguments": [
+    {
+      "key": "query",
+      "description": "- (Required) Search query. See .",
+      "type": "nullOr string",
+      "default": "null"
+    }
+  ]
+}
