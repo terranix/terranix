@@ -3485,5 +3485,92 @@ attrs
 .PP
 Use this option to add parameters the module has not defined, or if you
 want to force overwrite something that is defined wrong.
+.SS null.data.remote_state
+.PP
+Module definition for equivalent HCL commands of
+.IP
+.nf
+\f[C]
+data\ "terraform_remote_state"\ "name"\ {}
+\f[]
+.fi
+.PP
+Documentation :
+https://www.terraform.io/docs/providers/terraform/d/remote_state.html
+.SS terraform.data.remote_state.\[lq]<name>\[rq].backend
+.PP
+\f[I]Type\f[]
+.PP
+nullOr string
+.PP
+\f[I]Default\f[]
+.PP
+null
+.PP
+\f[I]Description\f[]
+.IP \[bu] 2
+(Required) The remote backend to use.
+.SS terraform.data.remote_state.\[lq]<name>\[rq].workspace
+.PP
+\f[I]Type\f[]
+.PP
+nullOr string
+.PP
+\f[I]Default\f[]
+.PP
+null
+.PP
+\f[I]Description\f[]
+.IP \[bu] 2
+(Optional) The Terraform workspace to use, if the backend supports
+workspaces.
+.SS terraform.data.remote_state.\[lq]<name>\[rq].config
+.PP
+\f[I]Type\f[]
+.PP
+nullOr string
+.PP
+\f[I]Default\f[]
+.PP
+null
+.PP
+\f[I]Description\f[]
+.IP \[bu] 2
+(Optional; block) The configuration of the remote backend.
+The block can use any arguments that would be valid in the equivalent
+block.
+See for details.
+.SS terraform.data.remote_state.\[lq]<name>\[rq].defaults
+.PP
+\f[I]Type\f[]
+.PP
+nullOr string
+.PP
+\f[I]Default\f[]
+.PP
+null
+.PP
+\f[I]Description\f[]
+.IP \[bu] 2
+(Optional; block) Default values for outputs, in case the state file is
+empty or lacks a required output.
+.SS terraform.data.remote_state.\[lq]<name>\[rq].extraConfig
+.PP
+\f[I]Type\f[]
+.PP
+attrs
+.PP
+\f[I]Default\f[]
+.PP
+{}
+.PP
+\f[I]Example\f[]
+.PP
+{ provider = \[lq]aws.route53_profile\[rq]; }
+.PP
+\f[I]Description\f[]
+.PP
+Use this option to add parameters the module has not defined, or if you
+want to force overwrite something that is defined wrong.
 .SH AUTHORS
 Ingolf Wagner.

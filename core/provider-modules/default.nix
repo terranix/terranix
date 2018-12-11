@@ -50,5 +50,6 @@
 ./cloudflare/resource_filter.nix
 ./cloudflare/resource_load_balancer_monitor.nix
 ./cloudflare/resource_zone_settings_override.nix
+./terraform/data_remote_state.nix
 
 ];}
