@@ -3,3 +3,4 @@
 .terraform
 *.tf.json
 result
+terraform

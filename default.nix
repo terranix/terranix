@@ -1,33 +1,19 @@
-{ stdenv, symlinkJoin, writeShellScriptBin, ... }:
+# the package
+# -----------
+{ stdenv, symlinkJoin, writeShellScriptBin, 
+  pandoc, ... }:
 
 let
-
-  libTerranix = (import ./lib.nix) { inherit writeShellScriptBin ; };
-
-  manpages = version: stdenv.mkDerivation rec {
-
-    inherit version;
-
-    name = "terranix-manpage";
-
-    src = ./core;
-
-    installPhase = ''
-      mkdir -p $out/share/man/man1
-      cp $src/manpage.man.1 $out/share/man/man1/terranix.1
-    '';
-
-  };
-
+  libTerranix = (import ./lib.nix) { inherit writeShellScriptBin stdenv pandoc; };
 in
 
   symlinkJoin rec {
-    version = "1.1.5";
+    version = "2.0.0";
     name = "terranix-${version}";
     paths = [
       libTerranix.terranix
       libTerranix.terranixTrace
-      (manpages version)
+      (libTerranix.manpage version)
     ];
     meta = with stdenv.lib; {
       description = "A NixOS like terraform-json generator";

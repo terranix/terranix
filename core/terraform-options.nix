@@ -11,7 +11,10 @@ with lib;
     variable = mkOption {
       type = with types; attrsOf attrs;
       default = {};
-      description = "foo";
+      description = ''
+        Variables only used for input.
+        Usually in terraform modules or to ask for API tokens.
+      '';
     };
     provider = mkOption {
       type = with types; attrsOf attrs;
@@ -31,7 +34,9 @@ with lib;
     output = mkOption {
       type = with types; attrsOf attrs;
       default = {};
-      description = "outputs";
+      description = ''
+        outputs use full in combination with terraform_remote_state
+      '';
     };
   };
 }
