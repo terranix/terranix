@@ -26,10 +26,9 @@ let
                       && name != "_ref"
                       && value != null
                   );
-
             recursiveSanitized = lib.mapAttrs (lib.const sanitize) stripped;
           in
-            if ( length (attrNames configuration) == 0)
+            if ( length ( attrNames configuration ) == 0 )
             then
               null
             else
@@ -60,8 +59,6 @@ let
   terranix = configuration: 
     let
       result = sanitize (evaluateConfiguration configuration).config;
-      #result = (evaluateConfiguration configuration).config;
-
       whitelist = key: if result."${key}" != null then { "${key}" = result."${key}"; } else {};
     in
       {}
