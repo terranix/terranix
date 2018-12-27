@@ -58,15 +58,15 @@ let
     let
       result = sanitize (evaluateConfiguration configuration).config;
       #result = (evaluateConfiguration configuration).config;
-      # todo : make simpler
-      ifPush = value: object: if value != null then object else {};
+
+      whitelist = key: if result."${key}" != null then { "${key}" = result."${key}"; } else {};
     in
       {}
-      // (ifPush  result.provider { provider = result.provider; })
-      // (ifPush  result.variable { variable = result.variable; })
-      // (ifPush  result.resource { resource = result.resource; })
-      // (ifPush  result.data     { data     = result.data; })
-      // (ifPush  result.output   { output   = result.output; });
+      // (whitelist "data")
+      // (whitelist "output")
+      // (whitelist "provider")
+      // (whitelist "resource")
+      // (whitelist "variable");
 
 in terranix
   {
