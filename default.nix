@@ -4,18 +4,16 @@
   pandoc, ... }:
 
 let
-
   libTerranix = (import ./lib.nix) { inherit writeShellScriptBin stdenv pandoc; };
-
 in
 
   symlinkJoin rec {
-    version = "1.1.5";
+    version = "2.0.0";
     name = "terranix-${version}";
     paths = [
       libTerranix.terranix
       libTerranix.terranixTrace
-      (manpages version)
+      (libTerranix.manpage version)
     ];
     meta = with stdenv.lib; {
       description = "A NixOS like terraform-json generator";

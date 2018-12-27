@@ -39,12 +39,13 @@ Just add
 ```nix
   terranix = callPackage (super.fetchgit {
     url = "https://github.com/mrVanDalo/terranix.git";
-    rev = "1.1.0";
-    sha256 = "0zbzlwm1aqq8a8dqf4gx8p11qi2pv1hwpg7i2wh23bc7zb6g513x";
+    rev = "2.0.0";
+    sha256 = "<sha in here>";
   }) { };
 ```
 
 to your NixOS overlays or your `shell.nix`.
+Please make sure you use the latest release and use the proper sha.
 
 ## Documentation
 
