@@ -45,8 +45,7 @@ let
         {
           imports = [
             ./terraform-options.nix
-            ./provider-modules
-            ./provider
+            # ./provider
           ];
         }
         configuration

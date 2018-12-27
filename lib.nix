@@ -2,7 +2,7 @@
 # ----------------
 # in here are all the code that is terranix
 
-{ writeShellScriptBin }:
+{ stdenv, writeShellScriptBin, pandoc, ... }:
 {
 
   terranix = writeShellScriptBin "terranix" ''
@@ -33,5 +33,24 @@
       --show-trace \
       ${toString ./core/default.nix}
   '';
+
+  manpage = version: stdenv.mkDerivation rec {
+    inherit version;
+    name = "terranix-manpage";
+    src = ./doc;
+
+    installPhase = ''
+      mkdir -p $out/share/man/man1
+      
+      cat <( echo "% TerraNix" && \
+        echo "% Ingolf Wagner" && \
+        echo "% $( date +%Y-%m-%d )" && \
+        cat $src/man_*.md ) \
+        | ${pandoc}/bin/pandoc - -s -t man \
+        > $out/share/man/man1/terranix.1
+    '';
+
+  };
+
 
 }

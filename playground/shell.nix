@@ -4,7 +4,7 @@
 
 let
 
-  terranix = import ../lib.nix { inherit (pkgs) writeShellScriptBin; };
+  terranix = import ../lib.nix { inherit (pkgs) writeShellScriptBin pandoc stdenv; };
 
   terraformCurrent = pkgs.terraform.overrideAttrs( old: rec {
     version = "0.11.10";
@@ -24,6 +24,7 @@ in pkgs.mkShell {
   buildInputs = with pkgs; [
     terranix.terranix
     terranix.terranixTrace
+    (terranix.manpage "3.3.3")
     #terraformCurrent
     terraform
     pup

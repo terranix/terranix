@@ -11,7 +11,7 @@ let
 in {
 
   options.hcloud = {
-    enable = mkEnableOption "enable hetzner provider";
+    enable = mkEnableOption "enable hcloud provider";
 
     provider = mkOption {
       default = { token = "\${ var.${default_token} }"; };
