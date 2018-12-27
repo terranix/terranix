@@ -1,3 +1,6 @@
+# terranix core
+# -------------
+
 let 
   pkgs = import <nixpkgs> {}; 
 in 
