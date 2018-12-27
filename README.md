@@ -6,7 +6,7 @@ A NixOS way to create terraform.json files.
 
 create a `config.nix` for example
 
-```
+```sh
 { config , ... }:
 {
   hcloud = {
@@ -34,7 +34,7 @@ Of course you the modules of `man configuration.nix` are not present here.
 
 in your NixOS overlays just add
 
-```
+```sh
   terranix = callPackage (super.fetchgit {
     url = "https://github.com/mrVanDalo/terranix.git";
     rev = "1.1.0";
@@ -46,4 +46,3 @@ in your NixOS overlays just add
 
 just run `man terranix` to get an short overview, and a detailed documentation about all
 providers which are currentlyc supported.
-
