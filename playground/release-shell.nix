@@ -16,7 +16,7 @@ in pkgs.mkShell {
   # -----------------
   shellHook = ''
 
-  HISTFILE=${toString ./.}/.release-history
+  HISTFILE=${toString ./.}/.history
 
   '';
 }
