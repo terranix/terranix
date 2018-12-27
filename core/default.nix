@@ -44,9 +44,8 @@ let
       modules = [
         {
           imports = [
-            ./terraform-core-options.nix
-            ./provider-modules
-            ./provider
+            ./terraform-options.nix
+            # ./provider
           ];
         }
         configuration

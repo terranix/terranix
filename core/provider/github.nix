@@ -11,7 +11,7 @@ let
 in {
 
   options.github = {
-    enable = mkEnableOption "enable hetzner provider";
+    enable = mkEnableOption "enable github provider";
 
     provider = mkOption {
       default = { token = "\${ var.${default_token} }"; };

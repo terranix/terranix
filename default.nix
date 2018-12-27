@@ -1,22 +1,11 @@
 # the package
 # -----------
-{ stdenv, symlinkJoin, writeShellScriptBin, ... }:
+{ stdenv, symlinkJoin, writeShellScriptBin, 
+  pandoc, ... }:
 
 let
 
-  libTerranix = (import ./lib.nix) { inherit writeShellScriptBin ; };
-
-  manpages = version: stdenv.mkDerivation rec {
-    inherit version;
-    name = "terranix-manpage";
-    src = ./core;
-
-    installPhase = ''
-      mkdir -p $out/share/man/man1
-      cp $src/manpage.man.1 $out/share/man/man1/terranix.1
-    '';
-
-  };
+  libTerranix = (import ./lib.nix) { inherit writeShellScriptBin stdenv pandoc; };
 
 in
 
