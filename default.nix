@@ -1,3 +1,5 @@
+# the package
+# -----------
 { stdenv, symlinkJoin, writeShellScriptBin, ... }:
 
 let
@@ -5,11 +7,8 @@ let
   libTerranix = (import ./lib.nix) { inherit writeShellScriptBin ; };
 
   manpages = version: stdenv.mkDerivation rec {
-
     inherit version;
-
     name = "terranix-manpage";
-
     src = ./core;
 
     installPhase = ''

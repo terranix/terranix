@@ -1,8 +1,10 @@
+# for development
+
 { pkgs ?  import <nixpkgs> {} }:
 
 let
 
-  terranix = import ./lib.nix { inherit (pkgs) writeShellScriptBin; };
+  terranix = import ../lib.nix { inherit (pkgs) writeShellScriptBin; };
 
   terraformCurrent = pkgs.terraform.overrideAttrs( old: rec {
     version = "0.11.10";
