@@ -13,7 +13,7 @@ in
     paths = [
       libTerranix.terranix
       libTerranix.terranixTrace
-      (manpages version)
+      (libTerranix.manpages version)
     ];
     meta = with stdenv.lib; {
       description = "A NixOS like terraform-json generator";
