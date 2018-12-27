@@ -36,3 +36,4 @@ resource."aws_instance"."web" = {
 ```
 
 The same holds for `variable`, `output`, `data` and `provider`.
+
