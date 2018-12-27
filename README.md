@@ -9,14 +9,11 @@ create a `config.nix` for example
 ```sh
 { config , ... }:
 {
-  hcloud = {
-    enable = true;
-    resource.server.nginx = {
-      name = "my.nginx";
-      image  = "debian-9";
-      server_type = "cx11";
-      backups = false;
-    };
+  resource.hcloud_server.nginx = {
+    name = "my.nginx";
+    image  = "debian-9";
+    server_type = "cx11";
+    backups = false;
   };
 }
 ```
