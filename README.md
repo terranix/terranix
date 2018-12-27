@@ -6,20 +6,25 @@ A NixOS way to create terraform.json files.
 
 create a `config.nix` for example
 
-```sh
-{ config , ... }:
+```nix
+{ ... }:
 {
   resource.hcloud_server.nginx = {
-    name = "my.nginx";
-    image  = "debian-9";
+    name = "terranix.nginx";
+    image  = "debian-10";
     server_type = "cx11";
     backups = false;
+  };
+  resource.hcloud_server.test = {
+    name = "terranix.test";
+    image  = "debian-9";
+    server_type = "cx11";
+    backups = true;
   };
 }
 ```
 
 run `terranix config.nix` and it will output json you can pipe in a file `config.tf.json`.
-Use the resulting file like you would use a `.tf` file written in `HCL`.
 
 ## How to write modules
 
@@ -29,9 +34,9 @@ Of course you the modules of `man configuration.nix` are not present here.
 
 ## How to install
 
-in your NixOS overlays just add
+Just add
 
-```sh
+```nix
   terranix = callPackage (super.fetchgit {
     url = "https://github.com/mrVanDalo/terranix.git";
     rev = "1.1.0";
@@ -39,7 +44,8 @@ in your NixOS overlays just add
   }) { };
 ```
 
+to your NixOS overlays or your `shell.nix`.
+
 ## Documentation
 
-just run `man terranix` to get an short overview, and a detailed documentation about all
-providers which are currentlyc supported.
+Run `man terranix` to get an overview on how to use it.
