@@ -50,3 +50,9 @@ Please make sure you use the latest release and use the proper sha.
 ## Documentation
 
 Run `man terranix` to get an overview on how to use it.
+
+## See also
+
+* [nix-instantiate introduction](https://tech.ingolf-wagner.de/nixos/nix-instantiate/)
+* [NixOS Manual](https://nixos.org/nixos/manual/index.html#sec-writing-modules)
+
