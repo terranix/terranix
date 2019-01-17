@@ -32,6 +32,13 @@ You can write modules, like you would in NixOS.
 Of course you the modules of `man configuration.nix` are not present here.
 (see the [NixOS Manual](https://nixos.org/nixos/manual/index.html#sec-writing-modules) for more details)
 
+### preload
+
+Terranix comes with predefined modules which can be used as
+inspiration and to create logic on top.
+They live in `./modules`.
+
+
 ## How to install
 
 Just add
