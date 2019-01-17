@@ -66,7 +66,8 @@ let
       // (whitelist "output")
       // (whitelist "provider")
       // (whitelist "resource")
-      // (whitelist "variable");
+      // (whitelist "variable")
+      // (whitelist "terraform");
 
 in terranix
   {

@@ -3,6 +3,15 @@
 
   users.admins.palo.ssh_key = "ssh-rsa asdfasdf ";
 
+
+  backend.local.path = "./my-terraform-state.tfstate";
+
+  backend.s3 = {
+    bucket  = "some-where-over-the-rainbow";
+    key = "my-terraform-state.tfstate";
+    region = "eu-central-1";
+  };
+
   resource.hcloud_server.nginx = {
     name = "terranix.nginx";
     image  = "debian-10";

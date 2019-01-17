@@ -1,3 +1,6 @@
 {
-  imports = [ ./users.nix ];
+  imports = [
+    ./backends.nix
+    ./users.nix
+  ];
 }
