@@ -12,6 +12,8 @@
     region = "eu-central-1";
   };
 
+  remote_state.test = "not a test";
+
   resource.hcloud_server.nginx = {
     name = "terranix.nginx";
     image  = "debian-10";

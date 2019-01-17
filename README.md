@@ -38,6 +38,19 @@ Terranix comes with predefined modules which can be used as
 inspiration and to create logic on top.
 They live in `./modules`.
 
+### do Assertions
+
+To make an assertion in your module use the `mkAssert` command.
+Here is an example
+
+```
+config = mkAssert (cfg.parameter != "fail" ) "parameter is set to fail!" {
+  resource.aws_what_ever."${cfg.parameter}" = {
+    I = "love nixos";
+  };
+};
+```
+
 
 ## How to install
 
