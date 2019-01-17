@@ -1,6 +1,6 @@
 {
   imports = [
-    ./backends.nix
+    ./terraform/backends.nix
     ./users.nix
   ];
 }
