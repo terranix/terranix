@@ -27,7 +27,7 @@ with lib;
       };
     };
 
-    desciption = ''
+    description = ''
       user managment for servers. usually admins.
       A gloabal container of users which servers should
       pull from and allow access to them.

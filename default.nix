@@ -1,6 +1,6 @@
 # the package
 # -----------
-{ stdenv, symlinkJoin, writeShellScriptBin, 
+{ stdenv, symlinkJoin, writeShellScriptBin,
   pandoc, ... }:
 
 let

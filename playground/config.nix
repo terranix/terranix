@@ -1,5 +1,8 @@
 {...}:
 {
+
+  users.admins.palo.ssh_key = "ssh-rsa asdfasdf ";
+
   resource.hcloud_server.nginx = {
     name = "terranix.nginx";
     image  = "debian-10";

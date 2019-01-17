@@ -45,6 +45,7 @@ let
         {
           imports = [
             ./terraform-options.nix
+            ../modules
             # ./provider
           ];
         }
