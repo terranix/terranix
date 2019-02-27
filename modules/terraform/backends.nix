@@ -55,18 +55,15 @@ in {
     '';
   };
 
-  config = mkMerge [
-
-    ( mkIf (cfg.local != null) {
-      # todo assertions here now
-      terraform."backend".local = cfg.local;
-    })
-
-    ( mkIf (cfg.s3 != null) {
-      # todo assertions here now
-      terraform."backend".s3 = cfg.s3;
-    })
-
-  ];
+  config =
+    let
+      notNull = element: ! ( isNull element );
+    in
+      mkAssert ( length ( filter notNull [ cfg.local cfg.s3 ] ) < 2 )
+        "you defined to backends which will not work stick to one"
+        (mkMerge [
+          ( mkIf (cfg.local != null) { terraform."backend".local = cfg.local; })
+          ( mkIf (cfg.s3 != null)    { terraform."backend".s3    = cfg.s3; })
+        ]);
 
 }

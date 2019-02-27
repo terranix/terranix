@@ -21,9 +21,6 @@ in {
     };
   };
 
-  config = mkAssert (cfg.test == "test") "you are doing it wrong ${cfg.test}" {
-    data."remote_state"."test" = {
-      test= "yeah";
-    };
-  };
+  config = {};
+
 }
