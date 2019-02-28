@@ -6,60 +6,44 @@ let
 
   cfg = config.backend;
 
-in {
-
-  options.backend.local = mkOption {
-    default = null;
-    type    = with types; nullOr (submodule {
+  localSubmodule =
+    types.submodule {
       options = {
         path = mkOption {
-          type    = with types; string;
+          type    = with types; str;
           description = ''
             path to the state file
           '';
         };
       };
-    });
+    };
 
-    description = ''
-      local backend
-      https://www.terraform.io/docs/backends/types/local.html
-    '';
-  };
-
-  options.backend.s3 = mkOption {
-    default = null;
-    type    = with types; nullOr (submodule {
+  s3Submodule =
+    types.submodule {
       options = {
         bucket = mkOption {
-          type    = with types; string;
+          type    = with types; str;
           description = ''
             bucket name
           '';
         };
         key = mkOption {
-          type    = with types; string;
+          type    = with types; str;
           description = ''
             path to the state file in the bucket
           '';
         };
         region = mkOption {
-          type    = with types; string;
+          type    = with types; str;
           description = ''
             region of the bucket
           '';
         };
       };
-    });
-    description = ''
-      s3 backend
-      https://www.terraform.io/docs/backends/types/s3.html
-    '';
-  };
+    };
 
-  options.backend.etcd = mkOption {
-    default = null;
-    type    = with types; nullOr (submodule {
+  etcdSubmodule =
+    types.submodule {
       options = {
         path = mkOption {
           type    = with types; str;
@@ -89,15 +73,36 @@ in {
           '';
         };
       };
-    });
+    };
 
+in {
+
+  options.backend.local = mkOption {
+    default = null;
+    type = with types; nullOr localSubmodule;
+    description = ''
+      local backend
+      https://www.terraform.io/docs/backends/types/local.html
+    '';
+  };
+
+  options.backend.s3 = mkOption {
+    default = null;
+    type = with types; nullOr s3Submodule;
+    description = ''
+      s3 backend
+      https://www.terraform.io/docs/backends/types/s3.html
+    '';
+  };
+
+  options.backend.etcd = mkOption {
+    default = null;
+    type = with types; nullOr etcdSubmodule;
     description = ''
       etcd backend
       https://www.terraform.io/docs/backends/types/etcd.html
     '';
   };
-
-
 
   config =
     let

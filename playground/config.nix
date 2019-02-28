@@ -3,7 +3,7 @@
 
   users.admins.palo.ssh_key = "ssh-rsa asdfasdf ";
 
-  # backend.local.path = "./my-terraform-state.tfstate";
+  #backend.local.path = "./my-terraform-state.tfstate";
 
   #backend.s3 = {
   #  bucket  = "some-where-over-the-rainbow";
@@ -11,10 +11,10 @@
   #  region = "eu-central-1";
   #};
 
-  backend.etcd = {
-    path = "/";
-    endpoints = "https://one";
-  };
+  #backend.etcd = {
+  #  path = "/";
+  #  endpoints = "https://one";
+  #};
 
   resource.hcloud_server.nginx = {
     name = "terranix.nginx";
