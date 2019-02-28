@@ -23,6 +23,7 @@ in {
 
     description = ''
       local backend
+      https://www.terraform.io/docs/backends/types/local.html
     '';
   };
 
@@ -52,12 +53,55 @@ in {
     });
     description = ''
       s3 backend
+      https://www.terraform.io/docs/backends/types/s3.html
     '';
   };
 
+  options.backend.etcd = mkOption {
+    default = null;
+    type    = with types; nullOr (submodule {
+      options = {
+        path = mkOption {
+          type    = with types; str;
+          description = ''
+            The path where to store the state
+          '';
+        };
+        endpoints = mkOption {
+          # todo : type should be listOf str
+          type    = with types; str;
+          description = ''
+            A space-separated list of the etcd endpoints
+          '';
+        };
+        username = mkOption {
+          default = null;
+          type    = with types; nullOr str;
+          description = ''
+            the username
+          '';
+        };
+        password = mkOption {
+          default = null;
+          type    = with types; nullOr str;
+          description = ''
+            the password
+          '';
+        };
+      };
+    });
+
+    description = ''
+      etcd backend
+      https://www.terraform.io/docs/backends/types/etcd.html
+    '';
+  };
+
+
+
   config =
     let
-      backends = [ "local" "s3" ];
+      backends = [ "local" "s3" "etcd" ];
       notNull = element: ! ( isNull element );
       rule = backend:
         mkIf (cfg."${backend}" != null) { terraform."backend"."${backend}" = cfg."${backend}"; };
