@@ -57,13 +57,14 @@ in {
 
   config =
     let
+      backends = [ "local" "s3" ];
       notNull = element: ! ( isNull element );
+      rule = backend:
+        mkIf (cfg."${backend}" != null) { terraform."backend"."${backend}" = cfg."${backend}"; };
+      backendConfigs = map (backend: cfg."${backend}") backends;
     in
-      mkAssert ( length ( filter notNull [ cfg.local cfg.s3 ] ) < 2 )
-        "you defined to backends which will not work stick to one"
-        (mkMerge [
-          ( mkIf (cfg.local != null) { terraform."backend".local = cfg.local; })
-          ( mkIf (cfg.s3 != null)    { terraform."backend".s3    = cfg.s3; })
-        ]);
+      mkAssert ( length ( filter notNull backendConfigs ) < 2 )
+        "You defined multiple backends, stick to one!"
+        (mkMerge (map rule backends));
 
 }

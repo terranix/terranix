@@ -1,9 +1,9 @@
 # terranix core
 # -------------
 
-let 
-  pkgs = import <nixpkgs> {}; 
-in 
+let
+  pkgs = import <nixpkgs> {};
+in
 
 with pkgs;
 with pkgs.lib;
@@ -56,10 +56,13 @@ let
   # create the final result
   # by whitelisting every
   # parameter which is needed by terraform
-  terranix = configuration: 
+  terranix = configuration:
     let
       result = sanitize (evaluateConfiguration configuration).config;
-      whitelist = key: if result."${key}" != null then { "${key}" = result."${key}"; } else {};
+      whitelist = key:
+        if result."${key}" != null
+        then
+          { "${key}" = result."${key}"; } else {};
     in
       {}
       // (whitelist "data")

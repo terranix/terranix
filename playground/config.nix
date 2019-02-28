@@ -3,7 +3,6 @@
 
   users.admins.palo.ssh_key = "ssh-rsa asdfasdf ";
 
-
   backend.local.path = "./my-terraform-state.tfstate";
 
   backend.s3 = {
