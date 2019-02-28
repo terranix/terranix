@@ -86,11 +86,29 @@ in {
     '';
   };
 
+  options.remote_state.local = mkOption {
+    default = {};
+    type = with types; attrsOf localSubmodule;
+    description = ''
+      local remote state
+      https://www.terraform.io/docs/backends/types/local.html
+    '';
+  };
+
   options.backend.s3 = mkOption {
     default = null;
     type = with types; nullOr s3Submodule;
     description = ''
       s3 backend
+      https://www.terraform.io/docs/backends/types/s3.html
+    '';
+  };
+
+  options.remote_state.s3 = mkOption {
+    default = {};
+    type = with types; attrsOf s3Submodule;
+    description = ''
+      s3 remote state
       https://www.terraform.io/docs/backends/types/s3.html
     '';
   };
@@ -104,16 +122,47 @@ in {
     '';
   };
 
+  options.remote_state.etcd = mkOption {
+    default = {};
+    type = with types; attrsOf etcdSubmodule;
+    description = ''
+      etcd remote state
+      https://www.terraform.io/docs/backends/types/etcd.html
+    '';
+  };
+
   config =
     let
       backends = [ "local" "s3" "etcd" ];
       notNull = element: ! ( isNull element );
       rule = backend:
-        mkIf (cfg."${backend}" != null) { terraform."backend"."${backend}" = cfg."${backend}"; };
-      backendConfigs = map (backend: cfg."${backend}") backends;
-    in
-      mkAssert ( length ( filter notNull backendConfigs ) < 2 )
+        mkIf (config.backend."${backend}" != null) { terraform."backend"."${backend}" = config.backend."${backend}"; };
+
+      backendConfigs = map (backend: config.backend."${backend}") backends;
+
+      backendFoo = mkAssert ( length ( filter notNull backendConfigs ) < 2 )
         "You defined multiple backends, stick to one!"
         (mkMerge (map rule backends));
+
+      # todo : cleanup
+      vals = map (backend: config.remote_state."${backend}") backends;
+      foo = flatten (map attrNames (filter (element: element != {}) vals));
+      foo2 = unique foo;
+
+      remote = backend:
+        mkIf (config.remote_state."${backend}" != {}) { data."terraform_remote_state" =
+          (mapAttrs' (name: value: { name = name; value = { config = value; backend = "${backend}";}; } )
+            config.remote_state."${backend}"
+          );
+        };
+
+      remoteConfig = mkAssert ( length foo2 == length foo )
+        "You defined multiple terraform_states with the same name!"
+        (mkMerge (map remote backends));
+    in
+      mkMerge [
+        backendFoo
+        remoteConfig
+      ];
 
 }

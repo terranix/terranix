@@ -5,16 +5,27 @@
 
   #backend.local.path = "./my-terraform-state.tfstate";
 
-  #backend.s3 = {
-  #  bucket  = "some-where-over-the-rainbow";
-  #  key = "my-terraform-state.tfstate";
-  #  region = "eu-central-1";
-  #};
+  backend.s3 = {
+    bucket  = "some-where-over-the-rainbow";
+    key = "my-terraform-state.tfstate";
+    region = "eu-central-1";
+  };
 
   #backend.etcd = {
   #  path = "/";
   #  endpoints = "https://one";
   #};
+
+  remote_state.s3.test = {
+    bucket  = "some-where-over-the-rainbow";
+    key = "my-terraform-state.tfstate";
+    region = "eu-central-1";
+  };
+
+  # todo : fix this
+  remote_state.local.test = {
+    path = "some-where-over-the-rainbow";
+  };
 
   resource.hcloud_server.nginx = {
     name = "terranix.nginx";
