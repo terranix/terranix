@@ -1,3 +1,4 @@
+# manage backend configurations and terraform_remote_state configurations
 { config, lib, pkgs, ... }:
 
 with lib;
@@ -135,34 +136,42 @@ in {
     let
       backends = [ "local" "s3" "etcd" ];
       notNull = element: ! ( isNull element );
-      rule = backend:
-        mkIf (config.backend."${backend}" != null) { terraform."backend"."${backend}" = config.backend."${backend}"; };
 
-      backendConfigs = map (backend: config.backend."${backend}") backends;
+      backendConfigurations =
+        let
+          rule = backend:
+            mkIf (config.backend."${backend}" != null)
+              { terraform."backend"."${backend}" = config.backend."${backend}"; };
 
-      backendFoo = mkAssert ( length ( filter notNull backendConfigs ) < 2 )
-        "You defined multiple backends, stick to one!"
-        (mkMerge (map rule backends));
+          backendConfigs =
+            map (backend: config.backend."${backend}") backends;
+        in
+          mkAssert ( length ( filter notNull backendConfigs ) < 2 )
+            "You defined multiple backends, stick to one!"
+            (mkMerge (map rule backends));
 
-      # todo : cleanup
-      vals = map (backend: config.remote_state."${backend}") backends;
-      foo = flatten (map attrNames (filter (element: element != {}) vals));
-      foo2 = unique foo;
 
-      remote = backend:
-        mkIf (config.remote_state."${backend}" != {}) { data."terraform_remote_state" =
-          (mapAttrs' (name: value: { name = name; value = { config = value; backend = "${backend}";}; } )
-            config.remote_state."${backend}"
-          );
-        };
+      remoteConfigurations =
+        let
+          backendConfigs = map (backend: config.remote_state."${backend}") backends;
+          allRemoteStates = flatten (map attrNames (filter (element: element != {}) backendConfigs));
+          uniqueRemoteStates = unique allRemoteStates;
 
-      remoteConfig = mkAssert ( length foo2 == length foo )
-        "You defined multiple terraform_states with the same name!"
-        (mkMerge (map remote backends));
+          remote = backend:
+            mkIf (config.remote_state."${backend}" != {})
+              { data."terraform_remote_state" =
+                mapAttrs
+                  (name: value: { config = value; backend = "${backend}";})
+                  config.remote_state."${backend}";
+              };
+        in
+          mkAssert ( length allRemoteStates == length uniqueRemoteStates )
+            "You defined multiple terraform_states with the same name!"
+            (mkMerge (map remote backends));
     in
       mkMerge [
-        backendFoo
-        remoteConfig
+        backendConfigurations
+        remoteConfigurations
       ];
 
 }

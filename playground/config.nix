@@ -23,7 +23,7 @@
   };
 
   # todo : fix this
-  remote_state.local.test = {
+  remote_state.local.test2 = {
     path = "some-where-over-the-rainbow";
   };
 
