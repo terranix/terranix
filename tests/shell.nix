@@ -1,6 +1,9 @@
 # for development
 { pkgs ?  import <nixpkgs> {} }:
 
+with pkgs.lib;
+with builtins;
+
 let
 
   terranix = import ../lib.nix { inherit (pkgs) writeShellScriptBin pandoc stdenv; };
@@ -16,26 +19,32 @@ let
       };
     });
 
-  testFolder = folder: pkgs.writeScript "testFile" /* sh */ ''
-    cd ${folder}
-    OUTPUT_FILE=${folder}/.test-output
-    if [ -f "$OUTPUT_FILE" ];then rm "$OUTPUT_FILE" ;fi
+  testFolder = folder:
+    let
+      ls = builtins.readDir folder;
+      files = builtins.attrNames (filterAttrs (file: fileType: fileType == "regular") ls );
+      nixFiles = builtins.filter (hasSuffix "nix") files;
+      script = file: /* sh */ ''
+        echo "Testing : ${folder}/${file}"
+        ${terranix.terranix}/bin/terranix ${folder}/${file} &> "${folder}/.test-output"
+        diff -su "${folder}/.test-output" ${folder}/`basename ${file} .nix`.output
+        if [ $? -ne 0 ]
+        then
+          exit 1
+        fi
+      '';
+    in
+      pkgs.writeScript "script" (concatStringsSep "\n" (map script nixFiles));
 
-    for NIX_FILE in `ls | egrep nix`
-    do
-      echo "Testing : ${folder}/$NIX_FILE"
-      ${terranix.terranix}/bin/terranix ${folder}/$NIX_FILE &> "$OUTPUT_FILE"
-      diff -su "$OUTPUT_FILE" `basename $NIX_FILE .nix`.output
-      if [ $? -ne 0 ]
-      then
-        exit 1
-      fi
-    done
-  '';
-
-  testScript = folders: pkgs.writeShellScriptBin "test-terranix" /* sh */ ''
-    ${pkgs.lib.concatStringsSep "\n" (map testFolder folders)}
-  '';
+  testScript =
+    let
+      testFolders = attrNames (filterAttrs (file: fileType: fileType == "directory") (readDir (toString ./.)));
+      fullTestFolders = map (file: "${toString ./.}/${file}") testFolders;
+    in
+      pkgs.writeShellScriptBin "test-terranix" ''
+        set -e
+        ${concatStringsSep "\n" (map testFolder fullTestFolders)}
+      '';
 
 in pkgs.mkShell {
 
@@ -49,7 +58,7 @@ in pkgs.mkShell {
     terraform
     pup
     pandoc
-    (testScript ["${toString ./backend-tests}"])
+    testScript
   ];
 
   # run this on start
