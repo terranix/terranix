@@ -1,9 +1,9 @@
 # terranix core
 # -------------
 
-let 
-  pkgs = import <nixpkgs> {}; 
-in 
+let
+  pkgs = import <nixpkgs> {};
+in
 
 with pkgs;
 with pkgs.lib;
@@ -17,6 +17,7 @@ let
         bool = configuration;
         int = configuration;
         string = configuration;
+        str = configuration;
         list = map sanitize configuration;
         set =
           let
@@ -45,7 +46,7 @@ let
         {
           imports = [
             ./terraform-options.nix
-            # ./provider
+            ../modules
           ];
         }
         configuration
@@ -55,17 +56,21 @@ let
   # create the final result
   # by whitelisting every
   # parameter which is needed by terraform
-  terranix = configuration: 
+  terranix = configuration:
     let
       result = sanitize (evaluateConfiguration configuration).config;
-      whitelist = key: if result."${key}" != null then { "${key}" = result."${key}"; } else {};
+      whitelist = key:
+        if result."${key}" != null
+        then
+          { "${key}" = result."${key}"; } else {};
     in
       {}
       // (whitelist "data")
       // (whitelist "output")
       // (whitelist "provider")
       // (whitelist "resource")
-      // (whitelist "variable");
+      // (whitelist "variable")
+      // (whitelist "terraform");
 
 in terranix
   {

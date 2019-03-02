@@ -1,6 +1,6 @@
 # the package
 # -----------
-{ stdenv, symlinkJoin, writeShellScriptBin, 
+{ stdenv, symlinkJoin, writeShellScriptBin,
   pandoc, ... }:
 
 let
@@ -8,7 +8,7 @@ let
 in
 
   symlinkJoin rec {
-    version = "2.0.0";
+    version = "2.0.1";
     name = "terranix-${version}";
     paths = [
       libTerranix.terranix

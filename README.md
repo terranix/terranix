@@ -32,6 +32,30 @@ You can write modules, like you would in NixOS.
 Of course you the modules of `man configuration.nix` are not present here.
 (see the [NixOS Manual](https://nixos.org/nixos/manual/index.html#sec-writing-modules) for more details)
 
+### Example
+
+To get an idea on how working with terranix would look like,
+have a look at [the example folder](./example/).
+
+### preload
+
+Terranix comes with predefined modules which can be used as
+inspiration and to create logic on top.
+They live in `./modules`.
+
+### do Assertions
+
+To make an assertion in your module use the `mkAssert` command.
+Here is an example
+
+```nix
+config = mkAssert (cfg.parameter != "fail" ) "parameter is set to fail!" {
+  resource.aws_what_ever."${cfg.parameter}" = {
+    I = "love nixos";
+  };
+};
+```
+
 ## How to install
 
 Just add
@@ -39,7 +63,7 @@ Just add
 ```nix
   terranix = callPackage (super.fetchgit {
     url = "https://github.com/mrVanDalo/terranix.git";
-    rev = "2.0.0";
+    rev = "2.0.1";
     sha256 = "<sha in here>";
   }) { };
 ```
@@ -55,4 +79,3 @@ Run `man terranix` to get an overview on how to use it.
 
 * [nix-instantiate introduction](https://tech.ingolf-wagner.de/nixos/nix-instantiate/)
 * [NixOS Manual](https://nixos.org/nixos/manual/index.html#sec-writing-modules)
-

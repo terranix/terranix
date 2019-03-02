@@ -18,7 +18,7 @@ in {
       type = with types; (submodule {
         options = {
           token = mkOption {
-            type    = with types; string;
+            type    = with types; str;
             default = "\${ var.${default_token} }";
             description = ''
               To get started using the API you first
@@ -31,14 +31,14 @@ in {
           };
           endpoint = mkOption {
             default = null;
-            type    = with types; nullOr string;
+            type    = with types; nullOr str;
             description = ''
               - (Optional, string) Hetzner Cloud API endpoint, can be used to override the default API Endpoint https://api.hetzner.cloud/v1.
             '';
           };
           poll_interval = mkOption {
             default = null;
-            type    = with types; nullOr string;
+            type    = with types; nullOr str;
             description = ''
               - (Optional, string) Configures the interval in which actions are polled by the client. Default 500ms. Increase this interval if you run into rate limiting errors.
             '';

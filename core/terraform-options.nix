@@ -31,6 +31,11 @@ with lib;
       default = {};
       description = "resources, basically commands";
     };
+    terraform = mkOption {
+      type = with types; attrsOf attrs;
+      default = {};
+      description = "terraform configuration, mainly for backend";
+    };
     output = mkOption {
       type = with types; attrsOf attrs;
       default = {};
