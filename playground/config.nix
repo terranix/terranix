@@ -11,9 +11,9 @@
   #  server_type = "cx11";
   #  backups = false;
   #};
-  
+
   imports = [ ./modules ];
-  
-  servers.grafana.penis = {};
+
+  servers.grafana.test = {};
 
 }

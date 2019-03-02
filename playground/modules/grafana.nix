@@ -13,7 +13,7 @@ in {
     type = with types; attrsOf (submodule ({ name, ... }: {
       options = {
         name = mkOption {
-          default = "grafana_${name}";
+          default = "grafana-${name}";
           type = with types; str;
           description = ''
             name
@@ -32,8 +32,12 @@ in {
                 name = "grafana_${name}";
                 value = {
                   name = configuration.name;
-                  image  = "debian-10";
+                  image  = "ubuntu-18.04";
                   server_type = "cx11";
+                  user_data = ''
+                    apt-get update
+                    apt-get intstall docker
+                  '';
                   backups = false;
                 };
               }) cfg;
