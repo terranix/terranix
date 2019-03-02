@@ -19,23 +19,22 @@ let
       };
     });
 
-  # todo : use builtins.readDir
-  testFolder = folder: pkgs.writeScript "testFile" /* sh */ ''
-    cd ${folder}
-    OUTPUT_FILE=${folder}/.test-output
-    if [ -f "$OUTPUT_FILE" ];then rm "$OUTPUT_FILE" ;fi
-
-    for NIX_FILE in `ls | egrep nix`
-    do
-      echo "Testing : ${folder}/$NIX_FILE"
-      ${terranix.terranix}/bin/terranix ${folder}/$NIX_FILE &> "$OUTPUT_FILE"
-      diff -su "$OUTPUT_FILE" `basename $NIX_FILE .nix`.output
-      if [ $? -ne 0 ]
-      then
-        exit 1
-      fi
-    done
-  '';
+  testFolder = folder:
+    let
+      ls = builtins.readDir folder;
+      files = builtins.attrNames (filterAttrs (file: fileType: fileType == "regular") ls );
+      nixFiles = builtins.filter (hasSuffix "nix") files;
+      script = file: pkgs.writeScript "script" /* sh */ ''
+        echo "Testing : ${folder}/${file}"
+        ${terranix.terranix}/bin/terranix ${folder}/${file} &> "${folder}/.test-output"
+        diff -su "${folder}/.test-output" ${folder}/`basename ${file} .nix`.output
+        if [ $? -ne 0 ]
+        then
+          exit 1
+        fi
+      '';
+    in
+      pkgs.writeScript "penis" (concatStringsSep "\n" (map script nixFiles));
 
   testScript =
     let
