@@ -47,8 +47,9 @@ in {
                   backups = false;
                   provisioner."remote-exec" = {
                     inline = [ 
+                        "apt update"
                         "apt -y install docker.io"
-                        ''/usr/bin/docker run -d --name=grafana \
+                        ''docker run -d --name=grafana \
                             -p 80:3000 \
                             grafana/grafana
                         ''
