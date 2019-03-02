@@ -1,6 +1,9 @@
 # for development
 { pkgs ?  import <nixpkgs> {} }:
 
+with pkgs.lib;
+with builtins;
+
 let
 
   terranix = import ../lib.nix { inherit (pkgs) writeShellScriptBin pandoc stdenv; };
@@ -16,6 +19,7 @@ let
       };
     });
 
+  # todo : use builtins.readDir
   testFolder = folder: pkgs.writeScript "testFile" /* sh */ ''
     cd ${folder}
     OUTPUT_FILE=${folder}/.test-output
@@ -33,9 +37,14 @@ let
     done
   '';
 
-  testScript = folders: pkgs.writeShellScriptBin "test-terranix" /* sh */ ''
-    ${pkgs.lib.concatStringsSep "\n" (map testFolder folders)}
-  '';
+  testScript =
+    let
+      testFolders = attrNames (filterAttrs (file: fileType: fileType == "directory") (readDir (toString ./.)));
+      fullTestFolders = map (file: "${toString ./.}/${file}") testFolders;
+    in
+      pkgs.writeShellScriptBin "test-terranix" ''
+        ${concatStringsSep "\n" (map testFolder fullTestFolders)}
+      '';
 
 in pkgs.mkShell {
 
@@ -49,7 +58,7 @@ in pkgs.mkShell {
     terraform
     pup
     pandoc
-    (testScript ["${toString ./backend-tests}"])
+    testScript
   ];
 
   # run this on start
