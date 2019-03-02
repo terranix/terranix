@@ -24,7 +24,7 @@ let
       ls = builtins.readDir folder;
       files = builtins.attrNames (filterAttrs (file: fileType: fileType == "regular") ls );
       nixFiles = builtins.filter (hasSuffix "nix") files;
-      script = file: pkgs.writeScript "script" /* sh */ ''
+      script = file: /* sh */ ''
         echo "Testing : ${folder}/${file}"
         ${terranix.terranix}/bin/terranix ${folder}/${file} &> "${folder}/.test-output"
         diff -su "${folder}/.test-output" ${folder}/`basename ${file} .nix`.output
@@ -42,6 +42,7 @@ let
       fullTestFolders = map (file: "${toString ./.}/${file}") testFolders;
     in
       pkgs.writeShellScriptBin "test-terranix" ''
+        set -e
         ${concatStringsSep "\n" (map testFolder fullTestFolders)}
       '';
 
