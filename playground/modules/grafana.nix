@@ -26,6 +26,13 @@ in {
             name
           '';
         };
+        plugins = mkOption {
+          default = [ "grafana-clock-panel" "grafana-simple-json-datasource" ];
+          type = with types; listOf str;
+          description = ''
+            list of plugins which should be installed
+          '';
+        };
       };
     }));
   };
@@ -50,6 +57,7 @@ in {
                         "apt update"
                         "apt -y install docker.io"
                         ''docker run -d --name=grafana \
+                            ${optionalString (configuration.plugins != []) "-e GF_INSTALL_PLUGINS=${concatStringsSep "," configuration.plugins}"} \
                             -p 80:3000 \
                             grafana/grafana
                         ''
