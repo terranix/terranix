@@ -5,15 +5,14 @@ with lib;
 {
   options.users = mkOption {
     default = {};
-
     type = with types; attrsOf ( attrsOf ( submodule {
       options = {
 
-        ssh_key = mkOption {
-          type    = with types; nullOr string;
+        publicKey = mkOption {
           default = null;
+          type = with types; nullOr string;
           description = ''
-            public key of user.
+            public ssh key of user.
           '';
         };
 
@@ -22,8 +21,8 @@ with lib;
 
     example = {
       "admins" = {
-        "mrVanDalo".ssh_key = "ssh-rsa AAAAB3NzaC1yc2EAAAA..";
-        "lassuls".ssh_key = "ssh-rsa ABKAB3NzaC1yc2EAAAA..";
+        "mrVanDalo".publicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAA..";
+        "lassuls".publicKey = "ssh-rsa ABKAB3NzaC1yc2EAAAA..";
       };
     };
 
