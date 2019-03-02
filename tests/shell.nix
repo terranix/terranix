@@ -34,7 +34,7 @@ let
         fi
       '';
     in
-      pkgs.writeScript "penis" (concatStringsSep "\n" (map script nixFiles));
+      pkgs.writeScript "script" (concatStringsSep "\n" (map script nixFiles));
 
   testScript =
     let
