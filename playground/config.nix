@@ -1,7 +1,7 @@
 {...}:
 {
 
-  users.admins.palo.ssh_key = "ssh-rsa asdfasdf ";
+  users.admins.palo.publicKey = "ssh-rsa asdfasdf ";
 
   #backend.local.path = "./my-terraform-state.tfstate";
 
