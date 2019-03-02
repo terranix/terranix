@@ -44,11 +44,21 @@ in {
                   image  = "ubuntu-18.04";
                   server_type = "cx11";
                   ssh_keys = allUsers;
-                  user_data = ''
-                    apt-get update
-                    apt-get intstall docker
-                  '';
                   backups = false;
+                  provisioner."remote-exec" = {
+                    inline = [ 
+                        "apt -y install docker.io"
+                        ''/usr/bin/docker run -d --name=grafana \
+                            -p 80:3000 \
+                            grafana/grafana
+                        ''
+                    ];
+                    connection = {
+                      type = "ssh";
+                      user = "root";
+                      private_key = config.provisioner.privateKey ;
+                    };
+                  };
                 };
               }) cfg;
             in
