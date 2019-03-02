@@ -85,7 +85,7 @@ in {
                 value = { value = "\${ hcloud_server.grafana_${name}.ipv6_address }"; };
               } ) cfg;
             in
-              ipv4Address;
+              ipv4Address // ipv6Address;
             
               
         }
