@@ -10,7 +10,7 @@ with lib;
 
         publicKey = mkOption {
           default = null;
-          type = with types; nullOr string;
+          type = with types; nullOr str;
           description = ''
             public ssh key of user.
           '';

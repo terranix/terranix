@@ -18,7 +18,7 @@ in {
       type = with types; (submodule {
         options = {
           token = mkOption {
-            type    = with types; string;
+            type    = with types; str;
             default = "\${ var.${default_token} }";
             description = ''
               login token

@@ -17,6 +17,7 @@ let
         bool = configuration;
         int = configuration;
         string = configuration;
+        str = configuration;
         list = map sanitize configuration;
         set =
           let
@@ -46,7 +47,6 @@ let
           imports = [
             ./terraform-options.nix
             ../modules
-            # ./provider
           ];
         }
         configuration
