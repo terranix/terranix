@@ -8,7 +8,7 @@ let
 in
 
   symlinkJoin rec {
-    version = "2.0.1";
+    version = "2.0.2";
     name = "terranix-${version}";
     paths = [
       libTerranix.terranix
