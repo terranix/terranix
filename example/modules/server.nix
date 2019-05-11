@@ -62,6 +62,12 @@ in {
 
       hcloud.enable = true;
 
+      provisioner.machine_infos = mapAttrsToList ( name: _: {
+        name = name;
+        ipv4_address_key = "${name}_ipv4_address";
+        ipv6_address_key = "${name}_ipv6_address";
+      }) cfg;
+
       resource.hcloud_server =
         let
           allUsers = mapAttrsToList ( name: ignore: "\${ hcloud_ssh_key.server_${name}.id }" ) allAdmins;
@@ -79,7 +85,7 @@ in {
                 connection = {
                   type = "ssh";
                   user = "root";
-                  private_key = config.provisioner.privateKey ;
+                  private_key = "${lib.fileContents config.provisioner.privateKeyFile}";
                 };
               };
             };
