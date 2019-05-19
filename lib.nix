@@ -5,33 +5,37 @@
 { stdenv, writeShellScriptBin, pandoc, ... }:
 {
 
-  terranix = writeShellScriptBin "terranix" ''
-    FILE=${"$"}{1:-config.nix}
+  terranix = writeShellScriptBin "terranix" /* sh */ ''
+  FILE=${"$"}{1:-config.nix}
 
-    if [ ! -f $FILE ]
-    then
+  if [ ! -f $FILE ]
+  then
       echo "$FILE does not exist"
       exit 1
-    fi
+  fi
 
-    nix-instantiate --eval --strict --json \
-      -I config=$FILE \
-      ${toString ./core/default.nix}
+  nix-instantiate --eval \
+                  --strict \
+                  --json \
+                  -I config=$FILE \
+                  ${toString ./core/toplevel.nix}
   '';
 
-  terranixTrace = writeShellScriptBin "terranix-trace" ''
-    FILE=${"$"}{1:-config.nix}
+  terranixTrace = writeShellScriptBin "terranix-trace" /* sh */ ''
+  FILE=${"$"}{1:-config.nix}
 
-    if [ ! -f $FILE ]
-    then
+  if [ ! -f $FILE ]
+  then
       echo "$FILE does not exist"
       exit 1
-    fi
+  fi
 
-    nix-instantiate --eval --strict --json \
-      -I config=$FILE \
-      --show-trace \
-      ${toString ./core/default.nix}
+  nix-instantiate --eval \
+                  --strict \
+                  --json \
+                  -I config=$FILE \
+                  --show-trace \
+                  ${toString ./core/toplevel.nix}
   '';
 
   manpage = version: stdenv.mkDerivation rec {
@@ -41,7 +45,7 @@
 
     installPhase = ''
       mkdir -p $out/share/man/man1
-      
+
       cat <( echo "% TerraNix" && \
         echo "% Ingolf Wagner" && \
         echo "% $( date +%Y-%m-%d )" && \
