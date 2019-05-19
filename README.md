@@ -76,7 +76,7 @@ Just add
 ```nix
   terranix = callPackage (super.fetchgit {
     url = "https://github.com/mrVanDalo/terranix.git";
-    rev = "2.0.2";
+    rev = "2.0.3";
     sha256 = "<sha in here>";
   }) { };
 ```
