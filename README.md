@@ -32,6 +32,19 @@ You can write modules, like you would in NixOS.
 Of course you the modules of `man configuration.nix` are not present here.
 (see the [NixOS Manual](https://nixos.org/nixos/manual/index.html#sec-writing-modules) for more details)
 
+### Attribute Set merging
+
+The basic Attribute sets are not merged, because they are to define upfront type-wise, which is a condition for merging.
+
+The following options will not be merged :
+
+* `data`
+* `output`
+* `provider`
+* `resource`
+* `variable`
+* `terraform`
+
 ### Example
 
 To get an idea on how working with terranix would look like,
