@@ -16,7 +16,7 @@
 
     nix-instantiate --eval --strict --json \
       -I config=$FILE \
-      ${toString ./core/default.nix}
+      ${toString ./core/toplevel.nix}
   '';
 
   terranixTrace = writeShellScriptBin "terranix-trace" ''
@@ -31,7 +31,7 @@
     nix-instantiate --eval --strict --json \
       -I config=$FILE \
       --show-trace \
-      ${toString ./core/default.nix}
+      ${toString ./core/toplevel.nix}
   '';
 
   manpage = version: stdenv.mkDerivation rec {

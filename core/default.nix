@@ -1,6 +1,6 @@
 # terranix core
 # -------------
-
+{ terranix_config }:
 let
   pkgs = import <nixpkgs> {};
 in
@@ -58,22 +58,22 @@ let
   # parameter which is needed by terraform
   terranix = configuration:
     let
-      result = sanitize (evaluateConfiguration configuration).config;
+      evaluated = evaluateConfiguration configuration;
+      result = sanitize evaluated.config;
       whitelist = key:
         if result."${key}" != null
         then
           { "${key}" = result."${key}"; } else {};
     in
-      {}
-      // (whitelist "data")
-      // (whitelist "output")
-      // (whitelist "provider")
-      // (whitelist "resource")
-      // (whitelist "variable")
-      // (whitelist "terraform");
-
-in terranix
-  {
-    imports = [ <config> ];
-  }
-
+      { config = (
+          {}
+          // (whitelist "data")
+          // (whitelist "output")
+          // (whitelist "provider")
+          // (whitelist "resource")
+          // (whitelist "variable")
+          // (whitelist "terraform"));
+        options = {} // (whitelist "provisioner");
+      };
+in
+  terranix terranix_config
