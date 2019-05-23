@@ -6,7 +6,7 @@ with builtins;
 
 let
 
-  terranix = import ../lib.nix { inherit (pkgs) writeShellScriptBin pandoc stdenv; };
+  terranix = import ../lib.nix { inherit (pkgs) writeShellScriptBin pandoc stdenv writeText; };
 
   terraformCurrent = pkgs.terraform.overrideAttrs( old: rec {
     version = "0.11.10";
@@ -26,7 +26,7 @@ let
       nixFiles = builtins.filter (hasSuffix "nix") files;
       script = file: /* sh */ ''
         echo "Testing : ${folder}/${file}"
-        ${terranix.terranix}/bin/terranix ${folder}/${file} &> "${folder}/.test-output"
+        ${terranix.terranix}/bin/terranix --quiet ${folder}/${file} &> "${folder}/.test-output"
         diff -su "${folder}/.test-output" ${folder}/`basename ${file} .nix`.output
         if [ $? -ne 0 ]
         then
@@ -52,7 +52,6 @@ in pkgs.mkShell {
   # -----------
   buildInputs = with pkgs; [
     terranix.terranix
-    terranix.terranixTrace
     (terranix.manpage "3.3.3")
     #terraformCurrent
     terraform
