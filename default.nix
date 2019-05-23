@@ -4,12 +4,13 @@
   stdenv,
   symlinkJoin,
   writeShellScriptBin,
+  writeText,
   pandoc,
   ...
 }:
 
 let
-  libTerranix = (import ./lib.nix) { inherit writeShellScriptBin stdenv pandoc; };
+  libTerranix = (import ./lib.nix) { inherit writeShellScriptBin stdenv pandoc writeText; };
 in
 
 symlinkJoin rec {
@@ -17,7 +18,6 @@ symlinkJoin rec {
   name = "terranix-${version}";
   paths = [
     libTerranix.terranix
-    libTerranix.terranixTrace
     (libTerranix.manpage version)
   ];
   meta = with stdenv.lib; {
