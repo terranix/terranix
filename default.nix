@@ -18,7 +18,6 @@ symlinkJoin rec {
   name = "terranix-${version}";
   paths = [
     libTerranix.terranix
-    libTerranix.terranixTrace
     (libTerranix.manpage version)
   ];
   meta = with stdenv.lib; {
