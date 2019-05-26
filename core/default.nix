@@ -80,9 +80,6 @@ let
       // (whitelist "resource")
       // (whitelist "variable")
       // (whitelist "terraform");
-
-      options =
-        {} // (whitelist "provisioner");
   };
 in
 
