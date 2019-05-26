@@ -52,6 +52,9 @@ let
       }
       configuration
     ];
+    specialArgs = {
+      inherit pkgs;
+    };
   };
 
   # create the final result
