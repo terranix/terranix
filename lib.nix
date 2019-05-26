@@ -85,7 +85,7 @@ in {
     installPhase = ''
       mkdir -p $out/share/man/man1
 
-      cat <( echo "% TerraNix" && \
+      cat <( echo "% terranix" && \
         echo "% Ingolf Wagner" && \
         echo "% $( date +%Y-%m-%d )" && \
         cat $src/man_*.md ) \

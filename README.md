@@ -77,8 +77,6 @@ inspiration and to create logic on top.
 They live in
 [./modules](./modules/).
 
-
-
 ## See also
 
 * [nix-instantiate introduction](https://tech.ingolf-wagner.de/nixos/nix-instantiate/)
