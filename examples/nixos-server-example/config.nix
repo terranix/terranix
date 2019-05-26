@@ -62,33 +62,33 @@
       enable = true;
       provisioners = [
         {
+          file.destination = "/etc/nginx.nix";
           file.content = ''
             { pkgs, lib, config, ... }:
             {
-              services.nginx = {
-                enable = true;
-                virtualHosts = {
-                  "git.awesome.com" = {
-                    locations."/" = {
-                      proxyPass = "http://${"$"}{ hcloud_server.nixserver-gogs.ipv4_address }:8000";
-                    };
-                  };
-                  "codimd.awesome.com" = {
-                    locations."/" = {
-                      proxyPass = "http://${"$"}{ hcloud_server.nixserver-codimd.ipv4_address }:8000";
-                    };
-                  };
-                };
-              };
+
+              services.nginx.virtualHosts."git.awesome.com".locations."/".proxyPass = 
+                "http://${"$"}{ hcloud_server.nixserver-gogs.ipv4_address }:8000";
+
+              services.nginx.virtualHosts."codimd.awesome.com".locations."/".proxyPass = 
+                "http://${"$"}{ hcloud_server.nixserver-codimd.ipv4_address }:8000";
+
             }
           '';
-          file.destination = "/etc/nginx.nix";
         }
       ];
       configurationFile = pkgs.writeText "configuration.nix" ''
         { pkgs, lib, config, ... }:
         {
           imports = [ /etc/nginx.nix ];
+
+          networking.firewall.allowedUDPPorts = [ 80 ];
+          networking.firewall.allowedTCPPorts = [ 80 ];
+
+          services.nginx = {
+            enable = true;
+          };
+
         }
       '';
     };
