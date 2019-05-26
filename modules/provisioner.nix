@@ -16,12 +16,6 @@ in {
         see https://www.terraform.io/docs/provisioners/connection.html
       '';
     };
-    machine_infos = mkOption {
-      type = with types; listOf attrs;
-      description = ''
-	list of machines to be provisioned
-      '';
-    };
   };
 
 }

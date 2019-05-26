@@ -52,6 +52,9 @@ let
       }
       configuration
     ];
+    specialArgs = {
+      inherit pkgs;
+    };
   };
 
   # create the final result
@@ -77,9 +80,6 @@ let
       // (whitelist "resource")
       // (whitelist "variable")
       // (whitelist "terraform");
-
-      options =
-        {} // (whitelist "provisioner");
   };
 in
 

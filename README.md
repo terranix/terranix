@@ -2,7 +2,18 @@
 
 A NixOS way to create `terraform.json` files.
 
-## How to use
+### How to install
+
+```nix
+  terranix = callPackage (super.fetchgit {
+    url = "https://github.com/mrVanDalo/terranix.git";
+    # rev = "2.1.0";
+    rev = "9daeaece7ce0cfedb18567e8acc332a22c5daec6";
+    sha256 = "0ikdd08yhkb6qb078a6a7av6c2s60n8nnz80ws6w718x7sfmswhm";
+  }) { };
+```
+
+### How to use
 
 create a `config.nix` for example
 
@@ -26,15 +37,25 @@ create a `config.nix` for example
 
 run `terranix config.nix` and it will output json you can pipe in a file `config.tf.json`.
 
-## How to write modules
+### How to write modules
 
 You can write modules, like you would in NixOS.
-Of course you the modules of `man configuration.nix` are not present here.
-(see the [NixOS Manual](https://nixos.org/nixos/manual/index.html#sec-writing-modules) for more details)
+Of course the modules of `man configuration.nix` are not present here.
+See the [NixOS Manual](https://nixos.org/nixos/manual/index.html#sec-writing-modules) for more details,
+and have a look at the [examples folder](./examples/) to get an impression how you
+could use terranix.
 
-### Attribute Set merging
+## Documentation
 
-The basic Attribute sets are not merged, because they are to define upfront type-wise, which is a condition for merging.
+### Manpages
+
+Run `man terranix`.
+
+### Core Argument merging
+
+The core Arguments are not merged,
+because they need to typed define upfront,
+which is a condition for merging.
 
 The following options will not be merged :
 
@@ -45,48 +66,17 @@ The following options will not be merged :
 * `variable`
 * `terraform`
 
-### Example
-
-To get an idea on how working with terranix would look like,
-have a look at [the example folder](./example/).
+More information about this topic can be found in
+[the NixOS Manual](https://nixos.org/nixos/manual/index.html#sec-option-types)
+and the
+[source](./core/terraform-options.nix).
 
 ### preload
 
 Terranix comes with predefined modules which can be used as
 inspiration and to create logic on top.
-They live in `./modules`.
-
-### do Assertions
-
-To make an assertion in your module use the `mkAssert` command.
-Here is an example
-
-```nix
-config = mkAssert (cfg.parameter != "fail" ) "parameter is set to fail!" {
-  resource.aws_what_ever."${cfg.parameter}" = {
-    I = "love nixos";
-  };
-};
-```
-
-## How to install
-
-Just add
-
-```nix
-  terranix = callPackage (super.fetchgit {
-    url = "https://github.com/mrVanDalo/terranix.git";
-    rev = "2.0.3";
-    sha256 = "<sha in here>";
-  }) { };
-```
-
-to your NixOS overlays or your `shell.nix`.
-Please make sure you use the latest release and use the proper sha.
-
-## Documentation
-
-Run `man terranix` to get an overview on how to use it.
+They live in
+[./modules](./modules/).
 
 ## See also
 

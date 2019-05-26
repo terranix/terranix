@@ -6,18 +6,7 @@ with builtins;
 
 let
 
-  terranix = import ../lib.nix { inherit (pkgs) writeShellScriptBin pandoc stdenv; };
-
-  terraformCurrent = pkgs.terraform.overrideAttrs( old: rec {
-    version = "0.11.10";
-    name = "terraform-${version}";
-    src = pkgs.fetchFromGitHub {
-      owner  = "hashicorp";
-      repo   = "terraform";
-        rev    = "v${version}";
-        sha256 = "08mapla89g106bvqr41zfd7l4ki55by6207qlxq9caiha54nx4nb";
-      };
-    });
+  terranix = pkgs.callPackages ../default.nix {};
 
   testFolder = folder:
     let
@@ -26,7 +15,7 @@ let
       nixFiles = builtins.filter (hasSuffix "nix") files;
       script = file: /* sh */ ''
         echo "Testing : ${folder}/${file}"
-        ${terranix.terranix}/bin/terranix ${folder}/${file} &> "${folder}/.test-output"
+        ${terranix}/bin/terranix --quiet ${folder}/${file} &> "${folder}/.test-output"
         diff -su "${folder}/.test-output" ${folder}/`basename ${file} .nix`.output
         if [ $? -ne 0 ]
         then
@@ -48,21 +37,14 @@ let
 
 in pkgs.mkShell {
 
-  # needed pkgs
-  # -----------
   buildInputs = with pkgs; [
-    terranix.terranix
-    terranix.terranixTrace
-    (terranix.manpage "3.3.3")
-    #terraformCurrent
+    terranix
     terraform
     pup
     pandoc
     testScript
   ];
 
-  # run this on start
-  # -----------------
   shellHook = ''
     HISTFILE=${toString ./.}/.history
   '';

@@ -4,3 +4,5 @@
 *.tf.json
 result
 .terraform
+*.tfstate
+*.tfstate.*

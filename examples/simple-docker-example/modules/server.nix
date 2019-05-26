@@ -53,6 +53,7 @@ in {
             enable backups or not
           '';
         };
+
       };
     }));
   };
@@ -61,12 +62,6 @@ in {
     mkIf (cfg != {} ) {
 
       hcloud.enable = true;
-
-      provisioner.machine_infos = mapAttrsToList ( name: _: {
-        name = name;
-        ipv4_address_key = "${name}_ipv4_address";
-        ipv6_address_key = "${name}_ipv6_address";
-      }) cfg;
 
       resource.hcloud_server =
         let
@@ -93,22 +88,22 @@ in {
         in
           allResources;
 
-      output = 
+      output =
         let
-          ipv4Address = mapAttrs' ( ignore: configuration: { 
+          ipv4Address = mapAttrs' ( ignore: configuration: {
             name = "${configuration.name}_ipv4_address";
             value = { value = "\${ hcloud_server.${configuration.name}.ipv4_address }"; } ;
           } ) cfg;
 
-          ipv6Address = mapAttrs' ( ignore: configuration: { 
+          ipv6Address = mapAttrs' ( ignore: configuration: {
             name = "${configuration.name}_ipv6_address";
             value = { value = "\${ hcloud_server.${configuration.name}.ipv6_address }"; } ;
           } ) cfg;
 
         in
           ipv4Address // ipv6Address;
-          
-      resource.hcloud_ssh_key = 
+
+      resource.hcloud_ssh_key =
         let
           allResources = mapAttrs' ( name: configuration: {
             name = "server_${name}";
@@ -119,6 +114,5 @@ in {
           }) allAdmins;
         in
           allResources;
-        
       };
 }
