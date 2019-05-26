@@ -1,9 +1,7 @@
 # DESCRIPTION
 
-Terranix is a nixos way to generate
-terraform json. You can create modules like you
-would in nixos, and at the end you get
-terraform-json.
+Terranix is a NixOS way to generate terraform json.
+You can create modules like you would in NixOS.
 
 The
 [nix syntax](https://nixos.org/nix/manual/)
@@ -23,7 +21,7 @@ resource "aws_instance" "web" {
 }
 ```
 
-Which is the equivalent for the following in **TerraNix**:
+Which is the equivalent for the following in **terranix**:
 
 ```nix
 resource."aws_instance"."web" = {
@@ -36,4 +34,3 @@ resource."aws_instance"."web" = {
 ```
 
 The same holds for `variable`, `output`, `data` and `provider`.
-
