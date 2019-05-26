@@ -1,6 +1,6 @@
 # Example setup
 
 This is an example setup with opinionated modules to deploy grafana servers
-in the hetzner cloud.
+in the hetzner cloud using docker.
 
-use `nix-shell` to test.
+Use `nix-shell --run terranix` to test.

@@ -61,11 +61,11 @@ in {
       --attr run \
       $QUIET \
       $TRACE \
+      -I config=$FILE \
       --expr "
     with import <nixpkgs> {};
     let
-      terranix_config = import $FILE { inherit pkgs; inherit (pkgs) lib; };
-      terranix_data = import ${toString ./core/default.nix} { inherit terranix_config; };
+      terranix_data = import ${toString ./core/default.nix} { terranix_config = { imports = [ <config> ]; }; };
       terraform_json = builtins.toJSON (terranix_data.config);
     in { run = pkgs.writeText \"config.tf.json\" terraform_json; }
   " )
