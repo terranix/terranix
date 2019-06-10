@@ -1,0 +1,33 @@
+{ pkgs, lib, terranix , ... }:
+with lib;
+[
+
+  ''
+    @test "backend : setting a backend" {
+    run ${terranix}/bin/terranix --quiet ${./backend-tests/01.nix}
+    [ "$status" -eq 0 ]
+    [ "$output" =  ${escapeShellArg (fileContents ./backend-tests/01.nix.output)} ]
+    }
+
+    @test "backend : setting 2 backends will fail" {
+    run ${terranix}/bin/terranix --quiet ${./backend-tests/02.nix}
+    [ "$status" -nq 0 ]
+    [ "$output" =  ${escapeShellArg (fileContents ./backend-tests/02.nix.output)} ]
+    }
+  ''
+
+  ''
+    @test "remote_state : 2 remote states with the same names are forbidden" {
+    run ${terranix}/bin/terranix --quiet ${./backend-tests/03.nix}
+    [ "$status" -eq 1 ]
+    [ "$output" =  ${escapeShellArg (fileContents ./backend-tests/03.nix.output)} ]
+    }
+
+    @test "remote_state : 2 remote states with differente names are ok" {
+    run ${terranix}/bin/terranix --quiet ${./backend-tests/04.nix}
+    [ "$status" -eq 0 ]
+    [ "$output" =  ${escapeShellArg (fileContents ./backend-tests/04.nix.output)} ]
+    }
+  ''
+
+]
