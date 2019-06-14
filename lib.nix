@@ -70,9 +70,13 @@ in {
     in { run = pkgs.writeText \"config.tf.json\" terraform_json; }
   " )
 
-  if [[ $? -eq 0 ]]
+  EXIT_CODE=$?
+
+  if [[ $EXIT_CODE -eq 0 ]]
   then
       cat $TERRAFORM_JSON
+  else
+      exit 1
   fi
 
   '';
