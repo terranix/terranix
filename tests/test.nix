@@ -11,7 +11,7 @@ with lib;
 
     @test "backend : setting 2 backends will fail" {
     run ${terranix}/bin/terranix --quiet ${./backend-tests/02.nix}
-    [ "$status" -nq 0 ]
+    [ "$status" -ne 0 ]
     [ "$output" =  ${escapeShellArg (fileContents ./backend-tests/02.nix.output)} ]
     }
   ''
@@ -19,7 +19,7 @@ with lib;
   ''
     @test "remote_state : 2 remote states with the same names are forbidden" {
     run ${terranix}/bin/terranix --quiet ${./backend-tests/03.nix}
-    [ "$status" -eq 1 ]
+    [ "$status" -ne 0 ]
     [ "$output" =  ${escapeShellArg (fileContents ./backend-tests/03.nix.output)} ]
     }
 
