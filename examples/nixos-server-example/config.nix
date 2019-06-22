@@ -5,6 +5,7 @@
 
   # configure admin ssh keys
   users.admins.palo.publicKey = "${lib.fileContents ./sshkey.pub}";
+
   # configure provisioning private Key to be used when running provisioning on the machines
   provisioner.privateKeyFile = toString ./sshkey;
 
@@ -67,11 +68,11 @@
             { pkgs, lib, config, ... }:
             {
 
-              services.nginx.virtualHosts."git.awesome.com".locations."/".proxyPass = 
-                "http://${"$"}{ hcloud_server.nixserver-gogs.ipv4_address }:8000";
+              services.nginx.virtualHosts."git.awesome.com".locations."/".proxyPass =
+                "http://''${ hcloud_server.nixserver-gogs.ipv4_address }:8000";
 
-              services.nginx.virtualHosts."codimd.awesome.com".locations."/".proxyPass = 
-                "http://${"$"}{ hcloud_server.nixserver-codimd.ipv4_address }:8000";
+              services.nginx.virtualHosts."codimd.awesome.com".locations."/".proxyPass =
+                "http://''${ hcloud_server.nixserver-codimd.ipv4_address }:8000";
 
             }
           '';
@@ -88,7 +89,6 @@
           services.nginx = {
             enable = true;
           };
-
         }
       '';
     };

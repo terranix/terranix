@@ -1,6 +1,6 @@
 {
-  imports = [ 
-    ./grafana.nix 
+  imports = [
+    ./grafana.nix
     ./server.nix
   ];
 }
