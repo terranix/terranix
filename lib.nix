@@ -23,6 +23,8 @@ in {
 
   terranix = writeShellScriptBin "terranix" /* sh */ ''
 
+  set -eu -o pipefail
+
   QUIET=""
   TRACE=""
   FILE="./config.nix"
@@ -70,15 +72,14 @@ in {
     in { run = pkgs.writeText \"config.tf.json\" terraform_json; }
   " )
 
-  EXIT_CODE=$?
-
-  if [[ $EXIT_CODE -eq 0 ]]
+  NIX_BUILD_EXIT_CODE=$?
+  if [[ $NIX_BUILD_EXIT_CODE -eq 0 ]]
   then
       cat $TERRAFORM_JSON
   else
       exit 1
   fi
-
+  exit $NIX_BUILD_EXIT_CODE
   '';
 
   manpage = version: stdenv.mkDerivation rec {
