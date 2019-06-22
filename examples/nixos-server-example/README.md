@@ -1,4 +1,4 @@
-# terranix NixOS Server Example
+# NixOS Server Example
 
 Setup containing opinionated modules to deploy
 [NixOS servers](https://nixos.org/)
@@ -20,19 +20,19 @@ update your `/etc/hosts`.
 
 ## How to Run
 
-to see the JSON output :
+Make sure your passwordstore [is setup correctly](#password).
 
-```shell
-nix-shell --run terranix
-```
-
-to roll out this setup:
+### Server creation
 
 ```shell
 nix-shell --run "terranix > config.tf.json && terraform init && terraform apply"
 ```
 
-Make sure your passwordstore [is setup correctly](#password).
+### Server deletion
+
+```shell
+nix-shell --run "terraform destroy"
+```
 
 ### Password
 
