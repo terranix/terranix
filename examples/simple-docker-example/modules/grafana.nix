@@ -26,7 +26,7 @@ in {
     mkIf cfg.enable {
       hcloud.server."${cfg.name}" = {
         enable = true;
-        sshProvision = [ 
+        sshProvision = [
           "sleep 60" # ugly hack because of apt locking
           "apt update"
           "apt -y install docker.io"

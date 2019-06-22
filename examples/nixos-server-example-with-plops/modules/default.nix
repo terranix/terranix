@@ -1,6 +1,7 @@
+{ pkgs, lib, ... }:
 {
   imports = [
-    ./grafana.nix
     ./server.nix
+    ./nixserver.nix
   ];
 }

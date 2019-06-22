@@ -23,6 +23,8 @@ in {
 
   terranix = writeShellScriptBin "terranix" /* sh */ ''
 
+  set -eu -o pipefail
+
   QUIET=""
   TRACE=""
   FILE="./config.nix"
@@ -70,11 +72,14 @@ in {
     in { run = pkgs.writeText \"config.tf.json\" terraform_json; }
   " )
 
-  if [[ $? -eq 0 ]]
+  NIX_BUILD_EXIT_CODE=$?
+  if [[ $NIX_BUILD_EXIT_CODE -eq 0 ]]
   then
       cat $TERRAFORM_JSON
+  else
+      exit 1
   fi
-
+  exit $NIX_BUILD_EXIT_CODE
   '';
 
   manpage = version: stdenv.mkDerivation rec {
@@ -85,7 +90,7 @@ in {
     installPhase = ''
       mkdir -p $out/share/man/man1
 
-      cat <( echo "% terranix" && \
+      cat <( echo "% terranix(1) terranix User Manuals | version ${version}" && \
         echo "% Ingolf Wagner" && \
         echo "% $( date +%Y-%m-%d )" && \
         cat $src/man_*.md ) \

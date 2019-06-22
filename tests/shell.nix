@@ -8,31 +8,21 @@ let
 
   terranix = pkgs.callPackages ../default.nix {};
 
-  testFolder = folder:
-    let
-      ls = builtins.readDir folder;
-      files = builtins.attrNames (filterAttrs (file: fileType: fileType == "regular") ls );
-      nixFiles = builtins.filter (hasSuffix "nix") files;
-      script = file: /* sh */ ''
-        echo "Testing : ${folder}/${file}"
-        ${terranix}/bin/terranix --quiet ${folder}/${file} &> "${folder}/.test-output"
-        diff -su "${folder}/.test-output" ${folder}/`basename ${file} .nix`.output
-        if [ $? -ne 0 ]
-        then
-          exit 1
-        fi
-      '';
-    in
-      pkgs.writeScript "script" (concatStringsSep "\n" (map script nixFiles));
+  createTest = testimport:
+  let
+    test = import testimport  { inherit pkgs terranix; inherit (pkgs) lib; };
+    batsScripts =  map (text: pkgs.writeText "test" text) test;
+    allScripts = map (file: "${pkgs.bats}/bin/bats ${file}") batsScripts;
+  in
+  pkgs.writeScript "test-script" (concatStringsSep "\n" allScripts);
 
   testScript =
     let
-      testFolders = attrNames (filterAttrs (file: fileType: fileType == "directory") (readDir (toString ./.)));
-      fullTestFolders = map (file: "${toString ./.}/${file}") testFolders;
+      allTests = [ (createTest ./test.nix) ];
     in
       pkgs.writeShellScriptBin "test-terranix" ''
         set -e
-        ${concatStringsSep "\n" (map testFolder fullTestFolders)}
+        ${concatStringsSep "\n" allTests}
       '';
 
 in pkgs.mkShell {
@@ -43,6 +33,8 @@ in pkgs.mkShell {
     pup
     pandoc
     testScript
+
+    bats
   ];
 
   shellHook = ''
