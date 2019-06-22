@@ -60,11 +60,13 @@ which is a condition for merging.
 The following options will not be merged :
 
 * `data`
+* `locals`
+* `module`
 * `output`
 * `provider`
 * `resource`
-* `variable`
 * `terraform`
+* `variable`
 
 More information about this topic can be found in
 [the NixOS Manual](https://nixos.org/nixos/manual/index.html#sec-option-types)
