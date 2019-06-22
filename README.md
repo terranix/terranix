@@ -7,8 +7,8 @@ A NixOS way to create `terraform.json` files.
 ```nix
   terranix = callPackage (super.fetchgit {
     url = "https://github.com/mrVanDalo/terranix.git";
-    rev = "9daeaece7ce0cfedb18567e8acc332a22c5daec6";
-    sha256 = "0ikdd08yhkb6qb078a6a7av6c2s60n8nnz80ws6w718x7sfmswhm";
+    rev = "6097722f3a94972a92d810f3a707351cd425a4be";
+    sha256 = "1d8w82mvgflmscvq133pz9ynr79cgd5qjggng85byk8axj6fg6jw";
   }) { };
 ```
 
