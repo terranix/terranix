@@ -75,11 +75,13 @@ let
     config =
       {}
       // (whitelist "data")
+      // (whitelist "locals");
+      // (whitelist "module");
       // (whitelist "output")
       // (whitelist "provider")
       // (whitelist "resource")
-      // (whitelist "variable")
       // (whitelist "terraform");
+      // (whitelist "variable")
   };
 in
 
