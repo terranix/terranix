@@ -90,7 +90,7 @@ in {
     installPhase = ''
       mkdir -p $out/share/man/man1
 
-      cat <( echo "% terranix" && \
+      cat <( echo "% terranix(1) terranix User Manuals | version ${version}" && \
         echo "% Ingolf Wagner" && \
         echo "% $( date +%Y-%m-%d )" && \
         cat $src/man_*.md ) \
