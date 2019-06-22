@@ -1,5 +1,5 @@
 
-## How to run
+## Run Examples
 
 To create a JSON file out of a `config.nix` run
 
