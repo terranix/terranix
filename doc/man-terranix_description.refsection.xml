@@ -1,0 +1,43 @@
+<refsection xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="description">
+  <title>DESCRIPTION</title>
+  <para>
+    Terranix is a NixOS way to generate terraform json. You can create
+    modules like you would in NixOS.
+  </para>
+  <variablelist spacing="compact">
+    <varlistentry>
+      <term>
+        path
+      </term>
+      <listitem>
+        <para>
+          path to the <literal>config.nix</literal>. If not given it
+          will use the <literal>config.nix</literal> in the current
+          folder.
+        </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+  <refsection xml:id="run-examples">
+    <title>Run Examples</title>
+    <para>
+      To create a JSON file out of a <literal>config.nix</literal> run
+    </para>
+    <programlisting>
+terranix | jq
+</programlisting>
+    <para>
+      To create a JSON file out of a file
+      <literal>./path/my-config.nix</literal> run
+    </para>
+    <programlisting>
+terranix ./path/my-config.nix | jq
+</programlisting>
+    <para>
+      To create a JSON file and run terraform
+    </para>
+    <programlisting>
+terranix &gt; config.tf.json &amp;&amp; terraform init &amp;&amp; terraform apply
+</programlisting>
+  </refsection>
+</refsection>

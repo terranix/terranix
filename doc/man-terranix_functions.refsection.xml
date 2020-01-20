@@ -1,0 +1,100 @@
+<refsection xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="functions">
+  <title>FUNCTIONS</title>
+  <para>
+    Nix comes with a ton of functions that make your live easier.
+  </para>
+  <para>
+    A good overview can be found
+    <link xlink:href="https://storage.googleapis.com/files.tazj.in/nixdoc/manual.html#sec-functions-library">here</link>.
+  </para>
+  <refsection xml:id="optionalattrs">
+    <title>optionalAttrs</title>
+    <para>
+      Useful to create a resource depending on a condition. The
+      following example adds a bation host only if the variable
+      <literal>bastionHostEnable</literal> is set to true.
+    </para>
+    <para>
+      This is just an example for illustration and such things are
+      better solved using
+      <link xlink:href="https://nixos.wiki/wiki/NixOS_Modules">modules</link>.
+    </para>
+    <programlisting language="bash">
+{ lib, ... }:
+let
+  bastionHostEnable = true;
+in
+{
+  resource.aws_instance = lib.optionalAttrs bastionHostEnable {
+    &quot;bastion&quot; = {
+      ami = &quot;ami-969ab1f6&quot;
+      instance_type = &quot;t2.micro&quot;
+      associate_public_ip_address = true
+    };
+  };
+}
+</programlisting>
+  </refsection>
+  <refsection xml:id="transform-lists-to-attributesets">
+    <title>transform lists to Attributesets</title>
+    <variablelist spacing="compact">
+      <varlistentry>
+        <term>
+          <literal>map</literal>
+        </term>
+        <listitem>
+          <para>
+            map a list to another list.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <literal>zipAttrs</literal>
+        </term>
+        <listitem>
+          <para>
+            Merge sets of attributes and combine each attribute value in
+            to a list.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <para>
+      Useful to create resources out of a small amount of information
+      with containing a lot of similar data.
+    </para>
+    <para>
+      The following Example shows how to create 3 s3buckets with the
+      same configuration.
+    </para>
+    <programlisting language="bash">
+{ lib, ... }:
+let
+  s3Buckets = [
+    &quot;awesome-com&quot;
+    &quot;awesome-org&quot;
+    &quot;awesome-live&quot;
+  ];
+in
+{
+  resource.aws_s3_bucket = lib.zipAttrs (lib.map (name:
+    {
+      &quot;${name}&quot; = {
+        bucket = name;
+        acl = &quot;public-read&quot;;
+
+        cors_rule = {
+          allowed_headers = [&quot;*&quot;];
+          allowed_methods = [&quot;PUT&quot; &quot;POST&quot; &quot;GET&quot;];
+          allowed_origins = [&quot;https://awesome.com&quot;];
+          expose_headers  = [&quot;ETag&quot;];
+          max_age_seconds = 3000;
+        }
+      };
+    }
+  ) s3Buckets)
+}
+</programlisting>
+  </refsection>
+</refsection>
