@@ -19,6 +19,8 @@ symlinkJoin rec {
   name = "terranix-${version}";
   paths = [
     libTerranix.terranix
+    libTerranix.terranixDocJson
+    libTerranix.terranixDocMan
     (callPackage ./doc/default.nix {}).manPages
   ];
   meta = with stdenv.lib; {
