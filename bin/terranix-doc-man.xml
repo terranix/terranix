@@ -1,0 +1,46 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <refmeta>
+    <refentrytitle><filename>terranix-doc-man</filename></refentrytitle>
+    <manvolnum>5</manvolnum>
+    <refmiscinfo class="source">terranix module documentation</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname><filename>terranix-doc-man</filename></refname>
+    <refpurpose>show options available</refpurpose>
+  </refnamediv>
+
+  <refsection>
+    <title>Description</title>
+    <para>
+      Theses are the options you can use in your <filename>config.nix</filename>.
+    </para>
+  </refsection>
+
+  <refsection>
+    <title>Options</title>
+    <para>
+      You can use the following options in
+      <filename>config.nix</filename>:
+    </para>
+    <xi:include href="./nmd-result/terranix-options.xml" />
+  </refsection>
+
+  <refsection>
+    <title>See also</title>
+    <para>
+      <citerefentry>
+        <refentrytitle>terranix-modules</refentrytitle>
+        <manvolnum>5</manvolnum>
+      </citerefentry>
+      <citerefentry>
+        <refentrytitle>terranix</refentrytitle>
+        <manvolnum>1</manvolnum>
+      </citerefentry>
+    </para>
+  </refsection>
+
+</refentry>

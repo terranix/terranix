@@ -1,0 +1,13 @@
+<reference xmlns="http://docbook.org/ns/docbook"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>terranix reference pages</title>
+  <info>
+    <author><personname>Ingolf Wagner</personname></author>
+    <copyright>
+      <year>2019–2020</year>
+      <holder>Ingolf Wagner</holder>
+    </copyright>
+  </info>
+  <xi:include href="terranix-doc-man.xml" />
+</reference>

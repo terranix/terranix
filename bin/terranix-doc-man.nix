@@ -32,6 +32,7 @@ let
   hmModulesDocs = nmd.buildModulesDocs {
     modules =
       [ (import <config> { inherit lib pkgs; config = {}; })]
+      ++ [ (import ../modules/default.nix { inherit lib pkgs; config = {}; })]
       ++ [ scrubbedPkgsModule ];
     moduleRootPaths = [ ./.. ];
     mkModuleUrl = path:
@@ -40,5 +41,20 @@ let
     docBook.id = "terranix-options";
   };
 
+  docs = nmd.buildDocBookDocs {
+    pathName = "terranix";
+    modulesDocs = [ hmModulesDocs ];
+    documentsDirectory = ./.;
+    chunkToc = ''
+      <toc>
+        <d:tocentry xmlns:d="http://docbook.org/ns/docbook" linkend="book-terranix-manual"><?dbhtml filename="index.html"?>
+          <d:tocentry linkend="ch-options"><?dbhtml filename="options.html"?></d:tocentry>
+          <d:tocentry linkend="ch-tools"><?dbhtml filename="tools.html"?></d:tocentry>
+          <d:tocentry linkend="ch-release-notes"><?dbhtml filename="release-notes.html"?></d:tocentry>
+        </d:tocentry>
+      </toc>
+    '';
+  };
+
 in
-  hmModulesDocs.json
+  docs.manPages
