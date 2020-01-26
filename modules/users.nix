@@ -4,21 +4,22 @@ with lib;
 
 {
   options.users = mkOption {
-    default = {};
-    type = with types; attrsOf ( attrsOf ( submodule {
-      options = {
+    default = { };
+    type = with types;
+      attrsOf (attrsOf (submodule {
+        options = {
 
-        publicKey = mkOption {
-          default = null;
-          type = with types; nullOr str;
-          description = ''
-            ssh public key of user
-          '';
-          example = "\${ file( ~/.ssh/id_rsa.pub ) }";
+          publicKey = mkOption {
+            default = null;
+            type = with types; nullOr str;
+            description = ''
+              ssh public key of user
+            '';
+            example = "\${ file( ~/.ssh/id_rsa.pub ) }";
+          };
+
         };
-
-      };
-    }));
+      }));
 
     description = ''
       User management. `users.group.username` is the path.
