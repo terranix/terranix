@@ -1,0 +1,41 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <refmeta>
+    <refentrytitle><filename>terranix-doc-json</filename></refentrytitle>
+    <manvolnum>1</manvolnum>
+    <refmiscinfo class="source">terranix module documentation renderer</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname><filename>terranix-doc-json</filename></refname>
+    <refpurpose>terranix configuration options renderer</refpurpose>
+  </refnamediv>
+
+ <refsynopsisdiv>
+  <cmdsynopsis>
+    <command>terranix-doc-json</command>
+    <arg>
+      --offline
+    </arg>
+    <arg choice="plain">
+      <replaceable>config.nix</replaceable>
+    </arg>
+  </cmdsynopsis>
+ </refsynopsisdiv>
+
+ <xi:include href="./man-terranix-doc_description.refsection.xml" />
+ <xi:include href="./man-terranix-doc_options.refsection.xml" />
+
+ <refsection>
+   <title>See also</title>
+   <para>
+     <citerefentry>
+       <refentrytitle>terranix</refentrytitle>
+       <manvolnum>1</manvolnum>
+     </citerefentry>
+   </para>
+ </refsection>
+ 
+</refentry>
