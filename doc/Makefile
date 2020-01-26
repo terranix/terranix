@@ -1,5 +1,5 @@
 .PHONY: all
-all: man-terranix_description.refsection.xml man-terranix_functions.refsection.xml man-terranix_hcl.refsection.xml man-terranix_modules.refsection.xml man-terranix_options.refsection.xml man-terranix_conditions.refsection.xml
+all: man-terranix_description.refsection.xml man-terranix_functions.refsection.xml man-terranix_hcl.refsection.xml man-terranix_modules.refsection.xml man-terranix_options.refsection.xml man-terranix_conditions.refsection.xml man-terranix-doc_description.refsection.xml man-terranix-doc_options.refsection.xml
 
 
 %.refsection.xml: %.refsection.md

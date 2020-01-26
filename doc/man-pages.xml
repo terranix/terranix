@@ -12,4 +12,6 @@
   <!-- the man page files to create -->
   <xi:include href="man-terranix.xml" />
   <xi:include href="man-modules.xml" />
+  <xi:include href="man-terranix-doc-json.xml" />
+  <xi:include href="man-terranix-doc-man.xml" />
 </reference>
