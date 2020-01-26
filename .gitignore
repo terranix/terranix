@@ -6,3 +6,5 @@ result
 .terraform
 *.tfstate
 *.tfstate.*
+
+result*

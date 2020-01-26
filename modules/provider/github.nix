@@ -1,3 +1,4 @@
+# this file will be removed and provided by a module
 { config, lib, ... }:
 
 with lib;

@@ -30,4 +30,18 @@ with lib;
     }
   ''
 
+  ''
+    @test "assert : don't trigger error on true mkAssert " {
+    run ${terranix}/bin/terranix --quiet ${./backend-tests/05.nix}
+    [ "$status" -eq 0 ]
+    [ "$output" =  ${escapeShellArg (fileContents ./backend-tests/05.nix.output)} ]
+    }
+
+    @test "assert : trigger error on false mkAssert " {
+    run ${terranix}/bin/terranix --quiet ${./backend-tests/06.nix}
+    [ "$status" -ne 0 ]
+    [ "$output" =  ${escapeShellArg (fileContents ./backend-tests/06.nix.output)} ]
+    }
+  ''
+
 ]

@@ -1,0 +1,16 @@
+<refsection xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Options</title>
+  <variablelist spacing="compact">
+    <varlistentry>
+      <term>
+        <literal>--offline</literal>
+      </term>
+      <listitem>
+        <para>
+          no internet connection required, if every dependency is
+          present.
+        </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</refsection>

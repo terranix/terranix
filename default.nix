@@ -6,6 +6,7 @@
   writeShellScriptBin,
   writeText,
   pandoc,
+  callPackage,
   ...
 }:
 
@@ -14,11 +15,13 @@ let
 in
 
 symlinkJoin rec {
-  version = "2.1.2";
+  version = "2.2.0";
   name = "terranix-${version}";
   paths = [
     libTerranix.terranix
-    (libTerranix.manpage version)
+    libTerranix.terranixDocJson
+    libTerranix.terranixDocMan
+    (callPackage ./doc/default.nix {}).manPages
   ];
   meta = with stdenv.lib; {
     description = "A NixOS like terraform-json generator";

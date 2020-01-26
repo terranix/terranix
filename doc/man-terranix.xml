@@ -1,0 +1,72 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xi="http://www.w3.org/2001/XInclude">
+ <refmeta>
+   <refentrytitle><command>terranix</command></refentrytitle>
+   <manvolnum>1</manvolnum>
+   <refmiscinfo class="source">terranix</refmiscinfo>
+ </refmeta>
+
+ <refnamediv>
+   <refname><command>terranix</command></refname>
+   <refpurpose>reconfigure a user environment</refpurpose>
+ </refnamediv>
+
+ <refsynopsisdiv>
+  <cmdsynopsis>
+    <command>terranix</command>
+    <arg>
+      <group choice="req"> 
+        <arg choice="plain">
+          -q
+        </arg>
+        <arg choice="plain">
+          --quiet
+        </arg>
+      </group>
+    </arg>
+    <arg>
+      <group choice="req"> 
+        <arg choice="plain">
+          --trace
+        </arg>
+        <arg choice="plain">
+          --show-trace
+        </arg>
+      </group>
+    </arg>
+    <arg>
+      <replaceable>path</replaceable>
+    </arg>
+    <sbr />
+    <arg choice="plain">
+      --help
+    </arg>
+  </cmdsynopsis>
+ </refsynopsisdiv>
+
+ <xi:include href="./man-terranix_description.refsection.xml" />
+ <xi:include href="./man-terranix_options.refsection.xml" />
+ <xi:include href="./man-terranix_hcl.refsection.xml" />
+ <xi:include href="./man-terranix_modules.refsection.xml" />
+ <xi:include href="./man-terranix_conditions.refsection.xml" />
+ <xi:include href="./man-terranix_functions.refsection.xml" />
+
+ <refsection>
+  <title>Bugs</title>
+  <para>
+   Please report any bugs on the
+   <link xlink:href="https://github.com/mrVanDalo/terranix/issues">project
+   issue tracker</link>.
+  </para>
+ </refsection>
+
+ <refsection>
+  <title>See also</title>
+  <para>
+   <citerefentry>
+   <refentrytitle>terranix-modules</refentrytitle>
+   <manvolnum>5</manvolnum> </citerefentry>
+  </para>
+ </refsection>
+</refentry>

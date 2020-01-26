@@ -1,0 +1,77 @@
+<refsection xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="modules">
+  <title>MODULES</title>
+  <para>
+    The real power behind NixOS and terranix, is the module system which
+    is fundamentaly different to the Terraform Module system. Detailed
+    information can be optained at the
+    <link xlink:href="https://nixos.wiki/wiki/NixOS_Modules">NixOS
+    Wiki</link>.
+  </para>
+  <refsection xml:id="module-structure">
+    <title>Module Structure</title>
+    <para>
+      A module looks always like this:
+    </para>
+    <programlisting language="bash">
+{ config, lib, pkgs, ... }:
+{
+  imports = [
+    # list of path to other modules.
+  ];
+
+  options = {
+    # attribute set of option declarations.
+  };
+
+  config = {
+    # attribute set of option definitions.
+  };
+}
+</programlisting>
+  </refsection>
+  <refsection xml:id="example-module">
+    <title>Example Module</title>
+    <para>
+      Here is an example Module to enable bastion host setups.
+    </para>
+    <programlisting language="bash">
+{ config, lib, pkgs, ... }:
+{
+  options.security.bastion = {
+    enable = mkEnableOption &quot;bastion host infrastructure&quot;;
+    vpcID = mkOption {
+      default = &quot;\${ aws_default_vpc.default.id }&quot;;
+      type = lib.types.str;
+      description = &quot;vpc id to which the bastion host should proxy&quot;;
+    };
+  };
+
+  config = mkIf (config.security.bastion.enable) {
+    resource.aws_instance.&quot;bastion&quot; = {
+      ami = &quot;ami-969ab1f6&quot;
+      instance_type = &quot;t2.micro&quot;
+      associate_public_ip_address = true
+    };
+    resource.aws_security_group.&quot;bastion-sg&quot; = {
+      name = &quot;bastion-security-group&quot;;
+      vpc_id = config.security.bastion.vpcId;
+      ingress.protocol = &quot;tcp&quot;;
+      ingress.from_port = 22;
+      ingress.to_port = 22;
+      ingress.cidr_blocks = [&quot;0.0.0.0/0&quot;];
+    };
+    output.&quot;bastion_public_ip&quot;.value = &quot;\${ aws_instance.bastion.public_ip }&quot;;
+  };
+}
+</programlisting>
+    <para>
+      Now you can set the following <emphasis>everywhere</emphasis>, to
+      enable the bastion host setup.
+    </para>
+    <programlisting language="bash">
+{
+  security.bastion.enable = true;
+}
+</programlisting>
+  </refsection>
+</refsection>

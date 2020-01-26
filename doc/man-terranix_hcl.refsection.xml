@@ -1,0 +1,40 @@
+<refsection xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="terranix-vs-hcl">
+  <title>terranix vs HCL</title>
+  <para>
+    The <link xlink:href="https://nixos.org/nix/manual/">nix
+    syntax</link> is similiar to the
+    <link xlink:href="https://github.com/hashicorp/hcl">HCL
+    syntax</link> but, much more powerfull.
+  </para>
+  <para>
+    In <emphasis role="strong">HCL</emphasis> you would do something
+    like this:
+  </para>
+  <programlisting>
+resource &quot;aws_instance&quot; &quot;web&quot; {
+  ami           = &quot;${data.aws_ami.ubuntu.id}&quot;
+  instance_type = &quot;t2.micro&quot;
+  tags = {
+    Name = &quot;HelloWorld&quot;
+  }
+}
+</programlisting>
+  <para>
+    Which is the equivalent for the following in
+    <emphasis role="strong">terranix</emphasis>:
+  </para>
+  <programlisting language="bash">
+resource.&quot;aws_instance&quot;.&quot;web&quot; = {
+  ami = &quot;\${data.aws_ami.ubuntu.id}&quot;;
+  instance_type = &quot;t2.micro&quot;;
+  tags = {
+    Name = &quot;HelloWorld&quot;;
+  };
+}
+</programlisting>
+  <para>
+    The same holds for <literal>variable</literal>,
+    <literal>output</literal>, <literal>data</literal> and
+    <literal>provider</literal>.
+  </para>
+</refsection>

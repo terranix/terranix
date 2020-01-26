@@ -1,0 +1,35 @@
+<refsection xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="options">
+  <title>OPTIONS</title>
+  <variablelist spacing="compact">
+    <varlistentry>
+      <term>
+        -q –quiet
+      </term>
+      <listitem>
+        <para>
+          don’t print anything except the JSON.
+        </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+        -h –help
+      </term>
+      <listitem>
+        <para>
+          print help information.
+        </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+        –trace –show-trace
+      </term>
+      <listitem>
+        <para>
+          show trace information if there is an error.
+        </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</refsection>
