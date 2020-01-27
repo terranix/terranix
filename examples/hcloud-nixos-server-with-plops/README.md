@@ -1,5 +1,11 @@
 # NixOS Server Example with plops
 
+This setup shows:
+
+* how to use a terranix module
+* how to use 3rd party provision software after terraform.
+* how to run terranix and terraform
+
 Setup containing opinionated modules to deploy
 [NixOS servers](https://nixos.org/)
 on
@@ -24,41 +30,16 @@ done by plops.
 Of course instead of plops you can use every provsioning tool you like
 here (e.g. NixOps, Ansible, ... )
 
-## How to Run
+# How to Run
 
-Make sure your passwordstore [is setup correctly](#password).
+## What you need
 
+* a setup [passwordstore](https://www.passwordstore.org/).
+* a [hcloud token](https://docs.hetzner.cloud/#overview-getting-started) 
+  stored under `development/hetzner.com/api-token`
 
-### Server creation
+## Steps
 
-```shell
-nix-shell --run "terranix > config.tf.json && terraform init && terraform apply"
-```
-
-### Server provisioning
-
-This will recompile git, because we overwrite openssh,
-to use the local ssh key.
-
-```shell
-cd plops
-nix-shell --run "deploy-server1"
-```
-
-### Server deletion
-
-```shell
-nix-shell --run "terraform destroy"
-```
-
-### Password
-
-Passwords are managed by
-[pass the password-store](https://www.passwordstore.org/).
-
-You need a
-[hcloud token](https://docs.hetzner.cloud/#overview-getting-started)
-which is stored under
-`development/hetzner.com/api-token`
-in your passwordstore.
-(Of course you can change that by adjusting the `./shell.nix`).
+* `example-prepare`: to create ssh keys.
+* `example-ssh`: to run terranix and terraform do create server.
+* `example-cleanup`: to delete server, ssh keys and terraform data. (don't forget that step, or else it gets costly)
