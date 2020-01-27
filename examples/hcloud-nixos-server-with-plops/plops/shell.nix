@@ -47,9 +47,9 @@ let
 
   servers = import ./generated/nixos-machines.nix;
 
-  deployServer = name: {user, host, ... }:
+  deployServer = name: {user ? "root", host, ... }:
   with ops;
-  jobs "deploy-${name}" "${user}@${host}" [
+  jobs "deploy-${name}" "${user}@${host.ipv4}" [
     # deploy secrets to /run/plops-secrets/secrets
     # (populateTmpfs (source.secrets name))
     # deploy system to /var/src/system
