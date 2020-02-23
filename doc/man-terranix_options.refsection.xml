@@ -31,5 +31,15 @@
         </para>
       </listitem>
     </varlistentry>
+    <varlistentry>
+      <term>
+        -n –with-nulls
+      </term>
+      <listitem>
+        <para>
+          do not strip nulls. nulls will stay.
+        </para>
+      </listitem>
+    </varlistentry>
   </variablelist>
 </refsection>
