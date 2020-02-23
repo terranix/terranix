@@ -5,12 +5,15 @@
 { stdenv, writeShellScriptBin, writeText, pandoc, ... }:
 let
   usage = writeText "useage" ''
-    Usage: terranix [-q|--quiet] [--trace|--show-trace] [path]
+    Usage: terranix [-q|--quiet] [--trace|--show-trace] [--with-nulls] [path]
            terranix --help
 
       -q | --quiet   dont print anything except the json
 
       -h | --help    print help
+
+      -n             do not strip nulls. nulls will stay.
+      --with-nulls
 
       --trace        show trace information if there is an error
       --show-trace
