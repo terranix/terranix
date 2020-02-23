@@ -5,12 +5,15 @@
 { stdenv, writeShellScriptBin, writeText, pandoc, ... }:
 let
   usage = writeText "useage" ''
-    Usage: terranix [-q|--quiet] [--trace|--show-trace] [path]
+    Usage: terranix [-q|--quiet] [--trace|--show-trace] [--with-nulls] [path]
            terranix --help
 
       -q | --quiet   dont print anything except the json
 
       -h | --help    print help
+
+      -n             do not strip nulls. nulls will stay.
+      --with-nulls
 
       --trace        show trace information if there is an error
       --show-trace
@@ -25,12 +28,17 @@ in {
   set -eu -o pipefail
 
   QUIET=""
+  STRIP_NULLS="true"
   TRACE=""
   FILE="./config.nix"
 
   while [[ $# -gt 0 ]]
   do
       case $1 in
+          --with-nulls | -n)
+              STRIP_NULLS="false"
+              shift
+              ;;
           --help| -h)
               cat ${usage}
               exit 0
@@ -66,7 +74,7 @@ in {
       --expr "
     with import <nixpkgs> {};
     let
-      terranix_data = import ${toString ./core/default.nix} { terranix_config = { imports = [ <config> ]; }; };
+      terranix_data = import ${toString ./core/default.nix} { terranix_config = { imports = [ <config> ]; }; strip_nulls = ''${STRIP_NULLS}; };
       terraform_json = builtins.toJSON (terranix_data.config);
     in { run = pkgs.writeText \"config.tf.json\" terraform_json; }
   " )

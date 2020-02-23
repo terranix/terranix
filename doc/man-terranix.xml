@@ -36,6 +36,16 @@
       </group>
     </arg>
     <arg>
+      <group choice="req"> 
+        <arg choice="plain">
+          -n
+        </arg>
+        <arg choice="plain">
+          --with-nulls
+        </arg>
+      </group>
+    </arg>
+    <arg>
       <replaceable>path</replaceable>
     </arg>
     <sbr />

@@ -8,3 +8,6 @@
 
 --trace --show-trace
 : show trace information if there is an error.
+
+-n --with-nulls
+: do not strip nulls. nulls will stay.
