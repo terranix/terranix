@@ -44,7 +44,7 @@ with lib;
       '';
     };
     provider = mkOption {
-      type = with types; attrsOf attrs;
+      type = with types; attrsOf (oneOf [ attrs (listOf attrs) ]);
       default = {};
       description = ''
         provider, basically an API
