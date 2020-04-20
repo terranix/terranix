@@ -37,4 +37,67 @@ resource.&quot;aws_instance&quot;.&quot;web&quot; = {
     <literal>output</literal>, <literal>data</literal> and
     <literal>provider</literal>.
   </para>
+  <refsection xml:id="multi-line-sings">
+    <title>multi line sings</title>
+    <para>
+      In terraform you can create multi line strings using the
+      <literal>herdoc</literal> style
+    </para>
+    <programlisting>
+variable &quot;multiline&quot; {
+  description = &lt;&lt;EOT
+Description for the multi line variable.
+The indention here is not wrong.
+The terminating word must be on a new line without any indention.
+EOT
+}
+</programlisting>
+    <para>
+      This won’t work in terranix. In terranix you have to use the nix
+      way of multi line strings.
+    </para>
+    <programlisting language="bash">
+variable.multiline.description = ''
+  Description for the multi line variable.
+  The indention here is not wrong.
+  All spaces in front of the text block will be removed by terranix.
+'';
+</programlisting>
+  </refsection>
+  <refsection xml:id="escaping-expressions">
+    <title>escaping expressions</title>
+    <para>
+      The form <literal>${expression}</literal> is used by terranix and
+      terraform. So if you want to use a terraform expression in
+      terranix, you have to escape it. There are the two context, multi
+      and singe line strings.
+    </para>
+    <refsection xml:id="escaping-expressions-in-single-line-strings">
+      <title>escaping expressions in single line strings</title>
+      <para>
+        In a single line strings, you escape the via
+        <literal>\${expression}</literal>. For example :
+      </para>
+      <programlisting language="bash">
+variable.hcloud_token = {};
+provider.hcloud.token = &quot;\${var.hcloud_token}&quot;;
+</programlisting>
+    </refsection>
+    <refsection xml:id="escaping-expressions-in-multi-line-strings">
+      <title>escaping expressions in multi line strings</title>
+      <para>
+        In multi line strings, you escape the via
+        <literal>''${expression}</literal>. For example :
+      </para>
+      <programlisting language="bash">
+resource.local_file.sshConfig = {
+  filename = &quot;./ssh-config&quot;;
+  content = ''
+    Host ''${ hcloud_server.terranix_test.ipv4_address }
+    IdentityFile ./sshkey
+  '';
+};
+</programlisting>
+    </refsection>
+  </refsection>
 </refsection>
