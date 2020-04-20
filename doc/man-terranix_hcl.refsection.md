@@ -31,3 +31,35 @@ resource."aws_instance"."web" = {
 ```
 
 The same holds for `variable`, `output`, `data` and `provider`.
+
+## escaping expressions
+
+The form `${expression}` is used by terranix and terraform.
+So if you want to use a terraform expression in terranix,
+you have to escape it.
+There are the two context, multi and singe line strings.
+
+### escaping expressions in single line strings
+
+In a single line strings, you escape the via `\${expression}`.
+For example :
+
+```nix
+variable.hcloud_token = {};
+provider.hcloud.token = "\${var.hcloud_token}";
+```
+
+### escaping expressions in multi line strings
+
+In multi line strings, you escape the via `''${expression}`.
+For example :
+
+```nix
+resource.local_file.sshConfig = {
+  filename = "./ssh-config";
+  content = ''
+    Host ''${ hcloud_server.terranix_test.ipv4_address }
+    IdentityFile ./sshkey
+  '';
+};
+```
