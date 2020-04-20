@@ -32,6 +32,31 @@ resource."aws_instance"."web" = {
 
 The same holds for `variable`, `output`, `data` and `provider`.
 
+## multi line sings
+
+In terraform you can create multi line strings using the `herdoc` style
+
+```hcl
+variable "multiline" {
+  description = <<EOT
+Description for the multi line variable.
+The indention here is not wrong.
+The terminating word must be on a new line without any indention.
+EOT
+}
+```
+
+This won't work in terranix.
+In terranix you have to use the nix way of multi line strings.
+
+```nix
+variable.multiline.description = ''
+  Description for the multi line variable.
+  The indention here is not wrong.
+  All spaces in front of the text block will be removed by terranix.
+'';
+```
+
 ## escaping expressions
 
 The form `${expression}` is used by terranix and terraform.
