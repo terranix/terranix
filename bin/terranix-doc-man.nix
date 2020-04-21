@@ -27,21 +27,14 @@ let
     }];
   };
 
-  configModulesDocs = nmd.buildModulesDocs {
+  # currently all is in one modulesDocs object, because the config
+  # don't have to define new options.
+  modulesDocs = nmd.buildModulesDocs {
     modules = [
       (import <config> {
         inherit lib pkgs;
         config = { };
       })
-    ] ++ [ scrubbedPkgsModule ];
-    moduleRootPaths = [ /nix/store ];
-    mkModuleUrl = path: "https://example.com/${path}";
-    channelName = "/nix/store";
-    docBook.id = "terranix-options-config";
-  };
-
-  coreModulesDocs = nmd.buildModulesDocs {
-    modules = [
       (import ../modules/default.nix {
         inherit lib pkgs;
         config = { };
@@ -52,16 +45,16 @@ let
         config = { };
       })
     ] ++ [ scrubbedPkgsModule ];
-    moduleRootPaths = [ ./.. ];
+    moduleRootPaths = [ ];
     mkModuleUrl = path:
-      "https://github.com/mrVanDalo/terranix/blob/master/${path}#blob-path";
-    channelName = "terranix";
+      "http://example.com";
+    channelName = "";
     docBook.id = "terranix-options";
   };
 
   docs = nmd.buildDocBookDocs {
     pathName = "";
-    modulesDocs = [ configModulesDocs coreModulesDocs ];
+    modulesDocs = [modulesDocs ];
     documentsDirectory = ./.;
     chunkToc = ''
       <toc>
