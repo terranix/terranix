@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.2.3] - 2020-04-22
+
 - add Release-Checklist.md
 - add Changelog.md
 - add magic merge tests
