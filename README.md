@@ -3,7 +3,8 @@ A NixOS way to create `terraform.json` files.
 
 # Documentation
 
-See [terranix.org](https://terranix.org) for documentation.
+See [terranix.org](https://terranix.org/documentation.html) for documentation.
+It also has a [Getting Started](https://terranix.org/getting-started/) page.
 
 ## Manpages
 
@@ -11,28 +12,6 @@ See [terranix.org](https://terranix.org) for documentation.
 * `man terranix-modules`
 * `man terranix-doc-json`
 * `man terranix-doc-man`
-
-## Core Argument merging
-
-The core Arguments are not merged,
-because they need to typed define upfront,
-which is a condition for merging.
-
-The following options will not be merged :
-
-* `data`
-* `locals`
-* `module`
-* `output`
-* `provider`
-* `resource`
-* `terraform`
-* `variable`
-
-More information about this topic can be found in
-[the NixOS Manual](https://nixos.org/nixos/manual/index.html#sec-option-types)
-and the
-[source](./core/terraform-options.nix).
 
 ## preload
 
