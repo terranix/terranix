@@ -1,15 +1,33 @@
-# core sturcture
+# core options
 #
 
 { lib, ... }:
 
 with lib;
 
-{
+let
+  mkMagicMergeOption = { description ? "", example ? { }, default ? { }, ... }:
+    mkOption {
+      inherit example description default;
+      type = with lib.types;
+        let
+          valueType = nullOr (oneOf [
+            bool
+            int
+            float
+            str
+            (attrsOf valueType)
+            (listOf valueType)
+          ]) // {
+            description = "";
+            emptyValue.value = { };
+          };
+        in valueType;
+    };
+in {
+
   options = {
-    data = mkOption {
-      type = with types; attrsOf attrs;
-      default = { };
+    data = mkMagicMergeOption {
       description = ''
         Data objects, are queries to use resources which
         are already exist, as if they are created by a the resource
@@ -17,9 +35,7 @@ with lib;
         See for more details : https://www.terraform.io/docs/configuration/data-sources.html
       '';
     };
-    locals = mkOption {
-      type = with types; attrsOf attrs;
-      default = { };
+    locals = mkMagicMergeOption {
       example = {
         locals = {
           service_name = "forum";
@@ -32,9 +48,7 @@ with lib;
         See for more details : https://www.terraform.io/docs/configuration/locals.html
       '';
     };
-    module = mkOption {
-      type = with types; attrsOf attrs;
-      default = { };
+    module = mkMagicMergeOption {
       example = {
         module.consul = { source = "github.com/hashicorp/example"; };
       };
@@ -46,9 +60,7 @@ with lib;
         See for more details : https://www.terraform.io/docs/configuration/modules.html
       '';
     };
-    output = mkOption {
-      type = with types; attrsOf attrs;
-      default = { };
+    output = mkMagicMergeOption {
       example = {
         output.instance_ip_addr.value = "aws_instance.server.private_ip";
       };
@@ -57,9 +69,7 @@ with lib;
         See for more details : https://www.terraform.io/docs/configuration/outputs.html
       '';
     };
-    provider = mkOption {
-      type = with types; attrsOf (oneOf [ attrs (listOf attrs) ]);
-      default = { };
+    provider = mkMagicMergeOption {
       example = {
         provider.google = {
           project = "acme-app";
@@ -74,9 +84,7 @@ with lib;
         or https://www.terraform.io/docs/providers/index.html
       '';
     };
-    resource = mkOption {
-      type = with types; attrsOf attrs;
-      default = { };
+    resource = mkMagicMergeOption {
       example = {
         resource.aws_instance.web = {
           ami = "ami-a1b2c3d4";
@@ -88,9 +96,7 @@ with lib;
         See for more details : https://www.terraform.io/docs/configuration/resources.html
       '';
     };
-    terraform = mkOption {
-      type = with types; attrsOf attrs;
-      default = { };
+    terraform = mkMagicMergeOption {
       example = {
         terraform = {
           backend.s3 = {
@@ -107,9 +113,7 @@ with lib;
         See for more details : https://www.terraform.io/docs/configuration/terraform.html
       '';
     };
-    variable = mkOption {
-      type = with types; attrsOf attrs;
-      default = { };
+    variable = mkMagicMergeOption {
       example = {
         variable.image_id = {
           type = "string";
