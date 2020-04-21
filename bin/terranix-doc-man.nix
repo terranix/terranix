@@ -19,31 +19,42 @@ let
   # Make sure the used package is scrubbed to avoid actually
   # instantiating derivations.
   scrubbedPkgsModule = {
-    imports = [
-      {
-        _module.args = {
-          pkgs = lib.mkForce (nmd.scrubDerivations "pkgs" pkgs);
-          pkgs_i686 = lib.mkForce { };
-        };
-      }
-    ];
+    imports = [{
+      _module.args = {
+        pkgs = lib.mkForce (nmd.scrubDerivations "pkgs" pkgs);
+        pkgs_i686 = lib.mkForce { };
+      };
+    }];
   };
 
-  hmModulesDocs = nmd.buildModulesDocs {
-    modules =
-      [ (import <config> { inherit lib pkgs; config = {}; })]
-      ++ [ (import ../modules/default.nix { inherit lib pkgs; config = {}; })]
-      ++ [ scrubbedPkgsModule ];
-    moduleRootPaths = [ ./.. ];
+  # currently all is in one modulesDocs object, because the config
+  # don't have to define new options.
+  modulesDocs = nmd.buildModulesDocs {
+    modules = [
+      (import <config> {
+        inherit lib pkgs;
+        config = { };
+      })
+      (import ../modules/default.nix {
+        inherit lib pkgs;
+        config = { };
+      })
+    ] ++ [
+      (import ../core/terraform-options.nix {
+        inherit lib pkgs;
+        config = { };
+      })
+    ] ++ [ scrubbedPkgsModule ];
+    moduleRootPaths = [ ];
     mkModuleUrl = path:
-      "https://github.com/mrVanDalo/terranix/blob/master/${path}#blob-path";
-    channelName = "terranix";
+      "http://example.com";
+    channelName = "";
     docBook.id = "terranix-options";
   };
 
   docs = nmd.buildDocBookDocs {
-    pathName = "terranix";
-    modulesDocs = [ hmModulesDocs ];
+    pathName = "";
+    modulesDocs = [modulesDocs ];
     documentsDirectory = ./.;
     chunkToc = ''
       <toc>
@@ -56,5 +67,4 @@ let
     '';
   };
 
-in
-  docs.manPages
+in docs.manPages
