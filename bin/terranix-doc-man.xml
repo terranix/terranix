@@ -26,6 +26,7 @@
       You can use the following options in
       <filename>config.nix</filename>:
     </para>
+    <xi:include href="./nmd-result/terranix-options-config.xml" />
     <xi:include href="./nmd-result/terranix-options.xml" />
   </refsection>
 

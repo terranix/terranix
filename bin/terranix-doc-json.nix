@@ -1,6 +1,6 @@
 # copy from : https://github.com/rycee/home-manager/blob/master/doc/default.nix
 # this is just a first sketch to make it work. optimization comes later
-{ pkgs, ... }:
+{ pkgs, arguments, ... }:
 
 let
 
@@ -19,26 +19,27 @@ let
   # Make sure the used package is scrubbed to avoid actually
   # instantiating derivations.
   scrubbedPkgsModule = {
-    imports = [
-      {
-        _module.args = {
-          pkgs = lib.mkForce (nmd.scrubDerivations "pkgs" pkgs);
-          pkgs_i686 = lib.mkForce { };
-        };
-      }
-    ];
+    imports = [{
+      _module.args = {
+        pkgs = lib.mkForce (nmd.scrubDerivations "pkgs" pkgs);
+        pkgs_i686 = lib.mkForce { };
+      };
+    }];
   };
 
-  hmModulesDocs = nmd.buildModulesDocs {
-    modules =
-      [ (import <config> { inherit lib pkgs; config = {}; })]
-      ++ [ scrubbedPkgsModule ];
-    moduleRootPaths = [ ./.. ];
-    mkModuleUrl = path:
-      "https://github.com/mrVanDalo/terranix/blob/master/${path}#blob-path";
-    channelName = "terranix";
-    docBook.id = "terranix-options";
-  };
+  modulesDocs =
+    { path ? "/", urlPrefix ? "http://example.com/", urlSuffix ? "", }:
+    nmd.buildModulesDocs {
+      modules = [
+        (import <config> {
+          inherit lib pkgs;
+          config = { };
+        })
+      ] ++ [ scrubbedPkgsModule ];
+      moduleRootPaths = [ path ];
+      mkModuleUrl = path: "${urlPrefix}${path}${urlSuffix}";
+      channelName = "";
+      docBook.id = "terranix-options";
+    };
 
-in
-  hmModulesDocs.json
+in (modulesDocs arguments).json

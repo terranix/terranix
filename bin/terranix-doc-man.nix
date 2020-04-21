@@ -19,21 +19,39 @@ let
   # Make sure the used package is scrubbed to avoid actually
   # instantiating derivations.
   scrubbedPkgsModule = {
-    imports = [
-      {
-        _module.args = {
-          pkgs = lib.mkForce (nmd.scrubDerivations "pkgs" pkgs);
-          pkgs_i686 = lib.mkForce { };
-        };
-      }
-    ];
+    imports = [{
+      _module.args = {
+        pkgs = lib.mkForce (nmd.scrubDerivations "pkgs" pkgs);
+        pkgs_i686 = lib.mkForce { };
+      };
+    }];
   };
 
-  hmModulesDocs = nmd.buildModulesDocs {
-    modules =
-      [ (import <config> { inherit lib pkgs; config = {}; })]
-      ++ [ (import ../modules/default.nix { inherit lib pkgs; config = {}; })]
-      ++ [ scrubbedPkgsModule ];
+  configModulesDocs = nmd.buildModulesDocs {
+    modules = [
+      (import <config> {
+        inherit lib pkgs;
+        config = { };
+      })
+    ] ++ [ scrubbedPkgsModule ];
+    moduleRootPaths = [ /nix/store ];
+    mkModuleUrl = path: "https://example.com/${path}";
+    channelName = "/nix/store";
+    docBook.id = "terranix-options-config";
+  };
+
+  coreModulesDocs = nmd.buildModulesDocs {
+    modules = [
+      (import ../modules/default.nix {
+        inherit lib pkgs;
+        config = { };
+      })
+    ] ++ [
+      (import ../core/terraform-options.nix {
+        inherit lib pkgs;
+        config = { };
+      })
+    ] ++ [ scrubbedPkgsModule ];
     moduleRootPaths = [ ./.. ];
     mkModuleUrl = path:
       "https://github.com/mrVanDalo/terranix/blob/master/${path}#blob-path";
@@ -42,8 +60,8 @@ let
   };
 
   docs = nmd.buildDocBookDocs {
-    pathName = "terranix";
-    modulesDocs = [ hmModulesDocs ];
+    pathName = "";
+    modulesDocs = [ configModulesDocs coreModulesDocs ];
     documentsDirectory = ./.;
     chunkToc = ''
       <toc>
@@ -56,5 +74,4 @@ let
     '';
   };
 
-in
-  docs.manPages
+in docs.manPages
