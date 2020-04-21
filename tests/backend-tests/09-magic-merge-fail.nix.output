@@ -1,0 +1,4 @@
+error: The unique option `resource.test.a.list' is defined multiple times, in:
+ - /home/palo/dev/terranix/tests/backend-tests/09-magic-merge-fail.nix
+ - /home/palo/dev/terranix/tests/backend-tests/09-magic-merge-fail.nix.
+(use '--show-trace' to show detailed location information)

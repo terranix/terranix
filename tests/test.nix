@@ -73,4 +73,19 @@ with lib; [
     }
   ''
 
+  ''
+    @test "magic-merge: works for attrs and lists" {
+    run ${terranix}/bin/terranix --quiet ${./backend-tests/08-magic-merge.nix}
+    [ "$status" -eq 0 ]
+    [ "$output" =  ${
+      escapeShellArg (fileContents ./backend-tests/08-magic-merge.nix.output)
+    } ]
+    }
+
+    @test "magic-merge: fails for setting different types" {
+    run ${terranix}/bin/terranix --quiet ${./backend-tests/09-magic-merge-fail.nix}
+    [ "$status" -ne 0 ]
+    }
+  ''
+
 ]
