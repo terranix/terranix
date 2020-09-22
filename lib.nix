@@ -4,8 +4,8 @@
 
 { stdenv, writeShellScriptBin, writeText, pandoc, ... }:
 let
-  usage = writeText "useage" ''
-    Usage: terranix [-q|--quiet] [--trace|--show-trace] [--with-nulls] [path]
+  usage = writeText "usage" ''
+    Usage: terranix [-q|--quiet] [--trace|--show-trace] [--with-nulls] [--pkgs path] [path]
            terranix --help
 
       -q | --quiet   dont print anything except the json
@@ -17,13 +17,15 @@ let
 
       --trace        show trace information if there is an error
       --show-trace
+      
+      --pkgs         provide path to nixpkgs for pinning
 
       path           path to the config.nix
 
   '';
 
-  usageDocJson = writeText "useage" ''
-    Usage: terranix-doc-json [-q|--quiet] [--trace|--show-trace] [path]
+  usageDocJson = writeText "usage" ''
+    Usage: terranix-doc-json [-q|--quiet] [--trace|--show-trace] [--pkgs path] [path]
            terranix-doc-json --help
 
       -q | --quiet   dont print anything except the json
@@ -39,13 +41,15 @@ let
 
       --trace        show trace information if there is an error
       --show-trace
+      
+      --pkgs         provide path to nixpkgs for pinning
 
       path           path to the config.nix
 
   '';
 
-  usageDocMan = writeText "useage" ''
-    Usage: terranix-doc-man [-q|--quiet] [--trace|--show-trace] [path]
+  usageDocMan = writeText "usage" ''
+    Usage: terranix-doc-man [-q|--quiet] [--trace|--show-trace] [--pkgs path] [path]
            terranix --help
 
       -q | --quiet   dont print anything except the json
@@ -54,6 +58,8 @@ let
 
       --trace        show trace information if there is an error
       --show-trace
+      
+      --pkgs         provide path to nixpkgs for pinning
 
       path           path to the config.nix
 
@@ -69,6 +75,7 @@ in {
       STRIP_NULLS="true"
       TRACE=""
       FILE="./config.nix"
+      PKGS="<nixpkgs>"
 
       while [[ $# -gt 0 ]]
       do
@@ -87,6 +94,11 @@ in {
                   ;;
               --show-trace | --trace)
                   TRACE="--show-trace"
+                  shift
+                  ;;
+              --pkgs)
+                  shift
+                  PKGS=$1
                   shift
                   ;;
               *)
@@ -110,11 +122,12 @@ in {
           $TRACE \
           -I config=$FILE \
           --expr "
-        with import <nixpkgs> {};
+        let pkgs = import $PKGS {};
+        in with pkgs;
         let
           terranix_data = import ${
             toString ./core/default.nix
-          } { terranix_config = { imports = [ <config> ]; }; strip_nulls = ''${STRIP_NULLS}; };
+          } { inherit pkgs; terranix_config = { imports = [ <config> ]; }; strip_nulls = ''${STRIP_NULLS}; };
           terraform_json = builtins.toJSON (terranix_data.config);
         in { run = pkgs.writeText \"config.tf.json\" terraform_json; }
       " )
@@ -136,6 +149,7 @@ in {
     OFFLINE=""
     QUIET=""
     TRACE=""
+    PKGS="<nixpkgs>"
 
     while [[ $# -gt 0 ]]
     do
@@ -154,6 +168,11 @@ in {
                 ;;
             --show-trace | --trace)
                 TRACE="--show-trace"
+                shift
+                ;;
+            --pkgs)
+                shift
+                PKGS=$1
                 shift
                 ;;
             *)
@@ -176,7 +195,7 @@ in {
         $OFFLINE \
         $TRACE \
         -I config=$FILE \
-        --expr "with import <nixpkgs> {}; callPackage ${
+        --expr "with import $PKGS {}; callPackage ${
           toString ./bin/terranix-doc-man.nix
         } { pkgs = pkgs; }"
     )
@@ -201,6 +220,7 @@ in {
     RELATIVE_PATH=$PWD
     URL_PREFIX="http://example.com/"
     URL_SUFFIX=""
+    PKGS="<nixpkgs>"
 
     while [[ $# -gt 0 ]]
     do
@@ -238,6 +258,13 @@ in {
                 TRACE="--show-trace"
                 shift
                 ;;
+
+            --pkgs)
+                shift
+                PKGS=$1
+                shift
+                ;;
+
             *)
                 FILE=$1
                 shift
@@ -257,7 +284,7 @@ in {
         $OFFLINE \
         $TRACE \
         -I config=$FILE \
-        --expr "with import <nixpkgs> {}; callPackage ${
+        --expr "with import $PKGS {}; callPackage ${
           toString ./bin/terranix-doc-json.nix
         } { pkgs = pkgs; arguments = { path = $RELATIVE_PATH; urlPrefix = \"$URL_PREFIX\"; urlSuffix = \"$URL_SUFFIX\"; }; }"
     )
