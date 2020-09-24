@@ -1,6 +1,8 @@
 # terranix core
 # -------------
-{ pkgs ? import <nixpkgs> { }; terranix_config, strip_nulls ? true }:
+{ pkgs ? import <nixpkgs> { },
+  terranix_config,
+  strip_nulls ? true }:
 
 with pkgs;
 with pkgs.lib;

@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+
+set -eu -o pipefail
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+DEFAULT_CONFIG="$DIR/../lib/terranix-doc-json.nix"
+FILE="./config.nix"
+OFFLINE=""
+QUIET=""
+TRACE=""
+RELATIVE_PATH=$PWD
+URL_PREFIX="http://example.com/"
+URL_SUFFIX=""
+PKGS="<nixpkgs>"
+
+function usage() {
+  cat <<EOF
+Usage: terranix-doc-json [-q|--quiet] [--trace|--show-trace] [--path path] [--url|--url-prefix prefix] [--url-suffix suffix][--pkgs path] [path]
+       terranix-doc-json --help
+
+  -q | --quiet   dont print anything except the json
+
+  -h | --help    print help
+
+  --path         string path from declarations.path (default is $PWD)
+
+ --url           prefix declarations.url
+ --url-prefix
+
+ --url-suffix    suffix declarations.url
+
+  --trace        show trace information if there is an error
+  --show-trace
+
+  --pkgs         provide path to nixpkgs for pinning
+
+  path           path to the config.nix (default is ./config.nix)
+EOF
+}
+
+while [[ $# -gt 0 ]]
+do
+    case "$1" in
+        --help| -h)
+            usage
+            exit 0
+            ;;
+        --quiet | -q)
+            QUIET="--quiet"
+            shift
+            ;;
+        --offline)
+            OFFLINE="--option substitute false"
+            shift
+            ;;
+        --path)
+            shift
+            RELATIVE_PATH="$1"
+            shift
+            ;;
+        --url | --url-prefix)
+            shift
+            URL_PREFIX="$1"
+            shift
+            ;;
+        --url-suffix)
+            shift
+            URL_SUFFIX="$1"
+            shift
+            ;;
+        --show-trace | --trace)
+            TRACE="--show-trace"
+            shift
+            ;;
+        --pkgs)
+            shift
+            PKGS="$1"
+            shift
+            ;;
+        *)
+            FILE="$1"
+            shift
+            break
+            ;;
+    esac
+done
+
+if [[ ! -f $FILE ]]
+then
+    echo "$FILE does not exist"
+    exit 1
+fi
+TERRAFORM_JSON=$( nix-build \
+    --no-out-link \
+    $QUIET \
+    $OFFLINE \
+    $TRACE \
+    -I config="$FILE" \
+    --expr "with import $PKGS {}; callPackage $DEFAULT_CONFIG {
+      pkgs = pkgs;
+      arguments = {
+        path = \"$RELATIVE_PATH\";
+        urlPrefix = \"$URL_PREFIX\";
+        urlSuffix = \"$URL_SUFFIX\";
+      };
+    }"
+)
+
+NIX_BUILD_EXIT_CODE=$?
+if [[ $NIX_BUILD_EXIT_CODE -eq 0 ]]
+then
+    cat "$TERRAFORM_JSON/options.json"
+fi
+exit $NIX_BUILD_EXIT_CODE
