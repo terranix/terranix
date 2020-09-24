@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+
+set -eu -o pipefail
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+DEFAULT_CONFIG="$DIR/../core/default.nix"
+QUIET=""
+STRIP_NULLS="true"
+TRACE=""
+FILE="./config.nix"
+PKGS="<nixpkgs>"
+
+function usage() {
+  cat <<EOF
+Usage: terranix [-q|--quiet] [--trace|--show-trace] [--with-nulls] [--pkgs path] [path]
+       terranix --help
+
+  -q | --quiet   dont print anything except the json
+
+  -h | --help    print help
+
+  -n             do not strip nulls. nulls will stay.
+  --with-nulls
+
+  --trace        show trace information if there is an error
+  --show-trace
+
+  --pkgs         provide path to nixpkgs for pinning
+
+  path           path to the config.nix (default is ./config.nix)
+EOF
+}
+
+while [[ $# -gt 0 ]]
+do
+    case "$1" in
+        --with-nulls | -n)
+            STRIP_NULLS="false"
+            shift
+            ;;
+        --help| -h)
+            usage
+            exit 0
+            ;;
+        --quiet | -q)
+            QUIET="--quiet"
+            shift
+            ;;
+        --show-trace | --trace)
+            TRACE="--show-trace"
+            shift
+            ;;
+        --pkgs)
+            shift
+            PKGS="$1"
+            shift
+            ;;
+        *)
+            FILE="$1"
+            shift
+            break
+            ;;
+    esac
+done
+
+if [[ ! -f $FILE ]]
+then
+    echo "$FILE does not exist"
+    exit 1
+fi
+
+TERRAFORM_JSON=$( nix-build \
+    --no-out-link \
+    --attr run \
+    $QUIET \
+    $TRACE \
+    -I config=$FILE \
+    --expr "
+let pkgs = import $PKGS {};
+in with pkgs;
+let
+  terranix_data = import $DEFAULT_CONFIG {
+    inherit pkgs;
+    terranix_config = { imports = [ <config> ]; };
+    strip_nulls = $STRIP_NULLS;
+  };
+  terraform_json = builtins.toJSON (terranix_data.config);
+in { run = pkgs.writeText \"config.tf.json\" terraform_json; }
+" )
+
+NIX_BUILD_EXIT_CODE=$?
+if [[ $NIX_BUILD_EXIT_CODE -eq 0 ]]
+then
+    cat "$TERRAFORM_JSON"
+fi
+exit $NIX_BUILD_EXIT_CODE
