@@ -30,5 +30,5 @@ update your `/etc/hosts`.
 ## Steps
 
 * `example-prepare`: to create ssh keys.
-* `example-ssh`: to run terranix and terraform do create server.
+* `example-run`: to run terranix and terraform.
 * `example-cleanup`: to delete server, ssh keys and terraform data. (don't forget that step, or else it gets costly)

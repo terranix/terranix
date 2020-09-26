@@ -41,5 +41,7 @@ here (e.g. NixOps, Ansible, ... )
 ## Steps
 
 * `example-prepare`: to create ssh keys.
-* `example-ssh`: to run terranix and terraform do create server.
+* `example-run`: to run terranix and terraform.
+* go in `./plops` and `nix-shell --run "deploy-nixserver-server1"`, to provision machine.
 * `example-cleanup`: to delete server, ssh keys and terraform data. (don't forget that step, or else it gets costly)
+

@@ -2,8 +2,8 @@
 let
   hcloud-modules = pkgs.fetchgit {
     url = "https://github.com/mrVanDalo/terranix-hcloud.git";
-    rev = "c3571f76664e1813f90d97b8c194a1e0149e895e";
-    sha256 = "0plld74wincyy3c5gdfqh78pzrqibxh6r839dm0c717fajr9imwb";
+    rev = "5fa359a482892cd973dcc6ecfc607f4709f24495";
+    sha256 = "0smgmdiklj98y71fmcdjsqjq8l41i66hs8msc7k4m9dpkphqk86p";
   };
 in {
 
@@ -19,7 +19,5 @@ in {
     enable = true;
     plugins = [ "grafana-worldmap-panel" ];
   };
-
-  hcloud.export.nix = null;
 
 }
