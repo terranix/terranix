@@ -1,37 +1,24 @@
 # the package
 # -----------
-{
-  stdenv,
-  symlinkJoin,
-  writeShellScriptBin,
-  writeText,
-  pandoc,
-  callPackage,
-  ...
-}:
+{ stdenv, ... }:
 
-let
-  libTerranix = (import ./lib.nix) { inherit writeShellScriptBin stdenv pandoc writeText; };
-in
+stdenv.mkDerivation rec {
+  pname = "terranix";
+  version = "2.3.0";
+  src = ./.;
 
-symlinkJoin rec {
-  version = "2.2.3";
-  name = "terranix-${version}";
-  paths = [
-    libTerranix.terranix
-    libTerranix.terranixDocJson
-    libTerranix.terranixDocMan
-    (callPackage ./doc/default.nix {}).manPages
-  ];
+  installPhase = ''
+    mkdir -p $out/{bin,core,modules,lib}
+    mv bin core modules lib $out/
+  '';
+
   meta = with stdenv.lib; {
     description = "A NixOS like terraform-json generator";
-    homepage = https://github.com/mrVanDalo/terranix;
+    homepage = "https://github.com/mrVanDalo/terranix";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ mrVanDalo ];
   };
+
 }
-
-
-
 

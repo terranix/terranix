@@ -1,5 +1,7 @@
 # Release Checklist
 
+* check if tests are green
+* check if examples still work
 * bump version number in default.nix
 * update Changelog
 

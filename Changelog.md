@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [2.3.0] - 2020-09-26
+
+- use bash scripts instead of lib.nix, to put terranix in nixpgks
+- add `--pkgs` option to commands to allow overriding/pinning nixpkgs on the command line
+- add `pkgs` parameter to `core/default.nix` to allow pinning packages when calling `core/` directly from Nix.
+
 ## [2.2.3] - 2020-04-22
 
 - add Release-Checklist.md

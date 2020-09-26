@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+set -eu -o pipefail
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+DEFAULT_CONFIG="$DIR/../lib/terranix-doc-man.nix"
+FILE="./config.nix"
+OFFLINE=""
+QUIET=""
+TRACE=""
+PKGS="<nixpkgs>"
+
+function usage() {
+    cat <<EOF
+Usage: terranix-doc-man [-q|--quiet] [--trace|--show-trace] [--pkgs path] [path]
+       terranix --help
+
+  -q | --quiet   dont print anything except the json
+
+  -h | --help    print help
+
+  --trace        show trace information if there is an error
+  --show-trace
+
+  --pkgs         provide path to nixpkgs for pinning
+
+  path           path to the config.nix (default is ./config.nix)
+EOF
+}
+
+while [[ $# -gt 0 ]]
+do
+    case "$1" in
+        --help| -h)
+            usage
+            exit 0
+            ;;
+        --quiet | -q)
+            QUIET="--quiet"
+            shift
+            ;;
+        --offline)
+            OFFLINE="--option substitute false"
+            shift
+            ;;
+        --show-trace | --trace)
+            TRACE="--show-trace"
+            shift
+            ;;
+        --pkgs)
+            shift
+            PKGS="$1"
+            shift
+            ;;
+        *)
+            FILE="$1"
+            shift
+            break
+            ;;
+    esac
+done
+
+if [[ ! -f "$FILE" ]]
+then
+    echo "$FILE does not exist"
+    exit 1
+fi
+
+TERRAFORM_JSON=$( nix-build \
+    --no-out-link \
+    $QUIET \
+    $OFFLINE \
+    $TRACE \
+    -I config="$FILE" \
+    --expr "with import $PKGS {}; callPackage $DEFAULT_CONFIG { pkgs = pkgs; }"
+)
+
+NIX_BUILD_EXIT_CODE=$?
+if [[ $NIX_BUILD_EXIT_CODE -eq 0 ]]
+then
+    man "$TERRAFORM_JSON/share/man/man5/terranix-doc-man.5"
+fi
+exit $NIX_BUILD_EXIT_CODE
