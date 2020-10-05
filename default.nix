@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     description = "A NixOS like terraform-json generator";
     homepage = "https://github.com/mrVanDalo/terranix";
     license = licenses.gpl3;
-    platforms = platforms.linux;
+    platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ mrVanDalo ];
   };
 
