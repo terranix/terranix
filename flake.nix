@@ -4,7 +4,7 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }: {
+  outputs = { self, nixpkgs, flake-utils }: rec {
     lib = {
       buildTerranix = { pkgs, terranix_config, ... }@terranix_args: let
         terraform = import ./core/default.nix terranix_args;
@@ -17,5 +17,10 @@
       in
         config_json;
     };
+    templates.terranix = {
+      path = ./examples/flake;
+      description = "Terranix flake example";
+    };
+    templates.defaultTemplate = self.templates.terranix;
   };
 }
