@@ -24,18 +24,18 @@
         apps.test = let
           createTest = testimport:
             let
-              test = import testimport {
+              tests = import testimport {
                 inherit pkgs;
                 inherit (pkgs) lib;
                 terranix = self.packages.${system}.terranix;
               };
-              batsScripts = map (text: pkgs.writeText "test" text) test;
-              allScripts =
+              batsScripts = map (text: pkgs.writeText "test" text) tests;
+              allBatsScripts  =
                 map (file: "${pkgs.bats}/bin/bats ${file}") batsScripts;
             in pkgs.writeScript "test-script"
-            (nixpkgs.lib.concatStringsSep "\n" allScripts);
+            (nixpkgs.lib.concatStringsSep "\n" allBatsScripts );
           allTests = [ (createTest ./tests/test.nix) ];
-        in pkgs.writeShellScriptBin "check" ''
+        in pkgs.writers.writeBashBin "check" ''
           set -e
           ${nixpkgs.lib.concatStringsSep "\n" allTests}
         '';
