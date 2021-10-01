@@ -5,14 +5,23 @@
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
   outputs = { self, nixpkgs, flake-utils }:
-    (flake-utils.lib.eachSystem [ "x86_64-darwin" "x86_64-linux" ] (system:
+    (flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
 
         packages.terranix = pkgs.callPackage ./default.nix { };
         defaultPackage = self.packages.${system}.terranix;
 
-        checks.test = let
+        # nix develop
+        devShell = pkgs.mkShell {
+          buildInputs =
+            [ pkgs.terraform_0_15 self.packages.${system}.terranix ];
+        };
+
+        # nix run
+        defaultApp = self.apps.${system}.test;
+        # nix run ".#test"
+        apps.test = let
           createTest = testimport:
             let
               test = import testimport {
@@ -41,10 +50,12 @@
             destination = "/config.tf.json";
           };
 
+        # nix flake init -t github:terranix/terranix#terranix
         templates.terranix = {
           path = ./examples/flake;
           description = "terranix flake example";
         };
+        # nix flake init -t github:terranix/terranix
         templates.defaultTemplate = self.templates.terranix;
       };
 }
