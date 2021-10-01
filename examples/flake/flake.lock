@@ -2,11 +2,11 @@
   "nodes": {
     "flake-utils": {
       "locked": {
-        "lastModified": 1623875721,
-        "narHash": "sha256-A8BU7bjS5GirpAUv4QA+QnJ4CceLHkcXdRp4xITDB0s=",
+        "lastModified": 1631561581,
+        "narHash": "sha256-3VQMV5zvxaVLvqqUrNz3iJelLw30mIVSfZmAaauM3dA=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "f7e004a55b120c02ecb6219596820fcd32ca8772",
+        "rev": "7e5bf3925f6fbdfaf50a2a7ca0be2879c4261d19",
         "type": "github"
       },
       "original": {
@@ -32,11 +32,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1625007448,
-        "narHash": "sha256-OVDYI0kZEg2jc0VY+NYdJrxF3woxDLfANuK43sMhLl0=",
+        "lastModified": 1633074215,
+        "narHash": "sha256-epmR1H1amgFWuU7xW9OXGjsAqltMqCSqkv1U2+9rOlM=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d9eb62dfbf642c2cdbd997909d5d207bc4b2c9b3",
+        "rev": "378d2c5dcec7fef958cca3760448c09a9be2b7a3",
         "type": "github"
       },
       "original": {
@@ -60,12 +60,12 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-Wy29vH+vwAkn+JzSyKszOFtz3fdZVd+D6t/QmXRxuJY=",
-        "path": "/home/leander/p/terranix",
+        "narHash": "sha256-8tBM3Ztc/NSDKLfu8uEdaVd54Nd+0lPKdXb+vgvjkes=",
+        "path": "/home/palo/dev/terranix/terranix",
         "type": "path"
       },
       "original": {
-        "path": "/home/leander/p/terranix",
+        "path": "/home/palo/dev/terranix/terranix",
         "type": "path"
       }
     }

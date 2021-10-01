@@ -1,6 +1,4 @@
-# the package
-# -----------
-{ stdenv, ... }:
+{ stdenv, lib, ... }:
 
 stdenv.mkDerivation rec {
   pname = "terranix";
@@ -12,11 +10,11 @@ stdenv.mkDerivation rec {
     mv bin core modules lib $out/
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A NixOS like terraform-json generator";
     homepage = "https://github.com/mrVanDalo/terranix";
     license = licenses.gpl3;
-    platforms = platforms.linux;
+    platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ mrVanDalo ];
   };
 
