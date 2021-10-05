@@ -3,8 +3,9 @@
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs";
   inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.terranix-examples.url = "github:terranix/terranix-examples";
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils, terranix-examples }:
     (flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
@@ -50,12 +51,9 @@
             destination = "/config.tf.json";
           };
 
-        # nix flake init -t github:terranix/terranix#terranix
-        templates.terranix = {
-          path = ./examples/flake;
-          description = "terranix flake example";
-        };
+        # nix flake init -t github:terranix/terranix#flake
+        templates = terranix-examples.templates;
         # nix flake init -t github:terranix/terranix
-        templates.defaultTemplate = self.templates.terranix;
+        defaultTemplate = terranix-examples.defaultTemplate;
       };
 }
