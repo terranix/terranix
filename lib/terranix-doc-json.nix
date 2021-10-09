@@ -1,6 +1,7 @@
 # copy from : https://github.com/rycee/home-manager/blob/master/doc/default.nix
 # this is just a first sketch to make it work. optimization comes later
-{ pkgs, arguments, terranix_modules ? [], ... }:
+{ pkgs, moduleRootPath ? "/", urlPrefix ? "https://example.com", urlSuffix ? ""
+, terranix_modules ? [ ], ... }:
 
 let
 
@@ -27,23 +28,17 @@ let
     }];
   };
 
-  modulesDocs =
-    { path ? "/", urlPrefix ? "http://example.com/", urlSuffix ? "", }:
-    nmd.buildModulesDocs {
-      modules = terranix_modules ++ [
-        #(import <config> {
-        #  inherit lib pkgs;
-        #  config = { };
-        #})
-        (import ../core/terraform-options.nix {
-          inherit lib pkgs;
-          config = { };
-        })
-      ] ++ [ scrubbedPkgsModule ];
-      moduleRootPaths = [ path ];
-      mkModuleUrl = path: "${urlPrefix}${path}${urlSuffix}";
-      channelName = "";
-      docBook.id = "terranix-options";
-    };
+  modulesDocs = nmd.buildModulesDocs {
+    modules = terranix_modules ++ [
+      (import ../core/terraform-options.nix {
+        inherit lib pkgs;
+        config = { };
+      })
+    ] ++ [ scrubbedPkgsModule ];
+    moduleRootPaths = [ moduleRootPath ];
+    mkModuleUrl = path: "${urlPrefix}${path}${urlSuffix}";
+    channelName = "";
+    docBook.id = "terranix-options";
+  };
 
-in (modulesDocs arguments).json
+in modulesDocs.json
