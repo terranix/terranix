@@ -1,6 +1,6 @@
 # copy from : https://github.com/rycee/home-manager/blob/master/doc/default.nix
 # this is just a first sketch to make it work. optimization comes later
-{ pkgs, arguments, ... }:
+{ pkgs, arguments, terranix_modules ? [], ... }:
 
 let
 
@@ -30,8 +30,12 @@ let
   modulesDocs =
     { path ? "/", urlPrefix ? "http://example.com/", urlSuffix ? "", }:
     nmd.buildModulesDocs {
-      modules = [
-        (import <config> {
+      modules = terranix_modules ++ [
+        #(import <config> {
+        #  inherit lib pkgs;
+        #  config = { };
+        #})
+        (import ../core/terraform-options.nix {
           inherit lib pkgs;
           config = { };
         })

@@ -42,6 +42,7 @@
         '';
 
       })) // {
+
         lib.buildTerranix = { pkgs, terranix_config, ... }@terranix_args:
           let terranixCore = import ./core/default.nix terranix_args;
           in pkgs.writeTextFile {
@@ -50,6 +51,28 @@
             executable = false;
             destination = "/config.tf.json";
           };
+
+        lib.buildOptions = { pkgs, arguments, terranix_modules, ... }@terranix_args:
+          let terranixCore = import ./lib/terranix-doc-json.nix terranix_args;
+          in
+            pkgs.stdenv.mkDerivation {
+              name = "example";
+              src = self;
+              installPhase = ''
+                mkdir -p $out
+                cat ${terranixCore}/options.json \
+                  | ${pkgs.jq}/bin/jq '
+                    del(.data) |
+                    del(.locals) |
+                    del(.module) |
+                    del(.output) |
+                    del(.provider) |
+                    del(.resource) |
+                    del(.terraform) |
+                    del(.variable)
+                    ' > $out/options.json
+              '';
+            };
 
         # nix flake init -t github:terranix/terranix#flake
         templates = terranix-examples.templates;
