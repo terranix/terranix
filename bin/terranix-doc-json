@@ -95,20 +95,26 @@ TERRAFORM_JSON=$( nix-build \
     $QUIET \
     $OFFLINE \
     $TRACE \
-    -I config="$FILE" \
     --expr "with import $PKGS {}; callPackage $DEFAULT_CONFIG {
-      pkgs = pkgs;
-      arguments = {
-        path = \"$RELATIVE_PATH\";
-        urlPrefix = \"$URL_PREFIX\";
-        urlSuffix = \"$URL_SUFFIX\";
-      };
+      inherit pkgs;
+      moduleRootPath = \"$RELATIVE_PATH\";
+      urlPrefix = \"$URL_PREFIX\";
+      urlSuffix = \"$URL_SUFFIX\";
+      terranix_modules = [{ imports = [ ${FILE} ]; }];
     }"
 )
 
 NIX_BUILD_EXIT_CODE=$?
 if [[ $NIX_BUILD_EXIT_CODE -eq 0 ]]
 then
-    cat "$TERRAFORM_JSON/options.json"
+    cat "$TERRAFORM_JSON/options.json" | jq --compact-output '
+      del(.data) |
+      del(.locals) |
+      del(.module) |
+      del(.output) |
+      del(.provider) |
+      del(.resource) |
+      del(.terraform) |
+      del(.variable)'
 fi
 exit $NIX_BUILD_EXIT_CODE

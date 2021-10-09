@@ -1,1 +1,1 @@
-{"testing-terranix.enable":{"declarations":[],"default":false,"description":"Whether to enable enable testing-terranix.","example":true,"loc":["testing-terranix","enable"],"readOnly":false,"type":"boolean"}}
+{"testing-terranix.enable":{"declarations":[{"channelPath":"/01.nix","path":"01.nix","url":"http://example.com/01.nix"}],"default":false,"description":"Whether to enable enable testing-terranix.","example":true,"loc":["testing-terranix","enable"],"readOnly":false,"type":"boolean"}}

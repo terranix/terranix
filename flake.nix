@@ -52,12 +52,8 @@
             destination = "/config.tf.json";
           };
 
-        lib.buildOptions = { pkgs,
-                             terranix_modules,
-                             moduleRootPath ? "/",
-                             urlPrefix ? "",
-                             urlSuffix ? "", ...
-                           }@terranix_args:
+        lib.buildOptions = { pkgs, terranix_modules, moduleRootPath ? "/"
+          , urlPrefix ? "", urlSuffix ? "", ... }@terranix_args:
           let
             terranixOptions = import ./lib/terranix-doc-json.nix terranix_args;
           in pkgs.stdenv.mkDerivation {

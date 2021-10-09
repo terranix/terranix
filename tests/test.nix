@@ -92,16 +92,16 @@ with lib; [
 
   ''
     @test "terranix-doc-json: works with simple module" {
-    run ${terranix}/bin/terranix-doc-json --quiet ${
-      ./terranix-doc-json-tests/01.nix
-    }
+    run ${terranix}/bin/terranix-doc-json --quiet \
+    --path ${./terranix-doc-json-tests} \
+      ${./terranix-doc-json-tests}/01.nix
     [ "$status" -eq 0 ]
     [ "$output" =  ${
       escapeShellArg (fileContents ./terranix-doc-json-tests/01.nix.output)
     } ]
     }
 
-    @test "terranix-doc-json: works with non module" {
+    @test "terranix-doc-json: works with empty module" {
     run ${terranix}/bin/terranix-doc-json --quiet ${
       ./terranix-doc-json-tests/02.nix
     }
