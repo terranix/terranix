@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [2.4.0] - 2021-10-10
+
+- add flake support `buildTerranix`
+- add flake support `buildOptions`
+- extract examples to [terranix-examples](https://github.com/terranix/terranix-examples)
+
 ## [2.3.0] - 2020-09-26
 
 - use bash scripts instead of lib.nix, to put terranix in nixpgks
