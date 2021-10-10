@@ -1,6 +1,6 @@
 # copy from : https://github.com/rycee/home-manager/blob/master/doc/default.nix
 # this is just a first sketch to make it work. optimization comes later
-{ pkgs, ... }:
+{ pkgs, terranix_modules ? [], ... }:
 
 let
 
@@ -30,11 +30,7 @@ let
   # currently all is in one modulesDocs object, because the config
   # don't have to define new options.
   modulesDocs = nmd.buildModulesDocs {
-    modules = [
-      (import <config> {
-        inherit lib pkgs;
-        config = { };
-      })
+    modules = terranix_modules ++ [
       (import ../modules/default.nix {
         inherit lib pkgs;
         config = { };

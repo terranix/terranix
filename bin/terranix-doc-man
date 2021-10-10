@@ -71,8 +71,10 @@ TERRAFORM_JSON=$( nix-build \
     $QUIET \
     $OFFLINE \
     $TRACE \
-    -I config="$FILE" \
-    --expr "with import $PKGS {}; callPackage $DEFAULT_CONFIG { pkgs = pkgs; }"
+    --expr "with import $PKGS {}; callPackage $DEFAULT_CONFIG {
+        inherit pkgs;
+        terranix_modules = [{ imports = [ ${FILE} ]; }];
+    }"
 )
 
 NIX_BUILD_EXIT_CODE=$?
