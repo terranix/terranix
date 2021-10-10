@@ -1,13 +1,26 @@
-{ stdenv, lib, ... }:
+{ stdenv, lib, jq, nix, ... }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "terranix";
   version = "2.3.0";
   src = ./.;
 
+
   installPhase = ''
     mkdir -p $out/{bin,core,modules,lib}
     mv bin core modules lib $out/
+
+    mv $out/bin/terranix-doc-json $out/bin/.wrapper_terranix-doc-json
+
+    # manual wrapper because makeWrapper expectes executables
+    wrapper=$out/bin/terranix-doc-json
+    cat <<EOF>$wrapper
+    #!/usr/bin/env bash
+    export PATH=$PATH:${jq}/bin:${nix}/bin
+    $out/bin/.wrapper_terranix-doc-json "\$@"
+    EOF
+    chmod +x $wrapper
+
   '';
 
   meta = with lib; {

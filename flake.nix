@@ -10,7 +10,10 @@
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
 
-        packages.terranix = pkgs.callPackage ./default.nix { };
+        packages.terranix = pkgs.callPackage ./default.nix {
+          # as long nix flake is an experimental feature;
+          nix = pkgs.nixUnstable;
+        };
         defaultPackage = self.packages.${system}.terranix;
 
         # nix develop
