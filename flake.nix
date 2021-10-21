@@ -60,19 +60,15 @@
             };
             terranixCore = import ./core/default.nix terranix_args;
           in pkgs.writeTextFile {
-            name = "terraform-config";
+            name = "config.tf.json";
             text = builtins.toJSON terranixCore.config;
-            executable = false;
-            destination = "/config.tf.json";
           };
 
         lib.buildTerranix = { pkgs, terranix_config, ... }@terranix_args:
           let terranixCore = import ./core/default.nix terranix_args;
           in pkgs.writeTextFile {
-            name = "terraform-config";
+            name = "config.tf.json";
             text = builtins.toJSON terranixCore.config;
-            executable = false;
-            destination = "/config.tf.json";
           };
 
         lib.buildOptions = { pkgs, terranix_modules, moduleRootPath ? "/"
