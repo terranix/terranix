@@ -1,6 +1,7 @@
 # terranix core
 # -------------
 { pkgs ? import <nixpkgs> { },
+  extraArgs ? {},
   terranix_config,
   strip_nulls ? true }:
 
@@ -42,7 +43,7 @@ let
     evalModules {
       modules =
         [ { imports = [ ./terraform-options.nix ../modules ]; } configuration ];
-      specialArgs = { inherit pkgs; };
+      args = { inherit pkgs; } // extraArgs;
     };
 
   # create the final result
