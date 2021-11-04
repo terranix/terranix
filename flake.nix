@@ -64,12 +64,13 @@
             text = builtins.toJSON terranixCore.config;
           };
 
-        lib.buildTerranix = { pkgs, terranix_config, ... }@terranix_args:
+        lib.buildTerranix = nixpkgs.lib.warn "buildTerranix will be removed in 3.0.0 use terranixConfiguration instead"
+          ({ pkgs, terranix_config, ... }@terranix_args:
           let terranixCore = import ./core/default.nix terranix_args;
           in pkgs.writeTextFile {
             name = "config.tf.json";
             text = builtins.toJSON terranixCore.config;
-          };
+          });
 
         lib.buildOptions = { pkgs, terranix_modules, moduleRootPath ? "/"
           , urlPrefix ? "", urlSuffix ? "", ... }@terranix_args:
