@@ -35,7 +35,7 @@ let
               lib.mapAttrs (lib.const sanitize) stripped_a;
         in
         if (length (attrNames configuration) == 0) then
-          null
+          { }
         else
           recursiveSanitized;
     };
@@ -62,10 +62,11 @@ let
       evaluated = evaluateConfiguration configuration;
       result = sanitize evaluated.config;
       whitelist = key:
-        if result."${key}" != null then {
+        if result."${key}" == { } || result."${key}" == null
+        then { }
+        else {
           "${key}" = result."${key}";
-        } else
-          { };
+        };
     in
     {
       config = { } //
