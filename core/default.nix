@@ -38,12 +38,16 @@ let
 
   # evaluate given config.
   # also include all the default modules
+  # https://github.com/NixOS/nixpkgs/blob/master/lib/modules.nix#L95
   evaluateConfiguration = configuration:
     with lib;
     evalModules {
-      modules =
-        [ { imports = [ ./terraform-options.nix ../modules ]; } configuration ];
-      args = { inherit pkgs; } // extraArgs;
+      modules = [
+        { imports = [ ./terraform-options.nix ../modules ]; }
+        { _module.args = { inherit pkgs; }; }
+        configuration
+      ];
+      specialArgs = extraArgs;
     };
 
   # create the final result
