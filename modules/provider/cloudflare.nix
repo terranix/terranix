@@ -10,7 +10,8 @@ let
   default_token = "cloudflare_token";
   default_email = "cloudflare_email";
 
-in {
+in
+{
 
   options.cloudflare = {
 
@@ -25,21 +26,21 @@ in {
         options = {
 
           email = mkOption {
-            type    = with types; str;
+            type = with types; str;
             default = "\${ var.${default_email} }";
             description = ''
-               The email associated with the account. This can also be specified with the CLOUDFLARE_EMAIL shell environment variable.
+              The email associated with the account. This can also be specified with the CLOUDFLARE_EMAIL shell environment variable.
             '';
           };
           token = mkOption {
-            type    = with types; str;
+            type = with types; str;
             default = "\${ var.${default_token} }";
             description = ''
               The Cloudflare API token. This can also be specified with the CLOUDFLARE_TOKEN shell environment variable.
             '';
           };
           rps = mkOption {
-            type    = with types; nullOr int;
+            type = with types; nullOr int;
             default = null;
             description = ''
               RPS limit to apply when making calls to the API.
@@ -47,7 +48,7 @@ in {
             '';
           };
           retries = mkOption {
-            type    = with types; nullOr str;
+            type = with types; nullOr str;
             default = null;
             description = ''
               Maximum number of retries to perform when an API request fails.
@@ -55,7 +56,7 @@ in {
             '';
           };
           min_backoff = mkOption {
-            type    = with types; nullOr int;
+            type = with types; nullOr int;
             default = null;
             description = ''
               Minimum backoff period in seconds after failed API calls.
@@ -63,7 +64,7 @@ in {
             '';
           };
           max_backoff = mkOption {
-            type    = with types; nullOr int;
+            type = with types; nullOr int;
             default = null;
             description = ''
               Maximum backoff period in seconds after failed API calls
@@ -71,7 +72,7 @@ in {
             '';
           };
           api_client_logging = mkOption {
-            type    = with types; nullOr bool;
+            type = with types; nullOr bool;
             default = null;
             description = ''
               Whether to print logs from the API client (using the default log library logger).
@@ -79,7 +80,7 @@ in {
             '';
           };
           org_id = mkOption {
-            type    = with types; nullOr str;
+            type = with types; nullOr str;
             default = null;
             description = ''
               Configure API client with this organisation ID, so calls use the organization API rather
@@ -89,7 +90,7 @@ in {
             '';
           };
           use_org_from_zone = mkOption {
-            type    = with types; nullOr str;
+            type = with types; nullOr str;
             default = null;
             description = ''
               Takes a zone name value. This is used to lookup the organization ID that owns this zone,
@@ -111,20 +112,20 @@ in {
 
     (mkIf (cfg.enable && cfg.provider.email == "\${ var.${default_email} }") {
       variable."${default_email}" = {
-          description = ''
-            The Cloudflare API email.
-          '';
-        };
-      }
+        description = ''
+          The Cloudflare API email.
+        '';
+      };
+    }
     )
 
     (mkIf (cfg.enable && cfg.provider.token == "\${ var.${default_token} }") {
       variable."${default_token}" = {
-          description = ''
-            The Cloudflare API token.
-          '';
-        };
-      }
+        description = ''
+          The Cloudflare API token.
+        '';
+      };
+    }
     )
 
   ];

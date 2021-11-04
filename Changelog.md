@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- add terranixConfiguration replacement for buildTerranix
+
 ## [2.4.0] - 2021-10-10
 
 - add flake support `buildTerranix`

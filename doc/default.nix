@@ -30,7 +30,7 @@ let
 
   hmModulesDocs = nmd.buildModulesDocs {
     modules =
-      [ (import ../modules/default.nix { inherit lib pkgs; })]
+      [ (import ../modules/default.nix { inherit lib pkgs; }) ]
       ++ [ scrubbedPkgsModule ];
     moduleRootPaths = [ ./.. ];
     mkModuleUrl = path:

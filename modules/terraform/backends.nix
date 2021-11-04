@@ -73,7 +73,8 @@ let
     };
   };
 
-in {
+in
+{
 
   options.backend.local = mkOption {
     default = null;
@@ -129,37 +130,45 @@ in {
     '';
   };
 
-  config = let
-    backends = [ "local" "s3" "etcd" ];
-    notNull = element: !(isNull element);
+  config =
+    let
+      backends = [ "local" "s3" "etcd" ];
+      notNull = element: !(isNull element);
 
-    backendConfigurations = let
-      rule = backend:
-        mkIf (config.backend."${backend}" != null) {
-          terraform."backend"."${backend}" = config.backend."${backend}";
-        };
+      backendConfigurations =
+        let
+          rule = backend:
+            mkIf (config.backend."${backend}" != null) {
+              terraform."backend"."${backend}" = config.backend."${backend}";
+            };
 
-      backendConfigs = map (backend: config.backend."${backend}") backends;
-    in mkAssert (length (filter notNull backendConfigs) < 2)
-    "You defined multiple backends, stick to one!"
-    (mkMerge (map rule backends));
+          backendConfigs = map (backend: config.backend."${backend}") backends;
+        in
+        mkAssert (length (filter notNull backendConfigs) < 2)
+          "You defined multiple backends, stick to one!"
+          (mkMerge (map rule backends));
 
-    remoteConfigurations = let
-      backendConfigs = map (backend: config.remote_state."${backend}") backends;
-      allRemoteStates = flatten
-        (map attrNames (filter (element: element != { }) backendConfigs));
-      uniqueRemoteStates = unique allRemoteStates;
+      remoteConfigurations =
+        let
+          backendConfigs = map (backend: config.remote_state."${backend}") backends;
+          allRemoteStates = flatten
+            (map attrNames (filter (element: element != { }) backendConfigs));
+          uniqueRemoteStates = unique allRemoteStates;
 
-      remote = backend:
-        mkIf (config.remote_state."${backend}" != { }) {
-          data."terraform_remote_state" = mapAttrs (name: value: {
-            config = value;
-            backend = "${backend}";
-          }) config.remote_state."${backend}";
-        };
-    in mkAssert (length allRemoteStates == length uniqueRemoteStates)
-    "You defined multiple terraform_states with the same name!"
-    (mkMerge (map remote backends));
-  in mkMerge [ backendConfigurations remoteConfigurations ];
+          remote = backend:
+            mkIf (config.remote_state."${backend}" != { }) {
+              data."terraform_remote_state" = mapAttrs
+                (name: value: {
+                  config = value;
+                  backend = "${backend}";
+                })
+                config.remote_state."${backend}";
+            };
+        in
+        mkAssert (length allRemoteStates == length uniqueRemoteStates)
+          "You defined multiple terraform_states with the same name!"
+          (mkMerge (map remote backends));
+    in
+    mkMerge [ backendConfigurations remoteConfigurations ];
 
 }
