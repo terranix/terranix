@@ -6,13 +6,12 @@ let
 
   cfg = config.testing-terranix;
 
-in {
+in
+{
 
   options.testing-terranix = {
     enable = mkEnableOption "enable testing-terranix";
   };
 
-  config = mkIf cfg.enable {
-    
-  };
+  config = mkIf cfg.enable { };
 }

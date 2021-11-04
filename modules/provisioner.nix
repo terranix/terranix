@@ -6,7 +6,8 @@ let
 
   cfg = config.provisioner;
 
-in {
+in
+{
 
   options.provisioner = {
     privateKeyFile = mkOption {

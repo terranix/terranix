@@ -11,20 +11,23 @@ let
       inherit example description default;
       type = with lib.types;
         let
-          valueType = nullOr (oneOf [
-            bool
-            int
-            float
-            str
-            (attrsOf valueType)
-            (listOf valueType)
-          ]) // {
+          valueType = nullOr
+            (oneOf [
+              bool
+              int
+              float
+              str
+              (attrsOf valueType)
+              (listOf valueType)
+            ]) // {
             description = "";
             emptyValue.value = { };
           };
-        in valueType;
+        in
+        valueType;
     };
-in {
+in
+{
 
   options = {
     data = mkMagicMergeOption {
