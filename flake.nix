@@ -4,8 +4,16 @@
   inputs.nixpkgs.url = "github:nixos/nixpkgs";
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.terranix-examples.url = "github:terranix/terranix-examples";
+  inputs.bats-support = {
+    url = "github:bats-core/bats-support";
+    flake = false;
+  };
+  inputs.bats-assert = {
+    url = "github:bats-core/bats-assert";
+    flake = false;
+  };
 
-  outputs = { self, nixpkgs, flake-utils, terranix-examples }:
+  outputs = { self, nixpkgs, flake-utils, terranix-examples, bats-support, bats-assert }:
     (flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
@@ -34,7 +42,13 @@
                   inherit (pkgs) lib;
                   terranix = self.packages.${system}.terranix;
                 };
-                batsScripts = map (text: pkgs.writeText "test" text) tests;
+                batsScripts = map
+                  (text: pkgs.writeText "test" ''
+                    load '${bats-support}/load.bash'
+                    load '${bats-assert}/load.bash'
+                    ${text}
+                  '')
+                  tests;
                 allBatsScripts =
                   map (file: "${pkgs.bats}/bin/bats ${file}") batsScripts;
               in
