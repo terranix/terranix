@@ -1,0 +1,3 @@
+{
+  resource.yolo.network_interface = { };
+}
