@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - add terranixConfiguration replacement for buildTerranix
+- fix #18: empty sets will not be converted to `null` anymore.
 
 ## [2.4.0] - 2021-10-10
 
