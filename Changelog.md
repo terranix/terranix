@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [2.5.0] - 2021-11-07
+
+- add terranixConfiguration replacement for buildTerranix
+- add terranixOptions replacement for buildOptions
+- fix [#18](https://github.com/terranix/terranix/issues/18): empty sets will not be converted to `null` anymore.
+
 ## [2.4.0] - 2021-10-10
 
 - add flake support `buildTerranix`

@@ -1,7 +1,12 @@
 # copy from : https://github.com/rycee/home-manager/blob/master/doc/default.nix
 # this is just a first sketch to make it work. optimization comes later
-{ pkgs, moduleRootPath ? "/", urlPrefix ? "https://example.com", urlSuffix ? ""
-, terranix_modules ? [ ], ... }:
+{ pkgs
+, moduleRootPath ? "/"
+, urlPrefix ? "https://example.com"
+, urlSuffix ? ""
+, terranix_modules ? [ ]
+, ...
+}:
 
 let
 
@@ -41,4 +46,5 @@ let
     docBook.id = "terranix-options";
   };
 
-in modulesDocs.json
+in
+modulesDocs.json

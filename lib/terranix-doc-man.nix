@@ -1,6 +1,6 @@
 # copy from : https://github.com/rycee/home-manager/blob/master/doc/default.nix
 # this is just a first sketch to make it work. optimization comes later
-{ pkgs, terranix_modules ? [], ... }:
+{ pkgs, terranix_modules ? [ ], ... }:
 
 let
 
@@ -50,7 +50,7 @@ let
 
   docs = nmd.buildDocBookDocs {
     pathName = "";
-    modulesDocs = [modulesDocs ];
+    modulesDocs = [ modulesDocs ];
     documentsDirectory = ./.;
     chunkToc = ''
       <toc>
@@ -63,4 +63,5 @@ let
     '';
   };
 
-in docs.manPages
+in
+docs.manPages

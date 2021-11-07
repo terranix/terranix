@@ -9,7 +9,8 @@ let
 
   default_token = "github_api_token";
 
-in {
+in
+{
 
   options.github = {
     enable = mkEnableOption "enable github provider";
@@ -19,7 +20,7 @@ in {
       type = with types; (submodule {
         options = {
           token = mkOption {
-            type    = with types; str;
+            type = with types; str;
             default = "\${ var.${default_token} }";
             description = ''
               login token
@@ -38,11 +39,11 @@ in {
 
     (mkIf (cfg.enable && cfg.provider.token == "\${ var.${default_token} }") {
       variable."${default_token}" = {
-          description = ''
-            github token
-          '';
-        };
-      }
+        description = ''
+          github token
+        '';
+      };
+    }
     )
 
   ];

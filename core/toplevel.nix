@@ -1,4 +1,3 @@
-
 # entry point for terranix
 
 let
