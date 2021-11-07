@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation {
   pname = "terranix";
-  version = "2.4.0";
+  version = "2.5.0";
   src = ./.;
 
 
@@ -20,7 +20,6 @@ stdenv.mkDerivation {
     $out/bin/.wrapper_terranix-doc-json "\$@"
     EOF
     chmod +x $wrapper
-
   '';
 
   meta = with lib; {
