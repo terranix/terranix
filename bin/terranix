@@ -76,16 +76,15 @@ TERRAFORM_JSON=$( nix-build \
     $TRACE \
     -I config=$FILE \
     --expr "
-let pkgs = import $PKGS {};
-in with pkgs;
 let
-  terranix_data = import $DEFAULT_CONFIG {
+  pkgs = import $PKGS {};
+  terranixCore = import $DEFAULT_CONFIG {
     inherit pkgs;
     terranix_config = { imports = [ <config> ]; };
     strip_nulls = $STRIP_NULLS;
   };
-  terraform_json = builtins.toJSON (terranix_data.config);
-in { run = pkgs.writeText \"config.tf.json\" terraform_json; }
+in
+  { run = (pkgs.formats.json { }).generate \"config.tf.json\" terranixCore.config; }
 " )
 
 NIX_BUILD_EXIT_CODE=$?

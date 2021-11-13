@@ -1,1 +1,20 @@
-{"data":{"terraform_remote_state":{"test":{"backend":"s3","config":{"bucket":"some-where-over-the-rainbow","key":"my-terraform-state.tfstate","region":"eu-central-1"}},"test2":{"backend":"local","config":{"path":"some-where-over-the-rainbow"}}}}}
+{
+  "data": {
+    "terraform_remote_state": {
+      "test": {
+        "backend": "s3",
+        "config": {
+          "bucket": "some-where-over-the-rainbow",
+          "key": "my-terraform-state.tfstate",
+          "region": "eu-central-1"
+        }
+      },
+      "test2": {
+        "backend": "local",
+        "config": {
+          "path": "some-where-over-the-rainbow"
+        }
+      }
+    }
+  }
+}
