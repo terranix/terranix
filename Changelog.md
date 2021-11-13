@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [2.5.1] - 2021-11-13
+
+- pretty formated json output
+
 ## [2.5.0] - 2021-11-07
 
 - add terranixConfiguration replacement for buildTerranix
