@@ -89,10 +89,7 @@
           };
           terranixCore = import ./core/default.nix terranix_args;
         in
-        pkgs.writeTextFile {
-          name = "config.tf.json";
-          text = builtins.toJSON terranixCore.config;
-        };
+        (pkgs.formats.json { }).generate "config.tf.json" terranixCore.config;
 
       # create a options.json.
       # you have to either have to name a system or set pkgs.
