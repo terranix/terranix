@@ -45,30 +45,22 @@
       # nix run ".#test"
       apps.test =
         let
-          createTest = testimport:
-            let
-              tests = import testimport {
-                inherit pkgs;
-                inherit (pkgs) lib;
-                terranix = self.packages.${system}.terranix;
-              };
-              batsScripts = map
-                (text: pkgs.writeText "test" ''
-                  load '${bats-support}/load.bash'
-                  load '${bats-assert}/load.bash'
-                  ${text}
-                '')
-                tests;
-              allBatsScripts =
-                map (file: "${pkgs.bats}/bin/bats ${file}") batsScripts;
-            in
-            pkgs.writeScript "test-script"
-              (nixpkgs.lib.concatStringsSep "\n" allBatsScripts);
-          allTests = [ (createTest ./tests/test.nix) ];
+          tests = import ./tests/test.nix {
+            inherit pkgs;
+            inherit (pkgs) lib;
+            terranix = self.packages.${system}.terranix;
+          };
+          testFile = pkgs.writeText "test" ''
+            load '${bats-support}/load.bash'
+            load '${bats-assert}/load.bash'
+            ${pkgs.lib.concatStringsSep "\n" tests}
+          '';
         in
-        pkgs.writers.writeBashBin "check" ''
+
+        pkgs.writers.writeBashBin "tests" ''
           set -e
-          ${nixpkgs.lib.concatStringsSep "\n" allTests}
+          echo "running terranix tests" | ${pkgs.boxes}/bin/boxes -d ian_jones -a c
+          ${pkgs.bats}/bin/bats ${testFile}
         '';
 
     })) // {
@@ -83,16 +75,12 @@
         , strip_nulls ? true
         }:
         let
-          terranix_args = {
+          terranixCore = import ./core/default.nix {
             inherit pkgs extraArgs strip_nulls;
             terranix_config.imports = modules;
           };
-          terranixCore = import ./core/default.nix terranix_args;
         in
-        pkgs.writeTextFile {
-          name = "config.tf.json";
-          text = builtins.toJSON terranixCore.config;
-        };
+        (pkgs.formats.json { }).generate "config.tf.json" terranixCore.config;
 
       # create a options.json.
       # you have to either have to name a system or set pkgs.

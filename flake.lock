@@ -49,11 +49,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1636273007,
-        "narHash": "sha256-eb6HcZNacO9vIP/KcJ5CoCRYSGfD+VxzYs2cCafEo4Y=",
+        "lastModified": 1636823747,
+        "narHash": "sha256-oWo1nElRAOZqEf90Yek2ixdHyjD+gqtS/pAgwaQ9UhQ=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "c69c6533c820c55c3f1d924b399d8f6925a1e41a",
+        "rev": "f6a2ed2082d9a51668c86ba27d0b5496f7a2ea93",
         "type": "github"
       },
       "original": {
@@ -73,11 +73,11 @@
     },
     "terranix-examples": {
       "locked": {
-        "lastModified": 1633465925,
-        "narHash": "sha256-BfXRW1ZHpK5jh5CVcw7eFpGsWE1CyVxL8R+V7uXemaU=",
+        "lastModified": 1636300201,
+        "narHash": "sha256-0n1je1WpiR6XfCsvi8ZK7GrpEnMl+DpwhWaO1949Vbc=",
         "owner": "terranix",
         "repo": "terranix-examples",
-        "rev": "70bf5d5a1ad4eabef1e4e71c1eb101021decd5a4",
+        "rev": "a934aa1cf88f6bd6c6ddb4c77b77ec6e1660bd5e",
         "type": "github"
       },
       "original": {

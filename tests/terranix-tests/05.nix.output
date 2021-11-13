@@ -1,1 +1,7 @@
-{"resource":{"test":{"key":"value"}}}
+{
+  "resource": {
+    "test": {
+      "key": "value"
+    }
+  }
+}
