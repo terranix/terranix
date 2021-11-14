@@ -65,6 +65,35 @@
 
     })) // {
 
+      # terraformConfiguration ast, if you want to run
+      # terranix in the repl.
+      lib.terranixConfigurationAst =
+        { system ? ""
+        , pkgs ? builtins.getAttr system nixpkgs.outputs.legacyPackages
+        , extraArgs ? { }
+        , modules ? [ ]
+        , strip_nulls ? true
+        }:
+        import ./core/default.nix {
+          inherit pkgs extraArgs strip_nulls;
+          terranix_config.imports = modules;
+        };
+
+      # terranixOptions ast, if you want to run
+      # terranix in a repl.
+      lib.terranixOptionsAst =
+        { system ? ""
+        , pkgs ? builtins.getAttr system nixpkgs.outputs.legacyPackages
+        , modules ? [ ]
+        , moduleRootPath ? "/"
+        , urlPrefix ? ""
+        , urlSuffix ? ""
+        }:
+        import ./lib/terranix-doc-json.nix {
+          terranix_modules = modules;
+          inherit moduleRootPath urlPrefix urlSuffix pkgs;
+        };
+
       # create a config.tf.json.
       # you have to either have to name a system or set pkgs.
       lib.terranixConfiguration =
