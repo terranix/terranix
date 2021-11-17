@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [2.5.2] - 2021-11-17
+
+- add terranixConfigurationAst
+- add terranixOptionAst
+
 ## [2.5.1] - 2021-11-13
 
 - pretty formated json output
