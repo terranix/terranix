@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.5.2] - 2021-11-17
+
 - add terranixConfigurationAst
 - add terranixOptionAst
 
