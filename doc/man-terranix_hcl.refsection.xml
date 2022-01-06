@@ -4,7 +4,7 @@
     The <link xlink:href="https://nixos.org/nix/manual/">nix
     syntax</link> is similiar to the
     <link xlink:href="https://github.com/hashicorp/hcl">HCL
-    syntax</link> but, much more powerfull.
+    syntax</link>, but much more powerful.
   </para>
   <para>
     In <emphasis role="strong">HCL</emphasis> you would do something
@@ -37,11 +37,11 @@ resource.&quot;aws_instance&quot;.&quot;web&quot; = {
     <literal>output</literal>, <literal>data</literal> and
     <literal>provider</literal>.
   </para>
-  <refsection xml:id="multi-line-sings">
-    <title>multi line sings</title>
+  <refsection xml:id="multi-line-strings">
+    <title>multi line strings</title>
     <para>
       In terraform you can create multi line strings using the
-      <literal>herdoc</literal> style
+      <literal>heredoc</literal> style
     </para>
     <programlisting>
 variable &quot;multiline&quot; {
@@ -68,14 +68,14 @@ variable.multiline.description = ''
     <title>escaping expressions</title>
     <para>
       The form <literal>${expression}</literal> is used by terranix and
-      terraform. So if you want to use a terraform expression in
+      terraform. So, if you want to use a terraform expression in
       terranix, you have to escape it. There are the two context, multi
-      and singe line strings.
+      and single line strings.
     </para>
     <refsection xml:id="escaping-expressions-in-single-line-strings">
       <title>escaping expressions in single line strings</title>
       <para>
-        In a single line strings, you escape the via
+        In single line strings, you escape the via
         <literal>\${expression}</literal>. For example :
       </para>
       <programlisting language="bash">
@@ -86,7 +86,7 @@ provider.hcloud.token = &quot;\${var.hcloud_token}&quot;;
     <refsection xml:id="escaping-expressions-in-multi-line-strings">
       <title>escaping expressions in multi line strings</title>
       <para>
-        In multi line strings, you escape the via
+        In multi line strings, you escape via
         <literal>''${expression}</literal>. For example :
       </para>
       <programlisting language="bash">

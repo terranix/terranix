@@ -1,16 +1,16 @@
 <refsection xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="modules">
   <title>MODULES</title>
   <para>
-    The real power behind NixOS and terranix, is the module system which
-    is fundamentaly different to the Terraform Module system. Detailed
-    information can be optained at the
+    The real power behind NixOS and terranix is the module system, which
+    is fundamentally different to the Terraform Module system. Detailed
+    information can be obtained at the
     <link xlink:href="https://nixos.wiki/wiki/NixOS_Modules">NixOS
     Wiki</link>.
   </para>
   <refsection xml:id="module-structure">
     <title>Module Structure</title>
     <para>
-      A module looks always like this:
+      A module always looks like this:
     </para>
     <programlisting language="bash">
 { config, lib, pkgs, ... }:
@@ -32,7 +32,7 @@
   <refsection xml:id="example-module">
     <title>Example Module</title>
     <para>
-      Here is an example Module to enable bastion host setups.
+      Here is an example module to enable bastion host setups.
     </para>
     <programlisting language="bash">
 { config, lib, pkgs, ... }:
