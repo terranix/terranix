@@ -1,4 +1,4 @@
-<refsection xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="description">
+<refsection xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" >
   <title>DESCRIPTION</title>
   <para>
     Terranix is a NixOS way to generate terraform json. You can create

@@ -9,6 +9,8 @@ all: man-terranix_description.refsection.xml man-terranix_functions.refsection.x
 	      -e 's|</ulink>|</link>|' \
 	      -e 's|<sect. id=|<section xml:id=|' \
 	      -e 's|</sect[0-9]>|</section>|' \
+	      -e '1s| xml:id="description"| |' \
+	      -e '1s| xml:id="options"| |' \
 	      -e '1s| id=| xml:id=|' \
 	      -e 's|<section|<refsection|' \
 	      -e 's|</section>|</refsection>|' \

@@ -1,0 +1,61 @@
+'\" t
+.\"     Title: terranix-doc-man
+.\"    Author: Ingolf Wagner
+.\" Generator: DocBook XSL Stylesheets v1.79.2 <http://docbook.sf.net/>
+.\"      Date: 01/01/1980
+.\"    Manual: terranix reference pages
+.\"    Source: terranix module documentation renderer
+.\"  Language: English
+.\"
+.TH "TERRANIX\-DOC\-MAN" "1" "01/01/1980" "terranix module documentation" "terranix reference pages"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" enable line breaks after slashes
+.cflags 4 /
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+terranix-doc-man \- terranix configuration options renderer
+.SH "SYNOPSIS"
+.HP \w'\fBterranix\-doc\-man\fR\ 'u
+\fBterranix\-doc\-man\fR [\-\-offline] \fIconfig\&.nix\fR
+.SH "DESCRIPTION"
+.PP
+Render all available options usable by a given
+config\&.nix\&. If the
+config\&.nix
+contains modules it will also render them\&.
+.SH "OPTIONS"
+.PP
+\-\-offline
+.RS 4
+no internet connection required, if every dependency is present\&.
+.RE
+.SH "SEE ALSO"
+.PP
+\fBterranix\fR(1)
+.SH "AUTHOR"
+.PP
+\fBIngolf Wagner\fR
+.RS 4
+Author.
+.RE
+.SH "COPYRIGHT"
+.br
+Copyright \(co 2019\(en2020 Ingolf Wagner
+.br

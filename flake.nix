@@ -32,6 +32,8 @@
         # as long nix flake is an experimental feature;
         nix = pkgs.nixUnstable;
       };
+      # nix build "manpages"
+      packages.manpages = (pkgs.callPackage ./doc/default.nix {}).manPages;
       defaultPackage = self.packages.${system}.terranix;
 
       # nix develop
@@ -61,6 +63,14 @@
           set -e
           echo "running terranix tests" | ${pkgs.boxes}/bin/boxes -d ian_jones -a c
           ${pkgs.bats}/bin/bats ${testFile}
+        '';
+      # nix run ".#doc"
+      apps.doc = pkgs.writers.writeBashBin "doc" ''
+          set -e
+          nix build ".#manpages"
+          cp -r result/share .
+          chmod -R 755 ./share
+          rm result
         '';
 
     })) // {

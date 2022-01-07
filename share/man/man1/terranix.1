@@ -1,0 +1,466 @@
+'\" t
+.\"     Title: \fBterranix\fR
+.\"    Author: Ingolf Wagner
+.\" Generator: DocBook XSL Stylesheets v1.79.2 <http://docbook.sf.net/>
+.\"      Date: 01/01/1980
+.\"    Manual: terranix reference pages
+.\"    Source: terranix
+.\"  Language: English
+.\"
+.TH "\FBTERRANIX\FR" "1" "01/01/1980" "terranix" "terranix reference pages"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" enable line breaks after slashes
+.cflags 4 /
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+terranix \- reconfigure a user environment
+.SH "SYNOPSIS"
+.HP \w'\fBterranix\fR\ 'u
+\fBterranix\fR [{\ \-q\ |\ \-\-quiet\ }] [{\ \-\-trace\ |\ \-\-show\-trace\ }] [{\ \-n\ |\ \-\-with\-nulls\ }] [\fIpath\fR]
+.br
+\-\-help
+.SH "DESCRIPTION"
+.PP
+Terranix is a NixOS way to generate terraform json\&. You can create modules like you would in NixOS\&.
+.PP
+path
+.RS 4
+path to the
+config\&.nix\&. If not given it will use the
+config\&.nix
+in the current folder\&.
+.RE
+.SS "Run Examples"
+.PP
+To create a JSON file out of a
+config\&.nix
+run
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+terranix | jq
+.fi
+.if n \{\
+.RE
+.\}
+.PP
+To create a JSON file out of a file
+\&./path/my\-config\&.nix
+run
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+terranix \&./path/my\-config\&.nix | jq
+.fi
+.if n \{\
+.RE
+.\}
+.PP
+To create a JSON file and run terraform
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+terranix > config\&.tf\&.json && terraform init && terraform apply
+.fi
+.if n \{\
+.RE
+.\}
+.SH "OPTIONS"
+.PP
+\-q \(enquiet
+.RS 4
+don\(cqt print anything except the JSON\&.
+.RE
+.PP
+\-h \(enhelp
+.RS 4
+print help information\&.
+.RE
+.PP
+\(entrace \(enshow\-trace
+.RS 4
+show trace information if there is an error\&.
+.RE
+.PP
+\-n \(enwith\-nulls
+.RS 4
+do not strip nulls\&. nulls will stay\&.
+.RE
+.SH "TERRANIX VS HCL"
+.PP
+The
+\m[blue]\fBnix syntax\fR\m[]
+is similiar to the
+\m[blue]\fBHCL syntax\fR\m[], but much more powerful\&.
+.PP
+In
+\fBHCL\fR
+you would do something like this:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+resource "aws_instance" "web" {
+  ami           = "${data\&.aws_ami\&.ubuntu\&.id}"
+  instance_type = "t2\&.micro"
+  tags = {
+    Name = "HelloWorld"
+  }
+}
+.fi
+.if n \{\
+.RE
+.\}
+.PP
+Which is the equivalent for the following in
+\fBterranix\fR:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+resource\&."aws_instance"\&."web" = {
+  ami = "\e${data\&.aws_ami\&.ubuntu\&.id}";
+  instance_type = "t2\&.micro";
+  tags = {
+    Name = "HelloWorld";
+  };
+}
+.fi
+.if n \{\
+.RE
+.\}
+.PP
+The same holds for
+variable,
+output,
+data
+and
+provider\&.
+.SS "multi line strings"
+.PP
+In terraform you can create multi line strings using the
+heredoc
+style
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+variable "multiline" {
+  description = <<EOT
+Description for the multi line variable\&.
+The indention here is not wrong\&.
+The terminating word must be on a new line without any indention\&.
+EOT
+}
+.fi
+.if n \{\
+.RE
+.\}
+.PP
+This won\(cqt work in terranix\&. In terranix you have to use the nix way of multi line strings\&.
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+variable\&.multiline\&.description = \*(Aq\*(Aq
+  Description for the multi line variable\&.
+  The indention here is not wrong\&.
+  All spaces in front of the text block will be removed by terranix\&.
+\*(Aq\*(Aq;
+.fi
+.if n \{\
+.RE
+.\}
+.SS "escaping expressions"
+.PP
+The form
+${expression}
+is used by terranix and terraform\&. So, if you want to use a terraform expression in terranix, you have to escape it\&. There are the two context, multi and single line strings\&.
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBescaping expressions in single line strings\fR
+.RS 4
+.PP
+In single line strings, you escape the via
+\e${expression}\&. For example :
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+variable\&.hcloud_token = {};
+provider\&.hcloud\&.token = "\e${var\&.hcloud_token}";
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBescaping expressions in multi line strings\fR
+.RS 4
+.PP
+In multi line strings, you escape via
+\*(Aq\*(Aq${expression}\&. For example :
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+resource\&.local_file\&.sshConfig = {
+  filename = "\&./ssh\-config";
+  content = \*(Aq\*(Aq
+    Host \*(Aq\*(Aq${ hcloud_server\&.terranix_test\&.ipv4_address }
+    IdentityFile \&./sshkey
+  \*(Aq\*(Aq;
+};
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.SH "MODULES"
+.PP
+The real power behind NixOS and terranix is the module system, which is fundamentally different to the Terraform Module system\&. Detailed information can be obtained at the
+\m[blue]\fBNixOS Wiki\fR\m[]\&.
+.SS "Module Structure"
+.PP
+A module always looks like this:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+{ config, lib, pkgs, \&.\&.\&. }:
+{
+  imports = [
+    # list of path to other modules\&.
+  ];
+
+  options = {
+    # attribute set of option declarations\&.
+  };
+
+  config = {
+    # attribute set of option definitions\&.
+  };
+}
+.fi
+.if n \{\
+.RE
+.\}
+.SS "Example Module"
+.PP
+Here is an example module to enable bastion host setups\&.
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+{ config, lib, pkgs, \&.\&.\&. }:
+{
+  options\&.security\&.bastion = {
+    enable = mkEnableOption "bastion host infrastructure";
+    vpcID = mkOption {
+      default = "\e${ aws_default_vpc\&.default\&.id }";
+      type = lib\&.types\&.str;
+      description = "vpc id to which the bastion host should proxy";
+    };
+  };
+
+  config = mkIf (config\&.security\&.bastion\&.enable) {
+    resource\&.aws_instance\&."bastion" = {
+      ami = "ami\-969ab1f6"
+      instance_type = "t2\&.micro"
+      associate_public_ip_address = true
+    };
+    resource\&.aws_security_group\&."bastion\-sg" = {
+      name = "bastion\-security\-group";
+      vpc_id = config\&.security\&.bastion\&.vpcId;
+      ingress\&.protocol = "tcp";
+      ingress\&.from_port = 22;
+      ingress\&.to_port = 22;
+      ingress\&.cidr_blocks = ["0\&.0\&.0\&.0/0"];
+    };
+    output\&."bastion_public_ip"\&.value = "\e${ aws_instance\&.bastion\&.public_ip }";
+  };
+}
+.fi
+.if n \{\
+.RE
+.\}
+.PP
+Now you can set the following
+\fIeverywhere\fR, to enable the bastion host setup\&.
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+{
+  security\&.bastion\&.enable = true;
+}
+.fi
+.if n \{\
+.RE
+.\}
+.SH "CONDITIONS AND ASSERTIONS"
+.PP
+Conditions and assertions can be used to throw human readable exceptions and to create conditional terraform resources or parameters\&.
+.SS "mkAssert"
+.PP
+To make an assertion in your module use the
+mkAssert
+command\&. Here is an example
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+config = mkAssert (cfg\&.parameter != "fail") "parameter is set to fail!" {
+  resource\&.aws_what_ever\&."${cfg\&.parameter}" = {
+    I = "love nixos";
+  };
+};
+.fi
+.if n \{\
+.RE
+.\}
+.SH "FUNCTIONS"
+.PP
+Nix comes with a ton of functions that make your life easier\&.
+.PP
+A good overview can be found
+\m[blue]\fBhere\fR\m[]\&.
+.SS "optionalAttrs"
+.PP
+Useful to create a resource depending on a condition\&. The following example adds a bastion host only if the variable
+bastionHostEnable
+is set to true\&.
+.PP
+This is just an example for illustration, but such things are better solved using
+\m[blue]\fBmodules\fR\m[]\&.
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+{ lib, \&.\&.\&. }:
+let
+  bastionHostEnable = true;
+in
+{
+  resource\&.aws_instance = lib\&.optionalAttrs bastionHostEnable {
+    "bastion" = {
+      ami = "ami\-969ab1f6"
+      instance_type = "t2\&.micro"
+      associate_public_ip_address = true
+    };
+  };
+}
+.fi
+.if n \{\
+.RE
+.\}
+.SS "transform lists to Attributesets"
+.PP
+map
+.RS 4
+map a list to another list\&.
+.RE
+.PP
+zipAttrs
+.RS 4
+merge sets of attributes and combine each attribute value into a list\&.
+.RE
+.PP
+Useful to create resources out of a small amount of information by containing a lot of similar data\&.
+.PP
+The following example shows how to create 3 s3buckets with the same configuration\&.
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+{ lib, \&.\&.\&. }:
+let
+  s3Buckets = [
+    "awesome\-com"
+    "awesome\-org"
+    "awesome\-live"
+  ];
+in
+{
+  resource\&.aws_s3_bucket = lib\&.zipAttrs (lib\&.map (name:
+    {
+      "${name}" = {
+        bucket = name;
+        acl = "public\-read";
+
+        cors_rule = {
+          allowed_headers = ["*"];
+          allowed_methods = ["PUT" "POST" "GET"];
+          allowed_origins = ["https://awesome\&.com"];
+          expose_headers  = ["ETag"];
+          max_age_seconds = 3000;
+        }
+      };
+    }
+  ) s3Buckets)
+}
+.fi
+.if n \{\
+.RE
+.\}
+.SH "BUGS"
+.PP
+Please report any bugs on the
+\m[blue]\fBproject issue tracker\fR\m[]\&.
+.SH "SEE ALSO"
+.PP
+\fBterranix-modules\fR(5)
+.SH "AUTHOR"
+.PP
+\fBIngolf Wagner\fR
+.RS 4
+Author.
+.RE
+.SH "COPYRIGHT"
+.br
+Copyright \(co 2019\(en2020 Ingolf Wagner
+.br
