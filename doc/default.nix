@@ -9,8 +9,8 @@ let
     name = "nmd";
     owner = "rycee";
     repo = "nmd";
-    rev = "9751ca5ef6eb2ef27470010208d4c0a20e89443d";
-    sha256 = "0rbx10n8kk0bvp1nl5c8q79lz1w0p1b8103asbvwps3gmqd070hi";
+    rev = "527245ff605bde88c2dd2ddae21c6479bb7cf8aa";
+    sha256 = "sha256-l2KsnY537mz0blZdqALZKrWXn9PD39CpvotgPnxyIP4=";
   };
 
   nmd = import nmdSrc { inherit pkgs; };
@@ -30,7 +30,12 @@ let
 
   hmModulesDocs = nmd.buildModulesDocs {
     modules =
-      [ (import ../modules/default.nix { inherit lib pkgs; }) ]
+      [
+      (import ../core/terraform-options.nix {
+        inherit lib pkgs;
+        config = { };
+      })
+        (import ../modules/default.nix { inherit lib pkgs; }) ]
       ++ [ scrubbedPkgsModule ];
     moduleRootPaths = [ ./.. ];
     mkModuleUrl = path:
@@ -57,6 +62,6 @@ let
 in
 
 {
-  json = hmModulesDocs.json;
+  #json = hmModulesDocs.json;
   manPages = docs.manPages;
 }

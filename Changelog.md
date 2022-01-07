@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [2.5.3] - 2022-01-07
+
+- re-adding man pages for terranix, terranix-modules, terranix-doc-json and terranix-doc-man.
+
 ## [2.5.2] - 2021-11-17
 
 - add terranixConfigurationAst

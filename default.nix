@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "terranix";
-  version = "2.5.2";
+  version = "2.5.3";
 
   src = ./.;
 
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/{bin,core,modules,lib}
-    mv bin core modules lib $out/
+    mv bin core modules lib share $out/
 
     wrapProgram $out/bin/terranix-doc-json \
       --prefix PATH : ${lib.makeBinPath [ jq nix ]}

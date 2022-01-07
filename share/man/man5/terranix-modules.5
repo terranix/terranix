@@ -1,0 +1,529 @@
+'\" t
+.\"     Title: terranix-modules
+.\"    Author: Ingolf Wagner
+.\" Generator: DocBook XSL Stylesheets v1.79.2 <http://docbook.sf.net/>
+.\"      Date: 01/01/1980
+.\"    Manual: terranix reference pages
+.\"    Source: terranix module documentation
+.\"  Language: English
+.\"
+.TH "TERRANIX\-MODULES" "5" "01/01/1980" "terranix module documentation" "terranix reference pages"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" enable line breaks after slashes
+.cflags 4 /
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+terranix-modules \- terranix configuration options
+.SH "DESCRIPTION"
+.PP
+Theses are the modules you can use in your
+config\&.nix
+which are delivered by default by terranix\&.
+.SH "OPTIONS"
+.PP
+You can use the following options in
+config\&.nix:
+.PP
+\fBbackend\&.etcd\fR
+.RS 4
+etcd backend https://www\&.terraform\&.io/docs/backends/types/etcd\&.html
+.sp
+\fIType:\fR
+null or submodule
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBbackend\&.etcd\&.endpoints\fR
+.RS 4
+A space\-separated list of the etcd endpoints
+.sp
+\fIType:\fR
+string
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBbackend\&.etcd\&.password\fR
+.RS 4
+the password
+.sp
+\fIType:\fR
+null or string
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBbackend\&.etcd\&.path\fR
+.RS 4
+The path where to store the state
+.sp
+\fIType:\fR
+string
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBbackend\&.etcd\&.username\fR
+.RS 4
+the username
+.sp
+\fIType:\fR
+null or string
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBbackend\&.local\fR
+.RS 4
+local backend https://www\&.terraform\&.io/docs/backends/types/local\&.html
+.sp
+\fIType:\fR
+null or submodule
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBbackend\&.local\&.path\fR
+.RS 4
+path to the state file
+.sp
+\fIType:\fR
+string
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBbackend\&.s3\fR
+.RS 4
+s3 backend https://www\&.terraform\&.io/docs/backends/types/s3\&.html
+.sp
+\fIType:\fR
+null or submodule
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBbackend\&.s3\&.bucket\fR
+.RS 4
+bucket name
+.sp
+\fIType:\fR
+string
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBbackend\&.s3\&.key\fR
+.RS 4
+path to the state file in the bucket
+.sp
+\fIType:\fR
+string
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBbackend\&.s3\&.region\fR
+.RS 4
+region of the bucket
+.sp
+\fIType:\fR
+string
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBdata\fR
+.RS 4
+Data objects, are queries to use resources which are already exist, as if they are created by a the resource option\&. See for more details : https://www\&.terraform\&.io/docs/configuration/data\-sources\&.html
+.sp
+\fIType:\fR
+.sp
+\fIDefault:\fR
+{ }
+.sp
+\fIExample:\fR
+{ }
+.RE
+.PP
+\fBlocals\fR
+.RS 4
+Define terraform variables with file scope\&. Like modules this is terraform intern and terranix has better ways\&. See for more details : https://www\&.terraform\&.io/docs/configuration/locals\&.html
+.sp
+\fIType:\fR
+.sp
+\fIDefault:\fR
+{ }
+.sp
+\fIExample:\fR
+{ locals = { owner = "Community Team"; service_name = "forum"; } ; }
+.RE
+.PP
+\fBmodule\fR
+.RS 4
+A terraform module, to define multiple resources, for sharing or duplication\&. The terraform module system, and has nothing to do with the module system of terranix or nixos\&. See for more details : https://www\&.terraform\&.io/docs/configuration/modules\&.html
+.sp
+\fIType:\fR
+.sp
+\fIDefault:\fR
+{ }
+.sp
+\fIExample:\fR
+{ module = { consul = { source = "github\&.com/hashicorp/example"; } ; } ; }
+.RE
+.PP
+\fBoutput\fR
+.RS 4
+Useful in combination with terraform_remote_state\&. See for more details : https://www\&.terraform\&.io/docs/configuration/outputs\&.html
+.sp
+\fIType:\fR
+.sp
+\fIDefault:\fR
+{ }
+.sp
+\fIExample:\fR
+{ output = { instance_ip_addr = { value = "aws_instance\&.server\&.private_ip"; } ; } ; }
+.RE
+.PP
+\fBprovider\fR
+.RS 4
+Define you API connection\&. Don\*(Aqt use secrets in here, they will be visible in the nix\-store and the resulting config\&.tf\&.json\&. Instead use terraform variables\&. See for more details : https://www\&.terraform\&.io/docs/configuration/providers\&.html or https://www\&.terraform\&.io/docs/providers/index\&.html
+.sp
+\fIType:\fR
+.sp
+\fIDefault:\fR
+{ }
+.sp
+\fIExample:\fR
+{ provider = { google = { project = "acme\-app"; region = "us\-central1"; } ; } ; }
+.RE
+.PP
+\fBprovisioner\&.privateKeyFile\fR
+.RS 4
+PrivateKey for provisioning via ssh access see https://www\&.terraform\&.io/docs/provisioners/connection\&.html This is an agnostic option, option\-authors should use this options to implement server provisioning\&.
+.sp
+\fIType:\fR
+string
+.sp
+\fIExample:\fR
+"~/\&.ssh/id_rsa"
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/provisioner\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBremote_state\&.etcd\fR
+.RS 4
+etcd remote state https://www\&.terraform\&.io/docs/backends/types/etcd\&.html
+.sp
+\fIType:\fR
+attribute set of submodules
+.sp
+\fIDefault:\fR
+{ }
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBremote_state\&.etcd\&.<name>\&.endpoints\fR
+.RS 4
+A space\-separated list of the etcd endpoints
+.sp
+\fIType:\fR
+string
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBremote_state\&.etcd\&.<name>\&.password\fR
+.RS 4
+the password
+.sp
+\fIType:\fR
+null or string
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBremote_state\&.etcd\&.<name>\&.path\fR
+.RS 4
+The path where to store the state
+.sp
+\fIType:\fR
+string
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBremote_state\&.etcd\&.<name>\&.username\fR
+.RS 4
+the username
+.sp
+\fIType:\fR
+null or string
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBremote_state\&.local\fR
+.RS 4
+local remote state https://www\&.terraform\&.io/docs/backends/types/local\&.html
+.sp
+\fIType:\fR
+attribute set of submodules
+.sp
+\fIDefault:\fR
+{ }
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBremote_state\&.local\&.<name>\&.path\fR
+.RS 4
+path to the state file
+.sp
+\fIType:\fR
+string
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBremote_state\&.s3\fR
+.RS 4
+s3 remote state https://www\&.terraform\&.io/docs/backends/types/s3\&.html
+.sp
+\fIType:\fR
+attribute set of submodules
+.sp
+\fIDefault:\fR
+{ }
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBremote_state\&.s3\&.<name>\&.bucket\fR
+.RS 4
+bucket name
+.sp
+\fIType:\fR
+string
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBremote_state\&.s3\&.<name>\&.key\fR
+.RS 4
+path to the state file in the bucket
+.sp
+\fIType:\fR
+string
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBremote_state\&.s3\&.<name>\&.region\fR
+.RS 4
+region of the bucket
+.sp
+\fIType:\fR
+string
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBresource\fR
+.RS 4
+The backbone of terraform and terranix to change and create state\&. See for more details : https://www\&.terraform\&.io/docs/configuration/resources\&.html
+.sp
+\fIType:\fR
+.sp
+\fIDefault:\fR
+{ }
+.sp
+\fIExample:\fR
+{ resource = { aws_instance = { web = { ami = "ami\-a1b2c3d4"; instance_type = "t2\&.micro"; } ; } ; } ; }
+.RE
+.PP
+\fBterraform\fR
+.RS 4
+Terraform configuration\&. But for backends have a look at the terranix options backend\&.etcd, backend\&.local and backend\&.s3\&. See for more details : https://www\&.terraform\&.io/docs/configuration/terraform\&.html
+.sp
+\fIType:\fR
+.sp
+\fIDefault:\fR
+{ }
+.sp
+\fIExample:\fR
+{ terraform = { backend = { s3 = { bucket = "mybucket"; key = "path/to/my/key"; region = "us\-east\-1"; } ; } ; } ; }
+.RE
+.PP
+\fBusers\fR
+.RS 4
+User management\&. `users\&.group\&.username` is the path\&. All members in the `admins` group should be able to ssh to servers\&. This is an agnostic option, option\-authors should use this options to implement server provisioning\&.
+.sp
+\fIType:\fR
+attribute set of attribute set of submoduless
+.sp
+\fIDefault:\fR
+{ }
+.sp
+\fIExample:\fR
+{ admins = { lassuls = { publicKey = "ssh\-rsa ABKAB3NzaC1yc2EAAAA\&.\&."; } ; mrVanDalo = { publicKey = "ssh\-rsa AAAAB3NzaC1yc2EAAAA\&.\&."; } ; } ; }
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/users\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBusers\&.<name>\&.<name>\&.publicKey\fR
+.RS 4
+ssh public key of user
+.sp
+\fIType:\fR
+null or string
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIExample:\fR
+"\e${ file( ~/\&.ssh/id_rsa\&.pub ) }"
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/users\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBvariable\fR
+.RS 4
+Input Variables, which can be set by `\-\-var=name` or by environment variables prefixt with `TF_VAR_`\&. Usually used in terraform modules or to ask for API tokens\&. See for more details : https://www\&.terraform\&.io/docs/configuration/variables\&.html
+.sp
+\fIType:\fR
+.sp
+\fIDefault:\fR
+{ }
+.sp
+\fIExample:\fR
+{ variable = { image_id = { description = "The id of the machine image (AMI) to use for the server\&."; type = "string"; } ; } ; }
+.RE
+.SH "SEE ALSO"
+.PP
+\fBterranix\fR(1)
+.SH "AUTHOR"
+.PP
+\fBIngolf Wagner\fR
+.RS 4
+Author.
+.RE
+.SH "COPYRIGHT"
+.br
+Copyright \(co 2019\(en2022 Ingolf Wagner
+.br

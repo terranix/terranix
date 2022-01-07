@@ -1,14 +1,14 @@
 # MODULES
 
-The real power behind NixOS and terranix,
-is the module system which is fundamentaly different to the
+The real power behind NixOS and terranix
+is the module system, which is fundamentally different to the
 Terraform Module system.
-Detailed information can be optained at the
+Detailed information can be obtained at the
 [NixOS Wiki](https://nixos.wiki/wiki/NixOS_Modules).
 
 ## Module Structure
 
-A module looks always like this:
+A module always looks like this:
 
 ```nix
 { config, lib, pkgs, ... }:
@@ -29,7 +29,7 @@ A module looks always like this:
 
 ## Example Module
 
-Here is an example Module to enable bastion host setups.
+Here is an example module to enable bastion host setups.
 
 ```nix
 { config, lib, pkgs, ... }:
