@@ -64,9 +64,12 @@
           echo "running terranix tests" | ${pkgs.boxes}/bin/boxes -d ian_jones -a c
           ${pkgs.bats}/bin/bats ${testFile}
         '';
-      # nix run ".#doc"
-      apps.doc = pkgs.writers.writeBashBin "doc" ''
+      # nix run ".#docs"
+      apps.doc = self.apps.${system}.docs;
+      apps.docs = pkgs.writers.writeBashBin "docs" ''
           set -e
+          export PATH=${pkgs.pandoc}/bin:$PATH
+          ${pkgs.gnumake}/bin/make --always-make --directory=doc
           nix build ".#manpages"
           cp -r result/share .
           chmod -R 755 ./share
