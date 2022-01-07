@@ -3,8 +3,8 @@
 The
 [nix syntax](https://nixos.org/nix/manual/)
 is similiar to the
-[HCL syntax](https://github.com/hashicorp/hcl)
-but, much more powerfull.
+[HCL syntax](https://github.com/hashicorp/hcl),
+but much more powerful.
 
 In **HCL** you would do something like this:
 
@@ -32,9 +32,9 @@ resource."aws_instance"."web" = {
 
 The same holds for `variable`, `output`, `data` and `provider`.
 
-## multi line sings
+## multi line strings
 
-In terraform you can create multi line strings using the `herdoc` style
+In terraform you can create multi line strings using the `heredoc` style
 
 ```hcl
 variable "multiline" {
@@ -60,13 +60,13 @@ variable.multiline.description = ''
 ## escaping expressions
 
 The form `${expression}` is used by terranix and terraform.
-So if you want to use a terraform expression in terranix,
+So, if you want to use a terraform expression in terranix,
 you have to escape it.
-There are the two context, multi and singe line strings.
+There are the two context, multi and single line strings.
 
 ### escaping expressions in single line strings
 
-In a single line strings, you escape the via `\${expression}`.
+In single line strings, you escape the via `\${expression}`.
 For example :
 
 ```nix
@@ -76,7 +76,7 @@ provider.hcloud.token = "\${var.hcloud_token}";
 
 ### escaping expressions in multi line strings
 
-In multi line strings, you escape the via `''${expression}`.
+In multi line strings, you escape via `''${expression}`.
 For example :
 
 ```nix

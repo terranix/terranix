@@ -1,7 +1,7 @@
 <refsection xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="functions">
   <title>FUNCTIONS</title>
   <para>
-    Nix comes with a ton of functions that make your live easier.
+    Nix comes with a ton of functions that make your life easier.
   </para>
   <para>
     A good overview can be found
@@ -11,11 +11,11 @@
     <title>optionalAttrs</title>
     <para>
       Useful to create a resource depending on a condition. The
-      following example adds a bation host only if the variable
+      following example adds a bastion host only if the variable
       <literal>bastionHostEnable</literal> is set to true.
     </para>
     <para>
-      This is just an example for illustration and such things are
+      This is just an example for illustration, but such things are
       better solved using
       <link xlink:href="https://nixos.wiki/wiki/NixOS_Modules">modules</link>.
     </para>
@@ -54,18 +54,18 @@ in
         </term>
         <listitem>
           <para>
-            Merge sets of attributes and combine each attribute value in
-            to a list.
+            merge sets of attributes and combine each attribute value
+            into a list.
           </para>
         </listitem>
       </varlistentry>
     </variablelist>
     <para>
-      Useful to create resources out of a small amount of information
-      with containing a lot of similar data.
+      Useful to create resources out of a small amount of information by
+      containing a lot of similar data.
     </para>
     <para>
-      The following Example shows how to create 3 s3buckets with the
+      The following example shows how to create 3 s3buckets with the
       same configuration.
     </para>
     <programlisting language="bash">

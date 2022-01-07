@@ -1,8 +1,7 @@
-
 # FUNCTIONS
 
 Nix comes with a ton of functions that
-make your live easier.
+make your life easier.
 
 A good overview can be found 
 [here]( https://storage.googleapis.com/files.tazj.in/nixdoc/manual.html#sec-functions-library).
@@ -10,10 +9,10 @@ A good overview can be found
 ## optionalAttrs
 
 Useful to create a resource depending on a condition.
-The following example adds a bation host only if
+The following example adds a bastion host only if
 the variable `bastionHostEnable` is set to true.
 
-This is just an example for illustration and such things
+This is just an example for illustration, but such things
 are better solved using
 [modules](https://nixos.wiki/wiki/NixOS_Modules).
 
@@ -38,12 +37,12 @@ in
 : map a list to another list.
 
 `zipAttrs`
-: Merge sets of attributes and combine each attribute value in to a list.
+: merge sets of attributes and combine each attribute value into a list.
 
 Useful to create resources out of a small amount
-of information with containing a lot of similar data.
+of information by containing a lot of similar data.
 
-The following Example shows how to create 3 s3buckets with the same configuration.
+The following example shows how to create 3 s3buckets with the same configuration.
 
 ```nix
 { lib, ... }:
