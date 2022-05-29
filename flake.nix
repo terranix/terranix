@@ -34,16 +34,22 @@
       };
       # nix build "manpages"
       packages.manpages = (pkgs.callPackage ./doc/default.nix {}).manPages;
-      defaultPackage = self.packages.${system}.terranix;
+      packages.default = self.packages.${system}.terranix;
+      # TODO: Legacy attribute, drop soon
+      defaultPackage = self.packages.${system}.default;
 
       # nix develop
-      devShell = pkgs.mkShell {
+      devShells.default = pkgs.mkShell {
         buildInputs =
           [ pkgs.terraform_0_15 self.packages.${system}.terranix ];
       };
+      # TODO: Legacy attribute, drop soon
+      devShell = self.devShells.${system}.default;
 
       # nix run
-      defaultApp = self.apps.${system}.test;
+      apps.default = self.apps.${system}.test;
+      # TODO: Legacy attribute, drop soon
+      defaultApp = self.apps.${system}.default;
       # nix run ".#test"
       apps.test =
         let
@@ -197,8 +203,12 @@
             });
 
       # nix flake init -t github:terranix/terranix#flake
-      templates = terranix-examples.templates;
+      templates = terranix-examples.templates // {
+        default = terranix-examples.defaultTemplate;
+      };
       # nix flake init -t github:terranix/terranix
-      defaultTemplate = terranix-examples.defaultTemplate;
+
+      # TODO: Legacy attribute, drop soon
+      defaultTemplate = self.templates.default;
     };
 }
