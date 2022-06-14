@@ -34,16 +34,22 @@
       };
       # nix build "manpages"
       packages.manpages = (pkgs.callPackage ./doc/default.nix {}).manPages;
-      defaultPackage = self.packages.${system}.terranix;
+      packages.default = self.packages.${system}.terranix;
+      # TODO: Legacy attribute, drop soon
+      defaultPackage = self.packages.${system}.default;
 
       # nix develop
-      devShell = pkgs.mkShell {
+      devShells.default = pkgs.mkShell {
         buildInputs =
           [ pkgs.terraform_0_15 self.packages.${system}.terranix ];
       };
+      # TODO: Legacy attribute, drop soon
+      devShell = self.devShells.${system}.default;
 
       # nix run
-      defaultApp = self.apps.${system}.test;
+      apps.default = self.apps.${system}.test;
+      # TODO: Legacy attribute, drop soon
+      defaultApp = self.apps.${system}.default;
       # nix run ".#test"
       apps.test =
         let
@@ -57,16 +63,19 @@
             load '${bats-assert}/load.bash'
             ${pkgs.lib.concatStringsSep "\n" tests}
           '';
-        in
-
-        pkgs.writers.writeBashBin "tests" ''
-          set -e
-          echo "running terranix tests" | ${pkgs.boxes}/bin/boxes -d ian_jones -a c
-          ${pkgs.bats}/bin/bats ${testFile}
-        '';
+        in {
+          type = "app";
+          program = toString (pkgs.writeShellScript "test" ''
+            set -e
+            echo "running terranix tests" | ${pkgs.boxes}/bin/boxes -d ian_jones -a c
+            ${pkgs.bats}/bin/bats ${testFile}
+          '');
+        };
       # nix run ".#docs"
       apps.doc = self.apps.${system}.docs;
-      apps.docs = pkgs.writers.writeBashBin "docs" ''
+      apps.docs = {
+        type = "app";
+        program = toString (pkgs.writeShellScript "docs" ''
           set -e
           export PATH=${pkgs.pandoc}/bin:$PATH
           ${pkgs.gnumake}/bin/make --always-make --directory=doc
@@ -74,7 +83,8 @@
           cp -r result/share .
           chmod -R 755 ./share
           rm result
-        '';
+        '');
+      };
 
     })) // {
 
@@ -197,8 +207,12 @@
             });
 
       # nix flake init -t github:terranix/terranix#flake
-      templates = terranix-examples.templates;
+      templates = terranix-examples.templates // {
+        default = terranix-examples.defaultTemplate;
+      };
       # nix flake init -t github:terranix/terranix
-      defaultTemplate = terranix-examples.defaultTemplate;
+
+      # TODO: Legacy attribute, drop soon
+      defaultTemplate = self.templates.default;
     };
 }
