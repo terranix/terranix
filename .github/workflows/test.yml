@@ -9,4 +9,4 @@ jobs:
     - uses: actions/checkout@v2
     - uses: cachix/install-nix-action@v16
     - name: tests
-      run: nix flake check
+      run: nix run ".#test"
