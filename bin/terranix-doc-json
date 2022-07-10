@@ -46,7 +46,7 @@ do
             exit 0
             ;;
         --quiet | -q)
-            QUIET="--quiet"
+            QUIET="--quiet --no-build-output"
             shift
             ;;
         --offline)
@@ -111,6 +111,7 @@ then
       del(.data) |
       del(.locals) |
       del(.module) |
+      del(."_module.args") |
       del(.output) |
       del(.provider) |
       del(.resource) |
