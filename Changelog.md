@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [2.5.4] - 2022-07-11
+
+- follow new flake defaults https://nixos.org/manual/nix/stable/release-notes/rl-2.7.html
+- use of github actions for automated testing
+
 ## [2.5.3] - 2022-01-07
 
 - re-adding man pages for terranix, terranix-modules, terranix-doc-json and terranix-doc-man.
