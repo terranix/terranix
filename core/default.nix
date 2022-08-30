@@ -61,21 +61,24 @@ let
     let
       evaluated = evaluateConfiguration configuration;
       result = sanitize evaluated.config;
-      whitelist = key:
-        if result."${key}" == { } || result."${key}" == null
+      genericWhitelist = f: key:
+        let attr = f result.${key};
+        in if attr == { } || attr == null
         then { }
         else {
-          "${key}" = result."${key}";
+          ${key} = attr;
         };
+      whitelist = genericWhitelist id;
+      whitelistWithoutEmpty = genericWhitelist (filterAttrs (name: attr: attr != {}));
     in
     {
       config = { } //
-        (whitelist "data") //
+        (whitelistWithoutEmpty "data") //
         (whitelist "locals") //
         (whitelist "module") //
         (whitelist "output") //
         (whitelist "provider") //
-        (whitelist "resource") //
+        (whitelistWithoutEmpty "resource") //
         (whitelist "terraform") //
         (whitelist "variable");
     };
