@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [2.5.5] - 2022-09-06
+
+- resources with empty body are filtered now.
+
 ## [2.5.4] - 2022-07-11
 
 - follow new flake defaults https://nixos.org/manual/nix/stable/release-notes/rl-2.7.html

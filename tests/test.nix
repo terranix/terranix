@@ -78,6 +78,13 @@ with lib; [
     }
   ''
 
+  ''
+    @test "empty resources: should be filtered out" {
+    run ${terranix}/bin/terranix --quiet ${./terranix-tests/11.nix}
+    assert_success
+    assert_output ${escapeShellArg (fileContents ./terranix-tests/11.nix.output)}
+    }
+  ''
 
   ''
     @test "terranix-doc-json: works with simple module" {
