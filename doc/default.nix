@@ -31,11 +31,12 @@ let
   hmModulesDocs = nmd.buildModulesDocs {
     modules =
       [
-      (import ../core/terraform-options.nix {
-        inherit lib pkgs;
-        config = { };
-      })
-        (import ../modules/default.nix { inherit lib pkgs; }) ]
+        (import ../core/terraform-options.nix {
+          inherit lib pkgs;
+          config = { };
+        })
+        (import ../modules/default.nix { inherit lib pkgs; })
+      ]
       ++ [ scrubbedPkgsModule ];
     moduleRootPaths = [ ./.. ];
     mkModuleUrl = path:

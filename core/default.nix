@@ -69,7 +69,7 @@ let
           ${key} = attr;
         };
       whitelist = genericWhitelist id;
-      whitelistWithoutEmpty = genericWhitelist (filterAttrs (name: attr: attr != {}));
+      whitelistWithoutEmpty = genericWhitelist (filterAttrs (name: attr: attr != { }));
     in
     {
       config = { } //

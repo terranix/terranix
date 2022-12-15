@@ -33,7 +33,7 @@
         nix = pkgs.nixUnstable;
       };
       # nix build "manpages"
-      packages.manpages = (pkgs.callPackage ./doc/default.nix {}).manPages;
+      packages.manpages = (pkgs.callPackage ./doc/default.nix { }).manPages;
       packages.default = self.packages.${system}.terranix;
       # TODO: Legacy attribute, drop soon
       defaultPackage = self.packages.${system}.default;
@@ -63,11 +63,13 @@
             load '${bats-assert}/load.bash'
             ${pkgs.lib.concatStringsSep "\n" tests}
           '';
-        in {
+        in
+        {
           type = "app";
           program = toString (pkgs.writeShellScript "test" ''
             set -e
             echo "running terranix tests" | ${pkgs.boxes}/bin/boxes -d ian_jones -a c
+            #cat ${testFile}
             ${pkgs.bats}/bin/bats ${testFile}
           '');
         };
