@@ -24,11 +24,10 @@ let
       null = null;
       set =
         let
-          pred = name: value: name != "_module" && name != "_ref" && name != "__functor";
           stripped_a = lib.flip lib.filterAttrs configuration
-            (name: value: pred name value);
+            (name: value: name != "_module" && name != "_ref");
           stripped_b = lib.flip lib.filterAttrs configuration
-            (name: value: pred name value && value != null);
+            (name: value: name != "_module" && name != "_ref" && value != null);
           recursiveSanitized =
             if strip_nulls then
               lib.mapAttrs (lib.const sanitize) stripped_b

@@ -6,9 +6,9 @@
 with lib;
 
 let
-  mkMagicMergeOption = { description ? "", example ? { }, default ? { }, apply ? id, ... }:
+  mkMagicMergeOption = { description ? "", example ? { }, default ? { }, ... }:
     mkOption {
-      inherit example description default apply;
+      inherit example description default;
       type = with lib.types;
         let
           valueType = nullOr
@@ -26,19 +26,11 @@ let
         in
         valueType;
     };
-
-  mkReferenceableOption = { ... }@args:
-    mkMagicMergeOption (args // {
-      apply = mapAttrs (type: v1:
-        mapAttrs (label: v2:
-          v2 // { __functor = self: attr: "\${${type}.${label}.${attr}}"; })
-        v1);
-    });
 in
 {
 
   options = {
-    data = mkReferenceableOption {
+    data = mkMagicMergeOption {
       description = ''
         Data objects, are queries to use resources which
         are already exist, as if they are created by a the resource
@@ -95,7 +87,7 @@ in
         or https://www.terraform.io/docs/providers/index.html
       '';
     };
-    resource = mkReferenceableOption {
+    resource = mkMagicMergeOption {
       example = {
         resource.aws_instance.web = {
           ami = "ami-a1b2c3d4";
