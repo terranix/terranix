@@ -20,6 +20,10 @@ inspiration and to create logic on top.
 They live in
 [./modules](./modules/).
 
+# Community
+
+Join us at the `#terranix:terranix.org` matrix channel.
+
 # See also
 
 * [nix-instantiate introduction](https://tech.ingolf-wagner.de/nixos/nix-instantiate/)
