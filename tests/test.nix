@@ -29,7 +29,6 @@ let
       }
     '';
 
-
 in
 (map terranix-test-template terranix-tests) ++
 (map terranix-doc-json-test-template terranix-doc-json-tests)

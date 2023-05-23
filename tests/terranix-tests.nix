@@ -71,4 +71,9 @@
     file = ./terranix-tests/12.nix;
     outputFile = ./terranix-tests/12.nix.output;
   }
+  {
+    text = "references: should properly reference references and data from config";
+    file = ./terranix-tests/13.nix;
+    outputFile = ./terranix-tests/13.nix.output;
+  }
 ]
