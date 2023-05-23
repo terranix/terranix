@@ -87,6 +87,14 @@ with lib; [
   ''
 
   ''
+    @test "referenceable: should properly generate references for terraform resource and data types" {
+    run ${terranix}/bin/terranix --quiet ${./terranix-tests/12.nix}
+    assert_success
+    assert_output ${escapeShellArg (fileContents ./terranix-tests/12.nix.output)}
+    }
+  ''
+
+  ''
     @test "terranix-doc-json: works with simple module" {
     run ${terranix}/bin/terranix-doc-json --quiet \
     --path ${./terranix-doc-json-tests} \
@@ -101,5 +109,4 @@ with lib; [
     assert_output ${escapeShellArg (fileContents ./terranix-doc-json-tests/02.nix.output)}
     }
   ''
-
 ]
