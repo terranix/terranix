@@ -87,6 +87,15 @@ with lib; [
   ''
 
   ''
+    @test "terranix lib: tfRef should be available and properly return a reference" {
+    run ${terranix}/bin/terranix --quiet ${./terranix-tests/12.nix}
+    assert_success
+    assert_output ${escapeShellArg (fileContents ./terranix-tests/12.nix.output)}
+
+    }
+  ''
+
+  ''
     @test "terranix-doc-json: works with simple module" {
     run ${terranix}/bin/terranix-doc-json --quiet \
     --path ${./terranix-doc-json-tests} \

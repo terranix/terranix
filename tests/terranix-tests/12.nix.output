@@ -1,0 +1,9 @@
+{
+  "resource": {
+    "foo": {
+      "bar": {
+        "a-reference": "${data.another-resource.id}"
+      }
+    }
+  }
+}
