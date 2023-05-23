@@ -27,7 +27,7 @@ let
         valueType;
     };
 
-  mkReferenceableOption = { ... }@args:
+  mkReferenceableOption = { referencePrefix ? "", ... }@args:
     mkMagicMergeOption (args // {
       apply = let
         mapAttrsOrSkip = f: attrs:
@@ -35,7 +35,7 @@ let
       in mapAttrsOrSkip (type: v1:
         mapAttrsOrSkip (label: v2:
           if isAttrs v2
-          then v2 // { __functor = self: attr: "\${${type}.${label}.${attr}}"; }
+          then v2 // { __functor = self: attr: "\${${referencePrefix}${type}.${label}.${attr}}"; }
           else v2)
         v1);
     });
@@ -44,6 +44,7 @@ in
 
   options = {
     data = mkReferenceableOption {
+      referencePrefix = "data.";
       description = ''
         Data objects, are queries to use resources which
         are already exist, as if they are created by a the resource
