@@ -40,12 +40,19 @@ let
           recursiveSanitized;
     };
 
+  # pkgs.lib extended with terranix-specific utils
+  lib' = lib.extend (self: super: {
+    # small helper funtion to make definiing terraform string references
+    # (ie. ${aws_instance.foo.id})
+    # easier, without having to perform the ugly escaping
+    tfRef = ref: "\${${ref}}";
+  });
+
   # evaluate given config.
   # also include all the default modules
   # https://github.com/NixOS/nixpkgs/blob/master/lib/modules.nix#L95
   evaluateConfiguration = configuration:
-    with lib;
-    evalModules {
+    lib'.evalModules {
       modules = [
         { imports = [ ./terraform-options.nix ../modules ]; }
         { _module.args = { inherit pkgs; }; }

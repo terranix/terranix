@@ -63,4 +63,9 @@
     file = ./terranix-tests/11.nix;
     outputFile = ./terranix-tests/11.nix.output;
   }
+  {
+    text = "terranix lib: tfRef should be available and properly return a reference";
+    file = ./terranix-tests/12.nix;
+    outputFile = ./terranix-tests/12.nix.output;
+  }
 ]
