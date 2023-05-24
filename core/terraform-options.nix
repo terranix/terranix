@@ -6,9 +6,9 @@
 with lib;
 
 let
-  mkMagicMergeOption = { description ? "", example ? { }, default ? { }, ... }:
+  mkMagicMergeOption = { description ? "", example ? { }, default ? { }, apply ? id, ... }:
     mkOption {
-      inherit example description default;
+      inherit example description default apply;
       type = with lib.types;
         let
           valueType = nullOr
@@ -101,7 +101,7 @@ in
         or https://www.terraform.io/docs/providers/index.html
       '';
     };
-    resource = mkMagicMergeOption {
+    resource = mkReferenceableOption {
       example = {
         resource.aws_instance.web = {
           ami = "ami-a1b2c3d4";
