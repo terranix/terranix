@@ -1,0 +1,33 @@
+# One CLI to format the code tree - https://github.com/numtide/treefmt
+
+[formatter.nix]
+command = "nixpkgs-fmt"
+includes = [ "*.nix"]
+
+[formatter.shell]
+command = "shfmt"
+options = [
+    "-i",
+    "2",  # indent 2
+    "-s",  # simplify the code
+    "-w",  # write back to the file
+]
+includes = ["*.sh"]
+
+[formatter.shellcheck]
+command = "shellcheck"
+includes = ["*.sh"]
+
+[formatter.python]
+command = "black"
+includes = ["*.py"]
+
+[formater.media]
+command = "prettier"
+options = ["--write"]
+includes = [
+    "*.json",
+    "*.md",
+    "*.yaml",
+    "*.yml",
+]
