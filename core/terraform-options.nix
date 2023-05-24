@@ -20,7 +20,7 @@ let
               (attrsOf valueType)
               (listOf valueType)
             ]) // {
-            description = "";
+            description = "bool, int, float or str";
             emptyValue.value = { };
           };
         in
