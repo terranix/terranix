@@ -54,6 +54,7 @@
       apps.test =
         let
           tests = import ./tests/test.nix {
+            inherit nixpkgs;
             inherit pkgs;
             inherit (pkgs) lib;
             terranix = self.packages.${system}.terranix;
