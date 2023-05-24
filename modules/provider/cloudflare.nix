@@ -1,5 +1,5 @@
 # this file will be removed and provided by a module
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 with lib;
 
