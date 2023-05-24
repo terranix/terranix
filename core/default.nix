@@ -6,7 +6,6 @@
 , strip_nulls ? true
 }:
 
-with pkgs;
 with pkgs.lib;
 with builtins;
 
@@ -15,7 +14,7 @@ let
   # sanitize the resulting configuration
   # removes unwanted parts of the evalModule output
   sanitize = configuration:
-    lib.getAttr (typeOf configuration) {
+    getAttr (typeOf configuration) {
       bool = configuration;
       int = configuration;
       string = configuration;
@@ -24,15 +23,15 @@ let
       null = null;
       set =
         let
-          stripped_a = lib.flip lib.filterAttrs configuration
+          stripped_a = flip filterAttrs configuration
             (name: value: name != "_module" && name != "_ref");
-          stripped_b = lib.flip lib.filterAttrs configuration
+          stripped_b = flip filterAttrs configuration
             (name: value: name != "_module" && name != "_ref" && value != null);
           recursiveSanitized =
             if strip_nulls then
-              lib.mapAttrs (lib.const sanitize) stripped_b
+              mapAttrs (const sanitize) stripped_b
             else
-              lib.mapAttrs (lib.const sanitize) stripped_a;
+              mapAttrs (const sanitize) stripped_a;
         in
         if (length (attrNames configuration) == 0) then
           { }
@@ -40,12 +39,19 @@ let
           recursiveSanitized;
     };
 
+  # pkgs.lib extended with terranix-specific utils
+  lib' = pkgs.lib.extend (self: super: {
+    # small helper funtion to make definiing terraform string references
+    # (ie. ${aws_instance.foo.id})
+    # easier, without having to perform the ugly escaping
+    tfRef = ref: "\${${ref}}";
+  });
+
   # evaluate given config.
   # also include all the default modules
   # https://github.com/NixOS/nixpkgs/blob/master/lib/modules.nix#L95
   evaluateConfiguration = configuration:
-    with lib;
-    evalModules {
+    lib'.evalModules {
       modules = [
         { imports = [ ./terraform-options.nix ../modules ]; }
         { _module.args = { inherit pkgs; }; }
@@ -69,7 +75,7 @@ let
           ${key} = attr;
         };
       whitelist = genericWhitelist id;
-      whitelistWithoutEmpty = genericWhitelist (filterAttrs (name: attr: attr != {}));
+      whitelistWithoutEmpty = genericWhitelist (filterAttrs (name: attr: attr != { }));
     in
     {
       config = { } //
