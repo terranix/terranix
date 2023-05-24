@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+## [2.6.0] 2023-05-24
+
+- Add `tfRef` function to create terraform references.
+- refactor tests
+- pin nixpkgs due to different nixpkgs versions
+- make nix flake check not complain anymore
+- improve error message for types
+
 ## [2.5.5] - 2022-09-06
 
 - resources with empty body are filtered now.
