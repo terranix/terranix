@@ -1,3 +1,1 @@
-error:
-       Failed assertion: test
-(use '--show-trace' to show detailed location information)
+Failed assertion: test
