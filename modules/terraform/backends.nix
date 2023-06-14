@@ -1,5 +1,5 @@
 # manage backend configurations and terraform_remote_state configurations
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 with lib;
 
