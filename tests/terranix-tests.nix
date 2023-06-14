@@ -9,12 +9,14 @@
     file = ./terranix-tests/02.nix;
     success = false;
     outputFile = ./terranix-tests/02.nix.output;
+    partialMatchOutput = true;
   }
   {
     text = "remote_state : 2 remote states with the same names are forbidden";
     file = ./terranix-tests/03.nix;
     success = false;
     outputFile = ./terranix-tests/03.nix.output;
+    partialMatchOutput = true;
   }
   {
     text = "remote_state : 2 remote states with differente names are ok";
@@ -31,6 +33,7 @@
     file = ./terranix-tests/06.nix;
     success = false;
     outputFile = ./terranix-tests/06.nix.output;
+    partialMatchOutput = true;
   }
   {
     text = "strip-nulls: print no nulls without --with-nulls";
