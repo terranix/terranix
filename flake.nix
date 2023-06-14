@@ -25,7 +25,8 @@
     }:
     (flake-utils.lib.eachDefaultSystem (system:
     let pkgs = nixpkgs.legacyPackages.${system};
-    in {
+    in
+    {
 
       # nix build
       packages.terranix = pkgs.callPackage ./default.nix {
@@ -41,7 +42,16 @@
       # nix develop
       devShells.default = pkgs.mkShell {
         buildInputs =
-          [ pkgs.terraform_0_15 self.packages.${system}.terranix ];
+          [
+            pkgs.terraform_0_15
+            self.packages.${system}.terranix
+            pkgs.treefmt
+            pkgs.nixpkgs-fmt
+            pkgs.shfmt
+            pkgs.shellcheck
+            pkgs.black
+            pkgs.nodePackages.prettier
+          ];
       };
       # TODO: Legacy attribute, drop soon
       devShell = self.devShells.${system}.default;
@@ -89,6 +99,7 @@
         '');
       };
 
+      formatter = pkgs.treefmt;
     })) // {
 
       # terraformConfiguration ast, if you want to run
@@ -172,7 +183,8 @@
       lib.buildTerranix = nixpkgs.lib.warn "buildTerranix will be removed in 3.0.0 use terranixConfiguration instead"
         ({ pkgs, terranix_config, ... }@terranix_args:
           let terranixCore = import ./core/default.nix terranix_args;
-          in pkgs.writeTextFile {
+          in
+          pkgs.writeTextFile {
             name = "config.tf.json";
             text = builtins.toJSON terranixCore.config;
           });
