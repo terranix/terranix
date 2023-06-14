@@ -1,0 +1,10 @@
+{
+  "resource": {
+    "a_resource": {
+      "with_template": {
+        "template_from_file": "${templatefile(\"<nix store path>-source\", {})}",
+        "templated_field": "${templatefile(\"<nix store path>-template.tftpl\", {\"variable\":\"some value with ${terraform} templating\"})}"
+      }
+    }
+  }
+}

@@ -2,7 +2,8 @@
   "resource": {
     "foo": {
       "bar": {
-        "a-reference": "${data.another-resource.id}"
+        "a-reference": "${data.another-resource.id}",
+        "b-reference": "${data.another-resource.id}"
       }
     }
   }
