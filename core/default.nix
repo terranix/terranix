@@ -70,7 +70,8 @@ let
       result = sanitize evaluated.config;
       genericWhitelist = f: key:
         let attr = f result.${key};
-        in if attr == { } || attr == null
+        in
+        if attr == { } || attr == null
         then { }
         else {
           ${key} = attr;

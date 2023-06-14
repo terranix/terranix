@@ -29,15 +29,18 @@ let
 
   mkReferenceableOption = { referencePrefix ? "", ... }@args:
     mkMagicMergeOption (args // {
-      apply = let
-        mapAttrsOrSkip = f: attrs:
-          if isAttrs attrs then mapAttrs f attrs else attrs;
-      in mapAttrsOrSkip (type: v1:
-        mapAttrsOrSkip (label: v2:
-          if isAttrs v2
-          then v2 // { __functor = self: attr: "\${${referencePrefix}${type}.${label}.${attr}}"; }
-          else v2)
-        v1);
+      apply =
+        let
+          mapAttrsOrSkip = f: attrs:
+            if isAttrs attrs then mapAttrs f attrs else attrs;
+        in
+        mapAttrsOrSkip (type: v1:
+          mapAttrsOrSkip
+            (label: v2:
+              if isAttrs v2
+              then v2 // { __functor = self: attr: "\${${referencePrefix}${type}.${label}.${attr}}"; }
+              else v2)
+            v1);
     });
 in
 {
