@@ -76,4 +76,9 @@
     file = ./terranix-tests/13.nix;
     outputFile = ./terranix-tests/13.nix.output;
   }
+  {
+    text = "terranix lib: tf.ref.template should be available and properly return a templatefile() invocation";
+    file = ./terranix-tests/14.nix;
+    outputFile = ./terranix-tests/14.nix.output;
+  }
 ]

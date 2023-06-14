@@ -10,7 +10,7 @@ pkgs: self: super: {
     template =
     { text ? ""
     , source ? ""
-    , variables ? ""
+    , variables ? {}
     }:
       assert super.assertMsg (text == "" || source == "") "You must provide either 'text' or 'source' arguments";
       let
