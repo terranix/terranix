@@ -41,12 +41,7 @@ let
     };
 
   # pkgs.lib extended with terranix-specific utils
-  lib' = pkgs.lib.extend (self: super: {
-    # small helper funtion to make definiing terraform string references
-    # (ie. ${aws_instance.foo.id})
-    # easier, without having to perform the ugly escaping
-    tfRef = ref: "\${${ref}}";
-  });
+  lib' = pkgs.lib.extend (import ./helpers.nix pkgs);
 
   # evaluate given config.
   # also include all the default modules
