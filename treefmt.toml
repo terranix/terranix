@@ -18,10 +18,6 @@ includes = ["*.sh"]
 command = "shellcheck"
 includes = ["*.sh"]
 
-[formatter.python]
-command = "black"
-includes = ["*.py"]
-
 [formater.media]
 command = "prettier"
 options = ["--write"]

@@ -49,7 +49,6 @@
             pkgs.nixpkgs-fmt
             pkgs.shfmt
             pkgs.shellcheck
-            pkgs.black
             pkgs.nodePackages.prettier
           ];
       };
