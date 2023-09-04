@@ -8,3 +8,5 @@ result
 *.tfstate.*
 
 result*
+
+.direnv
