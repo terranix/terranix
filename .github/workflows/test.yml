@@ -6,9 +6,11 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v17
+    - uses: actions/checkout@v3.6.0
+    - uses: cachix/install-nix-action@v22
       with:
         nix_path: nixpkgs=channel:nixos-22.05
     - name: tests
       run: nix run ".#test"
+    - name: Flake checks
+      run: nix flake check
