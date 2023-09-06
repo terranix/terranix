@@ -23,10 +23,11 @@ let
       null = null;
       set =
         let
+          pred = name: value: name != "_module" && name != "_ref" && name != "__functor";
           stripped_a = flip filterAttrs configuration
-            (name: value: name != "_module" && name != "_ref");
+            (name: value: pred name value);
           stripped_b = flip filterAttrs configuration
-            (name: value: name != "_module" && name != "_ref" && value != null);
+            (name: value: pred name value && value != null);
           recursiveSanitized =
             if strip_nulls then
               mapAttrs (const sanitize) stripped_b
@@ -40,12 +41,7 @@ let
     };
 
   # pkgs.lib extended with terranix-specific utils
-  lib' = pkgs.lib.extend (self: super: {
-    # small helper funtion to make definiing terraform string references
-    # (ie. ${aws_instance.foo.id})
-    # easier, without having to perform the ugly escaping
-    tfRef = ref: "\${${ref}}";
-  });
+  lib' = pkgs.lib.extend (import ./helpers.nix pkgs);
 
   # evaluate given config.
   # also include all the default modules
@@ -69,7 +65,8 @@ let
       result = sanitize evaluated.config;
       genericWhitelist = f: key:
         let attr = f result.${key};
-        in if attr == { } || attr == null
+        in
+        if attr == { } || attr == null
         then { }
         else {
           ${key} = attr;

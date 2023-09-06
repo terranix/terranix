@@ -9,12 +9,17 @@ let
   #  outputFile = ./terranix-tests/05.nix.output;
   #} ]
   terranix-tests = import ./terranix-tests.nix;
-  terranix-test-template = { text, file, options ? [ ], success ? true, outputFile ? "", ... }:
+  terranix-test-template = { text, file, options ? [ ], success ? true, outputFile ? "", partialMatchOutput ? false, ... }:
     ''
       @test "${text}" {
       run ${terranix}/bin/terranix ${concatStringsSep " " options} --pkgs ${nixpkgs} --quiet ${file}
+
+      # edit output to make sure no nix store paths are included
+      # - they cause tests to fail depending on environment
+      output=$(echo "$output" | sed 's|/nix/store/.*-|<nix store path>-|')
+
       ${if success then "assert_success" else "assert_failure"}
-      ${optionalString (outputFile != "") "assert_output ${escapeShellArg (fileContents outputFile)}"}
+      ${optionalString (outputFile != "") "assert_output ${optionalString partialMatchOutput "--partial"} ${escapeShellArg (fileContents outputFile)}"}
       }
     '';
 

@@ -6,8 +6,8 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3.6.0
-    - uses: cachix/install-nix-action@v22
+    - uses: actions/checkout@v4.0.0
+    - uses: cachix/install-nix-action@v23
       with:
         nix_path: nixpkgs=channel:nixos-22.05
     - name: tests
