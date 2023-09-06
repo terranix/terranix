@@ -12,3 +12,5 @@ jobs:
         nix_path: nixpkgs=channel:nixos-22.05
     - name: tests
       run: nix run ".#test"
+    - name: Flake checks
+      run: nix flake check
