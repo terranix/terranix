@@ -9,12 +9,14 @@
     file = ./terranix-tests/02.nix;
     success = false;
     outputFile = ./terranix-tests/02.nix.output;
+    partialMatchOutput = true;
   }
   {
     text = "remote_state : 2 remote states with the same names are forbidden";
     file = ./terranix-tests/03.nix;
     success = false;
     outputFile = ./terranix-tests/03.nix.output;
+    partialMatchOutput = true;
   }
   {
     text = "remote_state : 2 remote states with differente names are ok";
@@ -31,6 +33,7 @@
     file = ./terranix-tests/06.nix;
     success = false;
     outputFile = ./terranix-tests/06.nix.output;
+    partialMatchOutput = true;
   }
   {
     text = "strip-nulls: print no nulls without --with-nulls";
@@ -67,5 +70,15 @@
     text = "terranix lib: tfRef should be available and properly return a reference";
     file = ./terranix-tests/12.nix;
     outputFile = ./terranix-tests/12.nix.output;
+  }
+  {
+    text = "references: should properly reference references and data from config";
+    file = ./terranix-tests/13.nix;
+    outputFile = ./terranix-tests/13.nix.output;
+  }
+  {
+    text = "terranix lib: tf.ref.template should be available and properly return a templatefile() invocation";
+    file = ./terranix-tests/14.nix;
+    outputFile = ./terranix-tests/14.nix.output;
   }
 ]

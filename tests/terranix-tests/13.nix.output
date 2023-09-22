@@ -1,0 +1,18 @@
+{
+  "data": {
+    "some_data_resource": {
+      "name": {}
+    }
+  },
+  "resource": {
+    "other_resource": {
+      "another_name": {
+        "field_with_data_reference": "${data.some_data_resource.name.another_attribute}",
+        "field_with_resource_reference": "${some_resource.name.referenced_attribute}"
+      }
+    },
+    "some_resource": {
+      "name": {}
+    }
+  }
+}

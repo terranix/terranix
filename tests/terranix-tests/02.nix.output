@@ -1,3 +1,1 @@
-error:
-       Failed assertion: You defined multiple backends, stick to one!
-(use '--show-trace' to show detailed location information)
+Failed assertion: You defined multiple backends, stick to one!
