@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "terranix";
-  version = "2.6.0";
+  version = "2.7.0";
 
   src = ./.;
 

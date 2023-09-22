@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [2.7.0] 2023-09-22
+
+- add templatefile() helper
+- add lib.tf
+- add referencable functor
+
 ## [2.6.0] 2023-05-24
 
 - Add `tfRef` function to create terraform references.
