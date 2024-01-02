@@ -21,7 +21,7 @@ rec {
     // { default = self.apply; });
 
   devShells.default = pkgs.mkShell {
-    buildInputs = scripts;
+    buildInputs = builtins.attrValues scripts;
   };
 }
 
