@@ -13,7 +13,7 @@ in
 rec {
   scripts = {
     apply = mkTfScript "apply" "terraform apply";
-    destroy = mkTfScript "destoy" "terraform destroy";
+    destroy = mkTfScript "destroy" "terraform destroy";
   };
 
   apps = pkgs.lib.fix (self:
