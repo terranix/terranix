@@ -178,6 +178,8 @@
                 ' > $out
           '';
 
+      lib.mkTerranixOutputs = import ./core/terraform-invocs.nix;
+
       # deprecated
       lib.buildTerranix = nixpkgs.lib.warn "buildTerranix will be removed in 3.0.0 use terranixConfiguration instead"
         ({ pkgs, terranix_config, ... }@terranix_args:
