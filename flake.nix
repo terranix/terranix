@@ -148,6 +148,8 @@
           in
           (pkgs.formats.json { }).generate "config.tf.json" terranixCore.config;
 
+        lib.mkTerranixOutputs = import ./core/terraform-invocs.nix;
+
         # create a options.json.
         # you have to either have to name a system or set pkgs.
         lib.terranixOptions =
