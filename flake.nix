@@ -102,6 +102,8 @@
 
       flake = {
 
+        flakeModule = import ./flake-module.nix;
+
         # terraformConfiguration ast, if you want to run
         # terranix in the repl.
         lib.terranixConfigurationAst =
