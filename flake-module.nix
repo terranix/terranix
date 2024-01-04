@@ -8,6 +8,19 @@
         {
           options.terranix = {
 
+            createDevShells = mkOption {
+              description = lib.mdDoc ''
+                Whether to create `devShells` or not. By default enabled.
+                You can disable this if you want to customize the `devShell` creation youself or otherwise
+                wanting to avoid output definition conflicts.
+
+                The devShells are still available at `terranix.terranixConfigurations.result.outputs.devShells`, should
+                you want to incorporate them using `pkgs.mkShell.inputsFrom` or similar.
+              '';
+              type = types.bool;
+              default = true;
+            };
+
             terranixConfigurations = mkOption {
               description = lib.mdDoc ''
                 A submodule of all terranix configurations.'';
@@ -61,6 +74,7 @@
                         Working directory of the terranix configuration.
                         Defaults to submodule name.
                       '';
+                      type = types.str;
                       default = name;
                     };
 
@@ -70,6 +84,7 @@
                         For debugging or otherwise.
                       '';
                       default = { };
+                      readOnly = true;
                       type = types.submodule {
                         options = {
                           terraformConfiguration = mkOption {
@@ -126,9 +141,9 @@
               (cfg.terranixConfigurations ? "default")
               cfg.terranixConfigurations.default.result.outputs.scripts);
 
-            devShells = builtins.mapAttrs
+            devShells = mkIf cfg.createDevShells (builtins.mapAttrs
               (_: tnixConfig: tnixConfig.result.outputs.devShells.default)
-              cfg.terranixConfigurations;
+              cfg.terranixConfigurations);
 
 
           };
