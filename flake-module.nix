@@ -33,6 +33,7 @@
 
                         Forwarded to lib.mkTerranixTfWrapper.
                       '';
+                      default = { };
                       type = types.submodule {
                         options = {
                           extraRuntimeInputs = mkOption {
