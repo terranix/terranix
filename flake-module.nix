@@ -135,12 +135,20 @@
           };
 
           config = {
-            legacyPackages = builtins.mapAttrs
-              (_: tnixConfig: tnixConfig.result.outputs.scripts)
+            apps = builtins.mapAttrs
+              (name: tnixConfig: {
+                program = tnixConfig.result.outputs.scripts.apply.overrideAttrs {
+                  inherit name;
+                  passthru = tnixConfig.result.outputs.scripts;
+                };
+              })
               cfg.terranixConfigurations
             // (pkgs.lib.optionalAttrs
               (cfg.terranixConfigurations ? "default")
-              cfg.terranixConfigurations.default.result.outputs.scripts);
+              (builtins.mapAttrs
+                (_: script: { program = script; })
+                cfg.terranixConfigurations.default.result.outputs.scripts
+              ));
 
             devShells = mkIf cfg.createDevShells (builtins.mapAttrs
               (_: tnixConfig: tnixConfig.result.outputs.devShells.default)
