@@ -147,5 +147,22 @@ in
         See for more details : https://www.terraform.io/docs/configuration/variables.html
       '';
     };
+    cloud = mkMagicMergeOption {
+      example = {
+        cloud = {
+          organization = "my-org";
+          hostname = "app.terraform.io";
+          workspaces = {
+            project = "networking-development";
+            tags = ["networking" "source:cli"];
+          };
+        };
+      };
+      description = ''
+        The `cloud` block is a nested block within the top-level `terraform` settings block.
+        It specifies which Terraform Cloud workspaces to use for the current working directory.
+        See for more details : https://developer.hashicorp.com/terraform/cli/cloud/settings#the-cloud-block
+      '';
+    };
   };
 }
