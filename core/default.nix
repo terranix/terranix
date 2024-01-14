@@ -82,6 +82,7 @@ let
         (whitelist "output") //
         (whitelist "provider") //
         (whitelistWithoutEmpty "resource") //
+        (whitelist "provisioner") //
         (whitelist "terraform") //
         (whitelist "variable");
     };
