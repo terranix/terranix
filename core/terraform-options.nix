@@ -89,6 +89,22 @@ in
         See for more details : https://www.terraform.io/docs/configuration/outputs.html
       '';
     };
+    required_providers = mkMagicMergeOption {
+      example = {
+        required_providers = {
+          mycloud = {
+            source  = "mycorp/mycloud";
+            version = "~> 1.0";
+          };
+        };
+      };
+      description = ''
+        Each Terraform module must declare which providers it requires,
+        so that Terraform can install and use them.
+        Provider requirements are declared in a `required_providers` block.
+        See for more details : https://developer.hashicorp.com/terraform/language/providers/requirements
+      '';
+    };
     provider = mkMagicMergeOption {
       example = {
         provider.google = {

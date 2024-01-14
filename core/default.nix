@@ -80,6 +80,7 @@ let
         (whitelist "locals") //
         (whitelist "module") //
         (whitelist "output") //
+        (whitelist "required_providers") //
         (whitelist "provider") //
         (whitelistWithoutEmpty "resource") //
         (whitelist "terraform") //
