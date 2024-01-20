@@ -23,9 +23,11 @@
 
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
+        ./flake-module.nix
       ];
 
-      systems = import inputs.systems;
+      systems = import
+        inputs.systems;
 
       perSystem =
         { config

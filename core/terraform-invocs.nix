@@ -22,7 +22,7 @@ rec {
     // { default = self.apply; });
 
   devShells.default = pkgs.mkShell {
-    buildInputs = builtins.attrValues scripts;
+    buildInputs = (builtins.attrValues scripts) ++ [ terraformWrapper ];
   };
 }
 
