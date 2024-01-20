@@ -8,13 +8,13 @@
         {
           options.terranix = {
 
-            createDevShells = mkOption {
+            setDevShell = mkOption {
               description = lib.mdDoc ''
-                Whether to create `devShells` or not. By default enabled.
+                Whether to set default `devShell` or not. By default enabled.
                 You can disable this if you want to customize the `devShell` creation youself or otherwise
                 wanting to avoid output definition conflicts.
 
-                The devShells are still available at `terranix.terranixConfigurations.result.outputs.devShells`, should
+                The devShell are still available at `terranix.terranixConfigurations.<name>.result.devShell`, should
                 you want to incorporate them using `pkgs.mkShell.inputsFrom` or similar.
               '';
               type = types.bool;
@@ -217,7 +217,7 @@
                 )
             );
 
-            devShells = mkIf cfg.createDevShells (builtins.mapAttrs
+            devShells = mkIf cfg.setDevShell (builtins.mapAttrs
               (_: tnixConfig: tnixConfig.result.devShell)
               cfg.terranixConfigurations);
 
