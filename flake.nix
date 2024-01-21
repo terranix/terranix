@@ -49,7 +49,7 @@
           devShells.default = pkgs.mkShell {
             buildInputs = with pkgs;
               [
-                terraform_0_15
+                terraform
                 self'.packages.terranix
                 treefmt
                 nixfmt
