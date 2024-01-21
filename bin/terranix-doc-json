@@ -114,7 +114,6 @@ then
       del(."_module.args") |
       del(.output) |
       del(.provider) |
-      del(.provisioner) |
       del(.resource) |
       del(.terraform) |
       del(.variable)'
