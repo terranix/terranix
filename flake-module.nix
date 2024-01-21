@@ -23,8 +23,7 @@
 
             terranixConfigurations = mkOption
               {
-                description = lib.mdDoc ''
-                  A submodule of all terranix configurations.'';
+                description = lib.mdDoc "A submodule of all terranix configurations.";
                 default = { };
                 type = types.attrsOf
                   (types.submodule ({ name, ... } @ submod: {
@@ -177,7 +176,7 @@
                                 The exposed devShell.
 
                                 Note that you have to re-enter/ your devShell when your configuration changes!
-                                The invoctation scripts will still target your old configuration otherwise.
+                                The invocation scripts will still target your old configuration otherwise.
                                 
                                 For those who want `devShell`-based access like
                                 ```sh
