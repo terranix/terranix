@@ -1,9 +1,10 @@
-{ pkgs ? import <nixpkgs> { }, terraformConfiguration, terraform ? pkgs.terraform, ... }:
+{ pkgs ? import <nixpkgs> { }, terraformConfiguration, terraformWrapper ? pkgs.terraform, prefixText ? "" }:
 let
   mkTfScript = name: text: pkgs.writeShellApplication {
     inherit name;
-    runtimeInputs = [ terraform ];
+    runtimeInputs = [ terraformWrapper ];
     text = ''
+      ${prefixText}
       ln -sf ${terraformConfiguration} config.tf.json
       terraform init
       ${text}
@@ -21,7 +22,7 @@ rec {
     // { default = self.apply; });
 
   devShells.default = pkgs.mkShell {
-    buildInputs = builtins.attrValues scripts;
+    buildInputs = (builtins.attrValues scripts) ++ [ terraformWrapper ];
   };
 }
 
