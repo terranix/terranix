@@ -14,7 +14,7 @@ the variable `bastionHostEnable` is set to true.
 
 This is just an example for illustration, but such things
 are better solved using
-[modules](https://nixos.wiki/wiki/NixOS_Modules).
+[modules](https://wiki.nixos.org/wiki/NixOS_Modules).
 
 ```nix
 { lib, ... }:

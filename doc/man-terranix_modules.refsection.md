@@ -4,7 +4,7 @@ The real power behind NixOS and terranix
 is the module system, which is fundamentally different to the
 Terraform Module system.
 Detailed information can be obtained at the
-[NixOS Wiki](https://nixos.wiki/wiki/NixOS_Modules).
+[NixOS Wiki](https://wiki.nixos.org/wiki/NixOS_Modules).
 
 ## Module Structure
 
