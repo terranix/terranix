@@ -40,7 +40,7 @@
             default = terranix;
 
             terranix = pkgs.callPackage ./default.nix {
-              nix = pkgs.nixVersions.latest;
+              nix = pkgs.nixUnstable;
             };
 
             inherit (pkgs.callPackage ./doc/default.nix { }) manPages;
