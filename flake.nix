@@ -31,7 +31,7 @@
       # nix build
       packages.terranix = pkgs.callPackage ./default.nix {
         # as long nix flake is an experimental feature;
-        nix = pkgs.nixUnstable;
+        nix = pkgs.nixVersions.latest;
       };
       # nix build "manpages"
       packages.manpages = (pkgs.callPackage ./doc/default.nix { }).manPages;
