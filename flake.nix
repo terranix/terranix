@@ -32,15 +32,21 @@
       perSystem =
         { config
         , self'
-        , pkgs
         , system
         , ...
-        }: {
+        }: let
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+            };
+          };
+        in {
           packages = rec {
             default = terranix;
 
             terranix = pkgs.callPackage ./default.nix {
-              nix = pkgs.nixUnstable;
+              nix = pkgs.nixVersions.git;
             };
 
             inherit (pkgs.callPackage ./doc/default.nix { }) manPages;
