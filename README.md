@@ -3,7 +3,7 @@ A NixOS way to create `terraform.json` files.
 
 # Documentation
 
-See [terranix.org](https://terranix.org/documentation/) for documentation.
+See [terranix.org](https://terranix.org/) for documentation.
 It also has a [Getting Started](https://terranix.org/documentation/getting-started/) page.
 
 ## Manpages
