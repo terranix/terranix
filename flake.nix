@@ -181,6 +181,7 @@
               cat ${terranixOptions}/options.json | \
                 ${pkgs.jq}/bin/jq '
                   del(.data) |
+                  del(.import) |
                   del(.locals) |
                   del(.module) |
                   del(.output) |
@@ -222,6 +223,7 @@
                   cat ${terranixOptions}/options.json \
                     | ${pkgs.jq}/bin/jq '
                       del(.data) |
+                      del(.import) |
                       del(.locals) |
                       del(.module) |
                       del(.output) |

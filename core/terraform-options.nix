@@ -68,6 +68,18 @@ in
         See for more details : https://www.terraform.io/docs/configuration/locals.html
       '';
     };
+    import = mkMagicMergeOption {
+      example = {
+        import = [{
+          to = "aws_instance.example";
+          id = "i-abcd1234";
+        }];
+      };
+      description = ''
+        Define terraform import.
+        See for mote details : https://developer.hashicorp.com/terraform/language/import
+      '';
+    };
     module = mkMagicMergeOption {
       example = {
         module.consul = { source = "github.com/hashicorp/example"; };
