@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [2.8.0] 2024-10-15
+
+- add import option
+- add flake part module, providing apps: init, apply and destroy
+
 ## [2.7.0] 2023-09-22
 
 - add templatefile() helper
