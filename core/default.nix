@@ -77,6 +77,7 @@ let
     {
       config = { } //
         (whitelistWithoutEmpty "data") //
+        (whitelist "import") //
         (whitelist "locals") //
         (whitelist "module") //
         (whitelist "output") //
