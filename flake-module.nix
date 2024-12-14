@@ -35,6 +35,7 @@
                         default = { };
                         type = types.submodule {
                           options = {
+                            package = mkPackageOption pkgs "terraform" { };
                             extraRuntimeInputs = mkOption {
                               description = lib.mdDoc ''
                                 Extra runtimeInputs for the terraform
@@ -47,14 +48,14 @@
                               description = lib.mdDoc ''
                                 Prefix text
                               '';
-                              type = types.str;
+                              type = types.lines;
                               default = "";
                             };
                             suffixText = mkOption {
                               description = lib.mdDoc ''
                                 Suffix text
                               '';
-                              type = types.str;
+                              type = types.lines;
                               default = "";
                             };
                           };
@@ -65,7 +66,7 @@
                         description = lib.mdDoc ''
                           Modules of the Terranix configuration.
                         '';
-                        type = types.listOf types.path;
+                        type = types.listOf types.deferredModule;
                         default = [ ];
                       };
 
@@ -102,7 +103,7 @@
                               '';
                               default = pkgs.writeShellApplication {
                                 name = "terraform";
-                                runtimeInputs = [ pkgs.terraform ] ++ submod.config.terraformWrapper.extraRuntimeInputs;
+                                runtimeInputs = [ submod.config.terraformWrapper.package ] ++ submod.config.terraformWrapper.extraRuntimeInputs;
                                 text = ''
                                   mkdir -p ${submod.config.workdir}
                                   cd ${submod.config.workdir}
@@ -135,6 +136,10 @@
                                   apply = mkTfScript "apply" ''
                                     terraform init
                                     terraform apply
+                                  '';
+                                  plan = mkTfScript "plan" ''
+                                    terraform init
+                                    terraform plan
                                   '';
                                   destroy = mkTfScript "destroy" ''
                                     terraform init
@@ -206,8 +211,8 @@
           };
 
           config = {
-            apps = cfg.terranixConfigurations // (
-              pkgs.lib.optionalAttrs
+            packages = (lib.mapAttrs (_: tnixConfig: tnixConfig.result.app) cfg.terranixConfigurations) // (
+              lib.optionalAttrs
                 (cfg.terranixConfigurations ? "default")
 
                 (builtins.mapAttrs
