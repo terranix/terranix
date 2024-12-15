@@ -17,6 +17,7 @@ let
     getAttr (typeOf configuration) {
       bool = configuration;
       int = configuration;
+      float = configuration;
       string = configuration;
       str = configuration;
       list = map sanitize configuration;
