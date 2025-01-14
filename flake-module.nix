@@ -9,7 +9,7 @@
           options.terranix = {
 
             setDevShell = mkOption {
-              description = lib.mdDoc ''
+              description = ''
                 Whether to set default `devShell` or not. By default enabled.
                 You can disable this if you want to customize the `devShell` creation youself or otherwise
                 wanting to avoid output definition conflicts.
@@ -23,20 +23,20 @@
 
             terranixConfigurations = mkOption
               {
-                description = lib.mdDoc "A submodule of all terranix configurations.";
+                description = "A submodule of all terranix configurations.";
                 default = { };
                 type = types.attrsOf
                   (types.submodule ({ name, ... } @ submod: {
                     options = {
                       terraformWrapper = mkOption {
-                        description = lib.mdDoc ''
+                        description = ''
                           How to invoke terraform for this terranix configuration.
                         '';
                         default = { };
                         type = types.submodule {
                           options = {
                             extraRuntimeInputs = mkOption {
-                              description = lib.mdDoc ''
+                              description = ''
                                 Extra runtimeInputs for the terraform
                                 invocations.
                               '';
@@ -44,14 +44,14 @@
                               default = [ ];
                             };
                             prefixText = mkOption {
-                              description = lib.mdDoc ''
+                              description = ''
                                 Prefix text
                               '';
                               type = types.str;
                               default = "";
                             };
                             suffixText = mkOption {
-                              description = lib.mdDoc ''
+                              description = ''
                                 Suffix text
                               '';
                               type = types.str;
@@ -62,7 +62,7 @@
                       };
 
                       modules = mkOption {
-                        description = lib.mdDoc ''
+                        description = ''
                           Modules of the Terranix configuration.
                         '';
                         type = types.listOf types.path;
@@ -70,7 +70,7 @@
                       };
 
                       workdir = mkOption {
-                        description = lib.mdDoc ''
+                        description = ''
                           Working directory of the terranix configuration.
                           Defaults to submodule name.
                         '';
@@ -79,8 +79,8 @@
                       };
 
                       result = mkOption {
-                        description = lib.mdDoc ''
-                          A collection of useful read-only outputs by this configuration. 
+                        description = ''
+                          A collection of useful read-only outputs by this configuration.
                           For debugging or otherwise.
                         '';
                         default = { };
@@ -88,7 +88,7 @@
                         type = types.submodule {
                           options = {
                             terraformConfiguration = mkOption {
-                              description = lib.mdDoc ''
+                              description = ''
                                 The exposed Terranix configuration as created by lib.terranixConfiguration.
                               '';
                               default = inputs.terranix.lib.terranixConfiguration {
@@ -97,7 +97,7 @@
                               };
                             };
                             terraformWrapper = mkOption {
-                              description = lib.mdDoc ''
+                              description = ''
                                 The exposed, wrapped Terraform.
                               '';
                               default = pkgs.writeShellApplication {
@@ -114,7 +114,7 @@
                               type = types.package;
                             };
                             scripts = mkOption {
-                              description = lib.mdDoc ''
+                              description = ''
                                 The exposed Terraform scripts (apply, etc). `result.terraformWrapper` included for convenience.
                               '';
                               default =
@@ -144,16 +144,16 @@
                                 };
                             };
                             app = mkOption {
-                              description = lib.mdDoc ''
+                              description = ''
                                 The exposed default app. Made from `result.scripts.apply`.
 
                                 Yes, only a single app, and simply running it as `nix run .#foo` would yield
-                                a `terraform apply` for the config `foo`. 
-                                
-                                But then how does random terraform invocations like `nix run .#foo.destroy` work? 
+                                a `terraform apply` for the config `foo`.
+
+                                But then how does random terraform invocations like `nix run .#foo.destroy` work?
                                 It's actually still using the same app as before - you're still in the `apply`
                                 derivation, as strange as it sounds.
-                                
+
                                 The magic lies in the use of derivation `passthru` which (simplified) lets you namespace other
                                 derivations inside a main derivation. In other words, `nix run .#foo` runs the `apply` derivation named
                                 `foo` like normally. `nix run .#foo.destroy` runs the `destroy` script inside of the `apply` derivation.
@@ -172,12 +172,12 @@
                               };
                             };
                             devShell = mkOption {
-                              description = lib.mdDoc ''
+                              description = ''
                                 The exposed devShell.
 
                                 Note that you have to re-enter/ your devShell when your configuration changes!
                                 The invocation scripts will still target your old configuration otherwise.
-                                
+
                                 For those who want `devShell`-based access like
                                 ```sh
                                 $ nix develop .#foo
