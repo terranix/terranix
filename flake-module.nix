@@ -1,4 +1,4 @@
-{ inputs, lib, self, flake-parts-lib, ... }: with lib; {
+{ inputs, lib, flake-parts-lib, ... }: with lib; {
   options = {
     perSystem = flake-parts-lib.mkPerSystemOption
       ({ config, options, pkgs, inputs', system, ... }:
@@ -95,6 +95,7 @@
                                 inherit system;
                                 inherit (submod.config) modules;
                               };
+                              defaultText = "The final Terraform configuration JSON.";
                             };
                             terraformWrapper = mkOption {
                               description = ''
@@ -111,6 +112,7 @@
                                   ${submod.config.terraformWrapper.suffixText}
                                 '';
                               };
+                              defaultText = "The Terraform wrapper.";
                               type = types.package;
                             };
                             scripts = mkOption {
@@ -142,6 +144,26 @@
                                   '';
                                   terraform = submod.config.result.terraformWrapper;
                                 };
+                              defaultText = ''
+                                {
+                                  init = mkTfScript "init" '''
+                                    terraform init
+                                  ''';
+                                  apply = mkTfScript "apply" '''
+                                    terraform init
+                                    terraform apply
+                                  ''';
+                                  plan = mkTfScript "plan" '''
+                                    terraform init
+                                    terraform plan
+                                  ''';
+                                  destroy = mkTfScript "destroy" '''
+                                    terraform init
+                                    terraform destroy
+                                  ''';
+                                  terraform = submod.config.result.terraformWrapper;
+                                }
+                              '';
                             };
                             app = mkOption {
                               description = ''
@@ -170,6 +192,7 @@
                                 inherit name;
                                 passthru = submod.config.result.scripts;
                               };
+                              defaultText = "The default app which defaults to the `apply` script.";
                             };
                             devShell = mkOption {
                               description = ''
@@ -196,6 +219,7 @@
                                   (builtins.attrValues submod.config.result.scripts)
                                   ++ [ submod.config.result.terraformWrapper ];
                               };
+                              defaultText = "The final devShell with scripts and terraform wrapper.";
                             };
                           };
                         };
