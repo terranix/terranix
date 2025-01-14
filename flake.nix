@@ -17,6 +17,11 @@
       url = "github:bats-core/bats-assert";
       flake = false;
     };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ { self, flake-parts, nixpkgs, ... }:
