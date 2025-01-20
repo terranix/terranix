@@ -69,6 +69,14 @@
                         default = [ ];
                       };
 
+                      extraArgs = mkOption {
+                        description = ''
+                          Extra arguments that are accessible from Terranix configuration.
+                        '';
+                        type = types.attrsOf types.anything;
+                        default = { };
+                      };
+
                       workdir = mkOption {
                         description = ''
                           Working directory of the terranix configuration.
@@ -93,7 +101,7 @@
                               '';
                               default = inputs.terranix.lib.terranixConfiguration {
                                 inherit system;
-                                inherit (submod.config) modules;
+                                inherit (submod.config) extraArgs modules;
                               };
                               defaultText = "The final Terraform configuration JSON.";
                             };
