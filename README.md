@@ -1,3 +1,5 @@
+> This project is not active maintained.
+> If you are interested in becoming a maintainer, please contact us at [#terranix:terranix.org](https://matrix.to/#/!p1L9bP3SdzBoIhan:terranix.org?via=thalheim.io&via=matrix.org&via=nixos.dev)
 
 A NixOS way to create `terraform.json` files.
 
