@@ -36,6 +36,11 @@
                         type = types.submodule {
                           options = {
                             package = mkPackageOption pkgs "terraform" { };
+                            mainProgram = mkOption {
+                              type = types.str;
+                              default = submod.config.terraformWrapper.package.meta.mainProgram or "terraform";
+                              description = "The main program of the terraform package.";
+                            };
                             extraRuntimeInputs = mkOption {
                               description = ''
                                 Extra runtimeInputs for the terraform
@@ -117,7 +122,7 @@
                                   mkdir -p ${submod.config.workdir}
                                   cd ${submod.config.workdir}
                                   ${submod.config.terraformWrapper.prefixText}
-                                  terraform "$@"
+                                  ${submod.config.terraformWrapper.mainProgram} "$@"
                                   ${submod.config.terraformWrapper.suffixText}
                                 '';
                               };
