@@ -139,6 +139,7 @@
                                     inherit name;
                                     runtimeInputs = [ submod.config.result.terraformWrapper ];
                                     text = ''
+                                      mkdir -p ${submod.config.workdir}
                                       ln -sf ${submod.config.result.terraformConfiguration} ${submod.config.workdir}/config.tf.json
                                       ${text}
                                     '';
