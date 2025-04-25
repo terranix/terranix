@@ -33,12 +33,15 @@
                           How to invoke terraform for this terranix configuration.
                         '';
                         default = { };
-                        type = types.submodule {
+                        type = types.submodule ({ options, ... }: {
                           options = {
                             package = mkPackageOption pkgs "terraform" { };
                             mainProgram = mkOption {
                               type = types.str;
                               default = submod.config.terraformWrapper.package.meta.mainProgram or "terraform";
+                              defaultText = lib.literalMD ''
+                                `meta.mainProgram` of `${options.package}`, or `"terraform"` if that's missing.
+                              '';
                               description = "The main program of the terraform package.";
                             };
                             extraRuntimeInputs = mkOption {
@@ -64,7 +67,7 @@
                               default = "";
                             };
                           };
-                        };
+                        });
                       };
 
                       modules = mkOption {
