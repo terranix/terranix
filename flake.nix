@@ -6,18 +6,6 @@
 
     systems.url = "github:nix-systems/default";
 
-    terranix-examples.url = "github:terranix/terranix-examples";
-
-    bats-support = {
-      url = "github:bats-core/bats-support";
-      flake = false;
-    };
-
-    bats-assert = {
-      url = "github:bats-core/bats-assert";
-      flake = false;
-    };
-
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -29,24 +17,36 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         ./flake-module.nix
+        flake-parts.flakeModules.partitions
       ];
 
       systems = import
         inputs.systems;
 
+      partitions.dev = {
+        extraInputsFlake = ./dev;
+        module.imports = [ ./dev/flake-module.nix ];
+      };
+
+      partitionedAttrs = {
+        apps = "dev";
+        devShells = "dev";
+        formatter = "dev";
+        templates = "dev";
+      };
+
       perSystem =
-        { config
-        , self'
+        { pkgs
         , system
         , ...
-        }: let
-          pkgs = import inputs.nixpkgs {
+        }:
+        {
+          _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
             config = {
               allowUnfree = true;
             };
           };
-        in {
           packages = rec {
             default = terranix;
 
@@ -56,61 +56,6 @@
 
             inherit (pkgs.callPackage ./doc/default.nix { }) manPages;
           };
-
-          devShells.default = pkgs.mkShell {
-            buildInputs = with pkgs;
-              [
-                terraform
-                self'.packages.terranix
-                treefmt
-                nixfmt
-                shfmt
-                shellcheck
-                nodePackages.prettier
-              ];
-          };
-
-          apps = rec {
-            test.program = pkgs.writeShellApplication {
-              name = "test";
-              runtimeInputs = with pkgs; [ boxes bats ];
-              text =
-                let
-                  tests = import ./tests/test.nix {
-                    inherit nixpkgs;
-                    inherit pkgs;
-                    inherit (pkgs) lib;
-                    terranix = self'.packages.terranix;
-                  };
-                  testFile = pkgs.writeText "test" ''
-                    load '${inputs.bats-support}/load.bash'
-                    load '${inputs.bats-assert}/load.bash'
-                    ${pkgs.lib.concatStringsSep "\n" tests}
-                  '';
-                in
-                ''
-                  echo "running terranix tests" | boxes -d ian_jones -a c
-                  #cat ${testFile}
-                  bats ${testFile}
-                '';
-            };
-            # nix run ".#docs"
-            doc = docs;
-            docs.program = pkgs.writeShellApplication {
-              name = "docs";
-              runtimeInputs = with pkgs; [ pandoc gnumake nix ];
-              text = ''
-                make --always-make --directory=doc
-                nix build ".#manpages"
-                cp -r result/share .
-                chmod -R 755 ./share
-                rm result
-              '';
-            };
-          };
-
-          formatter = pkgs.treefmt;
-
         };
 
       flake = {
@@ -239,11 +184,6 @@
                       ' > $out/options.json
                 '';
               });
-
-        # nix flake init -t github:terranix/terranix#flake
-        templates = inputs.terranix-examples.templates // {
-          default = inputs.terranix-examples.defaultTemplate;
-        };
       };
     };
 }
