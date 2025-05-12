@@ -134,7 +134,8 @@
                             };
                             scripts = mkOption {
                               description = ''
-                                The exposed Terraform scripts (apply, etc). `result.terraformWrapper` included for convenience.
+                                The exposed Terraform scripts (apply, etc). `result.terraformWrapper` and `result.terraformConfiguration`
+                                included for convenience.
                               '';
                               default =
                                 let
@@ -165,6 +166,7 @@
                                     terraform destroy
                                   '';
                                   terraform = submod.config.result.terraformWrapper;
+                                  config = submod.config.result.terraformConfiguration;
                                 };
                               defaultText = ''
                                 {
@@ -184,6 +186,7 @@
                                     terraform destroy
                                   ''';
                                   terraform = submod.config.result.terraformWrapper;
+                                  config = submod.config.result.terraformConfiguration;
                                 }
                               '';
                             };
