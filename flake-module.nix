@@ -33,17 +33,9 @@
                           How to invoke terraform for this terranix configuration.
                         '';
                         default = { };
-                        type = types.submodule ({ options, ... }: {
+                        type = types.submodule {
                           options = {
                             package = mkPackageOption pkgs "terraform" { };
-                            mainProgram = mkOption {
-                              type = types.str;
-                              default = submod.config.terraformWrapper.package.meta.mainProgram or "terraform";
-                              defaultText = lib.literalMD ''
-                                `meta.mainProgram` of `${options.package}`, or `"terraform"` if that's missing.
-                              '';
-                              description = "The main program of the terraform package.";
-                            };
                             extraRuntimeInputs = mkOption {
                               description = ''
                                 Extra runtimeInputs for the terraform
@@ -67,7 +59,7 @@
                               default = "";
                             };
                           };
-                        });
+                        };
                       };
 
                       modules = mkOption {
@@ -119,13 +111,13 @@
                                 The exposed, wrapped Terraform.
                               '';
                               default = pkgs.writeShellApplication {
-                                name = "terraform";
+                                name = submod.config.terraformWrapper.package.meta.mainProgram;
                                 runtimeInputs = [ submod.config.terraformWrapper.package ] ++ submod.config.terraformWrapper.extraRuntimeInputs;
                                 text = ''
                                   mkdir -p ${submod.config.workdir}
                                   cd ${submod.config.workdir}
                                   ${submod.config.terraformWrapper.prefixText}
-                                  ${submod.config.terraformWrapper.mainProgram} "$@"
+                                  ${submod.config.terraformWrapper.package.meta.mainProgram} "$@"
                                   ${submod.config.terraformWrapper.suffixText}
                                 '';
                               };
@@ -149,21 +141,23 @@
                                     '';
                                   };
                                 in
-                                {
+                                let
+                                  tfBinaryName = submod.config.result.terraformWrapper.meta.mainProgram;
+                                in {
                                   init = mkTfScript "init" ''
-                                    terraform init
+                                    ${tfBinaryName} init
                                   '';
                                   apply = mkTfScript "apply" ''
-                                    terraform init
-                                    terraform apply
+                                    ${tfBinaryName} init
+                                    ${tfBinaryName} apply
                                   '';
                                   plan = mkTfScript "plan" ''
-                                    terraform init
-                                    terraform plan
+                                    ${tfBinaryName} init
+                                    ${tfBinaryName} plan
                                   '';
                                   destroy = mkTfScript "destroy" ''
-                                    terraform init
-                                    terraform destroy
+                                    ${tfBinaryName} init
+                                    ${tfBinaryName} destroy
                                   '';
                                   terraform = submod.config.result.terraformWrapper;
                                   config = submod.config.result.terraformConfiguration;
