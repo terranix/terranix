@@ -134,8 +134,7 @@
                             };
                             scripts = mkOption {
                               description = ''
-                                The exposed Terraform scripts (apply, etc). `result.terraformWrapper` and `result.terraformConfiguration`
-                                included for convenience.
+                                The exposed Terraform scripts (apply, etc).
                               '';
                               default =
                                 let
@@ -165,8 +164,6 @@
                                     terraform init
                                     terraform destroy
                                   '';
-                                  terraform = submod.config.result.terraformWrapper;
-                                  config = submod.config.result.terraformConfiguration;
                                 };
                               defaultText = ''
                                 {
@@ -185,8 +182,6 @@
                                     terraform init
                                     terraform destroy
                                   ''';
-                                  terraform = submod.config.result.terraformWrapper;
-                                  config = submod.config.result.terraformConfiguration;
                                 }
                               '';
                             };
@@ -215,7 +210,11 @@
                               '';
                               default = submod.config.result.scripts.apply.overrideAttrs {
                                 inherit name;
-                                passthru = submod.config.result.scripts;
+                                passthru = submod.config.result.scripts // {
+                                  config = submod.config.result.terraformConfiguration;
+                                  terraform = submod.config.result.terraformWrapper;
+                                  terranixConfig = submod.config;
+                                };
                               };
                               defaultText = "The default app which defaults to the `apply` script.";
                             };
