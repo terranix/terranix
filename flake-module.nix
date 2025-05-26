@@ -6,16 +6,18 @@
           cfg = config.terranix;
         in
         {
+          imports = [
+            (mkRenamedOptionModule [ "terranix" "setDevShell" ] [ "terranix" "exportDevShells" ])
+          ];
+
           options.terranix = {
 
-            setDevShell = mkOption {
+            exportDevShells = mkOption {
               description = ''
-                Whether to set default `devShell` or not. By default enabled.
-                You can disable this if you want to customize the `devShell` creation youself or otherwise
-                wanting to avoid output definition conflicts.
+                Whether to export a `devShell` for each terranix configuration.
 
-                The devShell are still available at `terranix.terranixConfigurations.<name>.result.devShell`, should
-                you want to incorporate them using `pkgs.mkShell.inputsFrom` or similar.
+                If you wish to create the `devShells` yourself, you can disable this option
+                and use `pkgs.mkShell.inputsFrom` with `terranix.terranixConfigurations.<name>.result.devShell`.
               '';
               type = types.bool;
               default = true;
@@ -265,7 +267,7 @@
                 )
             );
 
-            devShells = mkIf cfg.setDevShell (builtins.mapAttrs
+            devShells = mkIf cfg.exportDevShells (builtins.mapAttrs
               (_: tnixConfig: tnixConfig.result.devShell)
               cfg.terranixConfigurations);
 
