@@ -29,7 +29,20 @@
                   (types.submodule ({ name, ... } @ submod: {
                     options = {
                       terraformWrapper = {
-                        package = mkPackageOption pkgs "terraform" { };
+                        package = mkPackageOption pkgs "terraform" {
+                          example = "pkgs.opentofu";
+                          description = ''
+                            Specifies which Terraform implementation you want to use.
+
+                            You may also specify which plugins you want to use with your Terraform implementation:
+
+                                pkgs.terraform.withPlugins (p: [ p.external p.local p.null ])
+
+                            or for OpenTofu:
+
+                                pkgs.opentofu.withPlugins (p: [ p.external p.local p.null ])
+                          '';
+                        };
                         extraRuntimeInputs = mkOption {
                           description = ''
                             Extra runtimeInputs for the terraform
@@ -40,14 +53,14 @@
                         };
                         prefixText = mkOption {
                           description = ''
-                            Prefix text
+                            Extra commands to run in the wrapper before invoking Terraform
                           '';
                           type = types.lines;
                           default = "";
                         };
                         suffixText = mkOption {
                           description = ''
-                            Suffix text
+                            Extra commands to run in the wrapper after invoking Terraform
                           '';
                           type = types.lines;
                           default = "";
