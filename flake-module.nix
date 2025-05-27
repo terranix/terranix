@@ -28,37 +28,29 @@
                 type = types.attrsOf
                   (types.submodule ({ name, ... } @ submod: {
                     options = {
-                      terraformWrapper = mkOption {
-                        description = ''
-                          How to invoke terraform for this terranix configuration.
-                        '';
-                        default = { };
-                        type = types.submodule {
-                          options = {
-                            package = mkPackageOption pkgs "terraform" { };
-                            extraRuntimeInputs = mkOption {
-                              description = ''
-                                Extra runtimeInputs for the terraform
-                                invocations.
-                              '';
-                              type = types.listOf types.package;
-                              default = [ ];
-                            };
-                            prefixText = mkOption {
-                              description = ''
-                                Prefix text
-                              '';
-                              type = types.lines;
-                              default = "";
-                            };
-                            suffixText = mkOption {
-                              description = ''
-                                Suffix text
-                              '';
-                              type = types.lines;
-                              default = "";
-                            };
-                          };
+                      terraformWrapper = {
+                        package = mkPackageOption pkgs "terraform" { };
+                        extraRuntimeInputs = mkOption {
+                          description = ''
+                            Extra runtimeInputs for the terraform
+                            invocations.
+                          '';
+                          type = types.listOf types.package;
+                          default = [ ];
+                        };
+                        prefixText = mkOption {
+                          description = ''
+                            Prefix text
+                          '';
+                          type = types.lines;
+                          default = "";
+                        };
+                        suffixText = mkOption {
+                          description = ''
+                            Suffix text
+                          '';
+                          type = types.lines;
+                          default = "";
                         };
                       };
 
