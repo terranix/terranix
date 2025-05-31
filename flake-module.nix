@@ -28,46 +28,43 @@
                 type = types.attrsOf
                   (types.submodule ({ name, ... } @ submod: {
                     options = {
-                      terraformWrapper = mkOption {
-                        description = ''
-                          How to invoke terraform for this terranix configuration.
-                        '';
-                        default = { };
-                        type = types.submodule ({ options, ... }: {
-                          options = {
-                            package = mkPackageOption pkgs "terraform" { };
-                            mainProgram = mkOption {
-                              type = types.str;
-                              default = submod.config.terraformWrapper.package.meta.mainProgram or "terraform";
-                              defaultText = lib.literalMD ''
-                                `meta.mainProgram` of `${options.package}`, or `"terraform"` if that's missing.
-                              '';
-                              description = "The main program of the terraform package.";
-                            };
-                            extraRuntimeInputs = mkOption {
-                              description = ''
-                                Extra runtimeInputs for the terraform
-                                invocations.
-                              '';
-                              type = types.listOf types.package;
-                              default = [ ];
-                            };
-                            prefixText = mkOption {
-                              description = ''
-                                Prefix text
-                              '';
-                              type = types.lines;
-                              default = "";
-                            };
-                            suffixText = mkOption {
-                              description = ''
-                                Suffix text
-                              '';
-                              type = types.lines;
-                              default = "";
-                            };
-                          };
-                        });
+                      terraformWrapper = {
+                        package = mkPackageOption pkgs "terraform" {
+                          example = "pkgs.opentofu";
+                          description = ''
+                            Specifies which Terraform implementation you want to use.
+
+                            You may also specify which plugins you want to use with your Terraform implementation:
+
+                                pkgs.terraform.withPlugins (p: [ p.external p.local p.null ])
+
+                            or for OpenTofu:
+
+                                pkgs.opentofu.withPlugins (p: [ p.external p.local p.null ])
+                          '';
+                        };
+                        extraRuntimeInputs = mkOption {
+                          description = ''
+                            Extra runtimeInputs for the terraform
+                            invocations.
+                          '';
+                          type = types.listOf types.package;
+                          default = [ ];
+                        };
+                        prefixText = mkOption {
+                          description = ''
+                            Extra commands to run in the wrapper before invoking Terraform
+                          '';
+                          type = types.lines;
+                          default = "";
+                        };
+                        suffixText = mkOption {
+                          description = ''
+                            Extra commands to run in the wrapper after invoking Terraform
+                          '';
+                          type = types.lines;
+                          default = "";
+                        };
                       };
 
                       modules = mkOption {
@@ -119,13 +116,13 @@
                                 The exposed, wrapped Terraform.
                               '';
                               default = pkgs.writeShellApplication {
-                                name = "terraform";
+                                name = submod.config.terraformWrapper.package.meta.mainProgram;
                                 runtimeInputs = [ submod.config.terraformWrapper.package ] ++ submod.config.terraformWrapper.extraRuntimeInputs;
                                 text = ''
                                   mkdir -p ${submod.config.workdir}
                                   cd ${submod.config.workdir}
                                   ${submod.config.terraformWrapper.prefixText}
-                                  ${submod.config.terraformWrapper.mainProgram} "$@"
+                                  ${submod.config.terraformWrapper.package.meta.mainProgram} "$@"
                                   ${submod.config.terraformWrapper.suffixText}
                                 '';
                               };
@@ -149,21 +146,23 @@
                                     '';
                                   };
                                 in
-                                {
+                                let
+                                  tfBinaryName = submod.config.result.terraformWrapper.meta.mainProgram;
+                                in {
                                   init = mkTfScript "init" ''
-                                    terraform init
+                                    ${tfBinaryName} init
                                   '';
                                   apply = mkTfScript "apply" ''
-                                    terraform init
-                                    terraform apply
+                                    ${tfBinaryName} init
+                                    ${tfBinaryName} apply
                                   '';
                                   plan = mkTfScript "plan" ''
-                                    terraform init
-                                    terraform plan
+                                    ${tfBinaryName} init
+                                    ${tfBinaryName} plan
                                   '';
                                   destroy = mkTfScript "destroy" ''
-                                    terraform init
-                                    terraform destroy
+                                    ${tfBinaryName} init
+                                    ${tfBinaryName} destroy
                                   '';
                                   terraform = submod.config.result.terraformWrapper;
                                   config = submod.config.result.terraformConfiguration;
