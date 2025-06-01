@@ -33,7 +33,7 @@
                       terraformWrapper = {
                         package = mkPackageOption pkgs "terraform" {
                           example = "pkgs.opentofu";
-                          description = ''
+                          extraDescription = ''
                             Specifies which Terraform implementation you want to use.
 
                             You may also specify which plugins you want to use with your Terraform implementation:
