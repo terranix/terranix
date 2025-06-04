@@ -130,6 +130,7 @@
             ''
               cat ${terranixOptions}/options.json | \
                 ${pkgs.jq}/bin/jq '
+                  del(.ephemeral) |
                   del(.data) |
                   del(.import) |
                   del(.locals) |
@@ -172,6 +173,7 @@
                   mkdir -p $out
                   cat ${terranixOptions}/options.json \
                     | ${pkgs.jq}/bin/jq '
+                      del(.ephemeral) |
                       del(.data) |
                       del(.import) |
                       del(.locals) |

@@ -108,6 +108,7 @@ NIX_BUILD_EXIT_CODE=$?
 if [[ $NIX_BUILD_EXIT_CODE -eq 0 ]]
 then
     cat "$TERRAFORM_JSON/options.json" | jq --compact-output '
+      del(.ephemeral) |
       del(.data) |
       del(.import) |
       del(.locals) |
