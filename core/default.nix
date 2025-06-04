@@ -77,6 +77,7 @@ let
     in
     {
       config = { } //
+        (whitelistWithoutEmpty "ephemeral") //
         (whitelistWithoutEmpty "data") //
         (whitelist "import") //
         (whitelist "locals") //

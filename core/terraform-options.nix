@@ -46,6 +46,13 @@ in
 {
 
   options = {
+    ephemeral = mkReferenceableOption {
+      referencePrefix = "ephemeral.";
+      description = ''
+        Ephemeral objects, are a temporary resource, they are not stored.
+        See for more details : https://developer.hashicorp.com/terraform/language/resources/ephemeral
+      '';
+    };
     data = mkReferenceableOption {
       referencePrefix = "data.";
       description = ''
