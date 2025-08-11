@@ -17,9 +17,9 @@
     <para>
       This is just an example for illustration, but such things are
       better solved using
-      <link xlink:href="https://nixos.wiki/wiki/NixOS_Modules">modules</link>.
+      <link xlink:href="https://wiki.nixos.org/wiki/NixOS_Modules">modules</link>.
     </para>
-    <programlisting language="bash">
+    <programlisting language="nix">
 { lib, ... }:
 let
   bastionHostEnable = true;
@@ -68,7 +68,7 @@ in
       The following example shows how to create 3 s3buckets with the
       same configuration.
     </para>
-    <programlisting language="bash">
+    <programlisting language="nix">
 { lib, ... }:
 let
   s3Buckets = [

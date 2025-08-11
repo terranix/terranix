@@ -41,12 +41,25 @@ which are delivered by default by terranix\&.
 You can use the following options in
 config\&.nix:
 .PP
-\fBbackend\&.etcd\fR
+\fB_module\&.args\fR
 .RS 4
-etcd backend https://www\&.terraform\&.io/docs/backends/types/etcd\&.html
+\m[blue]\fB\fB_module\&.args\fR\fR\m[]Additional arguments passed to each module in addition to ones like `lib`, `config`, and `pkgs`, `modulesPath`\&. This option is also available to all submodules\&. Submodules do not inherit args from their parent module, nor do they provide args to their parent module or sibling submodules\&. The sole exception to this is the argument `name` which is provided by parent modules to a submodule and contains the attribute name the submodule is bound to, or a unique generated name if it is not bound to an attribute\&. Some arguments are already passed by default, of which the following *cannot* be changed with this option: \- {var}`lib`: The nixpkgs library\&. \- {var}`config`: The results of all options after merging the values from all modules together\&. \- {var}`options`: The options declared in all modules\&. \- {var}`specialArgs`: The `specialArgs` argument passed to `evalModules`\&. \- All attributes of {var}`specialArgs` Whereas option values can generally depend on other option values thanks to laziness, this does not apply to `imports`, which must be computed statically before anything else\&. For this reason, callers of the module system can provide `specialArgs` which are available during import resolution\&. For NixOS, `specialArgs` includes {var}`modulesPath`, which allows you to import extra modules from the nixpkgs package tree without having to somehow make the module aware of the location of the `nixpkgs` or NixOS directories\&. ``` { modulesPath, \&.\&.\&. }: { imports = [ (modulesPath + "/profiles/minimal\&.nix") ]; } ``` For NixOS, the default value for this option includes at least this argument: \- {var}`pkgs`: The nixpkgs package set according to the {option}`nixpkgs\&.pkgs` option\&.
 .sp
 \fIType:\fR
-null or submodule
+lazy attribute set of raw value
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/lib/modules\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBbackend\&.etcd\fR
+.RS 4
+\m[blue]\fB\fBbackend\&.etcd\fR\fR\m[]etcd backend https://www\&.terraform\&.io/docs/backends/types/etcd\&.html
+.sp
+\fIType:\fR
+null or (submodule)
 .sp
 \fIDefault:\fR
 null
@@ -59,7 +72,7 @@ null
 .PP
 \fBbackend\&.etcd\&.endpoints\fR
 .RS 4
-A space\-separated list of the etcd endpoints
+\m[blue]\fB\fBbackend\&.etcd\&.endpoints\fR\fR\m[]A space\-separated list of the etcd endpoints
 .sp
 \fIType:\fR
 string
@@ -72,7 +85,7 @@ string
 .PP
 \fBbackend\&.etcd\&.password\fR
 .RS 4
-the password
+\m[blue]\fB\fBbackend\&.etcd\&.password\fR\fR\m[]the password
 .sp
 \fIType:\fR
 null or string
@@ -88,7 +101,7 @@ null
 .PP
 \fBbackend\&.etcd\&.path\fR
 .RS 4
-The path where to store the state
+\m[blue]\fB\fBbackend\&.etcd\&.path\fR\fR\m[]The path where to store the state
 .sp
 \fIType:\fR
 string
@@ -101,7 +114,7 @@ string
 .PP
 \fBbackend\&.etcd\&.username\fR
 .RS 4
-the username
+\m[blue]\fB\fBbackend\&.etcd\&.username\fR\fR\m[]the username
 .sp
 \fIType:\fR
 null or string
@@ -117,10 +130,10 @@ null
 .PP
 \fBbackend\&.local\fR
 .RS 4
-local backend https://www\&.terraform\&.io/docs/backends/types/local\&.html
+\m[blue]\fB\fBbackend\&.local\fR\fR\m[]local backend https://www\&.terraform\&.io/docs/backends/types/local\&.html
 .sp
 \fIType:\fR
-null or submodule
+null or (submodule)
 .sp
 \fIDefault:\fR
 null
@@ -133,7 +146,7 @@ null
 .PP
 \fBbackend\&.local\&.path\fR
 .RS 4
-path to the state file
+\m[blue]\fB\fBbackend\&.local\&.path\fR\fR\m[]path to the state file
 .sp
 \fIType:\fR
 string
@@ -146,10 +159,10 @@ string
 .PP
 \fBbackend\&.s3\fR
 .RS 4
-s3 backend https://www\&.terraform\&.io/docs/backends/types/s3\&.html
+\m[blue]\fB\fBbackend\&.s3\fR\fR\m[]s3 backend https://www\&.terraform\&.io/docs/backends/types/s3\&.html
 .sp
 \fIType:\fR
-null or submodule
+null or (submodule)
 .sp
 \fIDefault:\fR
 null
@@ -162,7 +175,7 @@ null
 .PP
 \fBbackend\&.s3\&.bucket\fR
 .RS 4
-bucket name
+\m[blue]\fB\fBbackend\&.s3\&.bucket\fR\fR\m[]bucket name
 .sp
 \fIType:\fR
 string
@@ -175,7 +188,7 @@ string
 .PP
 \fBbackend\&.s3\&.key\fR
 .RS 4
-path to the state file in the bucket
+\m[blue]\fB\fBbackend\&.s3\&.key\fR\fR\m[]path to the state file in the bucket
 .sp
 \fIType:\fR
 string
@@ -188,7 +201,7 @@ string
 .PP
 \fBbackend\&.s3\&.region\fR
 .RS 4
-region of the bucket
+\m[blue]\fB\fBbackend\&.s3\&.region\fR\fR\m[]region of the bucket
 .sp
 \fIType:\fR
 string
@@ -201,7 +214,7 @@ string
 .PP
 \fBdata\fR
 .RS 4
-Data objects, are queries to use resources which are already exist, as if they are created by a the resource option\&. See for more details : https://www\&.terraform\&.io/docs/configuration/data\-sources\&.html
+\m[blue]\fB\fBdata\fR\fR\m[]Data objects, are queries to use resources which are already exist, as if they are created by a the resource option\&. See for more details : https://www\&.terraform\&.io/docs/configuration/data\-sources\&.html
 .sp
 \fIType:\fR
 bool, int, float or str
@@ -211,11 +224,55 @@ bool, int, float or str
 .sp
 \fIExample:\fR
 { }
+.RE
+.PP
+\fBephemeral\fR
+.RS 4
+\m[blue]\fB\fBephemeral\fR\fR\m[]Ephemeral objects, are a temporary resource, they are not stored\&. See for more details : https://developer\&.hashicorp\&.com/terraform/language/resources/ephemeral
+.sp
+\fIType:\fR
+bool, int, float or str
+.sp
+\fIDefault:\fR
+{ }
+.sp
+\fIExample:\fR
+{ }
+.RE
+.PP
+\fBimport\fR
+.RS 4
+\m[blue]\fB\fBimport\fR\fR\m[]Define terraform import\&. See for mote details : https://developer\&.hashicorp\&.com/terraform/language/import
+.sp
+\fIType:\fR
+bool, int, float or str
+.sp
+\fIDefault:\fR
+{ }
+.sp
+\fIExample:\fR
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+{
+  import = [
+    {
+      id = "i\-abcd1234";
+      to = "aws_instance\&.example";
+    }
+  ];
+}
+.fi
+.if n \{\
+.RE
+.\}
 .RE
 .PP
 \fBlocals\fR
 .RS 4
-Define terraform variables with file scope\&. Like modules this is terraform intern and terranix has better ways\&. See for more details : https://www\&.terraform\&.io/docs/configuration/locals\&.html
+\m[blue]\fB\fBlocals\fR\fR\m[]Define terraform variables with file scope\&. Like modules this is terraform intern and terranix has better ways\&. See for more details : https://www\&.terraform\&.io/docs/configuration/locals\&.html
 .sp
 \fIType:\fR
 bool, int, float or str
@@ -224,12 +281,26 @@ bool, int, float or str
 { }
 .sp
 \fIExample:\fR
-{ locals = { owner = "Community Team"; service_name = "forum"; } ; }
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+{
+  locals = {
+    owner = "Community Team";
+    service_name = "forum";
+  };
+}
+.fi
+.if n \{\
+.RE
+.\}
 .RE
 .PP
 \fBmodule\fR
 .RS 4
-A terraform module, to define multiple resources, for sharing or duplication\&. The terraform module system, and has nothing to do with the module system of terranix or nixos\&. See for more details : https://www\&.terraform\&.io/docs/configuration/modules\&.html
+\m[blue]\fB\fBmodule\fR\fR\m[]A terraform module, to define multiple resources, for sharing or duplication\&. The terraform module system, and has nothing to do with the module system of terranix or nixos\&. See for more details : https://www\&.terraform\&.io/docs/configuration/modules\&.html
 .sp
 \fIType:\fR
 bool, int, float or str
@@ -238,12 +309,27 @@ bool, int, float or str
 { }
 .sp
 \fIExample:\fR
-{ module = { consul = { source = "github\&.com/hashicorp/example"; } ; } ; }
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+{
+  module = {
+    consul = {
+      source = "github\&.com/hashicorp/example";
+    };
+  };
+}
+.fi
+.if n \{\
+.RE
+.\}
 .RE
 .PP
 \fBoutput\fR
 .RS 4
-Useful in combination with terraform_remote_state\&. See for more details : https://www\&.terraform\&.io/docs/configuration/outputs\&.html
+\m[blue]\fB\fBoutput\fR\fR\m[]Useful in combination with terraform_remote_state\&. See for more details : https://www\&.terraform\&.io/docs/configuration/outputs\&.html
 .sp
 \fIType:\fR
 bool, int, float or str
@@ -252,12 +338,27 @@ bool, int, float or str
 { }
 .sp
 \fIExample:\fR
-{ output = { instance_ip_addr = { value = "aws_instance\&.server\&.private_ip"; } ; } ; }
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+{
+  output = {
+    instance_ip_addr = {
+      value = "aws_instance\&.server\&.private_ip";
+    };
+  };
+}
+.fi
+.if n \{\
+.RE
+.\}
 .RE
 .PP
 \fBprovider\fR
 .RS 4
-Define you API connection\&. Don\*(Aqt use secrets in here, they will be visible in the nix\-store and the resulting config\&.tf\&.json\&. Instead use terraform variables\&. See for more details : https://www\&.terraform\&.io/docs/configuration/providers\&.html or https://www\&.terraform\&.io/docs/providers/index\&.html
+\m[blue]\fB\fBprovider\fR\fR\m[]Define you API connection\&. Don\*(Aqt use secrets in here, they will be visible in the nix\-store and the resulting config\&.tf\&.json\&. Instead use terraform variables\&. See for more details : https://www\&.terraform\&.io/docs/configuration/providers\&.html or https://www\&.terraform\&.io/docs/providers/index\&.html
 .sp
 \fIType:\fR
 bool, int, float or str
@@ -266,12 +367,28 @@ bool, int, float or str
 { }
 .sp
 \fIExample:\fR
-{ provider = { google = { project = "acme\-app"; region = "us\-central1"; } ; } ; }
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+{
+  provider = {
+    google = {
+      project = "acme\-app";
+      region = "us\-central1";
+    };
+  };
+}
+.fi
+.if n \{\
+.RE
+.\}
 .RE
 .PP
 \fBprovisioner\&.privateKeyFile\fR
 .RS 4
-PrivateKey for provisioning via ssh access see https://www\&.terraform\&.io/docs/provisioners/connection\&.html This is an agnostic option, option\-authors should use this options to implement server provisioning\&.
+\m[blue]\fB\fBprovisioner\&.privateKeyFile\fR\fR\m[]PrivateKey for provisioning via ssh access see https://www\&.terraform\&.io/docs/provisioners/connection\&.html This is an agnostic option, option\-authors should use this options to implement server provisioning\&.
 .sp
 \fIType:\fR
 string
@@ -287,10 +404,10 @@ string
 .PP
 \fBremote_state\&.etcd\fR
 .RS 4
-etcd remote state https://www\&.terraform\&.io/docs/backends/types/etcd\&.html
+\m[blue]\fB\fBremote_state\&.etcd\fR\fR\m[]etcd remote state https://www\&.terraform\&.io/docs/backends/types/etcd\&.html
 .sp
 \fIType:\fR
-attribute set of submodules
+attribute set of (submodule)
 .sp
 \fIDefault:\fR
 { }
@@ -303,7 +420,7 @@ attribute set of submodules
 .PP
 \fBremote_state\&.etcd\&.<name>\&.endpoints\fR
 .RS 4
-A space\-separated list of the etcd endpoints
+\m[blue]\fB\fBremote_state\&.etcd\&.<name>\&.endpoints\fR\fR\m[]A space\-separated list of the etcd endpoints
 .sp
 \fIType:\fR
 string
@@ -316,7 +433,7 @@ string
 .PP
 \fBremote_state\&.etcd\&.<name>\&.password\fR
 .RS 4
-the password
+\m[blue]\fB\fBremote_state\&.etcd\&.<name>\&.password\fR\fR\m[]the password
 .sp
 \fIType:\fR
 null or string
@@ -332,7 +449,7 @@ null
 .PP
 \fBremote_state\&.etcd\&.<name>\&.path\fR
 .RS 4
-The path where to store the state
+\m[blue]\fB\fBremote_state\&.etcd\&.<name>\&.path\fR\fR\m[]The path where to store the state
 .sp
 \fIType:\fR
 string
@@ -345,7 +462,7 @@ string
 .PP
 \fBremote_state\&.etcd\&.<name>\&.username\fR
 .RS 4
-the username
+\m[blue]\fB\fBremote_state\&.etcd\&.<name>\&.username\fR\fR\m[]the username
 .sp
 \fIType:\fR
 null or string
@@ -361,10 +478,10 @@ null
 .PP
 \fBremote_state\&.local\fR
 .RS 4
-local remote state https://www\&.terraform\&.io/docs/backends/types/local\&.html
+\m[blue]\fB\fBremote_state\&.local\fR\fR\m[]local remote state https://www\&.terraform\&.io/docs/backends/types/local\&.html
 .sp
 \fIType:\fR
-attribute set of submodules
+attribute set of (submodule)
 .sp
 \fIDefault:\fR
 { }
@@ -377,7 +494,7 @@ attribute set of submodules
 .PP
 \fBremote_state\&.local\&.<name>\&.path\fR
 .RS 4
-path to the state file
+\m[blue]\fB\fBremote_state\&.local\&.<name>\&.path\fR\fR\m[]path to the state file
 .sp
 \fIType:\fR
 string
@@ -390,10 +507,10 @@ string
 .PP
 \fBremote_state\&.s3\fR
 .RS 4
-s3 remote state https://www\&.terraform\&.io/docs/backends/types/s3\&.html
+\m[blue]\fB\fBremote_state\&.s3\fR\fR\m[]s3 remote state https://www\&.terraform\&.io/docs/backends/types/s3\&.html
 .sp
 \fIType:\fR
-attribute set of submodules
+attribute set of (submodule)
 .sp
 \fIDefault:\fR
 { }
@@ -406,7 +523,7 @@ attribute set of submodules
 .PP
 \fBremote_state\&.s3\&.<name>\&.bucket\fR
 .RS 4
-bucket name
+\m[blue]\fB\fBremote_state\&.s3\&.<name>\&.bucket\fR\fR\m[]bucket name
 .sp
 \fIType:\fR
 string
@@ -419,7 +536,7 @@ string
 .PP
 \fBremote_state\&.s3\&.<name>\&.key\fR
 .RS 4
-path to the state file in the bucket
+\m[blue]\fB\fBremote_state\&.s3\&.<name>\&.key\fR\fR\m[]path to the state file in the bucket
 .sp
 \fIType:\fR
 string
@@ -432,7 +549,7 @@ string
 .PP
 \fBremote_state\&.s3\&.<name>\&.region\fR
 .RS 4
-region of the bucket
+\m[blue]\fB\fBremote_state\&.s3\&.<name>\&.region\fR\fR\m[]region of the bucket
 .sp
 \fIType:\fR
 string
@@ -445,7 +562,7 @@ string
 .PP
 \fBresource\fR
 .RS 4
-The backbone of terraform and terranix to change and create state\&. See for more details : https://www\&.terraform\&.io/docs/configuration/resources\&.html
+\m[blue]\fB\fBresource\fR\fR\m[]The backbone of terraform and terranix to change and create state\&. See for more details : https://www\&.terraform\&.io/docs/configuration/resources\&.html
 .sp
 \fIType:\fR
 bool, int, float or str
@@ -454,12 +571,30 @@ bool, int, float or str
 { }
 .sp
 \fIExample:\fR
-{ resource = { aws_instance = { web = { ami = "ami\-a1b2c3d4"; instance_type = "t2\&.micro"; } ; } ; } ; }
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+{
+  resource = {
+    aws_instance = {
+      web = {
+        ami = "ami\-a1b2c3d4";
+        instance_type = "t2\&.micro";
+      };
+    };
+  };
+}
+.fi
+.if n \{\
+.RE
+.\}
 .RE
 .PP
 \fBterraform\fR
 .RS 4
-Terraform configuration\&. But for backends have a look at the terranix options backend\&.etcd, backend\&.local and backend\&.s3\&. See for more details : https://www\&.terraform\&.io/docs/configuration/terraform\&.html
+\m[blue]\fB\fBterraform\fR\fR\m[]Terraform configuration\&. But for backends have a look at the terranix options backend\&.etcd, backend\&.local and backend\&.s3\&. See for more details : https://www\&.terraform\&.io/docs/configuration/terraform\&.html
 .sp
 \fIType:\fR
 bool, int, float or str
@@ -468,21 +603,58 @@ bool, int, float or str
 { }
 .sp
 \fIExample:\fR
-{ terraform = { backend = { s3 = { bucket = "mybucket"; key = "path/to/my/key"; region = "us\-east\-1"; } ; } ; } ; }
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+{
+  terraform = {
+    backend = {
+      s3 = {
+        bucket = "mybucket";
+        key = "path/to/my/key";
+        region = "us\-east\-1";
+      };
+    };
+  };
+}
+.fi
+.if n \{\
+.RE
+.\}
 .RE
 .PP
 \fBusers\fR
 .RS 4
-User management\&. `users\&.group\&.username` is the path\&. All members in the `admins` group should be able to ssh to servers\&. This is an agnostic option, option\-authors should use this options to implement server provisioning\&.
+\m[blue]\fB\fBusers\fR\fR\m[]User management\&. `users\&.group\&.username` is the path\&. All members in the `admins` group should be able to ssh to servers\&. This is an agnostic option, option\-authors should use this options to implement server provisioning\&.
 .sp
 \fIType:\fR
-attribute set of attribute set of submoduless
+attribute set of attribute set of (submodule)
 .sp
 \fIDefault:\fR
 { }
 .sp
 \fIExample:\fR
-{ admins = { lassuls = { publicKey = "ssh\-rsa ABKAB3NzaC1yc2EAAAA\&.\&."; } ; mrVanDalo = { publicKey = "ssh\-rsa AAAAB3NzaC1yc2EAAAA\&.\&."; } ; } ; }
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+{
+  admins = {
+    lassuls = {
+      publicKey = "ssh\-rsa ABKAB3NzaC1yc2EAAAA\&.\&.";
+    };
+    mrVanDalo = {
+      publicKey = "ssh\-rsa AAAAB3NzaC1yc2EAAAA\&.\&.";
+    };
+  };
+}
+.fi
+.if n \{\
+.RE
+.\}
 .sp
 \fIDeclared by:\fR
 .RS 4
@@ -492,7 +664,7 @@ attribute set of attribute set of submoduless
 .PP
 \fBusers\&.<name>\&.<name>\&.publicKey\fR
 .RS 4
-ssh public key of user
+\m[blue]\fB\fBusers\&.<name>\&.<name>\&.publicKey\fR\fR\m[]ssh public key of user
 .sp
 \fIType:\fR
 null or string
@@ -511,7 +683,7 @@ null
 .PP
 \fBvariable\fR
 .RS 4
-Input Variables, which can be set by `\-\-var=name` or by environment variables prefixt with `TF_VAR_`\&. Usually used in terraform modules or to ask for API tokens\&. See for more details : https://www\&.terraform\&.io/docs/configuration/variables\&.html
+\m[blue]\fB\fBvariable\fR\fR\m[]Input Variables, which can be set by `\-\-var=name` or by environment variables prefixt with `TF_VAR_`\&. Usually used in terraform modules or to ask for API tokens\&. See for more details : https://www\&.terraform\&.io/docs/configuration/variables\&.html
 .sp
 \fIType:\fR
 bool, int, float or str
@@ -520,7 +692,23 @@ bool, int, float or str
 { }
 .sp
 \fIExample:\fR
-{ variable = { image_id = { description = "The id of the machine image (AMI) to use for the server\&."; type = "string"; } ; } ; }
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+{
+  variable = {
+    image_id = {
+      description = "The id of the machine image (AMI) to use for the server\&.";
+      type = "string";
+    };
+  };
+}
+.fi
+.if n \{\
+.RE
+.\}
 .RE
 .SH "SEE ALSO"
 .PP
