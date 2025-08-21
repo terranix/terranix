@@ -255,16 +255,15 @@
           };
 
           config = {
-            packages = (lib.mapAttrs (_: tnixConfig: tnixConfig.result.app) cfg.terranixConfigurations) // (
+            packages = lib.mapAttrs (_: tnixConfig: tnixConfig.result.app) cfg.terranixConfigurations;
+            apps =
               lib.optionalAttrs
                 (cfg.terranixConfigurations ? "default")
 
                 (builtins.mapAttrs
                   (_: script: { program = script; })
                   cfg.terranixConfigurations.default.result.scripts
-                )
-            );
-
+                );
             devShells = mkIf cfg.exportDevShells (builtins.mapAttrs
               (_: tnixConfig: tnixConfig.result.devShell)
               cfg.terranixConfigurations);
