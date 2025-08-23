@@ -23,7 +23,7 @@ resource &quot;aws_instance&quot; &quot;web&quot; {
     Which is the equivalent for the following in
     <emphasis role="strong">terranix</emphasis>:
   </para>
-  <programlisting language="bash">
+  <programlisting language="nix">
 resource.&quot;aws_instance&quot;.&quot;web&quot; = {
   ami = &quot;\${data.aws_ami.ubuntu.id}&quot;;
   instance_type = &quot;t2.micro&quot;;
@@ -56,7 +56,7 @@ EOT
       This won’t work in terranix. In terranix you have to use the nix
       way of multi line strings.
     </para>
-    <programlisting language="bash">
+    <programlisting language="nix">
 variable.multiline.description = ''
   Description for the multi line variable.
   The indention here is not wrong.
@@ -78,7 +78,7 @@ variable.multiline.description = ''
         In single line strings, you escape the via
         <literal>\${expression}</literal>. For example :
       </para>
-      <programlisting language="bash">
+      <programlisting language="nix">
 variable.hcloud_token = {};
 provider.hcloud.token = &quot;\${var.hcloud_token}&quot;;
 </programlisting>
@@ -89,7 +89,7 @@ provider.hcloud.token = &quot;\${var.hcloud_token}&quot;;
         In multi line strings, you escape via
         <literal>''${expression}</literal>. For example :
       </para>
-      <programlisting language="bash">
+      <programlisting language="nix">
 resource.local_file.sshConfig = {
   filename = &quot;./ssh-config&quot;;
   content = ''

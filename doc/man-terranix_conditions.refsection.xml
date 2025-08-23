@@ -11,7 +11,7 @@
       To make an assertion in your module use the
       <literal>mkAssert</literal> command. Here is an example
     </para>
-    <programlisting language="bash">
+    <programlisting language="nix">
 config = mkAssert (cfg.parameter != &quot;fail&quot;) &quot;parameter is set to fail!&quot; {
   resource.aws_what_ever.&quot;${cfg.parameter}&quot; = {
     I = &quot;love nixos&quot;;

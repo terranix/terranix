@@ -4,7 +4,7 @@
     The real power behind NixOS and terranix is the module system, which
     is fundamentally different to the Terraform Module system. Detailed
     information can be obtained at the
-    <link xlink:href="https://nixos.wiki/wiki/NixOS_Modules">NixOS
+    <link xlink:href="https://wiki.nixos.org/wiki/NixOS_Modules">NixOS
     Wiki</link>.
   </para>
   <refsection xml:id="module-structure">
@@ -12,7 +12,7 @@
     <para>
       A module always looks like this:
     </para>
-    <programlisting language="bash">
+    <programlisting language="nix">
 { config, lib, pkgs, ... }:
 {
   imports = [
@@ -34,7 +34,7 @@
     <para>
       Here is an example module to enable bastion host setups.
     </para>
-    <programlisting language="bash">
+    <programlisting language="nix">
 { config, lib, pkgs, ... }:
 {
   options.security.bastion = {
@@ -68,7 +68,7 @@
       Now you can set the following <emphasis>everywhere</emphasis>, to
       enable the bastion host setup.
     </para>
-    <programlisting language="bash">
+    <programlisting language="nix">
 {
   security.bastion.enable = true;
 }

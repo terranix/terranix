@@ -52,7 +52,7 @@
           runtimeInputs = with pkgs; [ pandoc gnumake nix ];
           text = ''
             make --always-make --directory=doc
-            nix build ".#manpages"
+            nix build ".#manPages"
             cp -r result/share .
             chmod -R 755 ./share
             rm result
