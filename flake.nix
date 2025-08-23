@@ -14,9 +14,9 @@
 
   outputs = inputs @ { self, flake-parts, nixpkgs, ... }:
 
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    flake-parts.lib.mkFlake { inherit inputs; } ({ flake-parts-lib, ... }: {
       imports = [
-        ./flake-module.nix
+        (flake-parts-lib.importApply ./flake-module.nix { terranix = self; })
         flake-parts.flakeModules.partitions
       ];
 
@@ -60,7 +60,7 @@
 
       flake = {
 
-        flakeModule = ./flake-module.nix;
+        flakeModule = (flake-parts-lib.importApply ./flake-module.nix { terranix = self; });
 
         # terraformConfiguration ast, if you want to run
         # terranix in the repl.
@@ -187,5 +187,5 @@
                 '';
               });
       };
-    };
+    });
 }

@@ -1,3 +1,4 @@
+{ terranix }:
 { inputs, lib, flake-parts-lib, ... }: with lib; {
   options = {
     perSystem = flake-parts-lib.mkPerSystemOption
@@ -107,7 +108,7 @@
                               description = ''
                                 The exposed Terranix configuration as created by lib.terranixConfiguration.
                               '';
-                              default = inputs.terranix.lib.terranixConfiguration {
+                              default = terranix.lib.terranixConfiguration {
                                 inherit system;
                                 inherit (submod.config) extraArgs modules;
                               };
@@ -149,7 +150,8 @@
                                 in
                                 let
                                   tfBinaryName = submod.config.result.terraformWrapper.meta.mainProgram;
-                                in {
+                                in
+                                {
                                   init = mkTfScript "init" ''
                                     ${tfBinaryName} init
                                   '';
