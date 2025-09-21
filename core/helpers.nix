@@ -5,6 +5,9 @@ pkgs: self: super: {
     # escape ${} to create a terraform reference string
     ref = ref: "\${${ref}}";
 
+    # easier way to reference terraform file
+    file = path: "\${file(\"${path}\")}";
+
     # easier way to create templatefile() invocations
     # if used to set a variable, remember to wrap in `ref`
     template =
