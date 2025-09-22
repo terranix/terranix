@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- chore: Add changelog check on CI (#141)
+
 ## [2.8.0] 2024-10-15
 
 - add import option
