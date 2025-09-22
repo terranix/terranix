@@ -1,0 +1,50 @@
+name: Changelog Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  BYPASS_MESSAGE: A changelog entry is not necessary.
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Checking for changelog entry
+        run: |
+          # Get the base branch (e.g. main)
+          BASE_BRANCH="${{ github.event.pull_request.base.ref }}"
+
+          # Check if Changelog.md was modified in this PR
+          CHANGELOG_MODIFIED=$(git diff --name-only origin/$BASE_BRANCH...HEAD | \
+            grep -c "^Changelog.md$" || true)
+
+          if [ "$CHANGELOG_MODIFIED" -gt 0 ]; then
+            echo "✅ Changelog.md was modified in this PR"
+            exit 0
+          fi
+
+          # Check if any commit contains the bypass message
+          BYPASS_FOUND=$(git log origin/$BASE_BRANCH..HEAD \
+            --grep="${{ env.BYPASS_MESSAGE }}" --oneline | wc -l)
+
+          if [ "$BYPASS_FOUND" -gt 0 ]; then
+            echo "✅ Changelog.md isn't necessary to modify in this PR"
+            exit 0
+          fi
+
+          # Neither condition met - fail the check
+          echo "❌ Changelog.md entry missing."
+          echo ""
+          echo "Please either:"
+          echo "1. Add an entry to Changelog.md under the [Unreleased] section, or"
+          echo "2. Include 'A changelog entry is not necessary.' in a commit message"
+
+          exit 1
