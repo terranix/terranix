@@ -105,8 +105,11 @@
               inherit pkgs extraArgs strip_nulls;
               terranix_config.imports = modules;
             };
+            terraformConfig = (pkgs.formats.json { }).generate "config.tf.json" terranixCore.config;
           in
-          (pkgs.formats.json { }).generate "config.tf.json" terranixCore.config;
+          terraformConfig.overrideAttrs {
+            passthru = terranixCore;
+          };
 
         lib.mkTerranixOutputs = import ./core/terraform-invocs.nix;
 
