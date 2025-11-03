@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- Deprecate `terranixConfigurationAst`
 - Expose `config` from `terranixConfiguration`
 - Fix docs generation (#134)
 - flake-parts: Separate `apps` from `packages` output (#133)
