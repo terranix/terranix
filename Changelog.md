@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Deprecate `terranixConfigurationAst`
+- Expose `config` from `terranixConfiguration`
 - Fix docs generation (#134)
 - flake-parts: Separate `apps` from `packages` output (#133)
 - feat: ephemeral block (#129)
@@ -106,7 +108,7 @@
 
 - update examples readme
 - renamed examples folder
-        
+
 ## [2.2.0] - 2020-01-27
 
 - add man-pages for terranix-doc commands
@@ -118,5 +120,5 @@
 
 ## [2.1.2] - 2019-10-24
 
-- under GPLv3 license 
-- created testcases mkAssert 
+- under GPLv3 license
+- created testcases mkAssert
