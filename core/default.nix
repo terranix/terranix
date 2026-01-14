@@ -2,7 +2,7 @@
 # -------------
 { pkgs ? import <nixpkgs> { }
 , extraArgs ? { }
-, terranix_config
+, modules
 , strip_nulls ? true
 }:
 
@@ -47,22 +47,21 @@ let
   # evaluate given config.
   # also include all the default modules
   # https://github.com/NixOS/nixpkgs/blob/master/lib/modules.nix#L95
-  evaluateConfiguration = configuration:
+  evaluateConfiguration = mods:
     lib'.evalModules {
       modules = [
         { imports = [ ./terraform-options.nix ../modules ]; }
         { _module.args = { inherit pkgs; }; }
-        configuration
-      ];
+      ] ++ mods;
       specialArgs = extraArgs;
     };
 
   # create the final result
   # by whitelisting every
   # parameter which is needed by terraform
-  terranix = configuration:
+  terranix = mods:
     let
-      evaluated = evaluateConfiguration configuration;
+      evaluated = evaluateConfiguration mods;
       result = sanitize evaluated.config;
       genericWhitelist = f: key:
         let attr = f result.${key};
@@ -90,5 +89,5 @@ let
     };
 
 in
-terranix terranix_config
+terranix modules
 
