@@ -28,7 +28,7 @@ let
   terranix-doc-json-test-template = { text, path ? "", file, options ? [ ], success ? true, outputFile ? "", ... }:
     ''
       @test "${text}" {
-      run ${terranix}/bin/terranix-doc-json --quiet ${optionalString (path != "") "--path ${path}"} ${concatStringsSep " " options} --pkgs ${nixpkgs} --quiet ${file}
+      run bash -c '${terranix}/bin/terranix-doc-json --quiet ${optionalString (path != "") "--path ${path}"} ${concatStringsSep " " options} --pkgs ${nixpkgs} --quiet ${file} 2>/dev/null'
       ${if success then "assert_success" else "assert_failure"}
       ${optionalString (outputFile != "") "assert_output ${escapeShellArg (fileContents outputFile)}"}
       }
