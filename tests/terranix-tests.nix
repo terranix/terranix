@@ -86,4 +86,9 @@
     file = ./terranix-tests/15.nix;
     outputFile = ./terranix-tests/15.nix.output;
   }
+  {
+    text = "meta: allow _meta passthru without affecting json";
+    file = ./terranix-tests/15-meta.nix;
+    outputFile = ./terranix-tests/15-meta.nix.output;
+  }
 ]
