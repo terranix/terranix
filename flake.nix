@@ -84,7 +84,7 @@
           };
 
         # Evaluate terranix modules
-        # Returns { config = <terraform attrset>; }
+        # Returns { config = <terraform attrset>; _meta = <attrset>; }
         lib.evalTerranixConfiguration =
           { system ? ""
           , pkgs ? builtins.getAttr system nixpkgs.outputs.legacyPackages

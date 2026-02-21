@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Add `lib.evalTerranixConfiguration` for evaluating terranix modules without creating a derivation
+- Add internal `_meta` passthru to `lib.evalTerranixConfiguration`
 - Refactor core to use `modules` list parameter instead of `terranix_config`
 - Fix `bin/terranix` CLI to use updated core interface
 - Fix test stderr warnings polluting output comparisons
