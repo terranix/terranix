@@ -46,6 +46,16 @@ in
 {
 
   options = {
+
+    # Out-of-band metadata for downstream consumers.
+    # This option is never rendered to Terraform JSON.
+    _meta = mkOption {
+      type = types.attrsOf types.anything;
+      default = { };
+      internal = true;
+      description = "Arbitrary metadata attached to a terranix evaluation result.";
+    };
+
     ephemeral = mkReferenceableOption {
       referencePrefix = "ephemeral.";
       description = ''
