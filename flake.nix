@@ -25,11 +25,15 @@
 
       partitions.dev = {
         extraInputsFlake = ./dev;
-        module.imports = [ ./dev/flake-module.nix ];
+        module.imports = [
+          ./dev/flake-module.nix
+          ./dev/flake-module-checks.nix
+        ];
       };
 
       partitionedAttrs = {
         apps = "dev";
+        checks = "dev";
         devShells = "dev";
         formatter = "dev";
         templates = "dev";

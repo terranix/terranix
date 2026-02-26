@@ -1,20 +1,43 @@
-{ pkgs ? import <nixpkgs> { }, terraformConfiguration, terraformWrapper ? pkgs.terraform, prefixText ? "" }:
+{ pkgs ? import <nixpkgs> { }, terraformConfiguration, terraformWrapper ? null, prefixText ? "" }:
 let
+  wrapper =
+    if terraformWrapper == null then {
+      package = pkgs.terraform;
+      extraRuntimeInputs = [];
+      inherit prefixText;
+      suffixText = "";
+    }
+    else if terraformWrapper ? package then {
+      inherit (terraformWrapper) package;
+      extraRuntimeInputs = terraformWrapper.extraRuntimeInputs or [];
+      prefixText = terraformWrapper.prefixText or "";
+      suffixText = terraformWrapper.suffixText or "";
+    }
+    else {
+      package = terraformWrapper;
+      extraRuntimeInputs = [];
+      inherit prefixText;
+      suffixText = "";
+    };
+
+  tfBinaryName = wrapper.package.meta.mainProgram;
+
   mkTfScript = name: text: pkgs.writeShellApplication {
     inherit name;
-    runtimeInputs = [ terraformWrapper ];
+    runtimeInputs = [ wrapper.package ] ++ wrapper.extraRuntimeInputs;
     text = ''
-      ${prefixText}
+      ${wrapper.prefixText}
       ln -sf ${terraformConfiguration} config.tf.json
-      terraform init
+      ${tfBinaryName} init
       ${text}
+      ${wrapper.suffixText}
     '';
   };
 in
 rec {
   scripts = {
-    apply = mkTfScript "apply" "terraform apply";
-    destroy = mkTfScript "destroy" "terraform destroy";
+    apply = mkTfScript "apply" "${tfBinaryName} apply";
+    destroy = mkTfScript "destroy" "${tfBinaryName} destroy";
   };
 
   apps = pkgs.lib.fix (self:
@@ -22,8 +45,6 @@ rec {
     // { default = self.apply; });
 
   devShells.default = pkgs.mkShell {
-    buildInputs = (builtins.attrValues scripts) ++ [ terraformWrapper ];
+    buildInputs = (builtins.attrValues scripts) ++ [ wrapper.package ];
   };
 }
-
-
