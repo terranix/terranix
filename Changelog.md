@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- chore: Remove unused NixOS-style helper modules from modules/ subdirectory
 - chore: Add changelog check on CI (#141)
 - Add `lib.evalTerranixConfiguration` for evaluating terranix modules without creating a derivation
 - Refactor core to use `modules` list parameter instead of `terranix_config`
