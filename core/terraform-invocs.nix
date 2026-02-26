@@ -1,12 +1,14 @@
 { pkgs ? import <nixpkgs> { }, terraformConfiguration, terraformWrapper ? null, prefixText ? "" }:
 let
   wrapper =
+    # Use wrapper attrset
     if terraformWrapper ? package then {
-      inherit (terraformWrapper) package;
+      package = terraformWrapper.package;
       extraRuntimeInputs = terraformWrapper.extraRuntimeInputs or [];
       prefixText = terraformWrapper.prefixText or "";
       suffixText = terraformWrapper.suffixText or "";
     }
+    # Assume this is pkgs.terraform, pkgs.opentofu or other package derivation
     else {
       package = if terraformWrapper == null then pkgs.terraform else terraformWrapper;
       extraRuntimeInputs = [];
