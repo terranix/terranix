@@ -12,7 +12,7 @@ let
     else {
       package = if terraformWrapper == null then pkgs.terraform else terraformWrapper;
       extraRuntimeInputs = [];
-      inherit prefixText;
+      prefixText = prefixText;
       suffixText = "";
     };
 
