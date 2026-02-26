@@ -81,4 +81,9 @@
     file = ./terranix-tests/14.nix;
     outputFile = ./terranix-tests/14.nix.output;
   }
+  {
+    text = "terranix lib: tf.ref.file should be available and properly return a file() invocation";
+    file = ./terranix-tests/15.nix;
+    outputFile = ./terranix-tests/15.nix.output;
+  }
 ]

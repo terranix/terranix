@@ -64,17 +64,9 @@
 
         # terraformConfiguration ast, if you want to run
         # terranix in the repl.
-        lib.terranixConfigurationAst =
-          { system ? ""
-          , pkgs ? builtins.getAttr system nixpkgs.outputs.legacyPackages
-          , extraArgs ? { }
-          , modules ? [ ]
-          , strip_nulls ? true
-          }:
-          import ./core/default.nix {
-            inherit pkgs extraArgs strip_nulls;
-            terranix_config.imports = modules;
-          };
+        lib.terranixConfigurationAst = args:
+          nixpkgs.lib.warn "terranixConfigurationAst will be removed in 3.0.0 use terranixConfiguration.config instead"
+            (self.lib.terranixConfiguration args);
 
         # terranixOptions ast, if you want to run
         # terranix in a repl.
@@ -91,7 +83,20 @@
             inherit moduleRootPath urlPrefix urlSuffix pkgs;
           };
 
-        # create a config.tf.json.
+        # Evaluate terranix modules
+        # Returns { config = <terraform attrset>; }
+        lib.evalTerranixConfiguration =
+          { system ? ""
+          , pkgs ? builtins.getAttr system nixpkgs.outputs.legacyPackages
+          , extraArgs ? { }
+          , modules ? [ ]
+          , strip_nulls ? true
+          }:
+          import ./core/default.nix {
+            inherit pkgs strip_nulls modules extraArgs;
+          };
+
+        # create a config.tf.json derivation
         # you have to either have to name a system or set pkgs.
         lib.terranixConfiguration =
           { system ? ""
@@ -101,12 +106,14 @@
           , strip_nulls ? true
           }:
           let
-            terranixCore = import ./core/default.nix {
-              inherit pkgs extraArgs strip_nulls;
-              terranix_config.imports = modules;
+            terranixCore = self.lib.evalTerranixConfiguration {
+              inherit pkgs strip_nulls modules extraArgs;
             };
+            terraformConfig = (pkgs.formats.json { }).generate "config.tf.json" terranixCore.config;
           in
-          (pkgs.formats.json { }).generate "config.tf.json" terranixCore.config;
+          terraformConfig.overrideAttrs {
+            passthru = terranixCore;
+          };
 
         lib.mkTerranixOutputs = import ./core/terraform-invocs.nix;
 
@@ -145,7 +152,7 @@
 
         # deprecated
         lib.buildTerranix = nixpkgs.lib.warn "buildTerranix will be removed in 3.0.0 use terranixConfiguration instead"
-          ({ pkgs, terranix_config, ... }@terranix_args:
+          ({ pkgs, ... }@terranix_args:
             let terranixCore = import ./core/default.nix terranix_args;
             in
             pkgs.writeTextFile {

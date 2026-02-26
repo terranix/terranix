@@ -3,6 +3,33 @@
 ## [Unreleased]
 
 - chore: Add changelog check on CI (#141)
+- Add `lib.evalTerranixConfiguration` for evaluating terranix modules without creating a derivation
+- Refactor core to use `modules` list parameter instead of `terranix_config`
+- Fix `bin/terranix` CLI to use updated core interface
+- Fix test stderr warnings polluting output comparisons
+- Deprecate `terranixConfigurationAst`
+- Expose `config` from `terranixConfiguration`
+- Fix docs generation (#134)
+- flake-parts: Separate `apps` from `packages` output (#133)
+- feat: ephemeral block (#129)
+- flake-parts: Fix documentation eval (#128)
+- flake-module: rename `setDevShell` to `exportDevShells` for clarity (#126)
+- flake-module: fix `devShells` failing to build (#125)
+- flake-module: fix wrapper for `opentofu` called `terraform` (#127)
+- Expose configuration directly from `flake-parts` module (#124)
+- refactor: Use flake-parts partitions to reduce inputs (#120)
+- fix: Ensure workspace exists in flake-parts module scripts (#119)
+- chore: Avoid evaluating terraform package for option docs (#121)
+- doc: Become maintainer (remove "unmaintained" message) (#122)
+- feat: Support opentofu in flake-parts module (a57e554)
+- feat: Improve flake-parts module (52e7d56)
+- flake-module: allow customizing `extraArgs` (15e8c4f)
+- fix: add float to sanitize (4176bcf)
+- .github: stop using Git Flow (7aa6c13)
+- flake: lock `flake-parts` (64bdac5)
+- flake-module: fix module not being exported as a file module (cd36914)
+- flake-module: add `defaultText` for all options with complex defaults (1310a45)
+- flake-module: remove `lib.mdDoc` (e9c827d)
 
 ## [2.8.0] 2024-10-15
 
@@ -86,7 +113,7 @@
 
 - update examples readme
 - renamed examples folder
-        
+
 ## [2.2.0] - 2020-01-27
 
 - add man-pages for terranix-doc commands
@@ -98,5 +125,5 @@
 
 ## [2.1.2] - 2019-10-24
 
-- under GPLv3 license 
-- created testcases mkAssert 
+- under GPLv3 license
+- created testcases mkAssert

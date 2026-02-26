@@ -2,7 +2,7 @@
 
 let
   configuration = import ./default.nix {
-    terranix_config = { imports = [ <config> ]; };
+    modules = { imports = [ <config> ]; };
   };
 in
 

@@ -80,7 +80,7 @@ let
   pkgs = import $PKGS {};
   terranixCore = import $DEFAULT_CONFIG {
     inherit pkgs;
-    terranix_config = { imports = [ <config> ]; };
+    modules = [ <config> ];
     strip_nulls = $STRIP_NULLS;
   };
 in
