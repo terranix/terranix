@@ -66,9 +66,11 @@
 
           legacy-wrapper-default =
             let
+              mockDefault = mkMockTfPackage "terraform";
               result = legacyWrapper {
                 inherit pkgs;
                 terraformConfiguration = mockTerraformConfiguration;
+                terraformWrapper = mockDefault;
               };
             in
             assertScriptContains "legacy-wrapper-default" result.scripts.apply [
