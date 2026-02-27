@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- fix(core/terraform-invocs): Use meta.mainProgram instead of hardcoded terraform binary (#156)
 - chore: Add changelog check on CI (#141)
 - Add `lib.evalTerranixConfiguration` for evaluating terranix modules without creating a derivation
 - Add internal `_meta` passthru to `lib.evalTerranixConfiguration`
