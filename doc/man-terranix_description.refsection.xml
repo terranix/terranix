@@ -40,4 +40,66 @@ terranix ./path/my-config.nix | jq
 terranix &gt; config.tf.json &amp;&amp; terraform init &amp;&amp; terraform apply
 </programlisting>
   </refsection>
+  <refsection xml:id="example-wrapper-driven-by-_meta.package">
+    <title>Example: wrapper driven by
+    <literal>_meta.package</literal></title>
+    <para>
+      Sometimes you want your terranix module to declare which Terraform
+      implementation (and plugins) it expects, and then build a small
+      wrapper around the evaluated result.
+    </para>
+    <para>
+      Create a <literal>config.nix</literal>:
+    </para>
+    <programlisting language="nix">
+{ pkgs, ... }:
+{
+  _meta.package = pkgs.opentofu.withPlugins (p: [ p.hashicorp_null ]);
+
+  terraform.required_providers.null = {
+    source = &quot;hashicorp/null&quot;;
+    version = &quot;&gt;= 3.0.0&quot;;
+  };
+
+  resource.null_resource.hello = {
+    triggers.message = &quot;hello from terranix&quot;;
+  };
+}
+</programlisting>
+    <para>
+      Then create a <literal>tofu.nix</literal> wrapper which uses both
+      the evaluated config and evaluated package:
+    </para>
+    <programlisting language="nix">
+{ pkgs ? import &lt;nixpkgs&gt; { } }:
+let
+  terranixEval = import &lt;terranix/core/default.nix&gt; {
+    inherit pkgs;
+    modules = [ ./config.nix ];
+  };
+
+  configTfJson = (pkgs.formats.json { }).generate &quot;config.tf.json&quot; terranixEval.config;
+  tofuBin = pkgs.lib.getExe terranixEval._meta.package;
+in
+pkgs.writeShellApplication {
+  name = &quot;tofu&quot;;
+  text = ''
+    ln -sf ${configTfJson} ./config.tf.json
+    exec ${tofuBin} &quot;$@&quot;
+  '';
+}
+</programlisting>
+    <para>
+      Build and run it (no flakes):
+    </para>
+    <programlisting language="bash">
+nix-build tofu.nix -I terranix=/path/to/terranix
+./result/bin/tofu init
+./result/bin/tofu apply
+</programlisting>
+    <para>
+      <literal>_meta</literal> is removed before JSON rendering, so it
+      never appears in <literal>config.tf.json</literal>.
+    </para>
+  </refsection>
 </refsection>
