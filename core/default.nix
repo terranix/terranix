@@ -90,7 +90,9 @@ let
         (whitelist "terraform") //
         (whitelist "variable");
 
-      _meta = meta;
+      _meta = meta // {
+        inherit evaluated;
+      };
     };
 
 in
