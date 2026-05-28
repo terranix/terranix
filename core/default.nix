@@ -62,7 +62,8 @@ let
   terranix = mods:
     let
       evaluated = evaluateConfiguration mods;
-      result = sanitize evaluated.config;
+      meta = evaluated.config._meta or { };
+      result = sanitize (removeAttrs evaluated.config [ "_meta" ]);
       genericWhitelist = f: key:
         let attr = f result.${key};
         in
@@ -81,11 +82,15 @@ let
         (whitelist "import") //
         (whitelist "locals") //
         (whitelist "module") //
+        (whitelist "moved") //
         (whitelist "output") //
         (whitelist "provider") //
+        (whitelist "removed") //
         (whitelistWithoutEmpty "resource") //
         (whitelist "terraform") //
         (whitelist "variable");
+
+      _meta = meta;
     };
 
 in

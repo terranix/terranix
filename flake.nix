@@ -88,7 +88,7 @@
           };
 
         # Evaluate terranix modules
-        # Returns { config = <terraform attrset>; }
+        # Returns { config = <terraform attrset>; _meta = <attrset>; }
         lib.evalTerranixConfiguration =
           { system ? ""
           , pkgs ? builtins.getAttr system nixpkgs.outputs.legacyPackages
@@ -146,8 +146,10 @@
                   del(.import) |
                   del(.locals) |
                   del(.module) |
+                  del(.moved) |
                   del(.output) |
                   del(.provider) |
+                  del(.removed) |
                   del(.resource) |
                   del(.terraform) |
                   del(.variable)
@@ -189,9 +191,11 @@
                       del(.import) |
                       del(.locals) |
                       del(.module) |
+                      del(.moved) |
                       del(.output) |
                       del(.provider) |
                       del(.resource) |
+                      del(.removed) |
                       del(.terraform) |
                       del(.variable)
                       ' > $out/options.json

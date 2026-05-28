@@ -113,10 +113,12 @@ then
       del(.import) |
       del(.locals) |
       del(.module) |
+      del(.moved) |
       del(."_module.args") |
       del(.output) |
       del(.provider) |
       del(.resource) |
+      del(.removed) |
       del(.terraform) |
       del(.variable)'
 fi

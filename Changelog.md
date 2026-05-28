@@ -2,9 +2,11 @@
 
 ## [Unreleased]
 
-- fix(core/terraform-invocs): Use meta.mainProgram instead of hardcoded terraform binary (#156)
+- fix: Use meta.mainProgram instead of hardcoded terraform binary (#156)
+- feat: add `.moved` and `.removed` keywords
 - chore: Add changelog check on CI (#141)
 - Add `lib.evalTerranixConfiguration` for evaluating terranix modules without creating a derivation
+- Add internal `_meta` passthru to `lib.evalTerranixConfiguration`
 - Refactor core to use `modules` list parameter instead of `terranix_config`
 - Fix `bin/terranix` CLI to use updated core interface
 - Fix test stderr warnings polluting output comparisons

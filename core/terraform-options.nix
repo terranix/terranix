@@ -6,46 +6,79 @@
 with lib;
 
 let
-  mkMagicMergeOption = { description ? "", example ? { }, default ? { }, apply ? id, ... }:
+  mkMagicMergeOption =
+    {
+      description ? "",
+      example ? { },
+      default ? { },
+      apply ? id,
+      ...
+    }:
     mkOption {
-      inherit example description default apply;
-      type = with lib.types;
+      inherit
+        example
+        description
+        default
+        apply
+        ;
+      type =
+        with lib.types;
         let
-          valueType = nullOr
-            (oneOf [
+          valueType =
+            nullOr (oneOf [
               bool
               int
               float
               str
               (attrsOf valueType)
               (listOf valueType)
-            ]) // {
-            description = "bool, int, float or str";
-            emptyValue.value = { };
-          };
+            ])
+            // {
+              description = "bool, int, float or str";
+              emptyValue.value = { };
+            };
         in
         valueType;
     };
 
-  mkReferenceableOption = { referencePrefix ? "", ... }@args:
-    mkMagicMergeOption (args // {
-      apply =
-        let
-          mapAttrsOrSkip = f: attrs:
-            if isAttrs attrs then mapAttrs f attrs else attrs;
-        in
-        mapAttrsOrSkip (type: v1:
-          mapAttrsOrSkip
-            (label: v2:
-              if isAttrs v2
-              then v2 // { __functor = self: attr: "\${${referencePrefix}${type}.${label}.${attr}}"; }
-              else v2)
-            v1);
-    });
+  mkReferenceableOption =
+    {
+      referencePrefix ? "",
+      ...
+    }@args:
+    mkMagicMergeOption (
+      args
+      // {
+        apply =
+          let
+            mapAttrsOrSkip = f: attrs: if isAttrs attrs then mapAttrs f attrs else attrs;
+          in
+          mapAttrsOrSkip (
+            type: v1:
+            mapAttrsOrSkip (
+              label: v2:
+              if isAttrs v2 then
+                v2 // { __functor = self: attr: "\${${referencePrefix}${type}.${label}.${attr}}"; }
+              else
+                v2
+            ) v1
+          );
+      }
+    );
 in
 {
 
   options = {
+
+    # Out-of-band metadata for downstream consumers similar to nixpkgs passthru.
+    # This option is never rendered to Terraform JSON.
+    _meta = mkOption {
+      type = types.attrsOf types.anything;
+      default = { };
+      internal = true;
+      description = "Arbitrary metadata attached to a terranix evaluation result.";
+    };
+
     ephemeral = mkReferenceableOption {
       referencePrefix = "ephemeral.";
       description = ''
@@ -77,19 +110,23 @@ in
     };
     import = mkMagicMergeOption {
       example = {
-        import = [{
-          to = "aws_instance.example";
-          id = "i-abcd1234";
-        }];
+        import = [
+          {
+            to = "aws_instance.example";
+            id = "i-abcd1234";
+          }
+        ];
       };
       description = ''
         Define terraform import.
-        See for mote details : https://developer.hashicorp.com/terraform/language/import
+        See for more details : https://developer.hashicorp.com/terraform/language/import
       '';
     };
     module = mkMagicMergeOption {
       example = {
-        module.consul = { source = "github.com/hashicorp/example"; };
+        module.consul = {
+          source = "github.com/hashicorp/example";
+        };
       };
       description = ''
         A terraform module, to define multiple resources,
@@ -97,6 +134,20 @@ in
         The terraform module system, and has nothing to
         do with the module system of terranix or nixos.
         See for more details : https://www.terraform.io/docs/configuration/modules.html
+      '';
+    };
+    moved = mkMagicMergeOption {
+      example = {
+        moved = [
+          {
+            from = "aws_instance.example";
+            to = "aws_instance.other_example";
+          }
+        ];
+      };
+      description = ''
+        Move a resource from one address to another.
+        See for more details : https://developer.hashicorp.com/terraform/language/block/moved
       '';
     };
     output = mkMagicMergeOption {
@@ -121,6 +172,20 @@ in
         config.tf.json. Instead use terraform variables.
         See for more details : https://www.terraform.io/docs/configuration/providers.html
         or https://www.terraform.io/docs/providers/index.html
+      '';
+    };
+    removed = mkMagicMergeOption {
+      example = {
+        removed = [
+          {
+            from = "aws_instance.example";
+            lifecycle.destroy = false;
+          }
+        ];
+      };
+      description = ''
+        Define a removed resource.
+        See for more details : https://developer.hashicorp.com/terraform/language/state/remove
       '';
     };
     resource = mkReferenceableOption {
@@ -156,8 +221,7 @@ in
       example = {
         variable.image_id = {
           type = "string";
-          description =
-            "The id of the machine image (AMI) to use for the server.";
+          description = "The id of the machine image (AMI) to use for the server.";
         };
       };
       description = ''
