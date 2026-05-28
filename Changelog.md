@@ -2,7 +2,9 @@
 
 ## [Unreleased]
 
-- chore: Update flake inputs and fix nixpkgs deprecations
+## [2.9.0] 2026-05-28
+
+- chore: Update flake inputs and fix nixpkgs deprecations (#165)
 - fix: Use meta.mainProgram instead of hardcoded terraform binary (#156)
 - feat: add `.moved` and `.removed` keywords
 - chore: Add changelog check on CI (#141)
