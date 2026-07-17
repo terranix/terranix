@@ -1,5 +1,4 @@
 { inputs, ... }:
-
 {
   perSystem =
     { config
@@ -7,19 +6,6 @@
     , ...
     }:
     {
-      devShells.default = pkgs.mkShell {
-        buildInputs = with pkgs;
-          [
-            terraform
-            config.packages.terranix
-            treefmt
-            nixpkgs-fmt
-            shfmt
-            shellcheck
-            prettier
-          ];
-      };
-
       apps = rec {
         test.program = pkgs.writeShellApplication {
           name = "test";
@@ -57,12 +43,5 @@
           '';
         };
       };
-
-      formatter = pkgs.treefmt;
     };
-
-  # nix flake init -t github:terranix/terranix#flake
-  flake.templates = inputs.terranix-examples.templates // {
-    default = inputs.terranix-examples.defaultTemplate;
-  };
 }

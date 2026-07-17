@@ -1,3 +1,4 @@
+{ ... }:
 {
   perSystem =
     { pkgs
@@ -8,10 +9,11 @@
         let
           mockTerraformConfiguration = pkgs.writeText "config.tf.json" "{}";
 
-          mkMockTfPackage = name: pkgs.writeShellApplication {
-            inherit name;
-            text = ''echo "mock ${name} $*"'';
-          } // { meta.mainProgram = name; };
+          mkMockTfPackage = name: pkgs.writeShellApplication
+            {
+              inherit name;
+              text = ''echo "mock ${name} $*"'';
+            } // { meta.mainProgram = name; };
 
           mockTerraform = mkMockTfPackage "mock-terraform";
 
