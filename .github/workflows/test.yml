@@ -16,3 +16,19 @@ jobs:
       run: nix flake check
     - name: Generate docs
       run: nix run ".#docs"
+  vulnix:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1, 2023-10-17
+    - uses: cachix/install-nix-action@630ae543ea3a38a9a4166f03376c02c50f408342 # v31.11.0, 2026-07-14
+      with:
+        nix_path: nixpkgs=channel:nixos-25.05
+    # Feeds are ~350 MB on a cold cache; vulnix refreshes only stale years.
+    - name: NVD feed cache
+      uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0, 2025-09-24
+      with:
+        path: ~/.cache/vulnix
+        key: vulnix-nvd-${{ github.run_id }}
+        restore-keys: vulnix-nvd-
+    - name: Vulnerability scan
+      run: nix run ".#vulnix"
