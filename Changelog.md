@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- feat(flake): run `terraform validate` via flake checks (#173)
 - feat(core): add NixOS-style `assertions` and `warnings` options
 - refactor(modules/terraform/backends): use `assertions` instead of `mkAssert`, so every failed assertion is reported at once
 - change: assertion failures now print a `Failed assertions:` header with one `- <msg>` line per failure, replacing `Failed assertion: <msg>`

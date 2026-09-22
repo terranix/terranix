@@ -269,10 +269,27 @@
             devShells = mkIf cfg.exportDevShells (builtins.mapAttrs
               (_: tnixConfig: tnixConfig.result.devShell)
               cfg.terranixConfigurations);
-
-
+            checks = lib.mapAttrs' (
+              name: terranixConfiguration:
+              let
+                workdir = terranixConfiguration.workdir;
+                exe = lib.getExe terranixConfiguration.result.terraformWrapper;
+                confFile = terranixConfiguration.result.terraformConfiguration;
+                checkName = "${name}-validate";
+              in
+              lib.nameValuePair checkName (
+                pkgs.runCommandLocal checkName { } ''
+                  mkdir -p ${workdir}
+                  ln -sf ${confFile} ${workdir}/config.tf.json
+                  ${exe} init -backend=false
+                  ${exe} validate
+                  touch $out
+                ''
+              )
+            ) cfg.terranixConfigurations;
           };
-        });
+        }
+    );
   };
 }
 
