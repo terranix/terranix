@@ -24,7 +24,7 @@ let
       null = null;
       set =
         let
-          pred = name: value: name != "_module" && name != "_ref" && name != "__functor";
+          pred = name: value: name != "_module" && name != "_ref" && name != "__functor" && name != "__toString";
           stripped_a = flip filterAttrs configuration
             (name: value: pred name value);
           stripped_b = flip filterAttrs configuration

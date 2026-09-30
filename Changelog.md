@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- feat(core): make `variable` and `module` blocks referenceable like `resource`, e.g. `config.variable.token` renders as `${var.token}` and `config.module.network "subnet_id"` as `${module.network.subnet_id}` (#7)
+- feat(core): referenceable blocks can be used directly as values or interpolated, e.g. `token = config.variable.token` or `"${config.resource.aws_instance.web}"`
 - feat(core): add NixOS-style `assertions` and `warnings` options
 - refactor(modules/terraform/backends): use `assertions` instead of `mkAssert`, so every failed assertion is reported at once
 - change: assertion failures now print a `Failed assertions:` header with one `- <msg>` line per failure, replacing `Failed assertion: <msg>`
