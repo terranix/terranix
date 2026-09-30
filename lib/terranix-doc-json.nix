@@ -20,7 +20,9 @@ let
     sha256 = "0rbx10n8kk0bvp1nl5c8q79lz1w0p1b8103asbvwps3gmqd070hi";
   };
 
-  nmd = import nmdSrc { inherit pkgs; };
+  # nmd uses `lib.fold`, which newer nixpkgs removed in favour of `foldr`.
+  # Drop once nmd is bumped past it or replaced.
+  nmd = import nmdSrc { pkgs = pkgs // { lib = pkgs.lib // { fold = pkgs.lib.foldr; }; }; };
 
   # Make sure the used package is scrubbed to avoid actually
   # instantiating derivations.

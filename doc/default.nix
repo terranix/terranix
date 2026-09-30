@@ -18,6 +18,9 @@ let
   nmdPkgs = pkgs // {
     substituteAll = args:
       pkgs.replaceVars args.src (removeAttrs args [ "src" ]);
+    # nmd also uses `lib.fold`, which newer nixpkgs removed in favour of `foldr`.
+    # Drop once nmd is bumped past it or replaced.
+    lib = pkgs.lib // { fold = pkgs.lib.foldr; };
   };
 
   nmd = import nmdSrc { pkgs = nmdPkgs; };

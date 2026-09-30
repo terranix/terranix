@@ -3,11 +3,11 @@
     "bats-assert": {
       "flake": false,
       "locked": {
-        "lastModified": 1742639935,
-        "narHash": "sha256-5xHWCp7fnM/UfFDQoQ03AVVevlidsenZw30eDAHtTQ8=",
+        "lastModified": 1762432057,
+        "narHash": "sha256-eap1BIyJCiTlAWCyWGEQt0240ytLQZ532luWOBL7dws=",
         "owner": "bats-core",
         "repo": "bats-assert",
-        "rev": "b93143a1bfbde41d9b7343aab0d36f3ef6549e6b",
+        "rev": "697471b7a89d3ab38571f38c6c7c4b460d1f5e35",
         "type": "github"
       },
       "original": {
@@ -19,11 +19,11 @@
     "bats-support": {
       "flake": false,
       "locked": {
-        "lastModified": 1742420943,
-        "narHash": "sha256-cB26cPwwhR/aJ1mcdixzn7018Axuz744djMQI4ePMLc=",
+        "lastModified": 1755779893,
+        "narHash": "sha256-iO/swXzoIqG9b0Ts1ToX94scPPPPGYcFf+bGOd5DF2c=",
         "owner": "bats-core",
         "repo": "bats-support",
-        "rev": "d007fc1f451abbad55204fa9c9eb3e6ed5dc5f61",
+        "rev": "0954abb9925cad550424cebca2b99255d4eabe96",
         "type": "github"
       },
       "original": {
@@ -41,11 +41,11 @@
     },
     "terranix-examples": {
       "locked": {
-        "lastModified": 1637156952,
-        "narHash": "sha256-KqvXIe1yiKOEP9BRYqNQN+LOWPCsWojh0WjEgv5jfEI=",
+        "lastModified": 1779051184,
+        "narHash": "sha256-G9+QS4UFf9yCEGww3lkrhiD/yFtfqCv4N33oF6H1ygs=",
         "owner": "terranix",
         "repo": "terranix-examples",
-        "rev": "921680efb8af0f332d8ad73718d53907f9483e24",
+        "rev": "2f4540ebea1eed7233fcd32f7388b64a0db8ce94",
         "type": "github"
       },
       "original": {
