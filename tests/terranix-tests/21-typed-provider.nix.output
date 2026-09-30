@@ -1,0 +1,37 @@
+{
+  "output": {
+    "ip": {
+      "value": "${hcloud_server.web.ipv4_address}"
+    }
+  },
+  "resource": {
+    "hcloud_server": {
+      "web": {
+        "name": "web",
+        "public_net": [
+          {
+            "ipv4_enabled": true
+          }
+        ],
+        "server_type": "cx23",
+        "ssh_keys": [
+          "${hcloud_ssh_key.key.id}"
+        ]
+      }
+    },
+    "hcloud_ssh_key": {
+      "key": {
+        "name": "key",
+        "public_key": "ssh-ed25519 AAAA"
+      }
+    }
+  },
+  "terraform": {
+    "required_providers": {
+      "hcloud": {
+        "source": "hetznercloud/hcloud",
+        "version": "1.69.0"
+      }
+    }
+  }
+}

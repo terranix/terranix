@@ -5,6 +5,13 @@ pkgs: self: super: {
     # escape ${} to create a terraform reference string
     ref = ref: "\${${ref}}";
 
+    # module with typed options for a provider's resources and data sources,
+    # e.g. `imports = [ (lib.tf.provider "hetznercloud_hcloud") ];`.
+    # Takes a `pkgs.terraform-providers` name or package. Needs import-from-derivation.
+    provider = provider:
+      import ../providers/module.nix { inherit pkgs; lib = self; }
+        (if builtins.isString provider then pkgs.terraform-providers.${provider} else provider);
+
     # easier way to reference terraform file
     file = path: "\${file(\"${path}\")}";
 

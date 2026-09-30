@@ -6,28 +6,27 @@
 with lib;
 
 let
+  inherit (import ./types.nix lib) valueType;
+
   # `block "attr"` references an attribute of the block, `block` or `"${block}"` the
   # block itself. The helpers are stripped from the block by `sanitize` in ./default.nix.
+  # A block can bring its own `__functor`, e.g. one that checks the attribute against
+  # the provider schema, see ../providers/module.nix.
   withReference = address: block:
     if isAttrs block then
-      block // {
+      {
         __functor = self: attr: "\${${address}.${attr}}";
         __toString = self: "\${${address}}";
-      }
+      } // block
     else
       block;
-
-  # a block from `withReference` used as a value, e.g. `token = config.variable.token`
-  reference = types.mkOptionType {
-    name = "reference";
-    check = v: isAttrs v && v ? __toString;
-  };
 
   mkMagicMergeOption =
     { description ? ""
     , example ? { }
     , default ? { }
     , apply ? id
+    , type ? valueType
     , ...
     }:
     mkOption {
@@ -36,26 +35,8 @@ let
         description
         default
         apply
+        type
         ;
-      type =
-        with lib.types;
-        let
-          valueType =
-            nullOr
-              (oneOf [
-                bool
-                int
-                float
-                (coercedTo reference toString str)
-                (attrsOf valueType)
-                (listOf valueType)
-              ])
-            // {
-              description = "bool, int, float, str or reference";
-              emptyValue.value = { };
-            };
-        in
-        valueType;
     };
 
   mapAttrsOrSkip = f: attrs: if isAttrs attrs then mapAttrs f attrs else attrs;
@@ -68,6 +49,9 @@ let
     mkMagicMergeOption (
       args
       // {
+        # a submodule, so provider modules can declare typed `<type>` options in it,
+        # while undeclared types stay freeform
+        type = types.submodule { freeformType = types.attrsOf valueType; };
         apply = mapAttrsOrSkip (
           type: mapAttrsOrSkip (label: withReference "${referencePrefix}${type}.${label}")
         );

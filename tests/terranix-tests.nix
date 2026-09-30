@@ -122,4 +122,30 @@
     file = ./terranix-tests/20-named-references.nix;
     outputFile = ./terranix-tests/20-named-references.nix.output;
   }
+  {
+    text = "typed provider: schema-typed resources render and reference checked attributes";
+    file = ./terranix-tests/21-typed-provider.nix;
+    outputFile = ./terranix-tests/21-typed-provider.nix.output;
+  }
+  {
+    text = "typed provider: an unknown argument fails at eval";
+    file = ./terranix-tests/21-typed-provider-fail-arg.nix;
+    success = false;
+    outputFile = ./terranix-tests/21-typed-provider-fail-arg.nix.output;
+    partialMatchOutput = true;
+  }
+  {
+    text = "typed provider: a reference to an unknown attribute fails at eval";
+    file = ./terranix-tests/21-typed-provider-fail-ref.nix;
+    success = false;
+    outputFile = ./terranix-tests/21-typed-provider-fail-ref.nix.output;
+    partialMatchOutput = true;
+  }
+  {
+    text = "typed provider: an unknown resource type of the provider fails at eval";
+    file = ./terranix-tests/21-typed-provider-fail-type.nix;
+    success = false;
+    outputFile = ./terranix-tests/21-typed-provider-fail-type.nix.output;
+    partialMatchOutput = true;
+  }
 ]

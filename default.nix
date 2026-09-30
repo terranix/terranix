@@ -9,8 +9,8 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
-    mkdir -p $out/{bin,core,modules,lib}
-    mv bin core modules lib share $out/
+    mkdir -p $out/{bin,core,modules,lib,providers}
+    mv bin core modules lib providers share $out/
 
     wrapProgram $out/bin/terranix-doc-json \
       --prefix PATH : ${lib.makeBinPath [ jq nix ]}
