@@ -153,19 +153,19 @@
                                 in
                                 {
                                   init = mkTfScript "init" ''
-                                    ${tfBinaryName} init
+                                    ${tfBinaryName} init "$@"
                                   '';
                                   apply = mkTfScript "apply" ''
                                     ${tfBinaryName} init
-                                    ${tfBinaryName} apply
+                                    ${tfBinaryName} apply "$@"
                                   '';
                                   plan = mkTfScript "plan" ''
                                     ${tfBinaryName} init
-                                    ${tfBinaryName} plan
+                                    ${tfBinaryName} plan "$@"
                                   '';
                                   destroy = mkTfScript "destroy" ''
                                     ${tfBinaryName} init
-                                    ${tfBinaryName} destroy
+                                    ${tfBinaryName} destroy "$@"
                                   '';
                                 };
                               defaultText = ''
@@ -275,5 +275,3 @@
         });
   };
 }
-
-

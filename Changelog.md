@@ -9,6 +9,7 @@
 - chore(default.nix): remove meta section from package derivation (#169)
 - chore(flake): split flake.nix into dendritic sub-modules (#170)
 - feat: add `encrypt`, `use_lockfile`, `skip_credentials_validation` and `skip_region_validation` options to s3 backend (#168)
+- fix: allow passing arguments to `nix run ...` scripts (#176, #177)
 
 ## [2.9.0] 2026-05-28
 
