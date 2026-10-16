@@ -6,6 +6,23 @@
 with lib;
 
 let
+  # `block "attr"` references an attribute of the block, `block` or `"${block}"` the
+  # block itself. The helpers are stripped from the block by `sanitize` in ./default.nix.
+  withReference = address: block:
+    if isAttrs block then
+      block // {
+        __functor = self: attr: "\${${address}.${attr}}";
+        __toString = self: "\${${address}}";
+      }
+    else
+      block;
+
+  # a block from `withReference` used as a value, e.g. `token = config.variable.token`
+  reference = types.mkOptionType {
+    name = "reference";
+    check = v: isAttrs v && v ? __toString;
+  };
+
   mkMagicMergeOption =
     { description ? ""
     , example ? { }
@@ -23,12 +40,6 @@ let
       type =
         with lib.types;
         let
-          # a block from `withReference` used as a value, e.g. `token = config.variable.token`
-          reference = mkOptionType {
-            name = "reference";
-            check = v: isAttrs v && v ? __toString;
-            merge = mergeEqualOption;
-          };
           valueType =
             nullOr
               (oneOf [
@@ -40,7 +51,7 @@ let
                 (listOf valueType)
               ])
             // {
-              description = "bool, int, float or str";
+              description = "bool, int, float, str or reference";
               emptyValue.value = { };
             };
         in
@@ -48,17 +59,6 @@ let
     };
 
   mapAttrsOrSkip = f: attrs: if isAttrs attrs then mapAttrs f attrs else attrs;
-
-  # `block "attr"` references an attribute of the block, `block` or `"${block}"` the
-  # block itself. The helpers are stripped from the block by `sanitize` in ./default.nix.
-  withReference = address: block:
-    if isAttrs block then
-      block // {
-        __functor = self: attr: "\${${address}.${attr}}";
-        __toString = self: "\${${address}}";
-      }
-    else
-      block;
 
   # for blocks addressed as `<type>.<label>`, like resource and data
   mkReferenceableOption =
