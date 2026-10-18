@@ -117,4 +117,9 @@
     partialMatchOutput = true;
     refuteOutput = "\"warnings\"";
   }
+  {
+    text = "references: variables and modules are referenceable, blocks used as values become references";
+    file = ./terranix-tests/20-named-references.nix;
+    outputFile = ./terranix-tests/20-named-references.nix.output;
+  }
 ]

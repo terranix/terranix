@@ -189,6 +189,22 @@ string
 .RE
 .RE
 .PP
+\fBbackend\&.s3\&.encrypt\fR
+.RS 4
+\m[blue]\fB\fBbackend\&.s3\&.encrypt\fR\fR\m[]enable server side encryption of the state file
+.sp
+\fIType:\fR
+null or boolean
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
 \fBbackend\&.s3\&.key\fR
 .RS 4
 \m[blue]\fB\fBbackend\&.s3\&.key\fR\fR\m[]path to the state file in the bucket
@@ -215,12 +231,60 @@ string
 .RE
 .RE
 .PP
+\fBbackend\&.s3\&.skip_credentials_validation\fR
+.RS 4
+\m[blue]\fB\fBbackend\&.s3\&.skip_credentials_validation\fR\fR\m[]skip credentials validation via the STS API
+.sp
+\fIType:\fR
+null or boolean
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBbackend\&.s3\&.skip_region_validation\fR
+.RS 4
+\m[blue]\fB\fBbackend\&.s3\&.skip_region_validation\fR\fR\m[]skip validation of provided region name
+.sp
+\fIType:\fR
+null or boolean
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBbackend\&.s3\&.use_lockfile\fR
+.RS 4
+\m[blue]\fB\fBbackend\&.s3\&.use_lockfile\fR\fR\m[]enable locking directly into the configured bucket for the state
+.sp
+\fIType:\fR
+null or boolean
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
 \fBdata\fR
 .RS 4
 \m[blue]\fB\fBdata\fR\fR\m[]Data objects, are queries to use resources which are already exist, as if they are created by a the resource option\&. See for more details : https://www\&.terraform\&.io/docs/configuration/data\-sources\&.html
 .sp
 \fIType:\fR
-bool, int, float or str
+bool, int, float, str or reference
 .sp
 \fIDefault:\fR
 { }
@@ -234,7 +298,7 @@ bool, int, float or str
 \m[blue]\fB\fBephemeral\fR\fR\m[]Ephemeral objects, are a temporary resource, they are not stored\&. See for more details : https://developer\&.hashicorp\&.com/terraform/language/resources/ephemeral
 .sp
 \fIType:\fR
-bool, int, float or str
+bool, int, float, str or reference
 .sp
 \fIDefault:\fR
 { }
@@ -248,7 +312,7 @@ bool, int, float or str
 \m[blue]\fB\fBimport\fR\fR\m[]Define terraform import\&. See for more details : https://developer\&.hashicorp\&.com/terraform/language/import
 .sp
 \fIType:\fR
-bool, int, float or str
+bool, int, float, str or reference
 .sp
 \fIDefault:\fR
 { }
@@ -278,7 +342,7 @@ bool, int, float or str
 \m[blue]\fB\fBlocals\fR\fR\m[]Define terraform variables with file scope\&. Like modules this is terraform intern and terranix has better ways\&. See for more details : https://www\&.terraform\&.io/docs/configuration/locals\&.html
 .sp
 \fIType:\fR
-bool, int, float or str
+bool, int, float, str or reference
 .sp
 \fIDefault:\fR
 { }
@@ -306,7 +370,7 @@ bool, int, float or str
 \m[blue]\fB\fBmodule\fR\fR\m[]A terraform module, to define multiple resources, for sharing or duplication\&. The terraform module system, and has nothing to do with the module system of terranix or nixos\&. See for more details : https://www\&.terraform\&.io/docs/configuration/modules\&.html
 .sp
 \fIType:\fR
-bool, int, float or str
+bool, int, float, str or reference
 .sp
 \fIDefault:\fR
 { }
@@ -335,7 +399,7 @@ bool, int, float or str
 \m[blue]\fB\fBmoved\fR\fR\m[]Move a resource from one address to another\&. See for more details : https://developer\&.hashicorp\&.com/terraform/language/block/moved
 .sp
 \fIType:\fR
-bool, int, float or str
+bool, int, float, str or reference
 .sp
 \fIDefault:\fR
 { }
@@ -365,7 +429,7 @@ bool, int, float or str
 \m[blue]\fB\fBoutput\fR\fR\m[]Useful in combination with terraform_remote_state\&. See for more details : https://www\&.terraform\&.io/docs/configuration/outputs\&.html
 .sp
 \fIType:\fR
-bool, int, float or str
+bool, int, float, str or reference
 .sp
 \fIDefault:\fR
 { }
@@ -394,7 +458,7 @@ bool, int, float or str
 \m[blue]\fB\fBprovider\fR\fR\m[]Define you API connection\&. Don\*(Aqt use secrets in here, they will be visible in the nix\-store and the resulting config\&.tf\&.json\&. Instead use terraform variables\&. See for more details : https://www\&.terraform\&.io/docs/configuration/providers\&.html or https://www\&.terraform\&.io/docs/providers/index\&.html
 .sp
 \fIType:\fR
-bool, int, float or str
+bool, int, float, str or reference
 .sp
 \fIDefault:\fR
 { }
@@ -567,6 +631,22 @@ string
 .RE
 .RE
 .PP
+\fBremote_state\&.s3\&.<name>\&.encrypt\fR
+.RS 4
+\m[blue]\fB\fBremote_state\&.s3\&.<name>\&.encrypt\fR\fR\m[]enable server side encryption of the state file
+.sp
+\fIType:\fR
+null or boolean
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
 \fBremote_state\&.s3\&.<name>\&.key\fR
 .RS 4
 \m[blue]\fB\fBremote_state\&.s3\&.<name>\&.key\fR\fR\m[]path to the state file in the bucket
@@ -593,12 +673,60 @@ string
 .RE
 .RE
 .PP
+\fBremote_state\&.s3\&.<name>\&.skip_credentials_validation\fR
+.RS 4
+\m[blue]\fB\fBremote_state\&.s3\&.<name>\&.skip_credentials_validation\fR\fR\m[]skip credentials validation via the STS API
+.sp
+\fIType:\fR
+null or boolean
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBremote_state\&.s3\&.<name>\&.skip_region_validation\fR
+.RS 4
+\m[blue]\fB\fBremote_state\&.s3\&.<name>\&.skip_region_validation\fR\fR\m[]skip validation of provided region name
+.sp
+\fIType:\fR
+null or boolean
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
+\fBremote_state\&.s3\&.<name>\&.use_lockfile\fR
+.RS 4
+\m[blue]\fB\fBremote_state\&.s3\&.<name>\&.use_lockfile\fR\fR\m[]enable locking directly into the configured bucket for the state
+.sp
+\fIType:\fR
+null or boolean
+.sp
+\fIDefault:\fR
+null
+.sp
+\fIDeclared by:\fR
+.RS 4
+\m[blue]\fB<terranix/modules/terraform/backends\&.nix>\fR\m[]
+.RE
+.RE
+.PP
 \fBremoved\fR
 .RS 4
 \m[blue]\fB\fBremoved\fR\fR\m[]Define a removed resource\&. See for more details : https://developer\&.hashicorp\&.com/terraform/language/state/remove
 .sp
 \fIType:\fR
-bool, int, float or str
+bool, int, float, str or reference
 .sp
 \fIDefault:\fR
 { }
@@ -630,7 +758,7 @@ bool, int, float or str
 \m[blue]\fB\fBresource\fR\fR\m[]The backbone of terraform and terranix to change and create state\&. See for more details : https://www\&.terraform\&.io/docs/configuration/resources\&.html
 .sp
 \fIType:\fR
-bool, int, float or str
+bool, int, float, str or reference
 .sp
 \fIDefault:\fR
 { }
@@ -662,7 +790,7 @@ bool, int, float or str
 \m[blue]\fB\fBterraform\fR\fR\m[]Terraform configuration\&. But for backends have a look at the terranix options backend\&.etcd, backend\&.local and backend\&.s3\&. See for more details : https://www\&.terraform\&.io/docs/configuration/terraform\&.html
 .sp
 \fIType:\fR
-bool, int, float or str
+bool, int, float, str or reference
 .sp
 \fIDefault:\fR
 { }
@@ -751,7 +879,7 @@ null
 \m[blue]\fB\fBvariable\fR\fR\m[]Input Variables, which can be set by `\-\-var=name` or by environment variables prefixt with `TF_VAR_`\&. Usually used in terraform modules or to ask for API tokens\&. See for more details : https://www\&.terraform\&.io/docs/configuration/variables\&.html
 .sp
 \fIType:\fR
-bool, int, float or str
+bool, int, float, str or reference
 .sp
 \fIDefault:\fR
 { }

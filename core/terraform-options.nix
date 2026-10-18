@@ -6,6 +6,23 @@
 with lib;
 
 let
+  # `block "attr"` references an attribute of the block, `block` or `"${block}"` the
+  # block itself. The helpers are stripped from the block by `sanitize` in ./default.nix.
+  withReference = address: block:
+    if isAttrs block then
+      block // {
+        __functor = self: attr: "\${${address}.${attr}}";
+        __toString = self: "\${${address}}";
+      }
+    else
+      block;
+
+  # a block from `withReference` used as a value, e.g. `token = config.variable.token`
+  reference = types.mkOptionType {
+    name = "reference";
+    check = v: isAttrs v && v ? __toString;
+  };
+
   mkMagicMergeOption =
     { description ? ""
     , example ? { }
@@ -29,18 +46,21 @@ let
                 bool
                 int
                 float
-                str
+                (coercedTo reference toString str)
                 (attrsOf valueType)
                 (listOf valueType)
               ])
             // {
-              description = "bool, int, float or str";
+              description = "bool, int, float, str or reference";
               emptyValue.value = { };
             };
         in
         valueType;
     };
 
+  mapAttrsOrSkip = f: attrs: if isAttrs attrs then mapAttrs f attrs else attrs;
+
+  # for blocks addressed as `<type>.<label>`, like resource and data
   mkReferenceableOption =
     { referencePrefix ? ""
     , ...
@@ -48,22 +68,21 @@ let
     mkMagicMergeOption (
       args
       // {
-        apply =
-          let
-            mapAttrsOrSkip = f: attrs: if isAttrs attrs then mapAttrs f attrs else attrs;
-          in
-          mapAttrsOrSkip (
-            type: v1:
-              mapAttrsOrSkip
-                (
-                  label: v2:
-                    if isAttrs v2 then
-                      v2 // { __functor = self: attr: "\${${referencePrefix}${type}.${label}.${attr}}"; }
-                    else
-                      v2
-                )
-                v1
-          );
+        apply = mapAttrsOrSkip (
+          type: mapAttrsOrSkip (label: withReference "${referencePrefix}${type}.${label}")
+        );
+      }
+    );
+
+  # for blocks addressed as `<name>`, like variable and module
+  mkNamedReferenceableOption =
+    { referencePrefix
+    , ...
+    }@args:
+    mkMagicMergeOption (
+      args
+      // {
+        apply = mapAttrsOrSkip (name: withReference "${referencePrefix}${name}");
       }
     );
 in
@@ -151,7 +170,8 @@ in
         See for more details : https://developer.hashicorp.com/terraform/language/import
       '';
     };
-    module = mkMagicMergeOption {
+    module = mkNamedReferenceableOption {
+      referencePrefix = "module.";
       example = {
         module.consul = {
           source = "github.com/hashicorp/example";
@@ -246,7 +266,8 @@ in
         See for more details : https://www.terraform.io/docs/configuration/terraform.html
       '';
     };
-    variable = mkMagicMergeOption {
+    variable = mkNamedReferenceableOption {
+      referencePrefix = "var.";
       example = {
         variable.image_id = {
           type = "string";

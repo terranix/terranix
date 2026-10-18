@@ -1,0 +1,31 @@
+{
+  "module": {
+    "network": {
+      "source": "./network"
+    }
+  },
+  "provider": {
+    "some_provider": {
+      "interpolated": "prefix-${var.token}",
+      "token": "${var.token}"
+    }
+  },
+  "resource": {
+    "other_resource": {
+      "another_name": {
+        "field_with_module_output": "${module.network.subnet_id}",
+        "field_with_variable_attribute": "${var.settings.region}",
+        "field_with_whole_resource": "${some_resource.name}"
+      }
+    },
+    "some_resource": {
+      "name": {}
+    }
+  },
+  "variable": {
+    "settings": {},
+    "token": {
+      "sensitive": true
+    }
+  }
+}
