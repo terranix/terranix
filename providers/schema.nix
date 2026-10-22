@@ -26,7 +26,9 @@ pkgs.runCommand "${localName}-${provider.version}-schema.json"
     export HOME=$TMPDIR
     mkdir work && cd work
     cp $stubPath main.tf.json
-    tofu init -backend=false -input=false >&2
+    # nix streams IFD build logs into the caller's stderr, so a cold schema
+    # build would otherwise splice init's chatter into terranix's output
+    tofu init -backend=false -input=false > init.log 2>&1 || { cat init.log >&2; exit 1; }
     # opentofu reports it under registry.opentofu.org, whatever the source says
     tofu providers schema -json \
       | jq -e '.provider_schemas | if length == 1 then to_entries[0].value else error("expected one provider, got \(keys)") end' \
