@@ -8,7 +8,10 @@ with lib;
 let
   inherit (import ../core/types.nix lib) reference valueType;
 
-  schema = importJSON (import ./schema.nix { inherit pkgs; } provider);
+  schema = import ./schema.nix { inherit pkgs; } provider;
+  # only the type names, each type's block is imported once its options are needed
+  index = importJSON "${schema}/index.json";
+  importBlock = kind: type: importJSON "${schema}/${kind}/${type}.json";
 
   source = provider.provider-source-address;
   localName = last (splitString "/" source);
@@ -126,49 +129,48 @@ let
       };
     };
 
-  typedBlocks = { referencePrefix, schemas, metaArguments }:
+  typedBlocks = { kind, referencePrefix, metaArguments }:
     mkOption {
       type = types.submodule {
-        options = mapAttrs
-          (type: typeSchema: mkOption {
+        options = genAttrs index.${kind}
+          (type: mkOption {
             type = types.attrsOf (types.submodule (blockModule {
               inherit referencePrefix type metaArguments;
-              inherit (typeSchema) block;
+              block = importBlock kind type;
             }));
             default = { };
             description = "`${type}` from ${source} ${provider.version}";
-          })
-          schemas;
+          });
       };
     };
   # undeclared types are freeform in core, so a typo like `hcloud_sever` would pass silently
-  unknownTypeAssertions = kind: blocks: schemas:
+  unknownTypeAssertions = kind: blocks: known:
     let
-      unknown = filter (type: hasPrefix "${localName}_" type && !(schemas ? ${type})) (attrNames blocks);
+      unknown = filter (type: hasPrefix "${localName}_" type && !(elem type known)) (attrNames blocks);
     in
     map
       (type: {
         assertion = false;
-        message = "terranix: ${source} ${provider.version} has no ${kind} `${type}`, did you mean `${closest type (attrNames schemas)}`?";
+        message = "terranix: ${source} ${provider.version} has no ${kind} `${type}`, did you mean `${closest type known}`?";
       })
       unknown;
 in
 { config, ... }: {
   options.resource = typedBlocks {
+    kind = "resource";
     referencePrefix = "";
-    schemas = schema.resource_schemas or { };
     metaArguments = resourceMetaArguments;
   };
 
   options.data = typedBlocks {
+    kind = "data";
     referencePrefix = "data.";
-    schemas = schema.data_source_schemas or { };
     metaArguments = dataMetaArguments;
   };
 
   config.assertions =
-    unknownTypeAssertions "resource" config.resource (schema.resource_schemas or { })
-    ++ unknownTypeAssertions "data source" config.data (schema.data_source_schemas or { });
+    unknownTypeAssertions "resource" config.resource index.resource
+    ++ unknownTypeAssertions "data source" config.data index.data;
 
   # pin terraform to the provider the options were generated from
   config.terraform.required_providers.${localName} = {
