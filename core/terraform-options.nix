@@ -1,33 +1,32 @@
 # core options
 #
 
-{ lib, ... }:
+{ config, lib, ... }:
 
 with lib;
 
 let
+  inherit (import ./types.nix lib) valueType;
+
   # `block "attr"` references an attribute of the block, `block` or `"${block}"` the
   # block itself. The helpers are stripped from the block by `sanitize` in ./default.nix.
+  # A block can bring its own `__functor`, e.g. one that checks the attribute against
+  # the provider schema, see ../providers/module.nix.
   withReference = address: block:
     if isAttrs block then
-      block // {
+      {
         __functor = self: attr: "\${${address}.${attr}}";
         __toString = self: "\${${address}}";
-      }
+      } // block
     else
       block;
-
-  # a block from `withReference` used as a value, e.g. `token = config.variable.token`
-  reference = types.mkOptionType {
-    name = "reference";
-    check = v: isAttrs v && v ? __toString;
-  };
 
   mkMagicMergeOption =
     { description ? ""
     , example ? { }
     , default ? { }
     , apply ? id
+    , type ? valueType
     , ...
     }:
     mkOption {
@@ -36,38 +35,40 @@ let
         description
         default
         apply
+        type
         ;
-      type =
-        with lib.types;
-        let
-          valueType =
-            nullOr
-              (oneOf [
-                bool
-                int
-                float
-                (coercedTo reference toString str)
-                (attrsOf valueType)
-                (listOf valueType)
-              ])
-            // {
-              description = "bool, int, float, str or reference";
-              emptyValue.value = { };
-            };
-        in
-        valueType;
     };
 
   mapAttrsOrSkip = f: attrs: if isAttrs attrs then mapAttrs f attrs else attrs;
 
+  # `attrsOf`, except each `<type>` gets its element type from `typed`, so a
+  # provider module only pays for the types a config uses. Declaring an option
+  # per type instead costs ~0.5s of eval for aws's ~2400 types.
+  blocksOf = typed: mkOptionType {
+    name = "blocksOf";
+    description = "attribute set of blocks, typed where a provider module declares it";
+    check = isAttrs;
+    merge = loc: defs:
+      let
+        perType = map (def: mapAttrs (_: value: { inherit (def) file; inherit value; }) def.value) defs;
+        merged = zipAttrsWith
+          (type: typeDefs: (mergeDefinitions (loc ++ [ type ]) (typed.${type} or valueType) typeDefs).optionalValue)
+          perType;
+      in
+      mapAttrs (_: v: v.value) (filterAttrs (_: v: v ? value) merged);
+    emptyValue.value = { };
+  };
+
   # for blocks addressed as `<type>.<label>`, like resource and data
   mkReferenceableOption =
-    { referencePrefix ? ""
+    { kind
+    , referencePrefix ? ""
     , ...
     }@args:
     mkMagicMergeOption (
-      args
+      removeAttrs args [ "kind" ]
       // {
+        type = blocksOf config._typedBlocks.${kind};
         apply = mapAttrsOrSkip (
           type: mapAttrsOrSkip (label: withReference "${referencePrefix}${type}.${label}")
         );
@@ -89,6 +90,14 @@ in
 {
 
   options = {
+
+    # Filled by provider modules, see ../providers/module.nix.
+    _typedBlocks = genAttrs [ "resource" "data" "ephemeral" ] (kind: mkOption {
+      type = types.lazyAttrsOf types.raw;
+      default = { };
+      internal = true;
+      description = "Option types for `${kind}` blocks, keyed by block type.";
+    });
 
     # Out-of-band metadata for downstream consumers similar to nixpkgs passthru.
     # This option is never rendered to Terraform JSON.
@@ -128,6 +137,7 @@ in
     };
 
     ephemeral = mkReferenceableOption {
+      kind = "ephemeral";
       referencePrefix = "ephemeral.";
       description = ''
         Ephemeral objects, are a temporary resource, they are not stored.
@@ -135,6 +145,7 @@ in
       '';
     };
     data = mkReferenceableOption {
+      kind = "data";
       referencePrefix = "data.";
       description = ''
         Data objects, are queries to use resources which
@@ -238,6 +249,7 @@ in
       '';
     };
     resource = mkReferenceableOption {
+      kind = "resource";
       example = {
         resource.aws_instance.web = {
           ami = "ami-a1b2c3d4";

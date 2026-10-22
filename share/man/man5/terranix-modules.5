@@ -284,7 +284,7 @@ null
 \m[blue]\fB\fBdata\fR\fR\m[]Data objects, are queries to use resources which are already exist, as if they are created by a the resource option\&. See for more details : https://www\&.terraform\&.io/docs/configuration/data\-sources\&.html
 .sp
 \fIType:\fR
-bool, int, float, str or reference
+attribute set of blocks, typed where a provider module declares it
 .sp
 \fIDefault:\fR
 { }
@@ -298,7 +298,7 @@ bool, int, float, str or reference
 \m[blue]\fB\fBephemeral\fR\fR\m[]Ephemeral objects, are a temporary resource, they are not stored\&. See for more details : https://developer\&.hashicorp\&.com/terraform/language/resources/ephemeral
 .sp
 \fIType:\fR
-bool, int, float, str or reference
+attribute set of blocks, typed where a provider module declares it
 .sp
 \fIDefault:\fR
 { }
@@ -758,7 +758,7 @@ bool, int, float, str or reference
 \m[blue]\fB\fBresource\fR\fR\m[]The backbone of terraform and terranix to change and create state\&. See for more details : https://www\&.terraform\&.io/docs/configuration/resources\&.html
 .sp
 \fIType:\fR
-bool, int, float, str or reference
+attribute set of blocks, typed where a provider module declares it
 .sp
 \fIDefault:\fR
 { }

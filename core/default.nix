@@ -64,7 +64,7 @@ let
       evaluated = evaluateConfiguration mods;
       inherit (evaluated.config) assertions warnings;
       meta = evaluated.config._meta or { };
-      result = sanitize (removeAttrs evaluated.config [ "_meta" "assertions" "warnings" ]);
+      result = sanitize (removeAttrs evaluated.config [ "_meta" "_typedBlocks" "assertions" "warnings" ]);
       genericWhitelist = f: key:
         let attr = f result.${key};
         in

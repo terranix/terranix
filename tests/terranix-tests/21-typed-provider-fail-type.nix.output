@@ -1,0 +1,1 @@
+terranix: registry.terraform.io/hetznercloud/hcloud 1.69.0 has no resource `hcloud_sever`, did you mean `hcloud_server`?
