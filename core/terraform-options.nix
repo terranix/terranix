@@ -1,7 +1,7 @@
 # core options
 #
 
-{ lib, ... }:
+{ config, lib, ... }:
 
 with lib;
 
@@ -41,17 +41,34 @@ let
 
   mapAttrsOrSkip = f: attrs: if isAttrs attrs then mapAttrs f attrs else attrs;
 
+  # `attrsOf`, except each `<type>` gets its element type from `typed`, so a
+  # provider module only pays for the types a config uses. Declaring an option
+  # per type instead costs ~0.5s of eval for aws's ~2400 types.
+  blocksOf = typed: mkOptionType {
+    name = "blocksOf";
+    description = "attribute set of blocks, typed where a provider module declares it";
+    check = isAttrs;
+    merge = loc: defs:
+      let
+        perType = map (def: mapAttrs (_: value: { inherit (def) file; inherit value; }) def.value) defs;
+        merged = zipAttrsWith
+          (type: typeDefs: (mergeDefinitions (loc ++ [ type ]) (typed.${type} or valueType) typeDefs).optionalValue)
+          perType;
+      in
+      mapAttrs (_: v: v.value) (filterAttrs (_: v: v ? value) merged);
+    emptyValue.value = { };
+  };
+
   # for blocks addressed as `<type>.<label>`, like resource and data
   mkReferenceableOption =
-    { referencePrefix ? ""
+    { kind
+    , referencePrefix ? ""
     , ...
     }@args:
     mkMagicMergeOption (
-      args
+      removeAttrs args [ "kind" ]
       // {
-        # a submodule, so provider modules can declare typed `<type>` options in it,
-        # while undeclared types stay freeform
-        type = types.submodule { freeformType = types.attrsOf valueType; };
+        type = blocksOf config._typedBlocks.${kind};
         apply = mapAttrsOrSkip (
           type: mapAttrsOrSkip (label: withReference "${referencePrefix}${type}.${label}")
         );
@@ -73,6 +90,14 @@ in
 {
 
   options = {
+
+    # Filled by provider modules, see ../providers/module.nix.
+    _typedBlocks = genAttrs [ "resource" "data" "ephemeral" ] (kind: mkOption {
+      type = types.lazyAttrsOf types.raw;
+      default = { };
+      internal = true;
+      description = "Option types for `${kind}` blocks, keyed by block type.";
+    });
 
     # Out-of-band metadata for downstream consumers similar to nixpkgs passthru.
     # This option is never rendered to Terraform JSON.
@@ -112,6 +137,7 @@ in
     };
 
     ephemeral = mkReferenceableOption {
+      kind = "ephemeral";
       referencePrefix = "ephemeral.";
       description = ''
         Ephemeral objects, are a temporary resource, they are not stored.
@@ -119,6 +145,7 @@ in
       '';
     };
     data = mkReferenceableOption {
+      kind = "data";
       referencePrefix = "data.";
       description = ''
         Data objects, are queries to use resources which
@@ -222,6 +249,7 @@ in
       '';
     };
     resource = mkReferenceableOption {
+      kind = "resource";
       example = {
         resource.aws_instance.web = {
           ami = "ami-a1b2c3d4";

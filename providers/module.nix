@@ -130,19 +130,11 @@ let
     };
 
   typedBlocks = { kind, referencePrefix, metaArguments }:
-    mkOption {
-      type = types.submodule {
-        options = genAttrs index.${kind}
-          (type: mkOption {
-            type = types.attrsOf (types.submodule (blockModule {
-              inherit referencePrefix type metaArguments;
-              block = importBlock kind type;
-            }));
-            default = { };
-            description = "`${type}` from ${source} ${provider.version}";
-          });
-      };
-    };
+    genAttrs index.${kind} (type:
+      types.attrsOf (types.submodule (blockModule {
+        inherit referencePrefix type metaArguments;
+        block = importBlock kind type;
+      })));
   # undeclared types are freeform in core, so a typo like `hcloud_sever` would pass silently
   unknownTypeAssertions = kind: blocks: known:
     let
@@ -156,13 +148,13 @@ let
       unknown;
 in
 { config, ... }: {
-  options.resource = typedBlocks {
+  config._typedBlocks.resource = typedBlocks {
     kind = "resource";
     referencePrefix = "";
     metaArguments = resourceMetaArguments;
   };
 
-  options.data = typedBlocks {
+  config._typedBlocks.data = typedBlocks {
     kind = "data";
     referencePrefix = "data.";
     metaArguments = dataMetaArguments;

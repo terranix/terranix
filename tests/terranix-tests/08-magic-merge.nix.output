@@ -9,9 +9,9 @@
           }
         },
         "list": [
+          "list3",
           "list1",
-          "list2",
-          "list3"
+          "list2"
         ]
       },
       "test1": "test1",

@@ -13,7 +13,6 @@
 - feat: add `encrypt`, `use_lockfile`, `skip_credentials_validation` and `skip_region_validation` options to s3 backend (#168)
 - fix: allow passing arguments to `nix run ...` scripts (#176, #177)
 - feat: `lib.tf.provider "<nixpkgs provider attr>"` types `resource`, `data` and `ephemeral` blocks and their references against the provider's schema, and pins `terraform.required_providers` to the nixpkgs provider version (#178)
-- change: `resource`, `data` and `ephemeral` are now freeform submodules, so modules can declare typed options inside them
 
 ## [2.9.0] 2026-05-28
 
