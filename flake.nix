@@ -1,21 +1,21 @@
 {
-  description = "terranix flake";
+  description = "Terranix flake";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
-
-    systems.url = "github:nix-systems/default";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    import-tree.url = "github:vic/import-tree";
+    import-tree.url = "github:denful/import-tree";
   };
 
-  outputs = inputs @ { flake-parts, import-tree, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } ({ self, flake-parts-lib, ... }:
+  outputs =
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+      { self, flake-parts-lib, ... }:
       let
         # Kept out of the import-tree'd ./flake: it's a `{ terranix }:` function,
         # not a plain module, so it needs importApply to bind terranix and keep
@@ -24,10 +24,11 @@
       in
       {
         imports = [
-          (import-tree ./flake)
+          (inputs.import-tree ./flake)
           flakeModule
         ];
 
         flake.flakeModule = flakeModule;
-      });
+      }
+    );
 }
