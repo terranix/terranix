@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ lib, ... }:
 {
-  systems = import inputs.systems;
+  systems = lib.systems.flakeExposed;
 }
