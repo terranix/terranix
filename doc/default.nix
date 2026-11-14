@@ -15,7 +15,11 @@ let
 
   # nmd uses the removed `pkgs.substituteAll`; shim it to `replaceVars`
   # for compatibility with nixpkgs >= 2025-05-23.
+  # It also calls `lib.fold`, an alias of `foldr` that throws from nixpkgs 26.11.
   nmdPkgs = pkgs // {
+    lib = pkgs.lib // {
+      fold = pkgs.lib.foldr;
+    };
     substituteAll = args:
       pkgs.replaceVars args.src (removeAttrs args [ "src" ]);
   };

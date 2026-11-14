@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- chore(dev): add vulnix CVE scan as `nix run .#vulnix`, runnable from a manual `vulnix` workflow against a whitelist baseline
+- chore(flake): update inputs; shim nmd's removed `lib.fold` alias for nixpkgs 26.11
 - feat(core): make `variable` and `module` blocks referenceable like `resource`, e.g. `config.variable.token` renders as `${var.token}` and `config.module.network "subnet_id"` as `${module.network.subnet_id}` (#7)
 - feat(core): referenceable blocks can be used directly as values or interpolated, e.g. `token = config.variable.token` or `"${config.resource.aws_instance.web}"`
 - feat(core): add NixOS-style `assertions` and `warnings` options

@@ -1,0 +1,18 @@
+name: vulnix
+
+# Manual on purpose: the NVD feed gains CVEs continuously, so a scan gate on
+# every pull request fails on unrelated changes. Run this before a release or
+# when triaging, then update dev/vulnix-whitelist.toml deliberately.
+on:
+  workflow_dispatch:
+
+jobs:
+  vulnix:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1, 2023-10-17
+    - uses: cachix/install-nix-action@630ae543ea3a38a9a4166f03376c02c50f408342 # v31.11.0, 2026-07-14
+      with:
+        nix_path: nixpkgs=channel:nixos-25.05
+    - name: Vulnerability scan
+      run: nix run ".#vulnix"

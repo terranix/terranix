@@ -20,7 +20,14 @@ let
     sha256 = "0rbx10n8kk0bvp1nl5c8q79lz1w0p1b8103asbvwps3gmqd070hi";
   };
 
-  nmd = import nmdSrc { inherit pkgs; };
+  # nmd calls `lib.fold`, an alias of `foldr` that throws from nixpkgs 26.11.
+  nmdPkgs = pkgs // {
+    lib = pkgs.lib // {
+      fold = pkgs.lib.foldr;
+    };
+  };
+
+  nmd = import nmdSrc { pkgs = nmdPkgs; };
 
   # Make sure the used package is scrubbed to avoid actually
   # instantiating derivations.
